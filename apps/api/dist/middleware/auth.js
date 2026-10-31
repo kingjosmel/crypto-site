@@ -1,0 +1,31 @@
+import { verifySync as verifyTotp } from "otplib";
+import { User } from "../models/index.js";
+import { verifyAccessToken } from "../services/auth.js";
+export async function requireAuth(request, response, next) { const value = request.header("authorization"); if (!value?.startsWith("Bearer "))
+    return response.status(401).json({ error: "Authentication required" }); try {
+    const claims = await verifyAccessToken(value.slice(7));
+    request.auth = { userId: claims.sub, email: claims.email, role: claims.role };
+    return next();
+}
+catch {
+    return response.status(401).json({ error: "Authentication required" });
+} }
+export async function optionalAuth(request, _response, next) { const value = request.header("authorization"); if (value?.startsWith("Bearer ")) {
+    try {
+        const claims = await verifyAccessToken(value.slice(7));
+        request.auth = { userId: claims.sub, email: claims.email, role: claims.role };
+    }
+    catch { /* Treat an absent or expired optional token as a guest. */ }
+} return next(); }
+export async function requireAdmin(request, response, next) { if (!request.auth)
+    return response.status(401).json({ error: "Authentication required" }); if (request.auth.role !== "ADMIN")
+    return response.status(403).json({ error: "Forbidden" }); const code = request.header("x-totp-code"); if (!code)
+    return response.status(403).json({ error: "Two-factor authentication required" }); const user = await User.findById(request.auth.userId).select("+totpSecret totpEnabled").lean(); let valid = false; if (user?.totpEnabled && user.totpSecret) {
+    try {
+        valid = verifyTotp({ token: code, secret: user.totpSecret }).valid;
+    }
+    catch {
+        valid = false;
+    }
+} if (!valid)
+    return response.status(403).json({ error: "Two-factor authentication required" }); return next(); }

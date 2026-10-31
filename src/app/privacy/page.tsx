@@ -1,0 +1,2 @@
+import { LegalPage } from "@/components/LegalPage";
+export default function PrivacyPage() { return <LegalPage title="Privacy" intro="How Northstar / Supply handles customer information." sections={[{ heading: "Information", body: "This draft describes information used for accounts, orders, fraud prevention, payment verification, fulfillment, support, and communications." }, { heading: "Review status", body: "This privacy notice is draft content and must be reviewed by counsel before publication." }]} />; }

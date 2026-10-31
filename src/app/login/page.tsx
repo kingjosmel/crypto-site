@@ -1,0 +1,6 @@
+"use client";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { SiteShell } from "@/components/SiteShell";
+export default function LoginPage() { const router = useRouter(); const [error, setError] = useState(""); return <SiteShell><section className="account-panel"><p className="eyebrow">Account</p><h1>Welcome back.</h1><form className="checkout-form" onSubmit={async (event) => { event.preventDefault(); setError(""); const form = new FormData(event.currentTarget); const result = await signIn("credentials", { email: String(form.get("email")), password: String(form.get("password")), redirect: false, callbackUrl: "/account" }); if (result?.error) setError("Invalid email or password"); else router.push("/account"); }}><label htmlFor="login-email">Email<input id="login-email" name="email" type="email" required autoComplete="email" /></label><label htmlFor="login-password">Password<input id="login-password" name="password" type="password" required minLength={12} autoComplete="current-password" /></label>{error && <p className="form-error" role="alert">{error}</p>}<button className="button button-dark" type="submit">Sign in</button></form></section></SiteShell>; }

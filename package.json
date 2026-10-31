@@ -2,14 +2,24 @@
   "name": "crypto-site",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "audit": "npm audit --audit-level=high",
+    "db:seed": "npm run db:seed --workspace apps/api",
+    "db:sync-indexes": "npm run db:sync-indexes --workspace apps/api",
+    "test:api": "npm run test --workspace apps/api"
   },
   "dependencies": {
+    "@sentry/nextjs": "^11.10.0",
+    "jose": "^6.2.14",
     "next": "16.4.3",
+    "next-auth": "^4.24.15",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },

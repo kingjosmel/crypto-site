@@ -1,0 +1,2 @@
+import { LegalPage } from "@/components/LegalPage";
+export default function ShippingPage() { return <LegalPage title="Shipping" intro="Fulfillment timing and tracking information." sections={[{ heading: "Processing", body: "Orders are reviewed after payment verification. Shipping windows, carriers, and exceptions are draft policy language pending legal review." }, { heading: "Tracking", body: "When an order ships, the customer receives the carrier and tracking number associated with the fulfillment record." }]} />; }

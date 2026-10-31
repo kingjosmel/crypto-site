@@ -1,0 +1,2 @@
+import type { MetadataRoute } from "next";
+export default function sitemap(): MetadataRoute.Sitemap { const base = "https://northstarsupply.example"; return ["", "/shop", "/category/designer-clothing", "/category/luxury-shoes-sneakers", "/category/belts-wallets-accessories", "/category/luxury-watches", "/about", "/contact", "/faq", "/shipping", "/returns-refunds", "/warranty", "/privacy", "/terms"].map((path) => ({ url: `${base}${path}`, lastModified: new Date(), changeFrequency: "daily", priority: path ? 0.7 : 1 })); }

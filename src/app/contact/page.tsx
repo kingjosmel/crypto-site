@@ -1,0 +1,2 @@
+import { LegalPage } from "@/components/LegalPage";
+export default function ContactPage() { return <LegalPage title="Contact" intro="A direct line for orders, product questions, and support." sections={[{ heading: "Support", body: "Contact details and response times are draft content pending legal and operations review." }, { heading: "Order support", body: "Include your order number in any message about payment, delivery, returns, or warranty service." }]} />; }

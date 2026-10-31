@@ -1,0 +1,2 @@
+export function CatalogError() { return <section className="state-panel"><p className="eyebrow">Catalog unavailable</p><h2>We could not load the collection.</h2><p>Please try again shortly.</p></section>; }
+export function EmptyState({ label = "No pieces found" }: { label?: string }) { return <section className="state-panel"><p className="eyebrow">Nothing here yet</p><h2>{label}</h2><p>Try another search or browse the full collection.</p></section>; }
