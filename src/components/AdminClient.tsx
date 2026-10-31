@@ -5,7 +5,7 @@ import { useState } from "react";
 type AdminClientProps = { accessToken: string };
 type Item = Record<string, unknown> & { _id: string };
 type Data = { metrics?: Record<string, number>; products: Item[]; categories: Item[]; suppliers: Item[]; orders: Item[]; logs: Item[] };
-const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
 
 export function AdminClient({ accessToken }: AdminClientProps) {
   const [totp, setTotp] = useState("");
