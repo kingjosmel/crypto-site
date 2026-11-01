@@ -6,7 +6,10 @@ const nextConfig: NextConfig = {
     agentFeedback: true,
   },
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "placehold.co" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "placehold.co" },
+    ],
   },
   async rewrites() {
     return [

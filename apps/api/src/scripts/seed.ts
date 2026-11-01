@@ -9,6 +9,20 @@ const categories = [
 ];
 
 type SeedProduct = { name: string; slug: string; brand: string; category: string; priceCents: number; sku: string; condition: "NEW" | "PRE_OWNED"; warranty: string; description: string; specs: { key: string; value: string }[]; sizes: string[]; imageLabel: string };
+const editorialImages: Record<string, string> = {
+  "silk-twill-evening-shirt": "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85",
+  "monogram-canvas-blouson": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=85",
+  "double-breasted-wool-jacket": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=1200&q=85",
+  "leather-city-loafer": "https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=1200&q=85",
+  "gg-court-sneaker": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85",
+  "monogram-trainer": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=1200&q=85",
+  "goyard-saint-sulpice-cardholder": "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85",
+  "reversible-leather-belt": "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85",
+  "classic-monogram-wallet": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85",
+  "submariner-date": "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=85",
+  "royal-oak-selfwinding": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=1200&q=85",
+  "rm-011-chronograph": "https://images.unsplash.com/photo-1508057198894-247b23fe5ade?auto=format&fit=crop&w=1200&q=85"
+};
 const products: SeedProduct[] = [
   { name: "Silk Twill Evening Shirt", slug: "silk-twill-evening-shirt", brand: "Dior", category: "designer-clothing", priceCents: 185000, sku: "DIO-CL-001", condition: "NEW", warranty: "See product-specific warranty terms", description: "A fluid silk twill shirt with a precise drape and quiet evening presence.", specs: [{ key: "Material", value: "Silk twill" }, { key: "Fit", value: "Relaxed" }], sizes: ["XS", "S", "M", "L", "XL"], imageLabel: "Dior silk shirt" },
   { name: "Monogram Canvas Blouson", slug: "monogram-canvas-blouson", brand: "Louis Vuitton", category: "designer-clothing", priceCents: 325000, sku: "LVI-CL-002", condition: "NEW", warranty: "See product-specific warranty terms", description: "A structured blouson balancing archival pattern with a clean modern silhouette.", specs: [{ key: "Material", value: "Cotton canvas" }, { key: "Lining", value: "Silk blend" }], sizes: ["S", "M", "L", "XL"], imageLabel: "Louis Vuitton blouson" },
@@ -24,7 +38,8 @@ const products: SeedProduct[] = [
   { name: "RM 011 Chronograph", slug: "rm-011-chronograph", brand: "Richard Mille", category: "luxury-watches", priceCents: 6850000, sku: "RMI-WA-012", condition: "PRE_OWNED", warranty: "See product-specific warranty terms", description: "A pre-owned chronograph offered with product-specific condition details supplied before purchase.", specs: [{ key: "Movement", value: "Automatic chronograph" }, { key: "Case", value: "Titanium" }, { key: "Edition", value: "Limited production" }], sizes: [], imageLabel: "Richard Mille chronograph" }
 ];
 
-await connectDatabase();
+const connection = await connectDatabase();
+if (!connection) throw new Error("MONGODB_URI is required to seed the luxury catalog");
 await Category.deleteMany({});
 await Product.deleteMany({});
 const insertedCategories = await Category.insertMany(categories);
@@ -32,7 +47,7 @@ const categoryIds = new Map(insertedCategories.map((category) => [category.slug,
 await Product.insertMany(products.map((product) => ({
   name: product.name, slug: product.slug, brand: product.brand, categoryId: categoryIds.get(product.category), condition: product.condition, priceCents: product.priceCents, currency: "USD", sku: product.sku,
   status: "ACTIVE", stockStatus: "IN_STOCK", warranty: product.warranty, returnPolicy: "Returns accepted in original condition; see draft policy.", description: product.description,
-  specs: product.specs, sizes: product.sizes, authenticity: "Authenticity details pending product documentation.", images: [{ url: `https://placehold.co/1000x1250/f0ede6/171714?text=${encodeURIComponent(product.imageLabel)}`, alt: `${product.name} editorial product placeholder`, position: 0 }]
+  specs: product.specs, sizes: product.sizes, authenticity: "Authenticity details pending product documentation.", images: [{ url: editorialImages[product.slug], alt: `${product.name} editorial image`, position: 0 }]
 })));
 console.log(`Seeded ${insertedCategories.length} categories and ${products.length} products.`);
 await disconnectDatabase();

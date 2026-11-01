@@ -1,4 +1,5 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
+const { models } = mongoose;
 const paymentStatuses = ["pending", "partially_paid", "paid", "expired", "failed", "admin_review", "refund_pending", "partially_refunded", "refunded"] as const;
 export const Payment = models.Payment ?? model("Payment", new Schema({
   orderId: { type: Schema.Types.ObjectId, ref: "Order", required: true, index: true },
