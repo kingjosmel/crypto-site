@@ -1,14 +1,7 @@
 import { app } from "./app.js";
 import { connectDatabase } from "./db.js";
 import { createEmailQueue } from "./services/emailQueue.js";
-import { initializeSentry } from "./services/sentry.js";
-
 const port = Number(process.env.PORT ?? 4000);
-try {
-  initializeSentry();
-} catch (e) {
-  console.warn("Sentry skipped:", e);
-}
 
 try {
   const conn = await connectDatabase();

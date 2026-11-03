@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 type AdminClientProps = { accessToken: string };
@@ -31,7 +32,21 @@ export function AdminClient({ accessToken }: AdminClientProps) {
   async function orderAction(path: string, body: unknown) { try { await call(path, { method: "POST", body: JSON.stringify(body) }); await load(); } catch (error) { setMessage(error instanceof Error ? error.message : "Order update failed"); } }
 
   return <div className="admin-shell">
-    <header className="admin-heading"><div><p className="eyebrow">Northstar / Control</p><h1>Operations</h1></div><form className="admin-auth" onSubmit={(event) => { event.preventDefault(); void load(); }}><label>Authenticator code<input value={totp} onChange={(event) => setTotp(event.target.value)} inputMode="numeric" autoComplete="one-time-code" /></label><button className="button button-dark" type="submit">Open console</button></form></header>
+    <header className="admin-heading">
+      <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+        <div style={{ position: "relative", width: "90px", height: "64px", overflow: "hidden", borderRadius: "2px", border: "1px solid var(--line)", flexShrink: 0 }}>
+          <Image src="/images/editorial_horology_vault.jpg" alt="Security Vault" fill quality={95} sizes="90px" style={{ objectFit: "cover" }} referrerPolicy="no-referrer" />
+        </div>
+        <div>
+          <p className="eyebrow">Northstar / Control</p>
+          <h1>Operations</h1>
+        </div>
+      </div>
+      <form className="admin-auth" onSubmit={(event) => { event.preventDefault(); void load(); }}>
+        <label>Authenticator code<input value={totp} onChange={(event) => setTotp(event.target.value)} inputMode="numeric" autoComplete="one-time-code" /></label>
+        <button className="button button-dark" type="submit">Open console</button>
+      </form>
+    </header>
     <p className="admin-message" role="status">{message}</p>
     <section className="admin-metrics">{Object.entries(data.metrics ?? {}).map(([key, value]) => <div key={key}><span>{key}</span><strong>{value}</strong></div>)}</section>
     <section className="admin-section"><div className="section-heading"><div><p className="eyebrow">Paid queue</p><h2>Supplier handoff</h2></div><button className="text-link" type="button" onClick={() => void load()}>Refresh</button></div><div className="admin-list">{data.orders.map((order) => <article className="admin-row" key={order._id}><div><strong>{String(order.orderNumber)}</strong><span>{String(order.email)}</span></div><div><span>Paid / {String(order.fulfillmentStatus)}</span><strong>{String(order.totalCents)} cents</strong></div><div className="admin-actions"><button type="button" onClick={() => void orderAction(`/admin/orders/${order._id}/supplier-order`, { supplierReference: window.prompt("Supplier reference") ?? "" })}>Supplier placed</button><button type="button" onClick={() => void orderAction(`/admin/orders/${order._id}/ship`, { carrier: window.prompt("Carrier") ?? "", trackingNumber: window.prompt("Tracking number") ?? "" })}>Ship</button></div></article>)}</div></section>

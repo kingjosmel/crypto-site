@@ -9,7 +9,6 @@ import { ordersRouter } from "./routes/orders.js";
 import { authRouter } from "./routes/auth.js";
 import { adminRouter } from "./routes/admin.js";
 import { meRouter } from "./routes/me.js";
-import { captureApiError } from "./services/sentry.js";
 
 const publicProductFields = "_id name slug brand categoryId condition priceCents currency sku status stockStatus warranty returnPolicy description specs images sizes authenticity createdAt updatedAt";
 const querySchema = z.object({
@@ -85,6 +84,6 @@ app.get("/categories", async (_request: Request, response: Response) => {
 
 app.use((error: unknown, _request: Request, response: Response, next: NextFunction) => {
   void next;
-  captureApiError(error);
+  console.error("[API Error]", error);
   return response.status(500).json({ error: "Internal server error" });
 });

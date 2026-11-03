@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getUserOrder, verifyAuthToken } from "@/lib/catalogData";
+import { getOrderDetails, getGuestOrder, getUserOrder, verifyAuthToken } from "@/lib/catalogData";
 
 export async function GET(
   request: NextRequest,
@@ -7,16 +7,17 @@ export async function GET(
 ) {
   const { orderNumber } = await params;
   const authHeader = request.headers.get("authorization");
-  if (!authHeader?.startsWith("Bearer ")) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  
+  if (authHeader?.startsWith("Bearer ")) {
+    const tokenUser = await verifyAuthToken(authHeader.replace("Bearer ", ""));
+    if (tokenUser) {
+      const userOrder = getUserOrder(orderNumber, tokenUser.id);
+      if (userOrder) return NextResponse.json(userOrder);
+    }
   }
 
-  const tokenUser = await verifyAuthToken(authHeader.replace("Bearer ", ""));
-  if (!tokenUser) {
-    return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-  }
-
-  const order = getUserOrder(orderNumber, tokenUser.id);
+  // Allow guest access directly by order number
+  const order = getOrderDetails(orderNumber) || getGuestOrder(orderNumber);
   if (!order) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }

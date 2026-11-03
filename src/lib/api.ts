@@ -13,11 +13,15 @@ export type { Category, Image, Product, Spec };
 export const LUXURY_BRANDS = [
   "Rolex",
   "Audemars Piguet",
+  "Patek Philippe",
   "Richard Mille",
-  "Gucci",
   "Goyard",
+  "Hermès",
   "Louis Vuitton",
-  "Dior"
+  "Gucci",
+  "Dior",
+  "Loro Piana",
+  "Saint Laurent"
 ] as const;
 
 type ProductResponse = {

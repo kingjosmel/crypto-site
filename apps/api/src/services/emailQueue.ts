@@ -2,7 +2,6 @@ import { Agenda } from "agenda";
 import { MongoBackend } from "@agendajs/mongo-backend";
 import { EmailJob } from "../models/index.js";
 import { getCustomerMailer, type EmailTemplate, type EmailPayload } from "./mailer.js";
-import { captureOperationalMessage } from "./sentry.js";
 
 export async function enqueueEmail(template: EmailTemplate, to: string, payload: EmailPayload, dedupeKey: string) {
   try { return await EmailJob.create({ template, to, payload, dedupeKey, status: "pending", nextAttemptAt: new Date() }); } catch (error) {
@@ -20,7 +19,7 @@ export async function processEmailJobs(limit = 20) {
       await EmailJob.updateOne({ _id: job._id }, { $set: { status: "sent", lastError: undefined } });
     } catch (error) {
       const attempts = job.attempts + 1;
-      if (attempts >= 5) captureOperationalMessage("Email job exhausted retries", { jobId: String(job._id), template: job.template });
+      if (attempts >= 5) console.warn("[Operational Alert] Email job exhausted retries", { jobId: String(job._id), template: job.template });
       await EmailJob.updateOne({ _id: job._id }, { $set: { status: attempts >= 5 ? "failed" : "pending", attempts, nextAttemptAt: new Date(Date.now() + Math.min(60 * 60_000, 2 ** attempts * 60_000)), lastError: error instanceof Error ? error.message : "Email delivery failed" } });
     }
   }

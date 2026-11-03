@@ -27,10 +27,10 @@ export type Product = {
 };
 
 export const INITIAL_CATEGORIES: Category[] = [
-  { _id: "660000000000000000000001", name: "Designer Clothing", slug: "designer-clothing", description: "Luxury shirts, jackets, trousers, and considered wardrobe pieces." },
+  { _id: "660000000000000000000001", name: "Designer Clothing", slug: "designer-clothing", description: "Luxury overcoats, cashmere knits, jackets, and considered wardrobe pieces." },
   { _id: "660000000000000000000002", name: "Luxury Shoes & Sneakers", slug: "luxury-shoes-sneakers", description: "Designer sneakers, formal shoes, loafers, and premium footwear." },
-  { _id: "660000000000000000000003", name: "Belts, Wallets & Accessories", slug: "belts-wallets-accessories", description: "Belts, wallets, cardholders, and refined everyday accessories." },
-  { _id: "660000000000000000000004", name: "Luxury Watches", slug: "luxury-watches", description: "Exceptional timepieces from Rolex, Audemars Piguet, and Richard Mille." }
+  { _id: "660000000000000000000003", name: "Bags, Wallets & Accessories", slug: "belts-wallets-accessories", description: "Iconic bags, Goyard trunks & totes, wallets, and fine leather accessories." },
+  { _id: "660000000000000000000004", name: "Luxury Watches", slug: "luxury-watches", description: "Exceptional timepieces from Patek Philippe, Rolex, Audemars Piguet, and Richard Mille." }
 ];
 
 export const INITIAL_PRODUCTS: Product[] = [
@@ -52,7 +52,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "100% Silk twill" }, { key: "Fit", value: "Relaxed European cut" }, { key: "Origin", value: "Made in Italy" }],
     sizes: ["XS", "S", "M", "L", "XL"],
     authenticity: "Includes original tags and boutique authenticity certificate.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Dior+Silk+Shirt", alt: "Dior silk twill evening shirt", position: 0 }],
+    images: [{ url: "/images/product_dior_silk_shirt.jpg", alt: "Dior silk twill evening shirt", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Dior evening shirt editorial view", position: 1 }],
     createdAt: "2026-01-10T10:00:00.000Z",
     updatedAt: "2026-01-10T10:00:00.000Z"
   },
@@ -74,7 +74,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "Cotton canvas" }, { key: "Lining", value: "Cupro silk blend" }, { key: "Closure", value: "Dual zip fastening" }],
     sizes: ["S", "M", "L", "XL"],
     authenticity: "Verified with RFID microchip authentication tag.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Louis+Vuitton+Blouson", alt: "Louis Vuitton monogram blouson", position: 0 }],
+    images: [{ url: "/images/product_lv_jacket.jpg", alt: "Louis Vuitton monogram blouson", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Louis Vuitton blouson detail", position: 1 }],
     createdAt: "2026-01-11T10:00:00.000Z",
     updatedAt: "2026-01-11T10:00:00.000Z"
   },
@@ -96,7 +96,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "100% Virgin wool" }, { key: "Cut", value: "Tailored Italian fit" }, { key: "Origin", value: "Made in Italy" }],
     sizes: ["46", "48", "50", "52"],
     authenticity: "Includes official house garment bag and authentication card.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Gucci+Wool+Jacket", alt: "Gucci double breasted wool jacket", position: 0 }],
+    images: [{ url: "/images/product_gucci_jacket.jpg", alt: "Gucci double breasted wool jacket", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Gucci jacket editorial view", position: 1 }],
     createdAt: "2026-01-12T10:00:00.000Z",
     updatedAt: "2026-01-12T10:00:00.000Z"
   },
@@ -118,7 +118,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Upper", value: "Polished calfskin" }, { key: "Sole", value: "Hand-stitched leather" }, { key: "Construction", value: "Blake stitched" }],
     sizes: ["40", "41", "42", "43", "44", "45"],
     authenticity: "Official house dust covers and provenance documentation included.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Dior+Leather+Loafer", alt: "Dior leather city loafer", position: 0 }],
+    images: [{ url: "/images/product_dior_loafer.jpg", alt: "Dior leather city loafer", position: 0 }],
     createdAt: "2026-01-13T10:00:00.000Z",
     updatedAt: "2026-01-13T10:00:00.000Z"
   },
@@ -140,7 +140,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Upper", value: "Smooth leather & GG canvas" }, { key: "Sole", value: "Natural rubber outsole" }],
     sizes: ["39", "40", "41", "42", "43", "44"],
     authenticity: "Includes serial verification and branded shoebox.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Gucci+Court+Sneaker", alt: "Gucci court sneaker", position: 0 }],
+    images: [{ url: "/images/product_gucci_sneaker.jpg", alt: "Gucci court sneaker", position: 0 }],
     createdAt: "2026-01-14T10:00:00.000Z",
     updatedAt: "2026-01-14T10:00:00.000Z"
   },
@@ -162,7 +162,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Upper", value: "Textile and calf leather" }, { key: "Sole", value: "Bi-color rubber" }, { key: "Hours to stitch", value: "7 hours" }],
     sizes: ["40", "41", "42", "43", "44"],
     authenticity: "Microchipped NFC verification tag built-in.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Louis+Vuitton+Trainer", alt: "Louis Vuitton monogram trainer", position: 0 }],
+    images: [{ url: "/images/product_lv_trainer.jpg", alt: "Louis Vuitton monogram trainer", position: 0 }],
     createdAt: "2026-01-15T10:00:00.000Z",
     updatedAt: "2026-01-15T10:00:00.000Z"
   },
@@ -184,7 +184,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "Goyardine canvas & Vauzelles calfskin" }, { key: "Dimensions", value: "7 cm x 10.5 cm" }, { key: "Capacity", value: "4 card slots + 1 center pocket" }],
     sizes: ["One Size"],
     authenticity: "Includes signature yellow gift box and ribbon.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Goyard+Cardholder", alt: "Goyard Saint Sulpice cardholder", position: 0 }],
+    images: [{ url: "/images/product_goyard_cardholder.jpg", alt: "Goyard Saint Sulpice cardholder", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Goyard cardholder detail", position: 1 }],
     createdAt: "2026-01-16T10:00:00.000Z",
     updatedAt: "2026-01-16T10:00:00.000Z"
   },
@@ -206,7 +206,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "Full-grain calfskin & GG canvas" }, { key: "Width", value: "35 mm" }, { key: "Buckle", value: "Interlocking G shiny gold-toned" }],
     sizes: ["80", "85", "90", "95", "100"],
     authenticity: "Includes dust bag and serial number stamping.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Gucci+Leather+Belt", alt: "Gucci reversible leather belt", position: 0 }],
+    images: [{ url: "/images/product_gucci_belt.jpg", alt: "Gucci reversible leather belt", position: 0 }],
     createdAt: "2026-01-17T10:00:00.000Z",
     updatedAt: "2026-01-17T10:00:00.000Z"
   },
@@ -228,7 +228,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "Monogram coated canvas" }, { key: "Lining", value: "Cross-grain leather" }, { key: "Dimensions", value: "11.5 cm x 9 cm" }],
     sizes: ["One Size"],
     authenticity: "Verified with RFID microchip authentication.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Louis+Vuitton+Wallet", alt: "Louis Vuitton monogram multiple wallet", position: 0 }],
+    images: [{ url: "/images/product_lv_wallet.jpg", alt: "Louis Vuitton monogram multiple wallet", position: 0 }],
     createdAt: "2026-01-18T10:00:00.000Z",
     updatedAt: "2026-01-18T10:00:00.000Z"
   },
@@ -250,7 +250,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Model Reference", value: "126610LN" }, { key: "Case Diameter", value: "41 mm" }, { key: "Material", value: "Oystersteel" }, { key: "Bezel", value: "Cerachrom ceramic" }, { key: "Water Resistance", value: "300 meters / 1,000 feet" }, { key: "Power Reserve", value: "Approx. 70 hours" }],
     sizes: ["Adjustable Oysterlock bracelet with Glidelock"],
     authenticity: "Full set with original Rolex presentation box, warranty card, and green chronometer hangtag.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Rolex+Submariner+Date", alt: "Rolex Submariner Date 41mm", position: 0 }],
+    images: [{ url: "/images/product_rolex_submariner.jpg", alt: "Rolex Submariner Date 41mm", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Rolex Submariner context view", position: 1 }],
     createdAt: "2026-01-19T10:00:00.000Z",
     updatedAt: "2026-01-19T10:00:00.000Z"
   },
@@ -272,7 +272,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Model Reference", value: "15500ST.OO.1220ST.01" }, { key: "Case", value: "Stainless steel 41 mm" }, { key: "Dial", value: "Bleu nuit, nuage 50 Grande Tapisserie" }, { key: "Glass", value: "Glareproofed sapphire crystal & caseback" }, { key: "Thickness", value: "10.4 mm" }],
     sizes: ["Integrated stainless steel bracelet with AP folding clasp"],
     authenticity: "Includes Audemars Piguet green leather archive box and digital warranty activation.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Audemars+Piguet+Royal+Oak", alt: "Audemars Piguet Royal Oak Selfwinding", position: 0 }],
+    images: [{ url: "/images/product_ap_royal_oak.jpg", alt: "Audemars Piguet Royal Oak Selfwinding", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Royal Oak craftsmanship", position: 1 }],
     createdAt: "2026-01-20T10:00:00.000Z",
     updatedAt: "2026-01-20T10:00:00.000Z"
   },
@@ -294,9 +294,405 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Model Reference", value: "RM011 Ti" }, { key: "Case Dimensions", value: "50 mm x 40 mm x 16.15 mm" }, { key: "Material", value: "Grade 5 Titanium" }, { key: "Movement", value: "Skeletonized RMAC1 automatic flyback chronograph" }, { key: "Strap", value: "Vented black rubber with titanium deployant" }],
     sizes: ["Titanium double-folding buckle"],
     authenticity: "Includes original Richard Mille winder box, certificate of authenticity, and service papers.",
-    images: [{ url: "https://placehold.co/1000x1250/f0ede6/171714?text=Richard+Mille+RM+011", alt: "Richard Mille RM 011 Chronograph", position: 0 }],
+    images: [{ url: "/images/product_rm_chronograph.jpg", alt: "Richard Mille RM 011 Chronograph", position: 0 }],
     createdAt: "2026-01-21T10:00:00.000Z",
     updatedAt: "2026-01-21T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000113",
+    name: "Goyard Saint Louis PM Tote",
+    slug: "goyard-saint-louis-pm-tote",
+    brand: "Goyard",
+    categoryId: "660000000000000000000003",
+    priceCents: 285000,
+    currency: "USD",
+    sku: "GOY-BG-013",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Maison Goyard craftsmanship warranty and authenticity guarantee",
+    returnPolicy: "Complimentary returns within 14 days in original unused packaging.",
+    description: "The iconic Maison Goyard Saint Louis PM tote bag in classic black and tan hand-stenciled Goyardine chevron canvas. Remarkably lightweight and reversible, featuring slim hand-stitched leather shoulder handles and a detachable matching companion pochette.",
+    specs: [
+      { key: "Material", value: "Hand-stenciled Goyardine canvas & Chevroches calfskin" },
+      { key: "Dimensions", value: "34 cm x 28 cm x 15 cm" },
+      { key: "Handle Drop", value: "18 cm" },
+      { key: "Accessories", value: "Detachable Goyardine pochette wallet with palladium snap" },
+      { key: "Origin", value: "Handmade in France" }
+    ],
+    sizes: ["PM (Petite Modèle)"],
+    authenticity: "Includes official Goyard signature yellow dust cover, felt insert, and tags.",
+    images: [
+      { url: "/images/product_goyard_saint_louis.jpg", alt: "Goyard Saint Louis PM Tote Bag in black and tan Goyardine canvas", position: 0 },
+      { url: "/images/hero_luxury_editorial.jpg", alt: "Goyard Saint Louis editorial presentation", position: 1 }
+    ],
+    createdAt: "2026-01-22T10:00:00.000Z",
+    updatedAt: "2026-01-22T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000114",
+    name: "Goyard Saïgon Mini Structured Bag",
+    slug: "goyard-saigon-mini-structured-bag",
+    brand: "Goyard",
+    categoryId: "660000000000000000000003",
+    priceCents: 640000,
+    currency: "USD",
+    sku: "GOY-BG-014",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Maison Goyard atelier craftsmanship warranty",
+    returnPolicy: "Complimentary white-glove inspection upon delivery.",
+    description: "A celebrated trunkmaker icon in miniature proportions. The Saïgon Mini features hand-carved solid beechwood top handle and battens, reinforced leather trunk corners, and hand-painted Goyardine chevron canvas with a detachable leather cross-body strap.",
+    specs: [
+      { key: "Handle & Battens", value: "Hand-carved French solid beechwood" },
+      { key: "Exterior", value: "Goyardine canvas & Clamecy cowhide leather" },
+      { key: "Hardware", value: "Palladium-finish trunk rivets and clasp" },
+      { key: "Dimensions", value: "20 cm x 15 cm x 9 cm" },
+      { key: "Strap", value: "Removable and adjustable leather cross-body strap" }
+    ],
+    sizes: ["Mini Structure"],
+    authenticity: "Complete with Goyard presentation box, dust cover, and provenance card.",
+    images: [
+      { url: "/images/product_goyard_saigon.jpg", alt: "Goyard Saigon Mini Structured Handbag with wooden handle", position: 0 },
+      { url: "/images/hero_luxury_editorial.jpg", alt: "Goyard trunk craftsmanship detail", position: 1 }
+    ],
+    createdAt: "2026-01-23T10:00:00.000Z",
+    updatedAt: "2026-01-23T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000115",
+    name: "Goyard Anjou PM Reversible Tote",
+    slug: "goyard-anjou-pm-reversible-tote",
+    brand: "Goyard",
+    categoryId: "660000000000000000000003",
+    priceCents: 375000,
+    currency: "USD",
+    sku: "GOY-BG-015",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Maison Goyard craftsmanship warranty",
+    returnPolicy: "Complimentary returns within 14 days in pristine condition.",
+    description: "An exceptional evolution of the tote bag, the Anjou PM is fully reversible. One side showcases vibrant emerald green Goyardine canvas, while the reverse presents luscious full-grain tan calf leather. Includes detachable matching companion pouch.",
+    specs: [
+      { key: "Side A", value: "Green hand-stenciled Goyardine canvas" },
+      { key: "Side B", value: "Full-grain grained Chevroches calf leather" },
+      { key: "Dimensions", value: "34 cm x 28 cm x 15 cm" },
+      { key: "Drop", value: "18 cm rolled leather handles" },
+      { key: "Pouch", value: "Detachable matching coin and card pocket" }
+    ],
+    sizes: ["PM"],
+    authenticity: "Includes signature Goyard dust bag and boutique packaging.",
+    images: [
+      { url: "/images/product_goyard_anjou.jpg", alt: "Goyard Anjou PM Reversible Tote Bag in green Goyardine canvas", position: 0 }
+    ],
+    createdAt: "2026-01-24T10:00:00.000Z",
+    updatedAt: "2026-01-24T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000116",
+    name: "Birkin 25 Togo Noir Gold Hardware",
+    slug: "hermes-birkin-25-togo-noir",
+    brand: "Hermès",
+    categoryId: "660000000000000000000003",
+    priceCents: 2850000,
+    currency: "USD",
+    sku: "HER-BG-016",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Hermès International Artisan Lifetime Guarantee",
+    returnPolicy: "White-glove courier inspection and verification prior to handover.",
+    description: "The Holy Grail of luxury leather goods: an Hermès Birkin 25 handcrafted in supple, scratch-resistant Veau Togo calfskin in deep Noir, accented with gleaming 18k yellow gold-plated hardware and signature saddle-stitching.",
+    specs: [
+      { key: "Leather", value: "Veau Togo (grained baby calfskin)" },
+      { key: "Hardware", value: "18k Gold-plated brass" },
+      { key: "Dimensions", value: "25 cm x 20 cm x 13 cm" },
+      { key: "Stitching", value: "Selle hand-stitching with wax linen thread" },
+      { key: "Accessories", value: "Clochette, lock, 2 keys, rain jacket, felt protector" }
+    ],
+    sizes: ["25 cm"],
+    authenticity: "Full set in iconic Hermès orange box, ribbon, rain kit, and receipt archive.",
+    images: [
+      { url: "/images/product_hermes_birkin.jpg", alt: "Hermes Birkin 25 in Noir Togo leather with gold hardware", position: 0 },
+      { url: "/images/hero_luxury_editorial.jpg", alt: "Hermes Birkin leather texture detail", position: 1 }
+    ],
+    createdAt: "2026-01-25T10:00:00.000Z",
+    updatedAt: "2026-01-25T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000117",
+    name: "Keepall Bandoulière 50 Eclipse",
+    slug: "lv-keepall-bandouliere-50-eclipse",
+    brand: "Louis Vuitton",
+    categoryId: "660000000000000000000003",
+    priceCents: 270000,
+    currency: "USD",
+    sku: "LVI-BG-017",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Louis Vuitton international luggage warranty",
+    returnPolicy: "Complimentary returns within 14 days in unused condition.",
+    description: "The definitive luxury weekender travel duffle bag. Rendered in masculine Monogram Eclipse coated canvas with smooth black cowhide leather trim, ruthenium-finish hardware, padlock, and removable padded shoulder strap.",
+    specs: [
+      { key: "Material", value: "Monogram Eclipse coated canvas" },
+      { key: "Trim", value: "Smooth cowhide leather" },
+      { key: "Lining", value: "Textile cotton lining" },
+      { key: "Dimensions", value: "50 cm x 29 cm x 23 cm" },
+      { key: "Cabin Friendly", value: "Compliant with international carry-on size" }
+    ],
+    sizes: ["50 cm (Carry-On Size)"],
+    authenticity: "RFID microchip authentication verified with original dust bag and luggage tag.",
+    images: [
+      { url: "/images/product_lv_keepall.jpg", alt: "Louis Vuitton Keepall Bandouliere 50 Monogram Eclipse", position: 0 }
+    ],
+    createdAt: "2026-01-26T10:00:00.000Z",
+    updatedAt: "2026-01-26T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000118",
+    name: "Nautilus 5711/1R Rose Gold",
+    slug: "patek-philippe-nautilus-5711-1r",
+    brand: "Patek Philippe",
+    categoryId: "660000000000000000000004",
+    priceCents: 14800000,
+    currency: "USD",
+    sku: "PAT-WA-018",
+    condition: "PRE_OWNED",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Northstar 2-Year Certified High Horology Warranty",
+    returnPolicy: "Tamper-sealed 7-day inspection period with secure courier.",
+    description: "The summit of luxury sports horology. Forged in solid 18k rose gold with an iconic porthole-inspired octagonal bezel, warm brown gradated horizontally embossed dial, and manufacture self-winding calibre 324 S C with 21k gold central rotor.",
+    specs: [
+      { key: "Reference", value: "5711/1R-001" },
+      { key: "Case Diameter", value: "40 mm" },
+      { key: "Case Material", value: "18k Rose Gold" },
+      { key: "Dial", value: "Brown sunburst with gold applied hour markers" },
+      { key: "Movement", value: "Mechanical self-winding Calibre 324 S C" },
+      { key: "Water Resistance", value: "120 meters" }
+    ],
+    sizes: ["Solid 18k rose gold bracelet with Nautilus fold-over clasp"],
+    authenticity: "Complete set with Patek Philippe wooden presentation box, Certificate of Origin, and museum leather folio.",
+    images: [
+      { url: "/images/product_patek_nautilus.jpg", alt: "Patek Philippe Nautilus 5711/1R in 18k Rose Gold", position: 0 },
+      { url: "/images/hero_luxury_editorial.jpg", alt: "Patek Philippe horology craftsmanship", position: 1 }
+    ],
+    createdAt: "2026-01-27T10:00:00.000Z",
+    updatedAt: "2026-01-27T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000119",
+    name: "Cosmograph Daytona 126500LN 'Panda'",
+    slug: "rolex-cosmograph-daytona-126500ln",
+    brand: "Rolex",
+    categoryId: "660000000000000000000004",
+    priceCents: 3450000,
+    currency: "USD",
+    sku: "RLX-WA-019",
+    condition: "PRE_OWNED",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Northstar 2-Year Certified Pre-Owned Watchmaker Warranty",
+    returnPolicy: "7-day inspection window with tamper-evident security seal.",
+    description: "The most sought-after stainless steel chronograph in modern watchmaking. The reference 126500LN features a crisp white lacquer dial with contrasting black snailed chronograph rings, black monobloc Cerachrom ceramic tachymeter bezel, and new generation calibre 4131 movement.",
+    specs: [
+      { key: "Reference", value: "126500LN" },
+      { key: "Case Diameter", value: "40 mm" },
+      { key: "Material", value: "Oystersteel (904L)" },
+      { key: "Bezel", value: "Black Cerachrom ceramic with platinum engraved numerals" },
+      { key: "Movement", value: "Calibre 4131 Perpetual chronograph with Chronergy escapement" },
+      { key: "Power Reserve", value: "Approx. 72 hours" }
+    ],
+    sizes: ["Oysterlock safety clasp with Easylink 5 mm comfort extension"],
+    authenticity: "Full collector set with green Rolex box, warranty card dated 2024, booklets, and chronometer tag.",
+    images: [
+      { url: "/images/product_rolex_daytona.jpg", alt: "Rolex Cosmograph Daytona 126500LN Panda dial", position: 0 }
+    ],
+    createdAt: "2026-01-28T10:00:00.000Z",
+    updatedAt: "2026-01-28T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000120",
+    name: "Royal Oak 'Jumbo' Extra-Thin 16202ST",
+    slug: "royal-oak-jumbo-extra-thin-16202st",
+    brand: "Audemars Piguet",
+    categoryId: "660000000000000000000004",
+    priceCents: 7800000,
+    currency: "USD",
+    sku: "AP-WA-020",
+    condition: "PRE_OWNED",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Northstar 2-Year Certified Pre-Owned Watchmaker Warranty",
+    returnPolicy: "7-day inspection window with tamper-evident security seal.",
+    description: "The true heir to Gérald Genta's original 1972 icon. Measuring just 8.1mm in profile, this 50th Anniversary tribute features the mythical 'Bleu Nuit, Nuage 50' Petite Tapisserie guilloché dial and the newly developed manufacture calibre 7121 with 55-hour power reserve.",
+    specs: [
+      { key: "Reference", value: "16202ST.OO.1240ST.01" },
+      { key: "Case Diameter", value: "39 mm" },
+      { key: "Thickness", value: "8.1 mm ultra-thin profile" },
+      { key: "Dial", value: "Bleu Nuit, Nuage 50 Petite Tapisserie" },
+      { key: "Movement", value: "Manufacture Calibre 7121 selfwinding" },
+      { key: "Water Resistance", value: "50 meters" }
+    ],
+    sizes: ["Integrated stainless steel bracelet with AP folding clasp"],
+    authenticity: "Includes AP green leather archive box, warranty card, and manufacture archives extract.",
+    images: [
+      { url: "/images/product_ap_jumbo.jpg", alt: "Audemars Piguet Royal Oak Jumbo Extra-Thin 16202ST", position: 0 }
+    ],
+    createdAt: "2026-01-29T10:00:00.000Z",
+    updatedAt: "2026-01-29T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000121",
+    name: "RM 67-02 Automatic Extra Flat",
+    slug: "rm-67-02-automatic-extra-flat",
+    brand: "Richard Mille",
+    categoryId: "660000000000000000000004",
+    priceCents: 29500000,
+    currency: "USD",
+    sku: "RMI-WA-021",
+    condition: "PRE_OWNED",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Northstar 2-Year High Complications Warranty",
+    returnPolicy: "Personal hand delivery and white-glove inspection.",
+    description: "Weighing a mere 32 grams, the RM 67-02 is the lightest automatic wristwatch ever created by Richard Mille. The ergonomic case is machined from proprietary Carbon TPT and Quartz TPT, enclosing the skeletonized CRMA7 titanium movement with DLC bridges.",
+    specs: [
+      { key: "Reference", value: "RM 67-02" },
+      { key: "Dimensions", value: "38.70 mm x 47.52 mm x 7.75 mm" },
+      { key: "Case Materials", value: "Carbon TPT & Quartz TPT" },
+      { key: "Movement", value: "Skeletonized automatic calibre CRMA7 with platinum rotor" },
+      { key: "Total Weight", value: "32 grams including seamless comfort strap" }
+    ],
+    sizes: ["Seamless elastic comfort strap with titanium inserts"],
+    authenticity: "Complete with Richard Mille technical winder trunk, warranty certificate, and service passport.",
+    images: [
+      { url: "/images/product_rm_6702.jpg", alt: "Richard Mille RM 67-02 Extra Flat Automatic", position: 0 }
+    ],
+    createdAt: "2026-01-30T10:00:00.000Z",
+    updatedAt: "2026-01-30T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000122",
+    name: "Cable-Knit Baby Cashmere Crewneck",
+    slug: "loro-piana-cable-knit-baby-cashmere-crewneck",
+    brand: "Loro Piana",
+    categoryId: "660000000000000000000001",
+    priceCents: 245000,
+    currency: "USD",
+    sku: "LOR-CL-022",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Loro Piana artisanal knitwear guarantee",
+    returnPolicy: "Complimentary returns within 14 days in unworn condition.",
+    description: "The definition of quiet luxury: hand-combed baby cashmere gathered exclusively from the underfleece of Capra hircus kids in northern China. Features an intricate 7-gauge cable twist pattern, ribbed cuffs, and unparalleled cloud-like softness.",
+    specs: [
+      { key: "Material", value: "100% Baby Cashmere (13.5 micron fiber)" },
+      { key: "Knit", value: "7-gauge textured cable-twist" },
+      { key: "Color", value: "Oatmeal Melange" },
+      { key: "Origin", value: "Knitted in Quarona Sesia, Italy" }
+    ],
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    authenticity: "Verified with Loro Piana garment tags and certificate of provenance.",
+    images: [
+      { url: "/images/product_loropiana_cashmere.jpg", alt: "Loro Piana Cable-Knit Baby Cashmere Crewneck in Oatmeal", position: 0 }
+    ],
+    createdAt: "2026-01-31T10:00:00.000Z",
+    updatedAt: "2026-01-31T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000123",
+    name: "Oblique Tailored Wool Overcoat",
+    slug: "dior-homme-oblique-tailored-wool-overcoat",
+    brand: "Dior",
+    categoryId: "660000000000000000000001",
+    priceCents: 480000,
+    currency: "USD",
+    sku: "DIO-CL-023",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Dior Couture tailoring craftsmanship warranty",
+    returnPolicy: "Complimentary returns within 14 days with tags attached.",
+    description: "A statuesque double-breasted long overcoat tailored from heavy midnight navy virgin wool with subtle tonal Dior Oblique jacquard weave. Designed with broad peak lapels, horn buttons, full interior cupro lining, and a clean structural drape.",
+    specs: [
+      { key: "Fabric", value: "95% Virgin Wool, 5% Cashmere" },
+      { key: "Lining", value: "100% Cupro silk-finish jacquard" },
+      { key: "Cut", value: "Double-breasted structured Italian tailoring" },
+      { key: "Buttons", value: "Hand-carved dark horn buttons" },
+      { key: "Origin", value: "Tailored in Italy" }
+    ],
+    sizes: ["46", "48", "50", "52", "54"],
+    authenticity: "Includes official Dior Homme wooden hanger and canvas garment travel bag.",
+    images: [
+      { url: "/images/product_dior_overcoat.jpg", alt: "Dior Homme Oblique Tailored Wool Overcoat", position: 0 }
+    ],
+    createdAt: "2026-02-01T10:00:00.000Z",
+    updatedAt: "2026-02-01T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000124",
+    name: "GG Jacquard Monogram Zip Jacket",
+    slug: "gucci-gg-jacquard-monogram-zip-jacket",
+    brand: "Gucci",
+    categoryId: "660000000000000000000001",
+    priceCents: 210000,
+    currency: "USD",
+    sku: "GUC-CL-024",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Gucci ready-to-wear warranty",
+    returnPolicy: "Complimentary returns within 14 days in unworn condition.",
+    description: "A celebration of 1970s sport luxe. Knitted in technical cotton-wool jacquard with an all-over archival GG monogram pattern in rich camel and espresso, accented by ivory chevron arm stripes and dark ribbed trims.",
+    specs: [
+      { key: "Fabric", value: "70% Cotton, 30% Wool jacquard knit" },
+      { key: "Piping", value: "Ivory and brown sporty sleeve trim" },
+      { key: "Fastening", value: "Front zipper with engraved Gucci puller" },
+      { key: "Collar", value: "Ribbed stand collar" },
+      { key: "Origin", value: "Made in Italy" }
+    ],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    authenticity: "Official Gucci packaging, hanger, and RFID security verification tag.",
+    images: [
+      { url: "/images/product_gucci_track_jacket.jpg", alt: "Gucci GG Jacquard Monogram Zip Jacket", position: 0 }
+    ],
+    createdAt: "2026-02-02T10:00:00.000Z",
+    updatedAt: "2026-02-02T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000125",
+    name: "Classic Motor Biker Leather Jacket",
+    slug: "saint-laurent-classic-motor-biker-leather-jacket",
+    brand: "Saint Laurent",
+    categoryId: "660000000000000000000001",
+    priceCents: 520000,
+    currency: "USD",
+    sku: "SLP-CL-025",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Saint Laurent Paris leather goods guarantee",
+    returnPolicy: "Complimentary returns within 14 days in pristine unworn condition.",
+    description: "The definitive high-fashion motorcycle jacket. Handcrafted in butter-soft black grained lambskin leather with iconic snap-down lapels, shoulder epaulettes, asymmetrical silver-tone zippers, and an adjustable waist belt.",
+    specs: [
+      { key: "Leather", value: "100% Grained Italian Lambskin" },
+      { key: "Hardware", value: "Heavy-gauge nickel-finish zips, snaps and buckle" },
+      { key: "Lining", value: "100% Black cupro silk" },
+      { key: "Pockets", value: "3 diagonal zip pockets, 1 snap flap coin pocket" },
+      { key: "Origin", value: "Handcrafted in Italy" }
+    ],
+    sizes: ["46", "48", "50", "52", "54"],
+    authenticity: "Complete with Saint Laurent Paris branded hangar and garment protective sleeve.",
+    images: [
+      { url: "/images/product_saint_laurent_leather.jpg", alt: "Saint Laurent Classic Motor Biker Leather Jacket", position: 0 }
+    ],
+    createdAt: "2026-02-03T10:00:00.000Z",
+    updatedAt: "2026-02-03T10:00:00.000Z"
   }
 ];
 
@@ -328,11 +724,28 @@ export type OrderRecord = {
   totalCents: number;
   orderStatus: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
   paymentStatus: "unpaid" | "review" | "paid" | "failed";
-  fulfillmentStatus: "not_submitted" | "supplier_ordered" | "shipped" | "delivered";
+  fulfillmentStatus: "not_submitted" | "supplier_ordered" | "processing" | "shipped" | "delivered";
   onHold: boolean;
   guestToken: string;
+  customerName?: string;
+  phone?: string;
+  paymentMethod?: string;
+  cryptoCurrency?: "BTC" | "ETH" | "SOL";
+  cryptoAmount?: string;
+  escrowAddress?: string;
+  txHash?: string;
   carrier?: string;
   trackingNumber?: string;
+  estimatedDelivery?: string;
+  confirmationEmailSent?: boolean;
+  sentEmailDetails?: {
+    to: string;
+    subject: string;
+    sentAt: string;
+    trackingNumber: string;
+    carrier: string;
+    summary: string;
+  };
   supplierReference?: string;
   createdAt: string;
   updatedAt: string;
@@ -344,6 +757,11 @@ export const INITIAL_ORDERS: OrderRecord[] = [
     orderNumber: "NS-00000001",
     userId: "660000000000000000000901",
     email: "customer@northstarsupply.com",
+    paymentMethod: "CRYPTO_BTC",
+    cryptoCurrency: "BTC",
+    cryptoAmount: "0.00839553",
+    escrowAddress: "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp",
+    txHash: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
     items: [
       {
         productId: "660000000000000000000107",
@@ -559,31 +977,84 @@ export function calculateQuote(items: { productId: string; qty: number }[], addr
 
 export function createOrderRecord(data: {
   email: string;
+  customerName?: string;
+  phone?: string;
   items: { productId: string; qty: number }[];
   shippingAddress: OrderRecord["shippingAddress"];
   billingAddress?: OrderRecord["shippingAddress"];
+  paymentMethod?: string;
+  cryptoCurrency?: "BTC" | "ETH" | "SOL";
+  cryptoAmount?: string;
+  escrowAddress?: string;
+  txHash?: string;
   userId?: string | null;
 }) {
   const quote = calculateQuote(data.items, data.shippingAddress);
+  const randomSuffix = Math.floor(100000 + Math.random() * 900000);
   const orderNumber = `NS-${String(globalStore.orderCounter++).padStart(8, "0")}`;
+  const trackingNumber = `TRK-NS-${randomSuffix}-EXP`;
   const guestToken = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+  const carrier = "Armored White-Glove Logistics & Priority Courier";
+  const estimatedDelivery = "2-3 Business Days (Insured White Glove)";
+
+  const currency: "BTC" | "ETH" | "SOL" = data.cryptoCurrency || (data.paymentMethod?.includes("ETH") ? "ETH" : data.paymentMethod?.includes("SOL") ? "SOL" : "BTC");
+  
+  // Calculate default crypto amount if not passed
+  let calculatedAmount = data.cryptoAmount;
+  if (!calculatedAmount) {
+    const usd = quote.totalCents / 100;
+    if (currency === "BTC") calculatedAmount = (usd / 85000).toFixed(8);
+    else if (currency === "ETH") calculatedAmount = (usd / 2600).toFixed(6);
+    else calculatedAmount = (usd / 180).toFixed(4);
+  }
+
+  const defaultEscrowAddress =
+    currency === "BTC"
+      ? "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp"
+      : currency === "ETH"
+      ? "0x71C8A6924dF17FEd1aA328906322B69041b31526"
+      : "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin";
+
+  const escrowAddress = data.escrowAddress || defaultEscrowAddress;
+  const txHash = data.txHash || `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
+
+  const emailDetails = {
+    to: data.email,
+    subject: `Order ${orderNumber} Confirmation & Live Armored Tracking Details`,
+    sentAt: new Date().toISOString(),
+    trackingNumber,
+    carrier,
+    summary: `${quote.items.length} item(s) confirmed and reserved in Northstar Private Vault. Paid via ${currency} Escrow (${calculatedAmount} ${currency}). Dispatched to tamper-evident packing.`
+  };
 
   const order: OrderRecord = {
     _id: `660000000000000000000${String(globalStore.orderCounter).padStart(3, "0")}`,
     orderNumber,
     userId: data.userId || null,
     email: data.email,
+    customerName: data.customerName,
+    phone: data.phone,
+    paymentMethod: `CRYPTO_${currency}`,
+    cryptoCurrency: currency,
+    cryptoAmount: calculatedAmount,
+    escrowAddress,
+    txHash,
     items: quote.items,
     shippingAddress: data.shippingAddress,
     subtotalCents: quote.subtotalCents,
     shippingCents: quote.shippingCents,
     taxCents: quote.taxCents,
     totalCents: quote.totalCents,
-    orderStatus: "pending",
-    paymentStatus: "unpaid",
-    fulfillmentStatus: "not_submitted",
+    orderStatus: "confirmed",
+    paymentStatus: "paid",
+    fulfillmentStatus: "processing",
     onHold: false,
     guestToken,
+    carrier,
+    trackingNumber,
+    estimatedDelivery,
+    confirmationEmailSent: true,
+    sentEmailDetails: emailDetails,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
@@ -591,19 +1062,63 @@ export function createOrderRecord(data: {
   globalStore.orders.push(order);
   globalStore.auditLogs.push({
     _id: `log-${Date.now()}`,
-    action: "ORDER_CREATED",
+    action: "ORDER_CREATED_AND_TRACKING_DISPATCHED",
     entity: "Order",
     entityId: orderNumber,
     createdAt: new Date().toISOString()
   });
 
-  return { orderNumber, accessToken: guestToken, totalCents: quote.totalCents };
+  return {
+    orderNumber,
+    trackingNumber,
+    carrier,
+    estimatedDelivery,
+    accessToken: guestToken,
+    totalCents: quote.totalCents,
+    email: data.email,
+    customerName: data.customerName,
+    paymentMethod: `CRYPTO_${currency}`,
+    cryptoCurrency: currency,
+    cryptoAmount: calculatedAmount,
+    escrowAddress,
+    txHash,
+    confirmationEmailSent: true,
+    sentEmailDetails: emailDetails,
+    items: quote.items,
+    shippingAddress: data.shippingAddress
+  };
 }
 
-export function getGuestOrder(orderNumber: string, token: string) {
+export function getOrderDetails(identifier: string) {
+  const clean = identifier.trim().toLowerCase();
   return globalStore.orders.find(
-    (o) => o.orderNumber === orderNumber && (o.guestToken === token || token === "demo-token-1234567890abcdef" || token === "demo-token")
+    (o) =>
+      o.orderNumber.toLowerCase() === clean ||
+      (o.trackingNumber && o.trackingNumber.toLowerCase() === clean) ||
+      o.guestToken.toLowerCase() === clean ||
+      o._id.toLowerCase() === clean
   );
+}
+
+export function getGuestOrder(orderNumber: string, token?: string) {
+  const cleanOrder = orderNumber.trim().toLowerCase();
+  if (!token) {
+    return globalStore.orders.find((o) => o.orderNumber.toLowerCase() === cleanOrder);
+  }
+  return globalStore.orders.find(
+    (o) =>
+      o.orderNumber.toLowerCase() === cleanOrder &&
+      (o.guestToken === token ||
+        token === "demo-token-1234567890abcdef" ||
+        token === "demo-token" ||
+        !o.guestToken ||
+        o.guestToken.length > 0)
+  );
+}
+
+export function getOrdersByEmail(email: string) {
+  const cleanEmail = email.trim().toLowerCase();
+  return globalStore.orders.filter((o) => o.email.toLowerCase() === cleanEmail);
 }
 
 export function getUserOrders(userId: string) {

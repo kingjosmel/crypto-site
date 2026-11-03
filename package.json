@@ -16,7 +16,6 @@
     "test:api": "npm run test --workspace apps/api"
   },
   "dependencies": {
-    "@sentry/nextjs": "^11.10.0",
     "jose": "^6.2.14",
     "next": "16.4.3",
     "next-auth": "^4.24.15",

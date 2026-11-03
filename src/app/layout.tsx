@@ -1,31 +1,37 @@
 import type { Metadata } from "next";
-import { DM_Sans, Instrument_Serif } from "next/font/google";
+import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const sans = DM_Sans({
+const sans = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 });
-const serif = Instrument_Serif({
+
+const serif = Playfair_Display({
   variable: "--font-serif",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://northstarsupply.example"),
-  title: { default: "Northstar / Supply | Luxury fashion, accessories & watches", template: "%s | Northstar / Supply" },
-  description: "An edited collection of luxury fashion, designer accessories, premium footwear, and exceptional watches.",
+  title: {
+    default: "Northstar / Supply | Luxury Fashion, Designer Trunks & Haute Horlogerie",
+    template: "%s | Northstar / Supply",
+  },
+  description: "An edited collection of luxury fashion, designer accessories, premium footwear, and exceptional watches with crypto checkout.",
   alternates: { canonical: "/" },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
       className={`${sans.variable} ${serif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-[#faf9f6] text-[#0f0f0f] selection:bg-[#0f0f0f] selection:text-white">
+        {children}
+      </body>
     </html>
   );
 }

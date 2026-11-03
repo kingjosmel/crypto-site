@@ -5,8 +5,7 @@ import { AuditLog, Category, Order, OrderStatusHistory, Payment, PaymentObservat
 import { requireAdmin, requireAuth } from "../middleware/auth.js";
 import { auditMutation } from "../services/audit.js";
 import { transition } from "../services/stateMachine.js";
-import { enqueueEmail } from "../services/emailQueue.js";
-import { S3ImageStorage, isImageContentType } from "../services/imageStorage.js";
+import { LocalImageStorage, isImageContentType } from "../services/imageStorage.js";
 
 export const adminRouter = Router();
 adminRouter.use(requireAuth, requireAdmin);
@@ -66,7 +65,7 @@ adminRouter.post("/suppliers/:id/products", async (request, response) => { const
 adminRouter.patch("/supplier-products/:id", async (request, response) => { const id = parsedId(request, response); if (!id) return; const parsed = supplierProductFields.partial().safeParse(request.body); if (!handleValidation(response, parsed, "Invalid supplier product request")) return; const before = await SupplierProduct.findById(id).lean(); if (!before) return response.status(404).json({ error: "Supplier product not found" }); const supplierProduct = await SupplierProduct.findByIdAndUpdate(id, { $set: { ...parsed.data, lastCheckedAt: parsed.data.lastCheckedAt ?? new Date() } }, { new: true, runValidators: true }).lean(); await record(request, "update", "SupplierProduct", id, before, supplierProduct); return response.json(supplierProduct); });
 adminRouter.delete("/supplier-products/:id", async (request, response) => { const id = parsedId(request, response); if (!id) return; const before = await SupplierProduct.findByIdAndDelete(id).lean(); if (!before) return response.status(404).json({ error: "Supplier product not found" }); await record(request, "delete", "SupplierProduct", id, before, null); return response.status(204).send(); });
 
-adminRouter.post("/uploads/images", async (request, response) => { const parsed = uploadFields.safeParse(request.body); if (!handleValidation(response, parsed, "Invalid image upload request")) return; if (!isImageContentType(parsed.data.contentType)) return response.status(400).json({ error: "Unsupported image type" }); const bucket = process.env.S3_BUCKET; const publicBaseUrl = process.env.S3_PUBLIC_BASE_URL; if (!bucket || !publicBaseUrl) return response.status(503).json({ error: "Image storage is not configured" }); const storage = new S3ImageStorage(bucket, publicBaseUrl); const upload = await storage.createUpload(parsed.data.contentType, parsed.data.fileName); await record(request, "create-upload", "Image", parsed.data.entityId ?? new mongoose.Types.ObjectId().toString(), null, upload); return response.status(201).json(upload); });
+adminRouter.post("/uploads/images", async (request, response) => { const parsed = uploadFields.safeParse(request.body); if (!handleValidation(response, parsed, "Invalid image upload request")) return; if (!isImageContentType(parsed.data.contentType)) return response.status(400).json({ error: "Unsupported image type" }); const storage = new LocalImageStorage(process.env.PUBLIC_IMAGE_URL ?? "/images"); const upload = await storage.createUpload(parsed.data.contentType, parsed.data.fileName); await record(request, "create-upload", "Image", parsed.data.entityId ?? new mongoose.Types.ObjectId().toString(), null, upload); return response.status(201).json(upload); });
 
 adminRouter.get("/orders/paid-queue", async (_request, response) => response.json({ items: await Order.find({ paymentStatus: "paid", fulfillmentStatus: { $in: ["not_submitted", "awaiting_supplier"] } }).sort({ createdAt: 1 }).lean() }));
 adminRouter.get("/orders", async (_request, response) => response.json({ items: await Order.find({}).sort({ createdAt: -1 }).limit(200).lean() }));
