@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { formatPrice } from "@/lib/api";
-import { parseCart, writeCart, getCartSnapshot, type CartItem } from "@/lib/cart";
+import { parseCart, writeCart, addToCart, getCartSnapshot, type CartItem } from "@/lib/cart";
+import { INITIAL_PRODUCTS } from "@/lib/catalogData";
 
 export type CryptoCurrency = "BTC" | "ETH" | "SOL";
 
@@ -170,6 +171,33 @@ export function CheckoutForm() {
   const [completedOrder, setCompletedOrder] = useState<CompletedOrder | null>(null);
   const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("BTC");
   const [copiedField, setCopiedField] = useState<string | null>(null);
+
+  // Auto-populate cart if user arrived with ?buyNow=<id-or-slug>
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const buyNowId = params.get("buyNow");
+      if (buyNowId) {
+        const currentCart = parseCart(getCartSnapshot());
+        const hasItem = currentCart.some((i) => i.productId === buyNowId || i.slug === buyNowId);
+        if (!hasItem) {
+          const product = INITIAL_PRODUCTS.find((p) => p._id === buyNowId || p.slug === buyNowId);
+          if (product) {
+            addToCart({
+              productId: product._id,
+              slug: product.slug,
+              name: product.name,
+              priceCents: product.priceCents,
+              imageUrl: product.images[0]?.url,
+            });
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Auto buyNow recovery error:", err);
+    }
+  }, []);
 
   // Cart summary calculations
   const subtotalCents = cart.reduce((acc, item) => acc + item.priceCents * item.qty, 0);
@@ -509,78 +537,188 @@ export function CheckoutForm() {
         </div>
 
         {/* Contact Fieldset */}
-        <fieldset>
-          <legend>Client Contact</legend>
-          <label htmlFor="email">
-            Email Address <span style={{ color: "#10b981", fontWeight: 600 }}>(Receipt & tracking sent here)</span>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              placeholder="e.g. alexander@client.com"
-            />
-          </label>
-          <div className="form-grid">
-            <label htmlFor="fullName">
-              Full Name
-              <input id="fullName" name="fullName" required autoComplete="name" placeholder="Full legal name" />
-            </label>
-            <label htmlFor="phone">
-              Mobile Phone
-              <input id="phone" name="phone" type="tel" required autoComplete="tel" placeholder="For courier arrival" />
-            </label>
+        <fieldset className="border-0 border-t border-[#ece9e2] pt-6 mt-6">
+          <legend className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-4">
+            1. Client Contact & Dispatch Notice
+          </legend>
+
+          <div className="space-y-4">
+            <div>
+              <div className="flex justify-between items-center mb-1.5">
+                <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-neutral-800">
+                  Email Address <span className="text-red-500">*</span>
+                </label>
+                <span className="text-[11px] font-medium text-[#047857] bg-[#10b981]/10 px-2 py-0.5 rounded-xs">
+                  Receipt, certificate & tracking sent here
+                </span>
+              </div>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                placeholder="e.g. alexander@client.com"
+                className="w-full block px-4 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-xs text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors shadow-2xs"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="fullName" className="block text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-1.5">
+                  Full Legal Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  placeholder="e.g. Alexander Wright"
+                  className="w-full block px-4 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-xs text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors shadow-2xs"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="block text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-1.5">
+                  Mobile Phone <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  autoComplete="tel"
+                  placeholder="e.g. +1 (555) 019-2834"
+                  className="w-full block px-4 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-xs text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors shadow-2xs"
+                />
+                <span className="text-[11px] text-neutral-500 mt-1 block">For confidential courier handover call</span>
+              </div>
+            </div>
           </div>
         </fieldset>
 
         {/* Shipping Address */}
-        <fieldset>
-          <legend>Delivery Address (US Direct Escort)</legend>
-          <label htmlFor="line1">
-            Street Address
-            <input id="line1" name="line1" required autoComplete="shipping street-address" placeholder="123 Luxury Way" />
-          </label>
-          <label htmlFor="line2">
-            Apartment, Suite, Penthouse <span>(optional)</span>
-            <input id="line2" name="line2" autoComplete="shipping address-line2" placeholder="Suite 4200" />
-          </label>
-          <div className="form-grid">
-            <label htmlFor="city">
-              City
-              <input id="city" name="city" required autoComplete="shipping address-level2" placeholder="New York" />
-            </label>
-            <label htmlFor="state">
-              State
-              <input id="state" name="state" required minLength={2} maxLength={2} autoComplete="shipping address-level1" placeholder="NY" />
-            </label>
-            <label htmlFor="postalCode">
-              ZIP Code
-              <input id="postalCode" name="postalCode" required pattern="[0-9]{5}(-[0-9]{4})?" autoComplete="shipping postal-code" placeholder="10021" />
-            </label>
+        <fieldset className="border-0 border-t border-[#ece9e2] pt-6 mt-6">
+          <legend className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-4">
+            2. Delivery Address (US Armored Escort)
+          </legend>
+
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="line1" className="block text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-1.5">
+                Street Address <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="line1"
+                name="line1"
+                type="text"
+                required
+                autoComplete="shipping street-address"
+                placeholder="e.g. 740 Park Avenue"
+                className="w-full block px-4 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-xs text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors shadow-2xs"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="line2" className="block text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-1.5">
+                Apartment, Suite, Penthouse <span className="text-neutral-400 font-normal lowercase">(optional)</span>
+              </label>
+              <input
+                id="line2"
+                name="line2"
+                type="text"
+                autoComplete="shipping address-line2"
+                placeholder="e.g. Penthouse 14B"
+                className="w-full block px-4 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-xs text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors shadow-2xs"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-6 gap-4">
+              <div className="sm:col-span-3">
+                <label htmlFor="city" className="block text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-1.5">
+                  City <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="city"
+                  name="city"
+                  type="text"
+                  required
+                  autoComplete="shipping address-level2"
+                  placeholder="New York"
+                  className="w-full block px-4 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-xs text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors shadow-2xs"
+                />
+              </div>
+
+              <div className="sm:col-span-1">
+                <label htmlFor="state" className="block text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-1.5">
+                  State <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="state"
+                  name="state"
+                  type="text"
+                  required
+                  minLength={2}
+                  maxLength={2}
+                  autoComplete="shipping address-level1"
+                  placeholder="NY"
+                  className="w-full block px-4 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-xs text-sm text-neutral-900 uppercase placeholder:text-neutral-400 transition-colors shadow-2xs"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label htmlFor="postalCode" className="block text-xs font-semibold uppercase tracking-wider text-neutral-800 mb-1.5">
+                  ZIP Code <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="postalCode"
+                  name="postalCode"
+                  type="text"
+                  required
+                  pattern="[0-9]{5}(-[0-9]{4})?"
+                  autoComplete="shipping postal-code"
+                  placeholder="10021"
+                  className="w-full block px-4 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-xs text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors shadow-2xs"
+                />
+              </div>
+            </div>
           </div>
         </fieldset>
 
         {/* Delivery Method */}
-        <fieldset>
-          <legend>White-Glove Delivery Method</legend>
-          <div style={{ padding: "16px", border: "1px solid #10b981", background: "rgba(16, 185, 129, 0.05)", borderRadius: "2px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div>
-              <strong style={{ display: "block", fontSize: "14px", marginBottom: "2px" }}>Armored Courier & Signed Handover</strong>
-              <span style={{ fontSize: "12px", color: "var(--muted)" }}>2-3 Business Days · 100% Insured Value · Tamper-Evident Packaging</span>
+        <fieldset className="border-0 border-t border-[#ece9e2] pt-6 mt-6">
+          <legend className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-4">
+            3. White-Glove Armored Courier Protocol
+          </legend>
+          <div className="p-4 border border-[#10b981]/40 bg-[#10b981]/5 rounded-xs flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+            <div className="flex items-start gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#10b981] mt-1 shrink-0 animate-pulse" />
+              <div>
+                <strong className="block text-sm text-neutral-950 font-semibold mb-0.5">
+                  Armored Courier & Signed Handover
+                </strong>
+                <span className="text-xs text-neutral-600 leading-normal block">
+                  2-3 Business Days · 100% Insured Declared Value · Serialized Tamper-Evident Packaging
+                </span>
+              </div>
             </div>
-            <strong style={{ color: "#10b981", fontSize: "14px" }}>COMPLIMENTARY</strong>
+            <span className="text-xs font-bold font-mono text-[#047857] bg-white border border-[#10b981]/30 px-3 py-1.5 rounded-xs whitespace-nowrap self-start sm:self-center shadow-2xs">
+              COMPLIMENTARY ($0.00)
+            </span>
           </div>
         </fieldset>
 
+
         {/* Cryptocurrency Exclusive Payment Selection */}
-        <fieldset>
-          <legend>Cryptocurrency Vault Escrow</legend>
-          <div style={{ marginBottom: "14px" }}>
-            <span style={{ fontSize: "12.5px", color: "var(--muted)", display: "block", lineHeight: "1.5" }}>
-              Payments are collected <strong>exclusively via cryptocurrency</strong>. Select your preferred asset to generate a dedicated vault escrow deposit address:
-            </span>
+        <fieldset className="border-0 border-t border-[#ece9e2] pt-6 mt-6">
+          <legend className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
+            4. Cryptocurrency Vault Escrow (BTC · ETH · SOL)
+          </legend>
+          <div className="mb-4 text-xs text-neutral-600 leading-relaxed">
+            Payments are collected <strong>exclusively via cryptocurrency</strong>. Select your preferred asset to generate a dedicated vault escrow deposit address:
           </div>
+
 
           {/* 3 Supported Coins: BTC, ETH, SOL */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "16px" }}>

@@ -21,6 +21,10 @@ export function CartDrawer() {
   useEffect(() => {
     const handleOpen = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
+
+    window.__openNorthstarCart = handleOpen;
+    window.__closeNorthstarCart = handleClose;
+
     window.addEventListener("northstar-cart-open", handleOpen);
     window.addEventListener("northstar-cart-close", handleClose);
 
@@ -33,6 +37,8 @@ export function CartDrawer() {
       window.removeEventListener("northstar-cart-open", handleOpen);
       window.removeEventListener("northstar-cart-close", handleClose);
       window.removeEventListener("keydown", handleKeyDown);
+      delete window.__openNorthstarCart;
+      delete window.__closeNorthstarCart;
     };
   }, []);
 
@@ -61,13 +67,14 @@ export function CartDrawer() {
     <div className="fixed inset-0 z-50 overflow-hidden" role="dialog" aria-modal="true" aria-label="Shopping Cart Drawer">
       {/* Dimmed Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
+        className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300 z-40"
         onClick={() => setIsOpen(false)}
         aria-hidden="true"
       />
 
-      <div className="fixed inset-y-0 right-0 flex max-w-full pl-10">
-        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col border-l border-[#e8e6e1] animate-slide-left">
+      {/* Drawer Container Panel */}
+      <div className="fixed inset-y-0 right-0 flex max-w-full pl-0 sm:pl-10 z-50 pointer-events-auto">
+        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col border-l border-[#e8e6e1] animate-slide-left h-full">
           {/* Drawer Header */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-[#ece9e2]">
             <div className="flex items-center gap-2">
@@ -81,7 +88,7 @@ export function CartDrawer() {
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="p-2 -mr-2 text-neutral-400 hover:text-neutral-900 transition-colors"
+              className="p-2 -mr-2 text-neutral-400 hover:text-neutral-900 transition-colors cursor-pointer"
               aria-label="Close cart drawer"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -169,7 +176,7 @@ export function CartDrawer() {
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.productId, item.qty - 1)}
-                          className="px-2 py-1 text-xs text-neutral-600 hover:text-black transition-colors"
+                          className="px-2 py-1 text-xs text-neutral-600 hover:text-black transition-colors cursor-pointer"
                           aria-label="Decrease quantity"
                         >
                           −
@@ -180,7 +187,7 @@ export function CartDrawer() {
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.productId, item.qty + 1)}
-                          className="px-2 py-1 text-xs text-neutral-600 hover:text-black transition-colors"
+                          className="px-2 py-1 text-xs text-neutral-600 hover:text-black transition-colors cursor-pointer"
                           aria-label="Increase quantity"
                         >
                           +
@@ -191,7 +198,7 @@ export function CartDrawer() {
                       <button
                         type="button"
                         onClick={() => removeItem(item.productId)}
-                        className="text-xs text-neutral-400 hover:text-red-600 transition-colors underline"
+                        className="text-xs text-neutral-400 hover:text-red-600 transition-colors underline cursor-pointer"
                       >
                         Remove
                       </button>
@@ -223,7 +230,7 @@ export function CartDrawer() {
                 <Link
                   href="/checkout"
                   onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
                   style={{ color: "#ffffff" }}
                 >
                   <span style={{ color: "#ffffff" }}>Proceed to Crypto Checkout</span>
@@ -232,7 +239,7 @@ export function CartDrawer() {
                 <Link
                   href="/cart"
                   onClick={() => setIsOpen(false)}
-                  className="w-full block text-center py-2 text-xs text-neutral-600 hover:text-neutral-900 transition-colors"
+                  className="w-full block text-center py-2 text-xs text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
                 >
                   View Full Cart Bag
                 </Link>

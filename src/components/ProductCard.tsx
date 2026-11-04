@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { conditionLabel, formatPrice, type Product } from "@/lib/api";
-import { addToCart } from "@/lib/cart";
+import { addToCart, openCartDrawer } from "@/lib/cart";
 
 export function ProductCard({ product }: { product: Product }) {
   const image = product.images[0];
@@ -19,9 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
         priceCents: product.priceCents,
         imageUrl: image?.url,
       });
-      if (typeof window !== "undefined") {
-        window.dispatchEvent(new Event("northstar-cart-open"));
-      }
+      openCartDrawer();
     } catch (err) {
       console.error("Quick add failed:", err);
     }
@@ -30,49 +28,51 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <article className="group relative flex flex-col bg-white border border-[#ece8e1] hover:border-[#b0aaa0] transition-all duration-300 rounded-xs overflow-hidden">
       {/* Product Image Frame */}
-      <Link
-        href={`/product/${product.slug}`}
-        className="relative aspect-4/3 w-full bg-[#f6f5f2] overflow-hidden block"
-        aria-label={`View ${product.name}`}
-      >
-        {image ? (
-          <Image
-            src={image.url}
-            alt={image.alt || product.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-            quality={95}
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-            referrerPolicy="no-referrer"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-xs text-neutral-400">
-            No image
-          </div>
-        )}
+      <div className="relative aspect-4/3 w-full bg-[#f6f5f2] overflow-hidden block">
+        <Link
+          href={`/product/${product.slug}`}
+          className="absolute inset-0 block"
+          aria-label={`View ${product.name}`}
+        >
+          {image ? (
+            <Image
+              src={image.url}
+              alt={image.alt || product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+              quality={95}
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-xs text-neutral-400">
+              No image
+            </div>
+          )}
+        </Link>
 
-        {/* Quick Add Hover Overlay Button (Shopify Plus signature) */}
-        <div className="absolute inset-x-3 bottom-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
+        {/* Quick Add Hover Overlay Button (Shopify Plus signature) - Independent of Link */}
+        <div className="absolute inset-x-3 bottom-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-10 pointer-events-auto">
           <button
             type="button"
             onClick={handleQuickAdd}
-            className="w-full bg-neutral-900/90 hover:bg-black text-white text-[11px] font-semibold uppercase tracking-wider py-2.5 px-3 backdrop-blur-xs transition-colors shadow-md flex items-center justify-center gap-1.5 cursor-pointer rounded-xs"
+            className="w-full bg-neutral-900/95 hover:bg-black text-white text-[11px] font-semibold uppercase tracking-wider py-2.5 px-3 backdrop-blur-xs transition-colors shadow-md flex items-center justify-center gap-1.5 cursor-pointer rounded-xs"
             style={{ color: "#ffffff" }}
           >
             <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
-            <span className="text-white" style={{ color: "#ffffff" }}>Quick Add</span>
+            <span className="text-white" style={{ color: "#ffffff" }}>Quick Add to Bag</span>
           </button>
         </div>
 
         {/* Subtle Provenance Tag */}
-        <div className="absolute top-2.5 left-2.5">
+        <div className="absolute top-2.5 left-2.5 z-10 pointer-events-none">
           <span className="text-[10px] font-mono tracking-wider uppercase bg-white/90 backdrop-blur-xs text-neutral-800 px-2 py-0.5 border border-[#e5e2da] rounded-xs font-medium">
             {conditionLabel(product.condition)}
           </span>
         </div>
-      </Link>
+      </div>
 
       {/* Product Info Section */}
       <div className="p-4 flex flex-col flex-1 justify-between gap-3">

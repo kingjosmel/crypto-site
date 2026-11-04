@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { addToCart } from "@/lib/cart";
+import { addToCart, openCartDrawer, readCart } from "@/lib/cart";
 
 export function AddToCartButton({
   item,
@@ -14,42 +14,122 @@ export function AddToCartButton({
   className?: string;
 }) {
   const [added, setAdded] = useState(false);
+  const [bagCount, setBagCount] = useState(0);
+  const [showToast, setShowToast] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const updateCount = () => {
+      const cart = readCart();
+      setBagCount(cart.reduce((sum, i) => sum + i.qty, 0));
+    };
+    updateCount();
+    window.addEventListener("northstar-cart-change", updateCount);
+    return () => window.removeEventListener("northstar-cart-change", updateCount);
+  }, []);
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     try {
-      addToCart(item);
-      setAdded(true);
-      setTimeout(() => setAdded(false), 2600);
+      // 1. Add item to cart state across localStorage, cookies, sessionStorage, and memory
+      const updated = addToCart(item);
+      const newTotal = updated.reduce((sum, i) => sum + i.qty, 0);
+      setBagCount(newTotal);
 
-      if (openDrawerOnAdd && typeof window !== "undefined") {
-        window.dispatchEvent(new Event("northstar-cart-open"));
+      // 2. Provide immediate visual button state
+      setAdded(true);
+      setShowToast(true);
+
+      // 3. Open the shopping bag drawer
+      if (openDrawerOnAdd) {
+        openCartDrawer();
       }
+
+      // Auto-hide toast after 4 seconds
+      setTimeout(() => {
+        setAdded(false);
+        setShowToast(false);
+      }, 4000);
     } catch (err) {
       console.error("Cart error:", err);
-      // Fallback feedback even in restricted environment
+      // Fallback
       setAdded(true);
-      setTimeout(() => setAdded(false), 2600);
+      setShowToast(true);
+      openCartDrawer();
+      setTimeout(() => {
+        setAdded(false);
+        setShowToast(false);
+      }, 4000);
     }
   };
 
   return (
-    <button
-      className={`add-to-bag-btn transition-all duration-200 cursor-pointer ${
-        className ||
-        "button button-dark text-white w-full py-4 px-6 font-semibold uppercase tracking-wider text-xs"
-      }`}
-      style={{ color: "#ffffff", backgroundColor: added ? "#047857" : "#0f0f0f" }}
-      type="button"
-      onClick={handleClick}
-      aria-live="polite"
-    >
-      <span style={{ color: "#ffffff" }}>
-        {added ? "✓ Added to Bag (Opening Drawer)" : "Add to Bag"}
-      </span>
-    </button>
+    <div className="relative w-full">
+      <button
+        className={`add-to-bag-btn transition-all duration-200 cursor-pointer ${
+          className ||
+          "button button-dark text-white w-full py-4 px-6 font-semibold uppercase tracking-wider text-xs"
+        }`}
+        style={{
+          color: "#ffffff",
+          backgroundColor: added ? "#047857" : "#0f0f0f",
+          borderColor: added ? "#047857" : "#0f0f0f",
+        }}
+        type="button"
+        onClick={handleClick}
+        aria-live="polite"
+      >
+        <span className="flex items-center justify-center gap-2" style={{ color: "#ffffff" }}>
+          {added ? (
+            <>
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Added to Bag ({bagCount})</span>
+            </>
+          ) : (
+            <>
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span>Add to Bag</span>
+            </>
+          )}
+        </span>
+      </button>
+
+      {/* Instant Feedback Toast Pill if user closed drawer or wants immediate shortcut */}
+      {showToast && (
+        <div className="mt-2.5 p-3 bg-[#0f0f0f] text-white border border-[#333] rounded-xs shadow-xl flex items-center justify-between text-xs animate-slide-left z-20">
+          <div className="flex items-center gap-2 truncate pr-2">
+            <span className="w-2 h-2 rounded-full bg-[#10b981] shrink-0" />
+            <span className="truncate text-neutral-200">
+              <strong className="text-white">{item.name}</strong> added
+            </span>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => openCartDrawer()}
+              className="px-2.5 py-1 bg-[#262626] hover:bg-[#333] text-white text-[11px] font-semibold uppercase tracking-wider rounded-xs cursor-pointer transition-colors"
+              style={{ color: "#ffffff" }}
+            >
+              View Bag
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push(`/checkout?buyNow=${encodeURIComponent(item.productId)}`)}
+              className="px-2.5 py-1 bg-[#10b981] hover:bg-[#059669] text-white text-[11px] font-semibold uppercase tracking-wider rounded-xs cursor-pointer transition-colors"
+              style={{ color: "#ffffff" }}
+            >
+              Checkout →
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -76,13 +156,14 @@ export function InstantCryptoCheckoutButton({
       console.error("Instant checkout cart error:", err);
     }
 
-    // Direct browser navigation guarantees cart state persistence across page transitions
-    if (typeof window !== "undefined") {
-      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-      window.location.assign("/checkout");
-    } else {
-      router.push("/checkout");
-    }
+    const targetUrl = `/checkout?buyNow=${encodeURIComponent(item.productId)}`;
+    router.push(targetUrl);
+
+    // Safety timeout in case user returns via browser back button (bfcache)
+    setTimeout(() => {
+      setNavigating(false);
+    }, 3500);
+
   };
 
   return (
@@ -105,4 +186,3 @@ export function InstantCryptoCheckoutButton({
     </button>
   );
 }
-

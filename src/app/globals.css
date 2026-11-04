@@ -207,37 +207,40 @@ a.bg-black:hover {
 .checkout-form label {
   display: block;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--ink);
-  margin-top: 16px;
+  margin-top: 18px;
 }
 
+.checkout-form input,
 .checkout-form input[type="text"],
 .checkout-form input[type="email"],
 .checkout-form input[type="tel"],
 .checkout-form input[type="password"] {
+  display: block;
   width: 100%;
   margin-top: 6px;
-  padding: 12px 14px;
-  border: 1px solid #dcd8cf;
+  padding: 13px 16px;
+  border: 1px solid #d4d0c5;
   border-radius: 2px;
   background: #fcfbf9;
   font-size: 14px;
   color: var(--ink);
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
 }
 
 .checkout-form input:focus {
   border-color: #0f0f0f;
   background: #ffffff;
-  outline: none;
+  outline: 2px solid #0f0f0f;
+  outline-offset: -1px;
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 0.8fr 1fr;
-  gap: 14px;
+.checkout-form input::placeholder {
+  color: #9c978d;
 }
+
 
 .form-error {
   color: #dc2626;
