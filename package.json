@@ -2,18 +2,12 @@
   "name": "crypto-site",
   "version": "0.1.0",
   "private": true,
-  "workspaces": [
-    "apps/*"
-  ],
+  "packageManager": "npm@10.8.2",
   "scripts": {
     "dev": "next dev -p 3000 -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "audit": "npm audit --audit-level=high",
-    "db:seed": "npm run db:seed --workspace apps/api",
-    "db:sync-indexes": "npm run db:sync-indexes --workspace apps/api",
-    "test:api": "npm run test --workspace apps/api"
+    "lint": "eslint"
   },
   "dependencies": {
     "jose": "^6.2.14",

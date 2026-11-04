@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
-  experimental: {
-    agentFeedback: true,
-  },
+  // Omit standalone output on Vercel so Vercel's native serverless router can correctly package and route pages
+  ...(process.env.VERCEL ? {} : (process.env.BUILD_STANDALONE === "true" ? { output: "standalone" } : {})),
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
