@@ -4,14 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { formatPrice } from "@/lib/api";
-import { CART_KEY, parseCart, writeCart } from "@/lib/cart";
+import { parseCart, writeCart, getCartSnapshot } from "@/lib/cart";
 
 const subscribe = (callback: () => void) => {
+  if (typeof window === "undefined") return () => {};
   window.addEventListener("northstar-cart-change", callback);
   return () => window.removeEventListener("northstar-cart-change", callback);
 };
 
-const getSnapshot = () => localStorage.getItem(CART_KEY) ?? "[]";
+const getSnapshot = getCartSnapshot;
 
 export function CartClient() {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, () => "[]");

@@ -11,14 +11,20 @@ export function ProductCard({ product }: { product: Product }) {
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart({
-      productId: product._id,
-      slug: product.slug,
-      name: product.name,
-      priceCents: product.priceCents,
-      imageUrl: image?.url,
-    });
-    window.dispatchEvent(new Event("northstar-cart-open"));
+    try {
+      addToCart({
+        productId: product._id,
+        slug: product.slug,
+        name: product.name,
+        priceCents: product.priceCents,
+        imageUrl: image?.url,
+      });
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("northstar-cart-open"));
+      }
+    } catch (err) {
+      console.error("Quick add failed:", err);
+    }
   };
 
   return (

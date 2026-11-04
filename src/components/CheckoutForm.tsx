@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 import { formatPrice } from "@/lib/api";
-import { CART_KEY, parseCart, type CartItem } from "@/lib/cart";
+import { parseCart, writeCart, getCartSnapshot, type CartItem } from "@/lib/cart";
 
 export type CryptoCurrency = "BTC" | "ETH" | "SOL";
 
@@ -92,10 +92,11 @@ type CompletedOrder = {
 };
 
 const subscribe = (callback: () => void) => {
+  if (typeof window === "undefined") return () => {};
   window.addEventListener("northstar-cart-change", callback);
   return () => window.removeEventListener("northstar-cart-change", callback);
 };
-const getSnapshot = () => localStorage.getItem(CART_KEY) ?? "[]";
+const getSnapshot = getCartSnapshot;
 
 // Clean SVG QR matrix styled for vault crypto deposit
 function VaultCryptoQR({ symbol, color }: { symbol: CryptoCurrency; color: string }) {
@@ -245,8 +246,7 @@ export function CheckoutForm() {
       });
 
       // Clear the shopping cart
-      localStorage.setItem(CART_KEY, "[]");
-      window.dispatchEvent(new Event("northstar-cart-change"));
+      writeCart([]);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to place order.");
     } finally {
