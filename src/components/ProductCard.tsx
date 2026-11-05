@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { conditionLabel, formatPrice, type Product } from "@/lib/api";
+import { conditionBadgeShort, formatPrice, type Product } from "@/lib/api";
 import { addToCart, openCartDrawer } from "@/lib/cart";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -79,10 +79,10 @@ export function ProductCard({ product }: { product: Product }) {
           </svg>
         </button>
 
-        {/* Subtle Provenance Tag */}
+        {/* Subtle Understated Condition Grade */}
         <div className="absolute top-2 left-2 z-10 pointer-events-none">
-          <span className="text-[9px] sm:text-[10px] font-mono tracking-wider uppercase bg-white/90 backdrop-blur-xs text-neutral-800 px-1.5 py-0.5 border border-[#e5e2da] rounded-xs font-medium">
-            {conditionLabel(product.condition)}
+          <span className="text-[9px] sm:text-[10px] font-sans tracking-wider uppercase bg-white/95 backdrop-blur-xs text-neutral-800 px-2 py-0.5 border border-[#e5e2da] rounded-xs font-medium shadow-xs">
+            {conditionBadgeShort(product.condition)}
           </span>
         </div>
       </div>
@@ -107,9 +107,8 @@ export function ProductCard({ product }: { product: Product }) {
           <span className="font-mono text-xs sm:text-sm font-semibold text-neutral-950 whitespace-nowrap">
             {formatPrice(product.priceCents)}
           </span>
-          <span className="text-[9px] sm:text-[10px] text-[#047857] font-medium flex items-center gap-1 shrink-0">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
-            <span className="hidden xs:inline">Verified</span>
+          <span className="text-[10px] font-mono text-neutral-400">
+            {product.sku}
           </span>
         </div>
       </div>

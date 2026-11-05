@@ -18,20 +18,21 @@ export function Header() {
             <span>GUEST CHECKOUT</span>
           </div>
           <div className="mx-auto flex items-center justify-center gap-1.5 sm:gap-2 truncate max-w-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] inline-block shrink-0 animate-pulse" />
-            <span className="sm:hidden uppercase font-semibold tracking-wider truncate">
-              Armored Courier · 100% Insured Escort
+            <span className="sm:hidden font-medium tracking-wide truncate">
+              Northstar / Supply · Geneva · New York · Paris
             </span>
-            <span className="hidden sm:inline uppercase font-semibold tracking-wider">
-              Complimentary Armored Courier On All Orders · Serialized Tamper-Evident Packaging
+            <span className="hidden sm:inline font-medium tracking-wide text-neutral-300">
+              Northstar Supply Holdings AG · Secured Courier Delivery on All Archival Allocations
             </span>
           </div>
           <div className="hidden md:flex items-center gap-4 text-[#a39f96]">
-            <Link href="/track" className="hover:text-white transition-colors">
-              Track Dispatch
+            <Link href="/about" className="hover:text-white transition-colors">
+              Corporate Governance
             </Link>
             <span>·</span>
-            <span>USD ($)</span>
+            <Link href="/track" className="hover:text-white transition-colors">
+              Order Telemetry
+            </Link>
           </div>
         </div>
       </div>
@@ -312,30 +313,30 @@ export function Footer() {
           <div>
             <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">Client Concierge</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/track" className="hover:text-white transition-colors font-medium text-white flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" /> Track Your Order</Link></li>
-              <li><Link href="/shipping" className="hover:text-white transition-colors">Armored Courier Protocol</Link></li>
-              <li><Link href="/warranty" className="hover:text-white transition-colors">Authenticity Guarantee</Link></li>
-              <li><Link href="/returns-refunds" className="hover:text-white transition-colors">White-Glove Returns</Link></li>
+              <li><Link href="/track" className="hover:text-white transition-colors font-medium text-white flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" /> Track Live Order</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors">Carrier Assignment Matrix</Link></li>
+              <li><Link href="/warranty" className="hover:text-white transition-colors">Condition Standards &amp; Warranty</Link></li>
+              <li><Link href="/returns-refunds" className="hover:text-white transition-colors">Inspection &amp; Returns</Link></li>
               <li><Link href="/faq" className="hover:text-white transition-colors">Frequently Asked Questions</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors">Private Client Inquiries</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">Private Client Concierge</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">The Atelier</h4>
+            <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">Corporate &amp; Atelier</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/about" className="hover:text-white transition-colors">Heritage & Provenance</Link></li>
-              <li><span className="text-[#666]">Geneva Vault Repository</span></li>
-              <li><span className="text-[#666]">New York Client Salon</span></li>
-              <li><span className="text-[#666]">Paris Leathercraft Archive</span></li>
-              <li><span className="text-[#666]">Malca-Amit Secured Transit</span></li>
+              <li><Link href="/about" className="hover:text-white transition-colors font-medium text-white">Corporate Governance &amp; Filings</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">Geneva Horology Vault</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">New York Client Salon</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">Paris Leathercraft Hub</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors">Armored Escort Protocol</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">Crypto Payment & Escrow</h4>
+            <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">Crypto Payment &amp; Escrow</h4>
             <p className="text-[#8c887f] leading-relaxed mb-4 text-[11px]">
-              We collect payments exclusively in cryptocurrency via non-custodial vault escrow. All transactions settle natively on-chain with instant mempool verification.
+              We settle transactions in cryptocurrency via non-custodial vault escrow. All orders clear on-chain with instant mempool confirmation and zero intermediary custody.
             </p>
             <div className="flex flex-wrap gap-2 text-[10px] font-mono">
               <span className="bg-[#1f1f1f] text-[#f7931a] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">BITCOIN (BTC)</span>
@@ -345,17 +346,29 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Institutional Corporate Impressum */}
+        <div className="py-6 border-b border-[#222222] text-[11px] text-[#78756e] flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+          <div>
+            <strong className="text-white block font-medium">Northstar Supply Holdings AG</strong>
+            <span>Registre du Commerce de Genève · IDE / UID: CHE-384.912.441 · Rue du Rhône 42, 1204 Genève, Switzerland</span>
+          </div>
+          <div className="text-neutral-500 font-mono text-[10px]">
+            <span>US Operating Unit: Northstar Luxury Supply LLC (DE File #7391024, 590 Madison Ave, New York)</span>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-[#6b6861] gap-4 text-center md:text-left">
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-[11px] text-[#6b6861] gap-4 text-center md:text-left">
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3">
             <span className="font-serif text-white font-semibold text-sm">NORTHSTAR / SUPPLY</span>
             <span>·</span>
-            <span>© 2026 Northstar / Supply. All Rights Reserved.</span>
+            <span>© 2026 Northstar Supply Holdings AG. All Rights Reserved.</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+            <Link href="/about" className="hover:text-white transition-colors">Governance &amp; Impressum</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/shipping" className="hover:text-white transition-colors">Shipping & Escrow</Link>
+            <Link href="/shipping" className="hover:text-white transition-colors">Shipping Matrix</Link>
             <Link href="/track" className="hover:text-white transition-colors">Order Tracking</Link>
           </div>
         </div>

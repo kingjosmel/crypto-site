@@ -263,15 +263,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     priceCents: 2850000,
     currency: "USD",
     sku: "AP-WA-011",
-    condition: "PRE_OWNED",
+    condition: "REFURBISHED",
     status: "ACTIVE",
     stockStatus: "IN_STOCK",
-    warranty: "Northstar 2-Year Certified Pre-Owned Watchmaker Warranty",
+    warranty: "Northstar 2-Year Certified Master Horologist Overhaul Warranty",
     returnPolicy: "7-day inspection period with tamper-proof security seal intact.",
-    description: "The seminal octagonal bezel timepiece with 'Grande Tapisserie' blue dial, integrated steel bracelet, and manufacture calibre 4302.",
+    description: "Certified Restored: Completely disassembled, ultrasonically cleaned, mechanically regulated, and satin-brushed to factory bevel lines by Le Brassus-trained master watchmakers. Calibre 4302 tested to COSC precision tolerances.",
     specs: [{ key: "Model Reference", value: "15500ST.OO.1220ST.01" }, { key: "Case", value: "Stainless steel 41 mm" }, { key: "Dial", value: "Bleu nuit, nuage 50 Grande Tapisserie" }, { key: "Glass", value: "Glareproofed sapphire crystal & caseback" }, { key: "Thickness", value: "10.4 mm" }],
     sizes: ["Integrated stainless steel bracelet with AP folding clasp"],
-    authenticity: "Includes Audemars Piguet green leather archive box and digital warranty activation.",
+    authenticity: "Includes Audemars Piguet green leather archive box, restoration dossier, and timing certificate.",
     images: [{ url: "/images/product_ap_royal_oak.jpg", alt: "Audemars Piguet Royal Oak Selfwinding", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Royal Oak craftsmanship", position: 1 }],
     createdAt: "2026-01-20T10:00:00.000Z",
     updatedAt: "2026-01-20T10:00:00.000Z"
@@ -492,12 +492,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     priceCents: 3450000,
     currency: "USD",
     sku: "RLX-WA-019",
-    condition: "PRE_OWNED",
+    condition: "REFURBISHED",
     status: "ACTIVE",
     stockStatus: "IN_STOCK",
-    warranty: "Northstar 2-Year Certified Pre-Owned Watchmaker Warranty",
+    warranty: "Northstar 2-Year Certified Master Horologist Overhaul Warranty",
     returnPolicy: "7-day inspection window with tamper-evident security seal.",
-    description: "The most sought-after stainless steel chronograph in modern watchmaking. The reference 126500LN features a crisp white lacquer dial with contrasting black snailed chronograph rings, black monobloc Cerachrom ceramic tachymeter bezel, and new generation calibre 4131 movement.",
+    description: "Certified Restored: Factory-specification complete movement overhaul, ultrasonic cleaning, timing regulation (+1 sec/day on Witschi chronocomparator), and ultrasonic gasket replacement. 100% original Rolex components with 2-year mechanical guarantee.",
     specs: [
       { key: "Reference", value: "126500LN" },
       { key: "Case Diameter", value: "40 mm" },
@@ -673,12 +673,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     priceCents: 520000,
     currency: "USD",
     sku: "SLP-CL-025",
-    condition: "NEW",
+    condition: "REFURBISHED",
     status: "ACTIVE",
     stockStatus: "IN_STOCK",
-    warranty: "Saint Laurent Paris leather goods guarantee",
+    warranty: "Northstar Archival Leathercraft Preservation Guarantee",
     returnPolicy: "Complimentary returns within 14 days in pristine unworn condition.",
-    description: "The definitive high-fashion motorcycle jacket. Handcrafted in butter-soft black grained lambskin leather with iconic snap-down lapels, shoulder epaulettes, asymmetrical silver-tone zippers, and an adjustable waist belt.",
+    description: "Certified Restored: Archival runway reference carefully conditioned by Parisian leather specialists using neutral organic waxes, with all original silver-tone zippers ultrasonically serviced and lubricated.",
     specs: [
       { key: "Leather", value: "100% Grained Italian Lambskin" },
       { key: "Hardware", value: "Heavy-gauge nickel-finish zips, snaps and buckle" },
@@ -896,6 +896,7 @@ export function getLocalProduct(slug: string): Product | undefined {
 export function getLocalProducts(params?: {
   category?: string;
   brand?: string;
+  condition?: "NEW" | "REFURBISHED" | "PRE_OWNED";
   q?: string;
   sort?: "price_asc" | "price_desc" | "newest" | "name";
   limit?: number;
@@ -911,6 +912,10 @@ export function getLocalProducts(params?: {
   if (params?.brand) {
     const brandLower = params.brand.toLowerCase();
     list = list.filter((p) => p.brand.toLowerCase() === brandLower);
+  }
+
+  if (params?.condition) {
+    list = list.filter((p) => p.condition === params.condition);
   }
 
   if (params?.q) {
@@ -994,8 +999,20 @@ export function createOrderRecord(data: {
   const orderNumber = `NS-${String(globalStore.orderCounter++).padStart(8, "0")}`;
   const trackingNumber = `TRK-NS-${randomSuffix}-EXP`;
   const guestToken = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
-  const carrier = "Armored White-Glove Logistics & Priority Courier";
-  const estimatedDelivery = "2-3 Business Days (Insured White Glove)";
+
+  const isHighValue =
+    quote.totalCents >= 1000000 ||
+    data.items.some((i) => {
+      const prod = globalStore.products.find((p) => p._id === i.productId);
+      return prod?.categoryId === "660000000000000000000004" || (prod?.priceCents ?? 0) >= 1000000;
+    });
+
+  const carrier = isHighValue
+    ? "Ferrari Group / Malca-Amit Armored Logistics (Dual-Escort High-Value Transit)"
+    : "FedEx International Priority (Insured Express & Direct Adult Signature)";
+  const estimatedDelivery = isHighValue
+    ? "1-3 Business Days (Dedicated Armored Vehicle & Vault Hand-Off)"
+    : "2-3 Business Days (Full Insured Priority Delivery)";
 
   const currency: "BTC" | "ETH" | "SOL" = data.cryptoCurrency || (data.paymentMethod?.includes("ETH") ? "ETH" : data.paymentMethod?.includes("SOL") ? "SOL" : "BTC");
   

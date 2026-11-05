@@ -45,14 +45,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-async function loadCategory(slug: string, brand?: string) {
+async function loadCategory(slug: string, brand?: string, condition?: "NEW" | "PRE_OWNED" | "REFURBISHED") {
   try {
     const { items: categories } = await getCategories();
     const category = categories.find((item) => item.slug === slug);
     if (!category) return { kind: "missing" as const };
-    const { items: products } = await getProducts(
-      `limit=100&category=${category._id}&sort=name${brand ? `&brand=${encodeURIComponent(brand)}` : ""}`
-    );
+    const query = new URLSearchParams({ limit: "100", category: category._id, sort: "name" });
+    if (brand) query.set("brand", brand);
+    if (condition) query.set("condition", condition);
+
+    const { items: products } = await getProducts(query.toString());
     return { kind: "data" as const, category, categories, products };
   } catch {
     return { kind: "error" as const };
@@ -64,11 +66,11 @@ export default async function CategoryPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ brand?: string }>;
+  searchParams: Promise<{ brand?: string; condition?: "NEW" | "PRE_OWNED" | "REFURBISHED" }>;
 }) {
   const { slug } = await params;
-  const { brand } = await searchParams;
-  const result = await loadCategory(slug, brand);
+  const { brand, condition } = await searchParams;
+  const result = await loadCategory(slug, brand, condition);
   if (result.kind === "error") return <SiteShell><CatalogError /></SiteShell>;
   if (result.kind === "missing") notFound();
 
@@ -125,6 +127,7 @@ export default async function CategoryPage({
           categories={result.categories}
           activeCategory={slug}
           activeBrand={brand}
+          activeCondition={condition}
         />
 
         {/* Product Grid */}

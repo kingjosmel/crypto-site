@@ -36,6 +36,7 @@ function parseQueryString(paramString: string) {
   return {
     category: searchParams.get("category") || undefined,
     brand: searchParams.get("brand") || undefined,
+    condition: (searchParams.get("condition") as "NEW" | "REFURBISHED" | "PRE_OWNED") || undefined,
     q: searchParams.get("q") || undefined,
     sort: (searchParams.get("sort") as "price_asc" | "price_desc" | "newest" | "name") || undefined,
     limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : undefined,
@@ -93,5 +94,78 @@ export function formatPrice(cents: number) {
 }
 
 export function conditionLabel(condition: Product["condition"]) {
-  return condition === "PRE_OWNED" ? "Pre-owned" : condition === "REFURBISHED" ? "Refurbished" : "New";
+  if (condition === "NEW") return "Unworn / Complete Set";
+  if (condition === "PRE_OWNED") return "Pristine Pre-Owned (9.5/10)";
+  if (condition === "REFURBISHED") return "Certified Restored / Overhauled";
+  return "Verified";
+}
+
+export function conditionBadgeShort(condition: Product["condition"]) {
+  if (condition === "NEW") return "Unworn";
+  if (condition === "PRE_OWNED") return "Pre-Owned";
+  if (condition === "REFURBISHED") return "Restored";
+  return "Verified";
+}
+
+export function conditionDetails(condition: Product["condition"]) {
+  switch (condition) {
+    case "NEW":
+      return {
+        title: "Unworn / Box & Papers",
+        definition: "Brand new, factory-sealed or museum stored. Never worn outside of professional vault cataloging.",
+        provenance: "Includes original manufacture presentation box, certificate of origin / warranty card, and all original factory collateral."
+      };
+    case "PRE_OWNED":
+      return {
+        title: "Pristine Pre-Owned (Collector Grade 9.5/10)",
+        definition: "Pre-owned reference preserved in extraordinary aesthetic and mechanical condition with no aftermarket modifications.",
+        provenance: "Verified by master watchmakers / archivists with complete serialized movement and canvas inspection dossier."
+      };
+    case "REFURBISHED":
+      return {
+        title: "Certified Restored / Overhauled",
+        definition: "Archival piece completely disassembled, ultrasonically cleaned, mechanically regulated, and restored to factory operational tolerances.",
+        provenance: "Accompanied by Northstar 2-Year Mechanical Warranty and master horologist service documentation."
+      };
+    default:
+      return {
+        title: "Verified Archive Piece",
+        definition: "Inspected and authenticated by Northstar curators.",
+        provenance: "Includes archival certification documentation."
+      };
+  }
+}
+
+/**
+ * Transparent Carrier Matrix resolving Finding 3:
+ * High-value timepieces & rare trunks (> $10k) use Ferrari Group / Malca-Amit armored transport.
+ * Ready-to-wear apparel, footwear & accessories (< $10k) use FedEx International Priority (Direct Adult Signature).
+ */
+export function getShippingCarrierDetails(priceCents: number, categoryId?: string) {
+  const isHighValue = priceCents >= 1000000 || categoryId === "660000000000000000000004";
+  if (isHighValue) {
+    return {
+      tier: "High-Value Armored Transport",
+      carriers: "Ferrari Group / Malca-Amit Armored Logistics",
+      transitTime: "1-3 Business Days",
+      features: [
+        "Dedicated armored vehicle transport with dual armed escorts",
+        "Direct bonded vault-to-door handoff with zero hub sorting",
+        "Biometric photo ID and direct recipient signature required",
+        "100% full declared-value Lloyd's of London syndicated cargo coverage"
+      ]
+    };
+  }
+
+  return {
+    tier: "Secured Express Courier",
+    carriers: "FedEx International Priority",
+    transitTime: "2-3 Business Days",
+    features: [
+      "Discreet, unbranded tamper-evident outer presentation container",
+      "Direct adult signature required upon physical handoff",
+      "Full declared-value cargo transit insurance included at zero surcharge",
+      "Continuous GPS scan milestones with end-to-end telemetry"
+    ]
+  };
 }

@@ -12,11 +12,15 @@ export const metadata: Metadata = {
   description: "Certified haute horlogerie, Maison Goyard trunks, and luxury designer apparel.",
 };
 
-async function loadShop(brand?: string) {
+async function loadShop(brand?: string, condition?: string) {
   try {
+    const query = new URLSearchParams({ limit: "100", sort: "name" });
+    if (brand) query.set("brand", brand);
+    if (condition) query.set("condition", condition);
+
     const [{ items: categories }, products] = await Promise.all([
       getCategories(),
-      getProducts(`limit=100&sort=name${brand ? `&brand=${encodeURIComponent(brand)}` : ""}`),
+      getProducts(query.toString()),
     ]);
     return { categories, products };
   } catch {
@@ -24,9 +28,13 @@ async function loadShop(brand?: string) {
   }
 }
 
-export default async function ShopPage({ searchParams }: { searchParams: Promise<{ brand?: string }> }) {
-  const { brand } = await searchParams;
-  const result = await loadShop(brand);
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ brand?: string; condition?: "NEW" | "PRE_OWNED" | "REFURBISHED" }>;
+}) {
+  const { brand, condition } = await searchParams;
+  const result = await loadShop(brand, condition);
   if (!result) return <SiteShell><CatalogError /></SiteShell>;
 
   const totalCount = result.products.items.length;
@@ -42,7 +50,7 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
                 Curated Vault Inventory
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl text-neutral-950 font-normal tracking-tight mb-3">
-                {brand ? `${brand} Collection` : "The Complete Archive"}
+                {brand ? `${brand} Collection` : condition === "NEW" ? "Unworn Archive (Box & Papers)" : condition === "PRE_OWNED" ? "Pristine Pre-Owned (9.5/10)" : condition === "REFURBISHED" ? "Certified Restored / Overhauled" : "The Complete Archive"}
               </h1>
               <p className="text-sm text-neutral-600 max-w-xl leading-relaxed">
                 {brand
@@ -75,7 +83,11 @@ export default async function ShopPage({ searchParams }: { searchParams: Promise
         </div>
 
         {/* Filter Bar */}
-        <CatalogFilters categories={result.categories} activeBrand={brand} />
+        <CatalogFilters
+          categories={result.categories}
+          activeBrand={brand}
+          activeCondition={condition}
+        />
 
         {/* Products Grid */}
         <ProductGrid products={result.products.items} />

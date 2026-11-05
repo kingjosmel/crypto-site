@@ -689,17 +689,19 @@ export function CheckoutForm() {
         {/* Delivery Method */}
         <fieldset className="border-0 border-t border-[#ece9e2] pt-6 mt-6">
           <legend className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-4">
-            3. White-Glove Armored Courier Protocol
+            3. Secured Courier Routing Protocol
           </legend>
           <div className="p-4 border border-[#10b981]/40 bg-[#10b981]/5 rounded-xs flex flex-col sm:flex-row justify-between sm:items-center gap-3">
             <div className="flex items-start gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#10b981] mt-1 shrink-0 animate-pulse" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#10b981] mt-1 shrink-0" />
               <div>
                 <strong className="block text-sm text-neutral-950 font-semibold mb-0.5">
-                  Armored Courier & Signed Handover
+                  {totalCents >= 1000000 ? "Ferrari Group / Malca-Amit Armored Transport" : "FedEx International Priority (Insured Express)"}
                 </strong>
                 <span className="text-xs text-neutral-600 leading-normal block">
-                  2-3 Business Days · 100% Insured Declared Value · Serialized Tamper-Evident Packaging
+                  {totalCents >= 1000000
+                    ? "Dedicated armored vehicle escort · Biometric recipient signature · 100% Lloyd's syndicated cargo insurance"
+                    : "Direct adult signature required · Discreet unbranded packaging · Full declared-value transit insurance"}
                 </span>
               </div>
             </div>

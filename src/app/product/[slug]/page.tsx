@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { conditionLabel, formatPrice, getProduct, getProducts, type Product } from "@/lib/api";
+import { conditionDetails, conditionLabel, formatPrice, getProduct, getProducts, getShippingCarrierDetails, type Product } from "@/lib/api";
 import { SiteShell } from "@/components/SiteShell";
 import { AddToCartButton, InstantCryptoCheckoutButton } from "@/components/AddToCartButton";
 import { ProductCard } from "@/components/ProductCard";
@@ -98,14 +98,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 />
               )}
 
-              {/* Floating Provenance Seal Badge */}
-              <div className="absolute top-4 left-4 flex flex-col gap-1.5">
-                <span className="text-[10px] font-mono tracking-widest uppercase bg-white/95 backdrop-blur-xs text-neutral-900 px-3 py-1 border border-[#dedad2] rounded-xs font-semibold shadow-xs">
+              {/* Floating Understated Condition Tag */}
+              <div className="absolute top-4 left-4">
+                <span className="text-[10px] font-sans tracking-wider uppercase bg-white/95 backdrop-blur-xs text-neutral-900 px-3 py-1.5 border border-[#dedad2] rounded-xs font-medium shadow-xs">
                   {conditionLabel(product.condition)}
-                </span>
-                <span className="text-[10px] tracking-wider uppercase bg-[#10b981]/10 backdrop-blur-xs text-[#047857] px-3 py-1 border border-[#10b981]/30 rounded-xs font-semibold flex items-center gap-1.5 shadow-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
-                  RFID Verified
                 </span>
               </div>
             </div>
@@ -145,14 +141,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   {formatPrice(product.priceCents)}
                 </span>
                 <span className="text-xs text-neutral-500 font-mono">
-                  USD · Settled in BTC, ETH, or SOL
+                  USD · Direct On-Chain Settlement
                 </span>
               </div>
 
               {/* Status Indicator */}
-              <div className="flex items-center gap-2 text-xs font-medium text-[#047857] bg-[#10b981]/8 border border-[#10b981]/25 px-3 py-2 rounded-xs mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-                <span>Vault Status: {product.stockStatus.replaceAll("_", " ")} — Inspected & Ready for Escort</span>
+              <div className="flex items-center gap-2 text-xs font-medium text-neutral-700 bg-[#f7f6f2] border border-[#ece8e1] px-3.5 py-2.5 rounded-xs mb-6">
+                <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+                <span>Available for Immediate Allocation · Vault Stored & Authenticated</span>
               </div>
 
               {/* Sizes / Dimensions */}
@@ -199,33 +195,54 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 />
               </div>
 
-              {/* White-Glove Guarantee Strip */}
-              <div className="bg-[#faf9f6] p-4 border border-[#ece8e1] rounded-xs space-y-2 text-xs text-neutral-600">
-                <div className="flex items-center gap-2">
-                  <span className="text-[#047857]">✓</span>
-                  <span><strong>Complimentary Armored Delivery:</strong> 2-3 business days with adult signature.</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[#047857]">✓</span>
-                  <span><strong>100% Provenance:</strong> Microchipped authenticity and archive paperwork.</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[#047857]">✓</span>
-                  <span><strong>Guest Checkout:</strong> Tracking sent straight to your email. No login needed.</span>
-                </div>
-              </div>
+              {/* Restrained Condition & Carrier Matrix Dossier */}
+              {(() => {
+                const condInfo = conditionDetails(product.condition);
+                const shippingInfo = getShippingCarrierDetails(product.priceCents, product.categoryId);
+                return (
+                  <div className="bg-[#faf9f6] p-4 sm:p-5 border border-[#ece8e1] rounded-xs space-y-3 text-xs text-neutral-700">
+                    <div className="flex items-start gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] mt-1.5 shrink-0" />
+                      <div>
+                        <span className="font-semibold text-neutral-950 block">{condInfo.title}</span>
+                        <p className="text-neutral-500 mt-0.5 leading-relaxed">{condInfo.definition}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2.5 pt-2.5 border-t border-[#f0eee9]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] mt-1.5 shrink-0" />
+                      <div>
+                        <span className="font-semibold text-neutral-950 block">{shippingInfo.tier}: {shippingInfo.carriers}</span>
+                        <p className="text-neutral-500 mt-0.5 leading-relaxed">{shippingInfo.features[0]} · {shippingInfo.transitTime}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Accordion / Specifications Details */}
             <div className="divide-y divide-[#ece8e1] text-xs pt-2">
               <details className="py-4 group" open>
                 <summary className="font-semibold uppercase tracking-wider text-neutral-900 cursor-pointer flex justify-between items-center list-none">
-                  <span>Product Description & Provenance</span>
+                  <span>Condition Report & Provenance Dossier</span>
                   <span className="text-neutral-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
-                <div className="mt-3 text-neutral-600 leading-relaxed space-y-2">
+                <div className="mt-3 text-neutral-600 leading-relaxed space-y-2.5">
                   <p>{product.description}</p>
-                  <p><strong>Authenticity Standard:</strong> {product.authenticity || "Official house dust covers and provenance documentation included."}</p>
+                  <div className="bg-white p-3 border border-[#ece8e1] rounded-xs space-y-1.5 text-[11.5px]">
+                    <div className="flex justify-between">
+                      <span className="text-neutral-500">Condition Grade:</span>
+                      <strong className="text-neutral-900">{conditionLabel(product.condition)}</strong>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-neutral-500">Box & Documentation:</span>
+                      <strong className="text-neutral-900">{product.authenticity || "Original presentation box & archive documents"}</strong>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-neutral-500">Warranty Coverage:</span>
+                      <strong className="text-neutral-900">{product.warranty || "Northstar Archival Craftsmanship Guarantee"}</strong>
+                    </div>
+                  </div>
                 </div>
               </details>
 
@@ -250,12 +267,27 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
               <details className="py-4 group">
                 <summary className="font-semibold uppercase tracking-wider text-neutral-900 cursor-pointer flex justify-between items-center list-none">
-                  <span>Armored Courier & Transit Escrow</span>
+                  <span>Secured Courier Logistics & Inspection</span>
                   <span className="text-neutral-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
-                <div className="mt-3 text-neutral-600 leading-relaxed">
-                  Every parcel is sealed in serialized, tamper-evident armored packaging. Delivery is managed directly by Malca-Amit or priority armored couriers requiring photo ID and direct recipient signature. Full declared value insurance is included at zero surcharge.
-                </div>
+                {(() => {
+                  const shippingInfo = getShippingCarrierDetails(product.priceCents, product.categoryId);
+                  return (
+                    <div className="mt-3 text-neutral-600 leading-relaxed space-y-2">
+                      <p>
+                        This acquisition is classified under <strong>{shippingInfo.tier}</strong> and routed through <strong>{shippingInfo.carriers}</strong>.
+                      </p>
+                      <ul className="list-disc pl-4 space-y-1 text-[11px] text-neutral-500">
+                        {shippingInfo.features.map((feature) => (
+                          <li key={feature}>{feature}</li>
+                        ))}
+                      </ul>
+                      <p className="text-[11px] text-neutral-500 pt-1">
+                        Adult signature and photo identification are required at physical handoff. Dispatched with serialized tamper-evident sealing.
+                      </p>
+                    </div>
+                  );
+                })()}
               </details>
             </div>
           </div>

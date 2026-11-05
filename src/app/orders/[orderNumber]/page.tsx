@@ -14,8 +14,8 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
   }
 
   const trackingNumber = order.trackingNumber || `TRK-NS-${order.orderNumber.replace(/\D/g, "")}`;
-  const carrier = order.carrier || "Armored White-Glove Logistics & Malca-Amit Priority";
-  const estimatedDelivery = order.estimatedDelivery || "2-3 Business Days";
+  const carrier = order.carrier || (order.totalCents >= 1000000 ? "Ferrari Group / Malca-Amit Armored Logistics" : "FedEx International Priority (Direct Signature)");
+  const estimatedDelivery = order.estimatedDelivery || (order.totalCents >= 1000000 ? "1-3 Business Days (Armored Escort)" : "2-3 Business Days (Insured Express)");
 
   return (
     <SiteShell>
