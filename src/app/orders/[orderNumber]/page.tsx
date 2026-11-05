@@ -20,157 +20,150 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
   return (
     <SiteShell>
       <section className="account-panel">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px", alignItems: "center", marginBottom: "35px" }}>
-          <div>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "4px 12px", borderRadius: "100px", fontSize: "12px", color: "#10b981", fontWeight: 600, marginBottom: "14px", letterSpacing: "0.05em", textTransform: "uppercase" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center mb-8">
+          <div className="lg:col-span-7">
+            <div className="inline-flex items-center gap-2 bg-[#10b981]/10 border border-[#10b981]/30 px-3 py-1 rounded-full text-xs text-[#047857] font-semibold mb-3 uppercase tracking-wider">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
               Live Order & Armored Tracking
             </div>
-            <h1 style={{ margin: "0 0 6px", fontSize: "32px", letterSpacing: "-0.02em" }}>{order.orderNumber}</h1>
-            <p style={{ color: "var(--muted)", fontSize: "16px", margin: "0 0 12px" }}>
-              Total: <strong style={{ color: "var(--foreground)" }}>{formatPrice(order.totalCents)}</strong>
+            <h1 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal tracking-tight mb-2">{order.orderNumber}</h1>
+            <p className="text-sm sm:text-base text-neutral-600 mb-2">
+              Total: <strong className="text-neutral-950 font-mono">{formatPrice(order.totalCents)}</strong>
             </p>
-            <p style={{ margin: 0, fontSize: "14px", color: "var(--muted)", lineHeight: 1.5 }}>
-              Receipt & live tracking status dispatched to: <strong style={{ color: "var(--foreground)" }}>{order.email}</strong>
+            <p className="text-xs sm:text-sm text-neutral-500 m-0">
+              Receipt & live tracking status dispatched to: <strong className="text-neutral-900">{order.email}</strong>
             </p>
           </div>
-          <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", overflow: "hidden", borderRadius: "2px", border: "1px solid var(--line)" }}>
+          <div className="lg:col-span-5 relative w-full aspect-16/10 rounded-xs overflow-hidden border border-[#d8d5cd] shadow-xs">
             <Image
               src="/images/editorial_white_glove_courier.jpg"
               alt="Armored white glove discreet courier"
               fill
               quality={95}
-              sizes="(max-width: 768px) 100vw, 500px"
-              style={{ objectFit: "cover" }}
+              sizes="(max-width: 1024px) 100vw, 500px"
+              className="object-cover"
               referrerPolicy="no-referrer"
             />
           </div>
         </div>
 
         {/* Tracking Highlights Banner */}
-        <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "24px", borderRadius: "2px", marginBottom: "24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "20px" }}>
+        <div className="bg-white border border-[#ece8e1] p-4 sm:p-6 rounded-xs mb-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Tracking Number</span>
-              <strong style={{ fontSize: "17px", fontFamily: "monospace", letterSpacing: "0.04em" }}>{trackingNumber}</strong>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1">Tracking Number</span>
+              <strong className="text-sm sm:text-base font-mono tracking-wider text-neutral-950 block truncate">{trackingNumber}</strong>
             </div>
             <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Armored Carrier</span>
-              <strong style={{ fontSize: "15px" }}>{carrier}</strong>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1">Armored Carrier</span>
+              <strong className="text-xs sm:text-sm text-neutral-950 block truncate">{carrier}</strong>
             </div>
             <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Estimated Delivery</span>
-              <strong style={{ fontSize: "15px" }}>{estimatedDelivery}</strong>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1">Estimated Delivery</span>
+              <strong className="text-xs sm:text-sm text-neutral-950 block truncate">{estimatedDelivery}</strong>
             </div>
             <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Security Level</span>
-              <strong style={{ fontSize: "15px", color: "#10b981" }}>Armed Courier Escort</strong>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1">Security Level</span>
+              <strong className="text-xs sm:text-sm text-[#047857] block truncate">Armed Courier Escort</strong>
             </div>
           </div>
         </div>
 
         {/* Crypto Payment & Escrow Clearance Panel */}
-        <div style={{ background: "#ffffff", border: "1px solid #d4d0c5", padding: "20px 24px", borderRadius: "2px", marginBottom: "35px" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "10px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />
-              <strong style={{ fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+        <div className="bg-white border border-[#d8d5cd] p-4 sm:p-5 rounded-xs mb-8">
+          <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#10b981]" />
+              <strong className="text-xs uppercase tracking-wider font-bold text-neutral-900">
                 Cryptocurrency Escrow Settlement ({order.cryptoCurrency || "BTC"})
               </strong>
             </div>
-            <span style={{ fontSize: "12px", color: "#047857", fontWeight: 600 }}>
+            <span className="text-xs text-[#047857] font-semibold">
               ✓ On-Chain Finality Verified
             </span>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", fontSize: "12.5px" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
             <div>
-              <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", textTransform: "uppercase", marginBottom: "3px" }}>Settlement Asset</span>
-              <strong style={{ fontFamily: "monospace", fontSize: "14px" }}>
+              <span className="text-neutral-500 block text-[11px] uppercase mb-1">Settlement Asset</span>
+              <strong className="font-mono text-sm text-neutral-950 block">
                 {order.cryptoAmount || "0.00839553"} {order.cryptoCurrency || "BTC"}
               </strong>
-              <span style={{ color: "var(--muted)", fontSize: "11px", display: "block" }}>
+              <span className="text-neutral-500 text-[11px] block">
                 Equivalent: {formatPrice(order.totalCents)}
               </span>
             </div>
 
-            <div>
-              <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", textTransform: "uppercase", marginBottom: "3px" }}>Vault Receiving Address</span>
-              <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "3px 6px", borderRadius: "2px", display: "block" }}>
+            <div className="sm:col-span-2">
+              <span className="text-neutral-500 block text-[11px] uppercase mb-1">Vault Receiving Address</span>
+              <code className="text-xs font-mono break-all bg-[#faf9f6] border border-[#ece8e1] p-2 rounded-xs block text-neutral-800">
                 {order.escrowAddress || "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp"}
               </code>
             </div>
-
-            {order.txHash && (
-              <div>
-                <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", textTransform: "uppercase", marginBottom: "3px" }}>Blockchain Transaction</span>
-                <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "3px 6px", borderRadius: "2px", display: "block" }}>
-                  {order.txHash}
-                </code>
-              </div>
-            )}
           </div>
         </div>
 
         {/* Live Milestone Progress */}
-        <div style={{ marginBottom: "40px" }}>
-          <p className="eyebrow" style={{ marginBottom: "14px" }}>Fulfillment Milestones</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "12px" }}>
-            <div style={{ padding: "14px", border: "1px solid #10b981", background: "rgba(16, 185, 129, 0.05)", borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "#10b981", fontWeight: 600, display: "block", marginBottom: "4px" }}>✓ Step 1</span>
-              <strong style={{ fontSize: "13px", display: "block" }}>Order Confirmed</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Email dispatched</span>
+        <div className="mb-8 sm:mb-10">
+          <p className="eyebrow mb-3">Fulfillment Milestones</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
+            <div className="p-3 border border-[#10b981] bg-[#10b981]/5 rounded-xs">
+              <span className="text-[10px] text-[#047857] font-bold block mb-1">✓ Step 1</span>
+              <strong className="text-xs block text-neutral-950">Order Confirmed</strong>
+              <span className="text-[10px] text-neutral-500">Email dispatched</span>
             </div>
-            <div style={{ padding: "14px", border: "1px solid #10b981", background: "rgba(16, 185, 129, 0.05)", borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "#10b981", fontWeight: 600, display: "block", marginBottom: "4px" }}>✓ Step 2</span>
-              <strong style={{ fontSize: "13px", display: "block" }}>Vault Authentication</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Microchip verified</span>
+            <div className="p-3 border border-[#10b981] bg-[#10b981]/5 rounded-xs">
+              <span className="text-[10px] text-[#047857] font-bold block mb-1">✓ Step 2</span>
+              <strong className="text-xs block text-neutral-950">Vault Authentication</strong>
+              <span className="text-[10px] text-neutral-500">Microchip verified</span>
             </div>
-            <div style={{ padding: "14px", border: "1px solid var(--foreground)", background: "var(--paper)", borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "var(--foreground)", fontWeight: 600, display: "block", marginBottom: "4px" }}>● In Progress</span>
-              <strong style={{ fontSize: "13px", display: "block" }}>Armored Dispatch</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Courier handover</span>
+            <div className="p-3 border border-neutral-950 bg-[#faf9f6] rounded-xs">
+              <span className="text-[10px] text-neutral-950 font-bold block mb-1">● In Progress</span>
+              <strong className="text-xs block text-neutral-950">Armored Dispatch</strong>
+              <span className="text-[10px] text-neutral-500">Courier handover</span>
             </div>
-            <div style={{ padding: "14px", border: "1px solid var(--line)", background: "var(--paper)", opacity: 0.6, borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "var(--muted)", fontWeight: 500, display: "block", marginBottom: "4px" }}>○ Step 4</span>
-              <strong style={{ fontSize: "13px", display: "block" }}>In Transit</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Armed logistics</span>
+            <div className="p-3 border border-[#ece8e1] bg-[#faf9f6] opacity-75 rounded-xs">
+              <span className="text-[10px] text-neutral-400 font-semibold block mb-1">○ Step 4</span>
+              <strong className="text-xs block text-neutral-950">In Transit</strong>
+              <span className="text-[10px] text-neutral-500">Armed logistics</span>
             </div>
-            <div style={{ padding: "14px", border: "1px solid var(--line)", background: "var(--paper)", opacity: 0.6, borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "var(--muted)", fontWeight: 500, display: "block", marginBottom: "4px" }}>○ Step 5</span>
-              <strong style={{ fontSize: "13px", display: "block" }}>Delivered</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Adult signature</span>
+            <div className="p-3 border border-[#ece8e1] bg-[#faf9f6] opacity-75 rounded-xs col-span-2 sm:col-span-1">
+              <span className="text-[10px] text-neutral-400 font-semibold block mb-1">○ Step 5</span>
+              <strong className="text-xs block text-neutral-950">Delivered</strong>
+              <span className="text-[10px] text-neutral-500">Adult signature</span>
             </div>
           </div>
         </div>
 
         {/* Order Details & Items */}
-        <div style={{ borderTop: "1px solid var(--line)", paddingTop: "30px" }}>
-          <h2 style={{ fontSize: "20px", marginBottom: "20px" }}>Ordered Items ({order.items.length})</h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <div className="border-t border-[#ece8e1] pt-6">
+          <h2 className="font-serif text-xl text-neutral-950 font-normal mb-4">Ordered Items ({order.items.length})</h2>
+          <div className="flex flex-col gap-3">
             {order.items.map((item) => (
               <div
                 key={item.productId || item.name}
-                style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "18px 20px", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "2px" }}
+                className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 p-3.5 sm:p-4 bg-white border border-[#ece8e1] rounded-xs"
               >
-                <div>
-                  <strong style={{ fontSize: "16px", display: "block", marginBottom: "4px" }}>{item.name}</strong>
-                  <span style={{ fontSize: "13px", color: "var(--muted)" }}>
-                    Quantity: {item.qty} · SKU: {item.sku} · Verified Authentic
+                <div className="min-w-0">
+                  <strong className="text-sm text-neutral-950 block mb-0.5">{item.name}</strong>
+                  <span className="text-xs text-neutral-500 block truncate">
+                    Qty: {item.qty} · SKU: {item.sku} · Verified Authentic
                   </span>
                 </div>
-                <strong style={{ fontSize: "16px" }}>{formatPrice(item.lineTotalCents)}</strong>
+                <strong className="text-sm font-mono text-neutral-950 shrink-0 self-end sm:self-center">
+                  {formatPrice(item.lineTotalCents)}
+                </strong>
               </div>
             ))}
           </div>
         </div>
 
         {/* Destination Address */}
-        <div style={{ borderTop: "1px solid var(--line)", marginTop: "30px", paddingTop: "24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "24px" }}>
+        <div className="border-t border-[#ece8e1] mt-6 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div>
-            <h3 style={{ fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)", marginBottom: "8px" }}>Delivery Address</h3>
-            <p style={{ margin: 0, fontSize: "14px", lineHeight: "1.6" }}>
-              {order.customerName && <strong>{order.customerName}<br /></strong>}
+            <h3 className="text-[11px] uppercase font-bold tracking-wider text-neutral-400 mb-1">Delivery Address</h3>
+            <p className="m-0 text-neutral-700 leading-relaxed text-xs sm:text-sm">
+              {order.customerName && <strong className="text-neutral-950">{order.customerName}<br /></strong>}
               {order.shippingAddress.line1}<br />
               {order.shippingAddress.line2 && <>{order.shippingAddress.line2}<br /></>}
               {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode}<br />
@@ -178,18 +171,18 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
             </p>
           </div>
           <div>
-            <h3 style={{ fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)", marginBottom: "8px" }}>Notification Email</h3>
-            <p style={{ margin: 0, fontSize: "14px", lineHeight: "1.6" }}>
+            <h3 className="text-[11px] uppercase font-bold tracking-wider text-neutral-400 mb-1">Notification Email</h3>
+            <p className="m-0 text-neutral-700 leading-relaxed text-xs sm:text-sm">
               All shipment updates and delivery notifications are transmitted in real time to <strong>{order.email}</strong>.
             </p>
           </div>
         </div>
 
-        <div style={{ marginTop: "40px", display: "flex", gap: "16px", flexWrap: "wrap" }}>
-          <Link href="/track" className="button button-dark text-white" style={{ color: "#ffffff" }}>
+        <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <Link href="/track" className="button button-dark text-white w-full sm:w-auto text-center" style={{ color: "#ffffff" }}>
             Track another order
           </Link>
-          <Link href="/shop" className="button button-light">
+          <Link href="/shop" className="button button-light w-full sm:w-auto text-center">
             Continue shopping
           </Link>
         </div>

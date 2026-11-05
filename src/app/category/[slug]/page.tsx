@@ -89,7 +89,7 @@ export default async function CategoryPage({
               <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
                 Department Archive
               </span>
-              <h1 className="font-serif text-4xl sm:text-5xl text-neutral-950 font-normal tracking-tight mb-3">
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-neutral-950 font-normal tracking-tight mb-3">
                 {result.category.name}
               </h1>
               <p className="text-sm text-neutral-600 max-w-xl leading-relaxed">

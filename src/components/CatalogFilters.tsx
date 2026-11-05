@@ -16,15 +16,15 @@ export function CatalogFilters({
   const hasActiveFilters = Boolean(activeCategory || activeBrand);
 
   return (
-    <div className="mb-10 pb-6 border-b border-[#ece8e1]">
+    <div className="mb-6 sm:mb-10 pb-4 sm:pb-6 border-b border-[#ece8e1]">
       {/* Category Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-4 scrollbar-none">
-        <span className="text-[11px] uppercase font-bold tracking-wider text-neutral-400 mr-2 shrink-0">
+      <div className="flex items-center gap-2 overflow-x-auto pb-2.5 mb-3 sm:mb-4 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
+        <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-neutral-400 mr-1 shrink-0">
           Discipline:
         </span>
         <Link
           href="/shop"
-          className={`px-3.5 py-1.5 text-xs font-medium rounded-xs uppercase tracking-wider shrink-0 transition-colors ${
+          className={`px-3 sm:px-3.5 py-2 text-xs font-medium rounded-xs uppercase tracking-wider shrink-0 transition-colors min-h-[38px] flex items-center ${
             !activeCategory
               ? "bg-neutral-950 text-white"
               : "bg-[#f5f4ef] text-neutral-700 hover:bg-[#eae8e1]"
@@ -37,7 +37,7 @@ export function CatalogFilters({
           <Link
             key={category._id}
             href={`/category/${category.slug}${activeBrand ? `?brand=${encodeURIComponent(activeBrand)}` : ""}`}
-            className={`px-3.5 py-1.5 text-xs font-medium rounded-xs uppercase tracking-wider shrink-0 transition-colors ${
+            className={`px-3 sm:px-3.5 py-2 text-xs font-medium rounded-xs uppercase tracking-wider shrink-0 transition-colors min-h-[38px] flex items-center ${
               activeCategory === category.slug
                 ? "bg-neutral-950 text-white"
                 : "bg-[#f5f4ef] text-neutral-700 hover:bg-[#eae8e1]"
@@ -50,13 +50,13 @@ export function CatalogFilters({
       </div>
 
       {/* Brand Filter Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-        <span className="text-[11px] uppercase font-bold tracking-wider text-neutral-400 mr-2 shrink-0">
+      <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
+        <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-neutral-400 mr-1 shrink-0">
           House:
         </span>
         <Link
           href={activeCategory ? `/category/${activeCategory}` : "/shop"}
-          className={`px-3 py-1 text-xs shrink-0 transition-colors ${
+          className={`px-2.5 sm:px-3 py-1.5 text-xs shrink-0 transition-colors min-h-[36px] flex items-center ${
             !activeBrand
               ? "text-black font-bold underline underline-offset-4"
               : "text-neutral-500 hover:text-black"
@@ -68,7 +68,7 @@ export function CatalogFilters({
           <Link
             key={brand}
             href={`${activeCategory ? `/category/${activeCategory}` : "/shop"}?brand=${encodeURIComponent(brand)}`}
-            className={`px-3 py-1 text-xs shrink-0 transition-colors ${
+            className={`px-2.5 sm:px-3 py-1.5 text-xs shrink-0 transition-colors min-h-[36px] flex items-center ${
               activeBrand === brand
                 ? "text-black font-bold underline underline-offset-4"
                 : "text-neutral-500 hover:text-black"
@@ -81,7 +81,7 @@ export function CatalogFilters({
         {hasActiveFilters && (
           <Link
             href="/shop"
-            className="ml-auto text-xs text-red-600 hover:text-red-700 font-medium shrink-0 pl-4"
+            className="ml-auto text-xs text-red-600 hover:text-red-700 font-medium shrink-0 pl-3 py-1.5 min-h-[36px] flex items-center"
           >
             Reset Filters ✕
           </Link>

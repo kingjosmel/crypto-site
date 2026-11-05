@@ -721,7 +721,7 @@ export function CheckoutForm() {
 
 
           {/* 3 Supported Coins: BTC, ETH, SOL */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginBottom: "16px" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mb-4">
             {(Object.keys(CRYPTO_CONFIG) as CryptoCurrency[]).map((coinKey) => {
               const coin = CRYPTO_CONFIG[coinKey];
               const isSelected = cryptoCurrency === coinKey;
@@ -732,65 +732,51 @@ export function CheckoutForm() {
                   key={coinKey}
                   type="button"
                   onClick={() => setCryptoCurrency(coinKey)}
+                  className={`w-full flex sm:flex-col items-center justify-between sm:justify-center p-3 sm:p-4 rounded-xs cursor-pointer transition-all relative text-left sm:text-center ${
+                    isSelected ? "border-2 shadow-xs" : "border hover:border-neutral-400"
+                  }`}
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "16px 10px",
-                    border: isSelected ? `2px solid ${coin.accentColor}` : "1px solid var(--line)",
-                    background: isSelected ? coin.badgeBg : "var(--paper)",
-                    borderRadius: "3px",
-                    cursor: "pointer",
-                    transition: "all 0.15s ease-in-out",
-                    position: "relative",
+                    borderColor: isSelected ? coin.accentColor : "var(--line)",
+                    background: isSelected ? coin.badgeBg : "#ffffff",
                   }}
                 >
                   {isSelected && (
                     <span
-                      style={{
-                        position: "absolute",
-                        top: "6px",
-                        right: "6px",
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "50%",
-                        backgroundColor: coin.accentColor,
-                      }}
+                      className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full hidden sm:block"
+                      style={{ backgroundColor: coin.accentColor }}
                     />
                   )}
-                  <span
-                    style={{
-                      width: "36px",
-                      height: "36px",
-                      borderRadius: "50%",
-                      backgroundColor: coin.accentColor,
-                      color: "#ffffff",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "18px",
-                      fontWeight: "bold",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    {coin.icon}
-                  </span>
-                  <strong style={{ fontSize: "13px", color: "var(--foreground)" }}>{coin.name}</strong>
-                  <span style={{ fontSize: "11px", color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                    {coin.symbol}
-                  </span>
-                  <span
-                    style={{
-                      marginTop: "6px",
-                      fontSize: "12px",
-                      fontFamily: "monospace",
-                      fontWeight: 700,
-                      color: isSelected ? coin.accentColor : "var(--muted)",
-                    }}
-                  >
-                    {coinAmount} {coin.symbol}
-                  </span>
+
+                  {/* Left (Mobile) / Center (Desktop) Icon & Name */}
+                  <div className="flex sm:flex-col items-center gap-2.5 sm:gap-1.5 min-w-0">
+                    <span
+                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-sm sm:text-base shrink-0 text-white"
+                      style={{ backgroundColor: coin.accentColor }}
+                    >
+                      {coin.icon}
+                    </span>
+                    <div className="min-w-0">
+                      <strong className="text-xs sm:text-sm text-neutral-950 block leading-tight">
+                        {coin.name}
+                      </strong>
+                      <span className="text-[10px] text-neutral-500 uppercase tracking-wider block">
+                        {coin.symbol} · {coin.network.split(" ")[0]}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right (Mobile) / Bottom (Desktop) Amount */}
+                  <div className="text-right sm:text-center shrink-0 sm:mt-2">
+                    <span
+                      className="font-mono text-xs sm:text-xs font-bold block"
+                      style={{ color: isSelected ? coin.accentColor : "var(--ink)" }}
+                    >
+                      {coinAmount} {coin.symbol}
+                    </span>
+                    <span className="text-[10px] text-neutral-400 block">
+                      ≈ {formatPrice(totalCents)}
+                    </span>
+                  </div>
                 </button>
               );
             })}
@@ -798,129 +784,77 @@ export function CheckoutForm() {
 
           {/* Detailed Vault Escrow Transfer Box for Selected Asset */}
           <div
-            style={{
-              border: `1px solid ${currentCrypto.accentColor}`,
-              background: "#ffffff",
-              borderRadius: "3px",
-              padding: "20px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "16px",
-            }}
+            className="border bg-white rounded-xs p-4 sm:p-5 flex flex-col gap-4"
+            style={{ borderColor: currentCrypto.accentColor }}
           >
-            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "10px" }}>
+            <div className="flex items-start justify-between flex-wrap gap-2">
               <div>
                 <span
-                  style={{
-                    display: "inline-block",
-                    fontSize: "11px",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    fontWeight: 700,
-                    color: currentCrypto.accentColor,
-                    marginBottom: "3px",
-                  }}
+                  className="text-[10px] sm:text-[11px] uppercase tracking-wider font-bold block mb-0.5"
+                  style={{ color: currentCrypto.accentColor }}
                 >
                   Direct Vault Deposit · {currentCrypto.name}
                 </span>
-                <strong style={{ fontSize: "16px", display: "block" }}>
+                <strong className="text-sm sm:text-base text-neutral-950 block">
                   Transfer exactly {calculatedCryptoAmount} {currentCrypto.symbol}
                 </strong>
-                <span style={{ fontSize: "12px", color: "var(--muted)" }}>
-                  Network: <strong>{currentCrypto.network}</strong> · Settlement: {currentCrypto.confirmations}
+                <span className="text-xs text-neutral-500 block mt-0.5 leading-normal">
+                  Network: <strong className="text-neutral-800">{currentCrypto.network}</strong> · {currentCrypto.confirmations}
                 </span>
               </div>
 
-              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#10b981", display: "inline-block" }} />
-                <span style={{ fontSize: "11px", color: "#047857", fontWeight: 600 }}>Vault Node Listening</span>
+              <div className="flex items-center gap-1.5 self-start">
+                <span className="w-2 h-2 rounded-full bg-[#10b981] inline-block animate-pulse" />
+                <span className="text-[11px] text-[#047857] font-semibold">Vault Node Listening</span>
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "20px", alignItems: "center", flexWrap: "wrap" }}>
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-center sm:items-start pt-2 border-t border-[#f2efe9]">
               {/* QR Code */}
-              <VaultCryptoQR symbol={cryptoCurrency} color={currentCrypto.accentColor} />
+              <div className="shrink-0 flex justify-center w-full sm:w-auto">
+                <VaultCryptoQR symbol={cryptoCurrency} color={currentCrypto.accentColor} />
+              </div>
 
               {/* Address and Amount copy block */}
-              <div style={{ flex: 1, minWidth: "220px", display: "flex", flexDirection: "column", gap: "12px" }}>
+              <div className="flex-1 w-full min-w-0 flex flex-col gap-3">
                 {/* Deposit Address */}
                 <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                    <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)" }}>
-                      Vault {currentCrypto.symbol} Address
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-500">
+                      Vault {currentCrypto.symbol} Receiving Address
                     </span>
                     <button
                       type="button"
                       onClick={() => copyToClipboard(currentCrypto.address, "addr")}
-                      style={{
-                        background: "none",
-                        border: "none",
-                        color: currentCrypto.accentColor,
-                        fontWeight: 600,
-                        fontSize: "11px",
-                        cursor: "pointer",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                      }}
+                      className="text-xs font-semibold cursor-pointer uppercase tracking-wider py-1 px-1.5 hover:underline"
+                      style={{ color: currentCrypto.accentColor }}
                     >
                       {copiedField === "addr" ? "✓ Copied" : "Copy Address"}
                     </button>
                   </div>
-                  <div
-                    style={{
-                      background: "var(--paper)",
-                      border: "1px solid var(--line)",
-                      padding: "8px 10px",
-                      borderRadius: "2px",
-                      fontSize: "12px",
-                      fontFamily: "monospace",
-                      wordBreak: "break-all",
-                      color: "var(--foreground)",
-                    }}
-                  >
+                  <div className="bg-[#faf9f6] border border-[#d6d2c8] p-2.5 rounded-xs text-[11px] sm:text-xs font-mono break-all text-neutral-900 select-all">
                     {currentCrypto.address}
                   </div>
                 </div>
 
                 {/* Crypto Amount */}
                 <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                    <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)" }}>
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-500">
                       Exact Transfer Amount
                     </span>
                     <button
                       type="button"
                       onClick={() => copyToClipboard(calculatedCryptoAmount, "amt")}
-                      style={{
-                        background: "none",
-                        border: "none",
-                        color: currentCrypto.accentColor,
-                        fontWeight: 600,
-                        fontSize: "11px",
-                        cursor: "pointer",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                      }}
+                      className="text-xs font-semibold cursor-pointer uppercase tracking-wider py-1 px-1.5 hover:underline"
+                      style={{ color: currentCrypto.accentColor }}
                     >
                       {copiedField === "amt" ? "✓ Copied" : "Copy Amount"}
                     </button>
                   </div>
-                  <div
-                    style={{
-                      background: "var(--paper)",
-                      border: "1px solid var(--line)",
-                      padding: "8px 10px",
-                      borderRadius: "2px",
-                      fontSize: "13px",
-                      fontFamily: "monospace",
-                      fontWeight: 700,
-                      color: "var(--foreground)",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
+                  <div className="bg-[#faf9f6] border border-[#d6d2c8] p-2.5 rounded-xs text-xs font-mono font-bold text-neutral-900 flex justify-between items-center">
                     <span>{calculatedCryptoAmount} {currentCrypto.symbol}</span>
-                    <span style={{ color: "var(--muted)", fontWeight: "normal", fontSize: "11px" }}>
+                    <span className="text-neutral-500 font-normal text-[11px]">
                       ≈ {formatPrice(totalCents)}
                     </span>
                   </div>
@@ -928,8 +862,8 @@ export function CheckoutForm() {
               </div>
             </div>
 
-            <div style={{ background: "rgba(0,0,0,0.03)", padding: "10px 12px", borderRadius: "2px", fontSize: "11.5px", color: "var(--muted)", lineHeight: "1.5" }}>
-              ⚠️ <strong>Strict Network Requirement:</strong> Send only {currentCrypto.name} ({currentCrypto.symbol}) to this address via the <strong>{currentCrypto.network}</strong>. Sending any other asset or via incorrect bridges will cause irreversible loss.
+            <div className="bg-[#faf9f6] border border-[#ebe7dd] p-3 rounded-xs text-[11px] text-neutral-600 leading-relaxed">
+              ⚠️ <strong>Strict Network Requirement:</strong> Send only {currentCrypto.name} ({currentCrypto.symbol}) via the <strong>{currentCrypto.network}</strong>. Funds sent on wrong networks or bridges cannot be retrieved.
             </div>
           </div>
         </fieldset>

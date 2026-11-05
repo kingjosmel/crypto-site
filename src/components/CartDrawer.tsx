@@ -171,23 +171,23 @@ export function CartDrawer() {
                     </div>
 
                     <div className="flex items-center justify-between pt-2">
-                      {/* Quantity Stepper */}
+                      {/* Quantity Stepper with touch-friendly size */}
                       <div className="flex items-center border border-[#d6d3cb] rounded-xs bg-white">
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.productId, item.qty - 1)}
-                          className="px-2 py-1 text-xs text-neutral-600 hover:text-black transition-colors cursor-pointer"
+                          className="w-8 h-8 flex items-center justify-center text-xs font-medium text-neutral-600 hover:text-black active:bg-neutral-100 transition-colors cursor-pointer"
                           aria-label="Decrease quantity"
                         >
                           −
                         </button>
-                        <span className="px-2 text-xs font-mono font-medium min-w-[20px] text-center">
+                        <span className="px-2.5 text-xs font-mono font-medium min-w-[24px] text-center">
                           {item.qty}
                         </span>
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.productId, item.qty + 1)}
-                          className="px-2 py-1 text-xs text-neutral-600 hover:text-black transition-colors cursor-pointer"
+                          className="w-8 h-8 flex items-center justify-center text-xs font-medium text-neutral-600 hover:text-black active:bg-neutral-100 transition-colors cursor-pointer"
                           aria-label="Increase quantity"
                         >
                           +

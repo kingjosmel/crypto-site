@@ -24,39 +24,39 @@ export default async function Home() {
     <SiteShell>
       {/* 1. Flagship Hero Campaign */}
       <section className="relative bg-[#f8f7f4] border-b border-[#ece8e1] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
             {/* Left Copy Column */}
             <div className="lg:col-span-6 flex flex-col justify-center">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b]">
+              <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b]">
                   2026 Archive Edition
                 </span>
                 <span className="text-neutral-400">·</span>
-                <span className="text-[11px] uppercase font-medium tracking-[0.1em] text-neutral-500">
+                <span className="text-[10px] sm:text-[11px] uppercase font-medium tracking-[0.1em] text-neutral-500">
                   Private Vault Releases
                 </span>
               </div>
 
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-neutral-950 font-normal leading-[1.08] tracking-[-0.03em] mb-6">
+              <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-neutral-950 font-normal leading-[1.12] sm:leading-[1.08] tracking-[-0.03em] mb-4 sm:mb-6 text-balance">
                 The Architecture of Rare Provenance.
               </h1>
 
-              <p className="text-base text-neutral-600 leading-relaxed max-w-lg mb-8">
+              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-lg mb-6 sm:mb-8">
                 An edited sanctuary of certified Patek Philippe complications, rare Maison Goyard trunks, and fine Italian cashmere—authenticated and dispatched with armored white-glove security.
               </p>
 
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
                 <Link
                   href="/shop"
-                  className="px-7 py-4 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-all shadow-sm"
+                  className="w-full sm:w-auto text-center px-7 py-3.5 sm:py-4 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-all shadow-sm"
                   style={{ color: "#ffffff" }}
                 >
                   <span style={{ color: "#ffffff" }}>Explore Collection</span>
                 </Link>
                 <Link
                   href="/track"
-                  className="px-6 py-4 bg-white hover:bg-neutral-100 text-neutral-900 border border-[#d8d4cc] text-xs font-semibold uppercase tracking-[0.14em] transition-all flex items-center gap-2"
+                  className="w-full sm:w-auto text-center justify-center px-6 py-3.5 sm:py-4 bg-white hover:bg-neutral-100 text-neutral-900 border border-[#d8d4cc] text-xs font-semibold uppercase tracking-[0.14em] transition-all flex items-center gap-2"
                 >
                   <span className="w-2 h-2 rounded-full bg-[#10b981]" />
                   Track Live Order
@@ -64,18 +64,18 @@ export default async function Home() {
               </div>
 
               {/* Bottom Feature Badges */}
-              <div className="mt-12 pt-8 border-t border-[#e8e4dc] grid grid-cols-3 gap-4 text-left">
+              <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-[#e8e4dc] grid grid-cols-3 gap-2 sm:gap-4 text-left">
                 <div>
-                  <span className="block text-xs font-semibold text-neutral-900 uppercase tracking-wider">Geneva Vault</span>
-                  <span className="text-[11px] text-neutral-500">Horology Archives</span>
+                  <span className="block text-[11px] sm:text-xs font-semibold text-neutral-900 uppercase tracking-wider truncate">Geneva Vault</span>
+                  <span className="text-[10px] sm:text-[11px] text-neutral-500 truncate block">Horology Archives</span>
                 </div>
                 <div>
-                  <span className="block text-xs font-semibold text-neutral-900 uppercase tracking-wider">Paris Atelier</span>
-                  <span className="text-[11px] text-neutral-500">Maison Goyard Leather</span>
+                  <span className="block text-[11px] sm:text-xs font-semibold text-neutral-900 uppercase tracking-wider truncate">Paris Atelier</span>
+                  <span className="text-[10px] sm:text-[11px] text-neutral-500 truncate block">Goyard Leather</span>
                 </div>
                 <div>
-                  <span className="block text-xs font-semibold text-neutral-900 uppercase tracking-wider">Armored Courier</span>
-                  <span className="text-[11px] text-neutral-500">100% Insured Escort</span>
+                  <span className="block text-[11px] sm:text-xs font-semibold text-neutral-900 uppercase tracking-wider truncate">Armored Courier</span>
+                  <span className="text-[10px] sm:text-[11px] text-neutral-500 truncate block">100% Insured</span>
                 </div>
               </div>
             </div>
@@ -95,14 +95,14 @@ export default async function Home() {
                 />
 
                 {/* Floating Showcase Pill (Shopify style) */}
-                <div className="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur-md p-4 rounded-xs border border-[#e0ddd5] shadow-lg flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] uppercase font-bold tracking-[0.15em] text-[#a3702b] block">Featured In Archive</span>
-                    <span className="text-sm font-semibold text-neutral-900">Patek Philippe Nautilus 5711 & Goyard Trunks</span>
+                <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 bg-white/95 backdrop-blur-md p-3 sm:p-4 rounded-xs border border-[#e0ddd5] shadow-lg flex items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.15em] text-[#a3702b] block truncate">Featured In Archive</span>
+                    <span className="text-xs sm:text-sm font-semibold text-neutral-900 truncate block">Patek Philippe & Goyard</span>
                   </div>
                   <Link
                     href="/shop"
-                    className="text-xs font-semibold uppercase tracking-wider text-neutral-900 hover:text-[#a3702b] flex items-center gap-1"
+                    className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-900 hover:text-[#a3702b] flex items-center gap-1 shrink-0"
                   >
                     View <span aria-hidden="true">→</span>
                   </Link>
@@ -113,54 +113,54 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 2. Shopify Plus 4-Column Trust Strip */}
-      <section className="bg-white border-b border-[#ece8e1] py-8">
+      {/* 2. Shopify Plus 4-Column Trust Strip (2x2 on mobile, 4 columns on desktop) */}
+      <section className="bg-white border-b border-[#ece8e1] py-6 sm:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-xs bg-[#f4f3ef] border border-[#e5e2da] flex items-center justify-center shrink-0 text-base">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+            <div className="flex items-start gap-2.5 sm:gap-3.5">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xs bg-[#f4f3ef] border border-[#e5e2da] flex items-center justify-center shrink-0 text-sm sm:text-base">
                 🛡️
               </div>
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">100% Verified Provenance</h4>
-                <p className="text-[12px] text-neutral-500 mt-0.5 leading-normal">
-                  All watches and trunks are microchipped with archive paperwork.
+              <div className="min-w-0">
+                <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-neutral-900 leading-tight">100% Provenance</h4>
+                <p className="text-[11px] sm:text-[12px] text-neutral-500 mt-0.5 leading-normal line-clamp-2">
+                  Microchipped with archive paperwork.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-xs bg-[#f4f3ef] border border-[#e5e2da] flex items-center justify-center shrink-0 text-base">
+            <div className="flex items-start gap-2.5 sm:gap-3.5">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xs bg-[#f4f3ef] border border-[#e5e2da] flex items-center justify-center shrink-0 text-sm sm:text-base">
                 🔒
               </div>
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">Armored Courier Transit</h4>
-                <p className="text-[12px] text-neutral-500 mt-0.5 leading-normal">
-                  Complimentary white-glove delivery with tamper-evident seals.
+              <div className="min-w-0">
+                <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-neutral-900 leading-tight">Armored Courier</h4>
+                <p className="text-[11px] sm:text-[12px] text-neutral-500 mt-0.5 leading-normal line-clamp-2">
+                  Tamper-evident insured delivery.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-xs bg-[#f4f3ef] border border-[#e5e2da] flex items-center justify-center shrink-0 text-base">
+            <div className="flex items-start gap-2.5 sm:gap-3.5">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xs bg-[#f4f3ef] border border-[#e5e2da] flex items-center justify-center shrink-0 text-sm sm:text-base">
                 ⚡
               </div>
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">Immediate Allocation</h4>
-                <p className="text-[12px] text-neutral-500 mt-0.5 leading-normal">
-                  Physically held in vault; packed and dispatched within 24 hours.
+              <div className="min-w-0">
+                <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-neutral-900 leading-tight">Immediate Escrow</h4>
+                <p className="text-[11px] sm:text-[12px] text-neutral-500 mt-0.5 leading-normal line-clamp-2">
+                  Settles in BTC, ETH, or SOL.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-xs bg-[#f4f3ef] border border-[#e5e2da] flex items-center justify-center shrink-0 text-base">
+            <div className="flex items-start gap-2.5 sm:gap-3.5">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xs bg-[#f4f3ef] border border-[#e5e2da] flex items-center justify-center shrink-0 text-sm sm:text-base">
                 ✉️
               </div>
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">Guest Checkout</h4>
-                <p className="text-[12px] text-neutral-500 mt-0.5 leading-normal">
-                  No login required; tracking telemetry dispatched straight to email.
+              <div className="min-w-0">
+                <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-neutral-900 leading-tight">Guest Checkout</h4>
+                <p className="text-[11px] sm:text-[12px] text-neutral-500 mt-0.5 leading-normal line-clamp-2">
+                  Tracking dispatched to email.
                 </p>
               </div>
             </div>

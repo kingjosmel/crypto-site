@@ -46,16 +46,16 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
               </p>
 
               {/* In-page Search Bar */}
-              <form action="/search" method="GET" className="flex max-w-md gap-2">
+              <form action="/search" method="GET" className="flex flex-col sm:flex-row max-w-md gap-2">
                 <input
                   name="q"
                   defaultValue={q}
                   placeholder="Search Goyard, Patek, Rolex, Cashmere…"
-                  className="bg-white border border-[#d6d2c8] px-4 py-3 text-xs rounded-xs flex-1 focus:outline-none focus:border-black transition-colors"
+                  className="bg-white border border-[#d6d2c8] px-4 py-3 text-base sm:text-xs rounded-xs flex-1 focus:outline-none focus:border-black transition-colors min-h-[44px]"
                 />
                 <button
                   type="submit"
-                  className="bg-neutral-950 text-white px-5 py-3 text-xs font-semibold uppercase tracking-wider hover:bg-neutral-800 transition-colors"
+                  className="bg-neutral-950 text-white px-6 py-3 text-xs font-semibold uppercase tracking-wider hover:bg-neutral-800 transition-colors min-h-[44px] flex items-center justify-center"
                   style={{ color: "#ffffff" }}
                 >
                   <span style={{ color: "#ffffff" }}>Search</span>

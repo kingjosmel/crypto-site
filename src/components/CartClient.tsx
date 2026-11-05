@@ -88,26 +88,26 @@ export function CartClient() {
         {/* Left: Items Table / List */}
         <div className="lg:col-span-8 flex flex-col gap-6">
           {/* Complimentary Shipping Banner */}
-          <div className="bg-[#f5fbf7] border border-[#a7f3d0] p-4 rounded-xs flex items-center justify-between text-xs text-[#065f46]">
+          <div className="bg-[#f5fbf7] border border-[#a7f3d0] p-3.5 sm:p-4 rounded-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 text-xs text-[#065f46]">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#10b981]" />
-              <strong>Complimentary Armored Courier:</strong> Direct white-glove delivery with adult signature.
+              <span className="w-2 h-2 rounded-full bg-[#10b981] shrink-0" />
+              <span><strong>Complimentary Armored Courier:</strong> Direct white-glove delivery with adult signature.</span>
             </div>
-            <span className="font-mono font-bold">$0.00</span>
+            <span className="font-mono font-bold self-end sm:self-auto">$0.00</span>
           </div>
 
           <div className="border border-[#ece8e1] bg-white rounded-xs divide-y divide-[#ece8e1]">
             {items.map((item) => (
-              <div key={item.productId} className="p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between">
-                <div className="flex gap-4 items-center min-w-0">
-                  <div className="relative w-20 h-24 bg-[#f6f5f2] shrink-0 rounded-xs overflow-hidden border border-[#ece8e1]">
+              <div key={item.productId} className="p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-5 items-start sm:items-center justify-between">
+                <div className="flex gap-3 sm:gap-4 items-start sm:items-center min-w-0 w-full sm:w-auto">
+                  <div className="relative w-16 h-20 sm:w-20 sm:h-24 bg-[#f6f5f2] shrink-0 rounded-xs overflow-hidden border border-[#ece8e1]">
                     {item.imageUrl ? (
                       <Image
                         src={item.imageUrl}
                         alt={item.name}
                         fill
                         className="object-cover"
-                        sizes="80px"
+                        sizes="(max-width: 640px) 64px, 80px"
                         referrerPolicy="no-referrer"
                       />
                     ) : (
@@ -116,40 +116,40 @@ export function CartClient() {
                       </div>
                     )}
                   </div>
-                  <div className="min-w-0">
-                    <h3 className="text-base font-medium text-neutral-950 leading-snug">
-                      <Link href={`/product/${item.slug}`} className="hover:underline">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-sm sm:text-base font-medium text-neutral-950 leading-snug">
+                      <Link href={`/product/${item.slug}`} className="hover:underline line-clamp-2">
                         {item.name}
                       </Link>
                     </h3>
                     <p className="text-xs text-neutral-500 font-mono mt-1">
                       {formatPrice(item.priceCents)} each
                     </p>
-                    <span className="text-[11px] text-[#047857] flex items-center gap-1 mt-1 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
+                    <span className="text-[10px] sm:text-[11px] text-[#047857] flex items-center gap-1 mt-1 font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] shrink-0" />
                       RFID Microchip Authenticated
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-6 self-end sm:self-center">
-                  {/* Quantity Stepper */}
+                <div className="flex items-center justify-between sm:justify-end gap-4 sm:gap-6 w-full sm:w-auto pt-3 sm:pt-0 border-t border-[#f0eee9] sm:border-t-0">
+                  {/* Quantity Stepper with >= 38px touch targets */}
                   <div className="flex items-center border border-[#d6d3cb] rounded-xs bg-[#faf9f6]">
                     <button
                       type="button"
                       onClick={() => updateQuantity(item.productId, item.qty - 1)}
-                      className="px-3 py-1.5 text-xs text-neutral-700 hover:text-black transition-colors"
+                      className="w-9 h-9 flex items-center justify-center text-sm font-medium text-neutral-700 hover:text-black active:bg-neutral-200 transition-colors"
                       aria-label="Decrease quantity"
                     >
                       −
                     </button>
-                    <span className="px-2.5 text-xs font-mono font-medium min-w-[24px] text-center">
+                    <span className="px-3 text-xs font-mono font-medium min-w-[28px] text-center">
                       {item.qty}
                     </span>
                     <button
                       type="button"
                       onClick={() => updateQuantity(item.productId, item.qty + 1)}
-                      className="px-3 py-1.5 text-xs text-neutral-700 hover:text-black transition-colors"
+                      className="w-9 h-9 flex items-center justify-center text-sm font-medium text-neutral-700 hover:text-black active:bg-neutral-200 transition-colors"
                       aria-label="Increase quantity"
                     >
                       +
@@ -157,14 +157,14 @@ export function CartClient() {
                   </div>
 
                   {/* Line Total */}
-                  <div className="text-right min-w-[100px]">
+                  <div className="text-right">
                     <span className="font-mono text-base font-semibold text-neutral-950 block">
                       {formatPrice(item.priceCents * item.qty)}
                     </span>
                     <button
                       type="button"
                       onClick={() => removeItem(item.productId)}
-                      className="text-xs text-neutral-400 hover:text-red-600 transition-colors underline mt-1"
+                      className="text-xs text-neutral-400 hover:text-red-600 transition-colors underline mt-0.5 inline-block py-1"
                     >
                       Remove
                     </button>
@@ -174,11 +174,11 @@ export function CartClient() {
             ))}
           </div>
 
-          <div className="flex justify-between items-center text-xs text-neutral-500 pt-2">
-            <Link href="/shop" className="hover:text-black transition-colors flex items-center gap-1">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs text-neutral-500 pt-2">
+            <Link href="/shop" className="hover:text-black transition-colors flex items-center gap-1 font-medium">
               ← Continue browsing archive
             </Link>
-            <span>All pieces reserved for 30 minutes in vault packing.</span>
+            <span className="text-[11px] text-neutral-400">All pieces reserved for 30 minutes in vault packing.</span>
           </div>
         </div>
 

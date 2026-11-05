@@ -21,14 +21,14 @@ export function LegalPage({ title, intro, sections, heroImage }: LegalPageProps)
 
   return (
     <SiteShell>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
         <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
           Northstar / Supply Atelier
         </span>
-        <h1 className="font-serif text-4xl sm:text-5xl text-neutral-950 font-normal tracking-tight mb-4">
+        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-neutral-950 font-normal tracking-tight mb-4">
           {title}
         </h1>
-        <p className="text-base text-neutral-600 max-w-2xl leading-relaxed mb-8">
+        <p className="text-sm sm:text-base text-neutral-600 max-w-2xl leading-relaxed mb-8">
           {intro}
         </p>
 

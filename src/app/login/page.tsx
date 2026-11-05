@@ -14,22 +14,22 @@ export default function LoginPage() {
   return (
     <SiteShell>
       <section className="account-panel">
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px", alignItems: "center", marginBottom: "40px" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 items-center mb-8">
           <div>
             <p className="eyebrow">Private Client Portal</p>
             <h1>Welcome back.</h1>
-            <p style={{ color: "var(--muted)", fontSize: "16px", marginTop: "12px", lineHeight: "1.6" }}>
+            <p style={{ color: "var(--muted)", fontSize: "15px", marginTop: "12px", lineHeight: "1.6" }}>
               Access your bespoke acquisitions, cryptographically secured invoices, and private courier tracking.
             </p>
           </div>
-          <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", overflow: "hidden", borderRadius: "2px", border: "1px solid var(--line)" }}>
+          <div className="relative w-full aspect-16/10 rounded-xs overflow-hidden border border-[#ece8e1] shadow-xs">
             <Image
               src="/images/editorial_atelier.jpg"
               alt="Northstar Private Atelier"
               fill
               quality={95}
               sizes="(max-width: 768px) 100vw, 500px"
-              style={{ objectFit: "cover" }}
+              className="object-cover"
               referrerPolicy="no-referrer"
             />
           </div>

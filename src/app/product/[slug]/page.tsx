@@ -69,7 +69,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <SiteShell>
       <ProductJsonLd product={product} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 pb-24 lg:pb-12">
         {/* Breadcrumb Nav */}
         <nav className="flex items-center gap-2 text-xs text-neutral-500 mb-8 uppercase tracking-wider" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-black transition-colors">Home</Link>
@@ -263,10 +263,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
         {/* You May Also Like Section */}
         {relatedProducts.length > 0 && (
-          <div className="mt-24 pt-12 border-t border-[#ece8e1]">
-            <div className="flex justify-between items-end mb-8">
+          <div className="mt-16 sm:mt-24 pt-8 sm:pt-12 border-t border-[#ece8e1]">
+            <div className="flex justify-between items-end mb-6 sm:mb-8">
               <div>
-                <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b]">
+                <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b]">
                   Curated Recommendations
                 </span>
                 <h2 className="font-serif text-2xl sm:text-3xl text-neutral-950 font-normal mt-1">
@@ -277,13 +277,31 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 View All Pieces →
               </Link>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
               {relatedProducts.map((rel) => (
                 <ProductCard key={rel._id} product={rel} />
               ))}
             </div>
           </div>
         )}
+      </div>
+
+      {/* Mobile Sticky Buy Bar (Thumb Reach) */}
+      <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-[#dedad0] py-2.5 px-4 z-30 shadow-lg flex items-center justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <span className="text-[10px] uppercase font-bold text-[#a3702b] block truncate">{product.brand}</span>
+          <span className="font-mono text-sm font-bold text-neutral-950 block">{formatPrice(product.priceCents)}</span>
+        </div>
+        <AddToCartButton
+          item={{
+            productId: product._id,
+            slug: product.slug,
+            name: product.name,
+            priceCents: product.priceCents,
+            imageUrl: product.images[0]?.url,
+          }}
+          className="py-2.5 px-5 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-xs cursor-pointer shadow-sm shrink-0"
+        />
       </div>
     </SiteShell>
   );
