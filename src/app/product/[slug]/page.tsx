@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -6,6 +5,9 @@ import { conditionDetails, conditionLabel, formatPrice, getProduct, getProducts,
 import { SiteShell } from "@/components/SiteShell";
 import { AddToCartButton, InstantCryptoCheckoutButton } from "@/components/AddToCartButton";
 import { ProductCard } from "@/components/ProductCard";
+import { MultiAngleGallery } from "@/components/MultiAngleGallery";
+import { ConditionChecklist } from "@/components/ConditionChecklist";
+import { StickyMobileBuyBar } from "@/components/StickyMobileBuyBar";
 
 export const dynamic = "force-dynamic";
 
@@ -63,8 +65,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const relatedResult = await getProducts(`limit=4&sort=newest`).catch(() => ({ items: [] }));
   const relatedProducts = relatedResult.items.filter((p) => p.slug !== product.slug).slice(0, 4);
 
-  const mainImage = product.images[0];
-
   return (
     <SiteShell>
       <ProductJsonLd product={product} />
@@ -81,49 +81,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
         {/* 2-Column Shopify PDP Layout */}
         <article className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* Left Column: Gallery */}
-          <div className="lg:col-span-7 flex flex-col gap-4">
-            {/* Primary Main Image Frame */}
-            <div className="relative aspect-4/3 w-full bg-[#f6f5f2] rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm">
-              {mainImage && (
-                <Image
-                  src={mainImage.url}
-                  alt={mainImage.alt || product.name}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 750px"
-                  quality={95}
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              )}
+          {/* Left Column: Multi-Angle Interactive Gallery & Condition Dossier */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            <MultiAngleGallery
+              product={product}
+              conditionLabelText={conditionLabel(product.condition)}
+            />
 
-              {/* Floating Understated Condition Tag */}
-              <div className="absolute top-4 left-4">
-                <span className="text-[10px] font-sans tracking-wider uppercase bg-white/95 backdrop-blur-xs text-neutral-900 px-3 py-1.5 border border-[#dedad2] rounded-xs font-medium shadow-xs">
-                  {conditionLabel(product.condition)}
-                </span>
-              </div>
-            </div>
-
-            {/* Secondary Angle Thumbnails if present */}
-            {product.images.length > 1 && (
-              <div className="grid grid-cols-3 gap-3">
-                {product.images.map((img, idx) => (
-                  <div key={`${img.url}-${idx}`} className="relative aspect-4/3 bg-[#f6f5f2] rounded-xs overflow-hidden border border-[#ece8e1]">
-                    <Image
-                      src={img.url}
-                      alt={img.alt || `${product.name} angle ${idx + 1}`}
-                      fill
-                      sizes="200px"
-                      quality={95}
-                      className="object-cover"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+            {/* Interactive 10-Point Vault Inspection Checklist */}
+            <ConditionChecklist
+              product={product}
+              conditionLabelText={conditionLabel(product.condition)}
+            />
           </div>
 
           {/* Right Column: Sticky Purchase Module */}
@@ -171,7 +140,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               )}
 
               {/* Actions: Add to Bag + Direct Checkout */}
-              <div className="space-y-3 mb-6">
+              <div id="main-purchase-cta" className="space-y-3 mb-6">
                 <AddToCartButton
                   item={{
                     productId: product._id,
@@ -318,23 +287,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         )}
       </div>
 
-      {/* Mobile Sticky Buy Bar (Thumb Reach) */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-[#dedad0] py-2.5 px-4 z-30 shadow-lg flex items-center justify-between gap-3">
-        <div className="min-w-0 flex-1">
-          <span className="text-[10px] uppercase font-bold text-[#a3702b] block truncate">{product.brand}</span>
-          <span className="font-mono text-sm font-bold text-neutral-950 block">{formatPrice(product.priceCents)}</span>
-        </div>
-        <AddToCartButton
-          item={{
-            productId: product._id,
-            slug: product.slug,
-            name: product.name,
-            priceCents: product.priceCents,
-            imageUrl: product.images[0]?.url,
-          }}
-          className="py-2.5 px-5 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-xs cursor-pointer shadow-sm shrink-0"
-        />
-      </div>
+      {/* Mobile Sticky Buy Bar (Appears when scrolling past main CTA) */}
+      <StickyMobileBuyBar product={product} triggerId="main-purchase-cta" />
     </SiteShell>
   );
 }
