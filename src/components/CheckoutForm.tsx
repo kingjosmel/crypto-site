@@ -6,6 +6,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { formatPrice } from "@/lib/api";
 import { parseCart, writeCart, addToCart, getCartSnapshot, type CartItem } from "@/lib/cart";
 import { INITIAL_PRODUCTS } from "@/lib/catalogData";
+import { CryptoQRCode } from "./CryptoQRCode";
 
 export type CryptoCurrency = "BTC" | "ETH" | "SOL";
 
@@ -28,7 +29,7 @@ export const CRYPTO_CONFIG: Record<CryptoCurrency, CryptoOption> = {
     name: "Bitcoin",
     icon: "₿",
     network: "Bitcoin Mainnet (Native SegWit)",
-    address: "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp",
+    address: "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu",
     rateUsd: 85000,
     decimals: 8,
     confirmations: "2 Block Confirmations (~20 min)",
@@ -40,7 +41,7 @@ export const CRYPTO_CONFIG: Record<CryptoCurrency, CryptoOption> = {
     name: "Ethereum",
     icon: "Ξ",
     network: "Ethereum Mainnet (ERC-20)",
-    address: "0x71C8A6924dF17FEd1aA328906322B69041b31526",
+    address: "0x120D139dB706614f71e470A97852679F6FaebcB7",
     rateUsd: 2600,
     decimals: 6,
     confirmations: "12 Block Confirmations (~3 min)",
@@ -52,7 +53,7 @@ export const CRYPTO_CONFIG: Record<CryptoCurrency, CryptoOption> = {
     name: "Solana",
     icon: "◎",
     network: "Solana Mainnet (SPL)",
-    address: "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin",
+    address: "X2ro74HaRbZ2XKDJ57yMmsKFD3CS4y9XFKtzSeQkCQ1",
     rateUsd: 180,
     decimals: 4,
     confirmations: "32 Confirmations (~15 sec)",
@@ -99,65 +100,25 @@ const subscribe = (callback: () => void) => {
 };
 const getSnapshot = getCartSnapshot;
 
-// Clean SVG QR matrix styled for vault crypto deposit
-function VaultCryptoQR({ symbol, color }: { symbol: CryptoCurrency; color: string }) {
+// Real scannable QR code component styled for vault crypto deposit
+function VaultCryptoQR({
+  symbol,
+  address,
+  amount,
+}: {
+  symbol: CryptoCurrency;
+  address: string;
+  amount?: string;
+}) {
   return (
-    <div className="relative w-36 h-36 bg-white p-2 border border-[#d6d2c8] rounded-xs shadow-inner shrink-0 flex items-center justify-center">
-      <svg viewBox="0 0 100 100" className="w-full h-full" fill="#111111">
-        {/* Top-Left Finder Square */}
-        <rect x="6" y="6" width="24" height="24" fill="#111" rx="2" />
-        <rect x="10" y="10" width="16" height="16" fill="#fff" />
-        <rect x="14" y="14" width="8" height="8" fill={color} />
-
-        {/* Top-Right Finder Square */}
-        <rect x="70" y="6" width="24" height="24" fill="#111" rx="2" />
-        <rect x="74" y="10" width="16" height="16" fill="#fff" />
-        <rect x="78" y="14" width="8" height="8" fill={color} />
-
-        {/* Bottom-Left Finder Square */}
-        <rect x="6" y="70" width="24" height="24" fill="#111" rx="2" />
-        <rect x="10" y="74" width="16" height="16" fill="#fff" />
-        <rect x="14" y="78" width="8" height="8" fill={color} />
-
-        {/* Timing Pattern Lines */}
-        <line x1="34" y1="18" x2="66" y2="18" stroke="#333" strokeWidth="2" strokeDasharray="3,3" />
-        <line x1="18" y1="34" x2="18" y2="66" stroke="#333" strokeWidth="2" strokeDasharray="3,3" />
-
-        {/* Data Pattern Representation */}
-        <rect x="36" y="24" width="4" height="4" />
-        <rect x="44" y="24" width="4" height="4" />
-        <rect x="52" y="24" width="4" height="4" />
-        <rect x="60" y="24" width="4" height="4" />
-
-        <rect x="24" y="36" width="4" height="4" />
-        <rect x="24" y="44" width="4" height="4" />
-        <rect x="24" y="52" width="4" height="4" />
-        <rect x="24" y="60" width="4" height="4" />
-
-        <rect x="72" y="36" width="4" height="4" />
-        <rect x="80" y="36" width="4" height="4" />
-        <rect x="76" y="44" width="4" height="4" />
-        <rect x="84" y="52" width="4" height="4" />
-        <rect x="72" y="60" width="4" height="4" />
-
-        <rect x="36" y="72" width="4" height="4" />
-        <rect x="44" y="76" width="4" height="4" />
-        <rect x="52" y="72" width="4" height="4" />
-        <rect x="60" y="80" width="4" height="4" />
-        <rect x="64" y="72" width="4" height="4" />
-
-        <rect x="72" y="72" width="4" height="4" />
-        <rect x="80" y="76" width="4" height="4" />
-        <rect x="76" y="84" width="4" height="4" />
-        <rect x="84" y="84" width="4" height="4" />
-      </svg>
-      {/* Center Crypto Icon Badge */}
-      <div
-        className="absolute inset-0 m-auto w-8 h-8 rounded-full border-2 border-white shadow-md flex items-center justify-center font-bold text-xs"
-        style={{ backgroundColor: color, color: "#ffffff" }}
-      >
-        {symbol === "BTC" ? "₿" : symbol === "ETH" ? "Ξ" : "◎"}
-      </div>
+    <div className="shrink-0 flex flex-col items-center">
+      <CryptoQRCode
+        address={address}
+        symbol={symbol}
+        amount={amount}
+        size={140}
+        showWalletLink={true}
+      />
     </div>
   );
 }
@@ -342,12 +303,12 @@ export function CheckoutForm() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "12px", background: "#ffffff", padding: "16px", borderRadius: "2px", border: "1px solid var(--line)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px", background: "#ffffff", padding: "16px", borderRadius: "2px", border: "1px solid var(--line)", alignItems: "center" }}>
             <div>
               <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>
-                Vault Escrow Address
+                Vault Escrow Address & Scan QR
               </span>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", marginBottom: "12px" }}>
                 <code style={{ fontSize: "11.5px", wordBreak: "break-all", background: "var(--paper)", padding: "4px 6px", borderRadius: "2px" }}>
                   {completedOrder.escrowAddress}
                 </code>
@@ -359,9 +320,18 @@ export function CheckoutForm() {
                   {copiedField === "escrow" ? "Copied!" : "Copy"}
                 </button>
               </div>
+
+              <div className="flex justify-center sm:justify-start">
+                <CryptoQRCode
+                  address={completedOrder.escrowAddress}
+                  symbol={completedOrder.cryptoCurrency}
+                  amount={completedOrder.cryptoAmount}
+                  size={120}
+                />
+              </div>
             </div>
 
-            <div>
+            <div style={{ alignSelf: "start" }}>
               <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>
                 On-Chain Transaction Hash
               </span>
@@ -814,7 +784,11 @@ export function CheckoutForm() {
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-center sm:items-start pt-2 border-t border-[#f2efe9]">
               {/* QR Code */}
               <div className="shrink-0 flex justify-center w-full sm:w-auto">
-                <VaultCryptoQR symbol={cryptoCurrency} color={currentCrypto.accentColor} />
+                <VaultCryptoQR
+                  symbol={cryptoCurrency}
+                  address={currentCrypto.address}
+                  amount={calculatedCryptoAmount}
+                />
               </div>
 
               {/* Address and Amount copy block */}

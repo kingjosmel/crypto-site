@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { SiteShell } from "@/components/SiteShell";
 import { formatPrice } from "@/lib/api";
+import { CryptoQRCode } from "@/components/CryptoQRCode";
 
 type OrderItem = {
   productId: string;
@@ -272,18 +273,38 @@ export default function TrackPage() {
                   Verified On-Chain Escrow
                 </span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs items-center">
                 <div>
                   <span className="text-neutral-500 block text-[11px] uppercase mb-1">Settlement Asset</span>
                   <strong className="font-mono text-sm text-neutral-950 block">
                     {activeOrder.cryptoAmount || "0.00839553"} {activeOrder.cryptoCurrency || "BTC"}
                   </strong>
                 </div>
-                <div className="sm:col-span-2">
-                  <span className="text-neutral-500 block text-[11px] uppercase mb-1">Receiving Vault Address</span>
-                  <code className="text-xs font-mono break-all bg-[#faf9f6] border border-[#ece8e1] p-2 rounded-xs block text-neutral-800">
-                    {activeOrder.escrowAddress || "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp"}
-                  </code>
+                <div className="sm:col-span-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <div className="flex-1 min-w-0">
+                    <span className="text-neutral-500 block text-[11px] uppercase mb-1">Receiving Vault Address</span>
+                    <code className="text-xs font-mono break-all bg-[#faf9f6] border border-[#ece8e1] p-2 rounded-xs block text-neutral-800">
+                      {activeOrder.escrowAddress ||
+                        (activeOrder.cryptoCurrency === "ETH"
+                          ? "0x120D139dB706614f71e470A97852679F6FaebcB7"
+                          : activeOrder.cryptoCurrency === "SOL"
+                          ? "X2ro74HaRbZ2XKDJ57yMmsKFD3CS4y9XFKtzSeQkCQ1"
+                          : "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu")}
+                    </code>
+                  </div>
+                  <CryptoQRCode
+                    address={
+                      activeOrder.escrowAddress ||
+                      (activeOrder.cryptoCurrency === "ETH"
+                        ? "0x120D139dB706614f71e470A97852679F6FaebcB7"
+                        : activeOrder.cryptoCurrency === "SOL"
+                        ? "X2ro74HaRbZ2XKDJ57yMmsKFD3CS4y9XFKtzSeQkCQ1"
+                        : "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu")
+                    }
+                    symbol={activeOrder.cryptoCurrency || "BTC"}
+                    amount={activeOrder.cryptoAmount || "0.00839553"}
+                    size={110}
+                  />
                 </div>
               </div>
             </div>

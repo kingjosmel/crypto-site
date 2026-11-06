@@ -23,7 +23,7 @@ export default async function Home() {
 
   return (
     <SiteShell>
-      {/* 1. Flagship Hero Campaign — Restrained Luxury & Confident Typography */}
+      {/* 1. Flagship Hero Campaign: Restrained Luxury & Confident Typography */}
       <section className="relative bg-[#f8f7f4] border-b border-[#ece8e1] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -44,7 +44,7 @@ export default async function Home() {
               </h1>
 
               <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-lg mb-8">
-                An archival sanctuary of certified Swiss horology, historic Maison Goyard trunks, and tailored garments—authenticated under strict museum standards and dispatched under bonded white-glove custody.
+                An archival sanctuary of certified Swiss horology, historic Maison Goyard trunks, and tailored garments, authenticated under strict museum standards and dispatched under bonded white-glove custody.
               </p>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">

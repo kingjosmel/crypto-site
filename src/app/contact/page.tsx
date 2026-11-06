@@ -20,7 +20,7 @@ export default function ContactPage() {
         },
         {
           heading: "Hours of Stewardship",
-          body: "Our private advisory desk is available Monday through Saturday, 9:00 AM – 7:00 PM EST. Inquiries submitted via your verified account receive priority routing."
+          body: "Our private advisory desk is available Monday through Saturday, 9:00 AM to 7:00 PM EST. Inquiries submitted via your verified account receive priority routing."
         }
       ]}
     />

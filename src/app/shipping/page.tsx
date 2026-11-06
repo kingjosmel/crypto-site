@@ -66,7 +66,7 @@ export default function ShippingPage() {
                       <span className="text-[11px] text-neutral-500">Dedicated Armored Transport</span>
                     </td>
                     <td className="p-4 sm:p-5 font-mono">
-                      1–3 Business Days
+                      1 to 3 Business Days
                     </td>
                     <td className="p-4 sm:p-5 text-[11px] leading-relaxed">
                       Dual armed escorts, armored Mercedes/Sprinter vehicles, direct bonded vault-to-door handoff with zero hub sorting, biometric photo ID check, 100% full declared-value cargo syndicate insurance.
@@ -83,7 +83,7 @@ export default function ShippingPage() {
                       <span className="text-[11px] text-neutral-500">Secured Express Service</span>
                     </td>
                     <td className="p-4 sm:p-5 font-mono">
-                      2–3 Business Days
+                      2 to 3 Business Days
                     </td>
                     <td className="p-4 sm:p-5 text-[11px] leading-relaxed">
                       Discreet unbranded tamper-evident container, real-time GPS telemetry checkpoints, direct adult signature required, full declared-value cargo insurance coverage included at no added cost.

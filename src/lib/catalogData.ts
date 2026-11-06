@@ -760,7 +760,7 @@ export const INITIAL_ORDERS: OrderRecord[] = [
     paymentMethod: "CRYPTO_BTC",
     cryptoCurrency: "BTC",
     cryptoAmount: "0.00839553",
-    escrowAddress: "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp",
+    escrowAddress: "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu",
     txHash: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
     items: [
       {
@@ -1027,10 +1027,10 @@ export function createOrderRecord(data: {
 
   const defaultEscrowAddress =
     currency === "BTC"
-      ? "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp"
+      ? "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu"
       : currency === "ETH"
-      ? "0x71C8A6924dF17FEd1aA328906322B69041b31526"
-      : "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin";
+      ? "0x120D139dB706614f71e470A97852679F6FaebcB7"
+      : "X2ro74HaRbZ2XKDJ57yMmsKFD3CS4y9XFKtzSeQkCQ1";
 
   const escrowAddress = data.escrowAddress || defaultEscrowAddress;
   const txHash = data.txHash || `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;

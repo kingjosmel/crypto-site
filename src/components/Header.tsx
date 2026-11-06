@@ -224,7 +224,7 @@ export function Header() {
                 </div>
               </div>
               <div className="flex items-center justify-between text-[11px]">
-                <span>Concierge Desk: 9am–7pm EST</span>
+                <span>Concierge Desk: 9am to 7pm EST</span>
                 <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-neutral-900 underline font-medium">
                   Contact
                 </Link>
