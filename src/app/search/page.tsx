@@ -8,7 +8,7 @@ import { getProducts } from "@/lib/api";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Search the Archive | Northstar / Supply",
-  description: "Search luxury watches, Goyard trunks, designer apparel, and fine accessories.",
+  description: "Search designer outerwear, Goyard leathercraft, and luxury footwear.",
 };
 
 async function loadSearch(q: string) {
@@ -37,12 +37,12 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                 Catalog Archive Search
               </span>
               <h1 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal tracking-tight mb-3">
-                {q ? `Search: “${q}”` : "Search The Vault"}
+                {q ? `Search: “${q}”` : "Search The Archive"}
               </h1>
               <p className="text-sm text-neutral-600 max-w-xl leading-relaxed mb-6">
                 {q
-                  ? `Found ${totalCount} ${totalCount === 1 ? "acquisition matching" : "acquisitions matching"} your query across horology, trunks, and apparel.`
-                  : "Search our private vault inventory by brand (e.g. Goyard, Patek Philippe, Rolex) or garment style."}
+                  ? `Found ${totalCount} ${totalCount === 1 ? "acquisition matching" : "acquisitions matching"} your query across outerwear, leather goods, and footwear.`
+                  : "Search our archive inventory by brand (e.g. Goyard, Dior, Gucci, Louis Vuitton) or garment style."}
               </p>
 
               {/* In-page Search Bar */}
@@ -50,7 +50,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                 <input
                   name="q"
                   defaultValue={q}
-                  placeholder="Search Goyard, Patek, Rolex, Cashmere…"
+                  placeholder="Search Goyard, Dior, Louis Vuitton, Cashmere…"
                   className="bg-white border border-[#d6d2c8] px-4 py-3 text-base sm:text-xs rounded-xs flex-1 focus:outline-none focus:border-black transition-colors min-h-[44px]"
                 />
                 <button
@@ -66,7 +66,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             <div className="lg:col-span-5 relative aspect-16/9 rounded-xs overflow-hidden border border-[#e2ded6] shadow-sm">
               <Image
                 src="/images/editorial_collection_curation.jpg"
-                alt="Search the luxury fashion, accessories and horlogerie collection"
+                alt="Search the luxury fashion, leather goods and footwear collection"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 500px"
@@ -83,10 +83,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           result.items.length > 0 ? (
             <ProductGrid products={result.items} />
           ) : (
-            <EmptyState label={`No vault pieces matched “${q}”. Try searching for “Goyard”, “Patek”, “Rolex”, or “Cashmere”.`} />
+            <EmptyState label={`No archive pieces matched “${q}”. Try searching for “Goyard”, “Dior”, “Louis Vuitton”, or “Cashmere”.`} />
           )
         ) : (
-          <EmptyState label="Enter a designer house, timepiece model, or collection name above." />
+          <EmptyState label="Enter a designer house, leather style, or footwear name above." />
         )}
       </div>
     </SiteShell>

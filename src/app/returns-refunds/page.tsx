@@ -6,13 +6,13 @@ export default function ReturnsRefundsPage() {
       title="Returns & Refunds"
       intro="Our inspection periods, returns eligibility, and cryptocurrency refund procedures."
       heroImage={{
-        url: "/images/editorial_horology_vault.jpg",
-        alt: "Master horologist workshop and authentication inspection station"
+        url: "/images/editorial_atelier.jpg",
+        alt: "Atelier inspection studio and authentication station"
       }}
       sections={[
         {
           heading: "7-Day Client Inspection Period",
-          body: "For luxury timepieces and fine jewelry, clients receive a 7-day white-glove inspection window. The timepiece must remain unworn with all tamper-proof seals intact."
+          body: "For all archival luxury acquisitions, clients receive a 7-day inspection window. The piece must remain unworn with all tamper-proof tags and seals intact."
         },
         {
           heading: "Ready-to-Wear & Accessories",

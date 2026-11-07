@@ -15,8 +15,8 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
   }
 
   const trackingNumber = order.trackingNumber || `TRK-NS-${order.orderNumber.replace(/\D/g, "")}`;
-  const carrier = order.carrier || (order.totalCents >= 1000000 ? "Ferrari Group / Malca-Amit Armored Logistics" : "FedEx International Priority (Direct Signature)");
-  const estimatedDelivery = order.estimatedDelivery || (order.totalCents >= 1000000 ? "1-3 Business Days (Armored Escort)" : "2-3 Business Days (Insured Express)");
+  const carrier = order.carrier || "FedEx International Priority (Direct Signature)";
+  const estimatedDelivery = order.estimatedDelivery || "2 to 3 Business Days (Insured Priority)";
 
   return (
     <SiteShell>
@@ -25,7 +25,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 bg-[#10b981]/10 border border-[#10b981]/30 px-3 py-1 rounded-full text-xs text-[#047857] font-semibold mb-3 uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
-              Live Order & Armored Tracking
+              Live Order &amp; Dispatch Tracking
             </div>
             <h1 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal tracking-tight mb-2">{order.orderNumber}</h1>
             <p className="text-sm sm:text-base text-neutral-600 mb-2">
@@ -38,7 +38,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
           <div className="lg:col-span-5 relative w-full aspect-16/10 rounded-xs overflow-hidden border border-[#d8d5cd] shadow-xs">
             <Image
               src="/images/editorial_white_glove_courier.jpg"
-              alt="Armored white glove discreet courier"
+              alt="Secured priority courier presentation"
               fill
               quality={95}
               sizes="(max-width: 1024px) 100vw, 500px"
@@ -56,7 +56,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
               <strong className="text-sm sm:text-base font-mono tracking-wider text-neutral-950 block truncate">{trackingNumber}</strong>
             </div>
             <div>
-              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1">Armored Carrier</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1">Assigned Carrier</span>
               <strong className="text-xs sm:text-sm text-neutral-950 block truncate">{carrier}</strong>
             </div>
             <div>
@@ -65,7 +65,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
             </div>
             <div>
               <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1">Security Level</span>
-              <strong className="text-xs sm:text-sm text-[#047857] block truncate">Armed Courier Escort</strong>
+              <strong className="text-xs sm:text-sm text-[#047857] block truncate">Priority Insured Courier</strong>
             </div>
           </div>
         </div>
@@ -140,13 +140,13 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
             </div>
             <div className="p-3 border border-neutral-950 bg-[#faf9f6] rounded-xs">
               <span className="text-[10px] text-neutral-950 font-bold block mb-1">● In Progress</span>
-              <strong className="text-xs block text-neutral-950">Armored Dispatch</strong>
-              <span className="text-[10px] text-neutral-500">Courier handover</span>
+              <strong className="text-xs block text-neutral-950">Courier Dispatch</strong>
+              <span className="text-[10px] text-neutral-500">Carrier handover</span>
             </div>
             <div className="p-3 border border-[#ece8e1] bg-[#faf9f6] opacity-75 rounded-xs">
               <span className="text-[10px] text-neutral-400 font-semibold block mb-1">○ Step 4</span>
               <strong className="text-xs block text-neutral-950">In Transit</strong>
-              <span className="text-[10px] text-neutral-500">Armed logistics</span>
+              <span className="text-[10px] text-neutral-500">GPS scan milestones</span>
             </div>
             <div className="p-3 border border-[#ece8e1] bg-[#faf9f6] opacity-75 rounded-xs col-span-2 sm:col-span-1">
               <span className="text-[10px] text-neutral-400 font-semibold block mb-1">○ Step 5</span>

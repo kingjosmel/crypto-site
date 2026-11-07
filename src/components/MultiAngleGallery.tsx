@@ -26,16 +26,6 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
   // Generate 4-5 curated inspection views based on product category & available images
   const angles: GalleryAngle[] = useMemo(() => {
     const list: GalleryAngle[] = [];
-    const isWatch =
-      product.categoryId === "660000000000000000000004" ||
-      product.brand.toLowerCase().includes("rolex") ||
-      product.brand.toLowerCase().includes("patek") ||
-      product.brand.toLowerCase().includes("audemars") ||
-      product.brand.toLowerCase().includes("richard") ||
-      product.name.toLowerCase().includes("royal oak") ||
-      product.name.toLowerCase().includes("nautilus") ||
-      product.name.toLowerCase().includes("submariner") ||
-      product.name.toLowerCase().includes("daytona");
 
     const isLeather =
       product.categoryId === "660000000000000000000003" ||
@@ -43,13 +33,19 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
       product.brand.toLowerCase().includes("hermès") ||
       product.brand.toLowerCase().includes("hermes");
 
+    const isFootwear =
+      product.categoryId === "660000000000000000000002" ||
+      product.name.toLowerCase().includes("sneaker") ||
+      product.name.toLowerCase().includes("loafer") ||
+      product.name.toLowerCase().includes("derby");
+
     // Primary image from product
     if (product.images[0]?.url) {
       list.push({
         url: product.images[0].url,
-        alt: `${product.name} primary face`,
-        label: isWatch ? "Front Dial & Bezel" : isLeather ? "Exterior Face & Handle" : "Primary Silhouette Cut",
-        detail: isWatch ? "Dial typography, hands & ceramic bezel alignment" : "Tannery finish & silhouette balance",
+        alt: `${product.name} primary view`,
+        label: isLeather ? "Exterior Face & Leather" : isFootwear ? "Lateral Silhouette" : "Primary Silhouette Cut",
+        detail: isLeather ? "Tannery finish & silhouette balance" : isFootwear ? "Sole welt & upper curvature" : "Fabric drape & atelier shoulder cut",
       });
     }
 
@@ -59,21 +55,19 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
         url: img.url,
         alt: img.alt || `${product.name} angle ${idx + 2}`,
         label: `Archival Angle ${idx + 2}`,
-        detail: "Direct vault inspection perspective",
+        detail: "Direct atelier inspection perspective",
       });
     });
 
     // If fewer than 4 images, add curated contextual museum inspection assets
     if (list.length < 2) {
       list.push({
-        url: isWatch
-          ? "/images/editorial_horology_vault.jpg"
-          : isLeather
-          ? "/images/editorial_atelier_1793509156811.jpg"
-          : "/images/editorial_collection_curation.jpg",
+        url: isLeather
+          ? "/images/editorial_collection_curation.jpg"
+          : "/images/editorial_atelier.jpg",
         alt: `${product.name} atelier inspection`,
-        label: isWatch ? "Movement & Calibre Inspection" : isLeather ? "Saddle Stitch & Edge Glazing" : "Fabric Grain & Sartorial Seams",
-        detail: isWatch ? "Calibre balance & isochronism bench inspection" : "Hand-waxed linen thread & edge finish",
+        label: isLeather ? "Saddle Stitch & Edge Glazing" : isFootwear ? "Welt Stitching & Leather Insole" : "Fabric Weave & Sartorial Seams",
+        detail: isLeather ? "Hand-waxed linen thread & edge finish" : isFootwear ? "Reinforced stitch lines & brand markings" : "Weave density & hand-finished edges",
       });
     }
 
@@ -81,16 +75,16 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
       list.push({
         url: "/images/editorial_collection_curation.jpg",
         alt: `${product.name} presentation packaging`,
-        label: "Box, Papers & Archive Guarantee",
-        detail: "Original presentation case, serial extract & microchip card",
+        label: "Dust Bag, Tags & Provenance",
+        detail: "Original presentation case, serial card & dust covers",
       });
     }
 
     if (list.length < 4) {
       list.push({
         url: "/images/editorial_white_glove_courier.jpg",
-        alt: `${product.name} bonded courier custody`,
-        label: "Vault Packaging & Courier Seal",
+        alt: `${product.name} priority courier custody`,
+        label: "Atelier Packaging & Courier Seal",
         detail: "Tamper-evident serialized security containment",
       });
     }

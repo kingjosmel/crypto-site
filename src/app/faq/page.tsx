@@ -16,15 +16,15 @@ export default function FaqPage() {
         },
         {
           heading: "How does cryptocurrency checkout work?",
-          body: "When you proceed to checkout, our platform calculates the exact equivalent in BTC, ETH, or SOL and displays a dedicated multi-sig vault receiving address. Your transfer is detected via mempool listeners and verified on-chain, triggering immediate armored courier dispatch."
+          body: "When you proceed to checkout, our platform calculates the exact equivalent in BTC, ETH, or SOL and displays a dedicated multi-sig vault receiving address. Your transfer is detected via mempool listeners and verified on-chain, triggering immediate priority courier dispatch."
         },
         {
           heading: "Can I purchase as a guest without creating an account?",
-          body: "Yes. Guest checkout requires only your email address for live order dispatch, certificate of authenticity, and armored courier tracking coordinates. No passwords or account registration are necessary."
+          body: "Yes. Guest checkout requires only your email address for live order dispatch, certificate of authenticity, and priority courier tracking coordinates. No passwords or account registration are necessary."
         },
         {
           heading: "What networks and confirmation counts are required?",
-          body: "Bitcoin transactions settle on the Bitcoin Mainnet (Native SegWit, 2 confirmations). Ethereum transactions settle on Ethereum Mainnet (12 confirmations). Solana transactions settle on Solana Mainnet (32 confirmations, ~15 seconds) before release to our white-glove fulfillment vault."
+          body: "Bitcoin transactions settle on the Bitcoin Mainnet (Native SegWit, 2 confirmations). Ethereum transactions settle on Ethereum Mainnet (12 confirmations). Solana transactions settle on Solana Mainnet (32 confirmations, ~15 seconds) before release to our priority fulfillment atelier."
         }
       ]}
     />

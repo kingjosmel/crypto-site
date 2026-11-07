@@ -167,7 +167,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               {/* Restrained Condition & Carrier Matrix Dossier */}
               {(() => {
                 const condInfo = conditionDetails(product.condition);
-                const shippingInfo = getShippingCarrierDetails(product.priceCents, product.categoryId);
+                const shippingInfo = getShippingCarrierDetails();
                 return (
                   <div className="bg-[#faf9f6] p-4 sm:p-5 border border-[#ece8e1] rounded-xs space-y-3 text-xs text-neutral-700">
                     <div className="flex items-start gap-2.5">

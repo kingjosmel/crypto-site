@@ -22,116 +22,111 @@ export function ConditionChecklist({ product, conditionLabelText }: ConditionChe
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"all" | "mechanical" | "authenticity">("all");
 
-  const isWatch =
-    product.categoryId === "660000000000000000000004" ||
-    product.brand.toLowerCase().includes("rolex") ||
-    product.brand.toLowerCase().includes("patek") ||
-    product.brand.toLowerCase().includes("audemars") ||
-    product.brand.toLowerCase().includes("richard") ||
-    product.name.toLowerCase().includes("royal oak") ||
-    product.name.toLowerCase().includes("nautilus") ||
-    product.name.toLowerCase().includes("submariner") ||
-    product.name.toLowerCase().includes("daytona");
-
   const isLeather =
     product.categoryId === "660000000000000000000003" ||
     product.brand.toLowerCase().includes("goyard") ||
     product.brand.toLowerCase().includes("hermès") ||
     product.brand.toLowerCase().includes("hermes");
 
+  const isFootwear =
+    product.categoryId === "660000000000000000000002" ||
+    product.name.toLowerCase().includes("sneaker") ||
+    product.name.toLowerCase().includes("loafer") ||
+    product.name.toLowerCase().includes("derby");
+
   // 10-point inspection criteria tailored to the piece
   const checklist: InspectionPoint[] = useMemo(() => {
-    if (isWatch) {
+    if (isFootwear) {
       return [
         {
           step: 1,
-          title: "Calibre Rate & Isochronism",
-          category: "Mechanical",
-          standard: "COSC & Geneva Seal criteria (+1 to +3 sec/day across 5 positions)",
-          result: "+1.8 sec/day average · 298° amplitude · 0.1ms beat error",
+          title: "Upper Leather & Canvas Integrity",
+          category: "Preservation",
+          standard: "Full-grain calfskin, suede, or coated canvas with zero creasing or scuffs",
+          result: "Pristine factory leather finish · Zero surface abrasions",
           status: "EXCEPTIONAL",
-          notes: "Calibre balance wheel and escapement oscillating with factory equilibrium under multi-axis timegrapher testing.",
+          notes: "Upper inspected under directional light; grain patterns exhibit pristine uniform texture.",
         },
         {
           step: 2,
-          title: "Case Bevels & Geometry Integrity",
+          title: "Sole Welt Stitching & Bond Strength",
           category: "Geometry",
-          standard: "Unpolished / original factory satin brushing and mirror bevels",
-          result: "Razor-sharp chamfers intact · Zero aftermarket re-profiling",
+          standard: "Goodyear or blake-stitched welt or vulcanized cupsole with zero adhesive bleed",
+          result: "Clean perimeter welt stitching · Strict 8 stitches per inch",
           status: "PASSED",
-          notes: "Inspected under 10x binocular loupe. Case lines adhere to original manufacture blueprints.",
+          notes: "Tension uniform along toe box and heel counter with zero adhesive delamination.",
         },
         {
           step: 3,
-          title: "Dial & Hands Authenticity",
+          title: "Insole Branding & Size Stamping",
           category: "Authenticity",
-          standard: "Period-correct printing, typography font weight, handset consistency",
-          result: "Flawless dial typography · Zero paint blistering or oxidation",
+          standard: "Crisp heat-embossed or gold-foiled house insignia and European sizing stamp",
+          result: "Original foil insignia intact · Clear size matrix engraving",
           status: "PASSED",
-          notes: "Original indices and hands exhibit clean factory finish with correct microscopic serif detailing.",
+          notes: "Insole typography matches brand archival matrices down to typeface weight.",
         },
         {
           step: 4,
-          title: "Luminescent Uniformity & UV Response",
-          category: "Authenticity",
-          standard: "Even fluorescence glow and zero non-factory reluming",
-          result: "Uniform Chromalight / Super-LumiNova luminescence response",
-          status: "PASSED",
-          notes: "Tested under 365nm ultraviolet lamp. Zero uneven degradation or spurious compound patches.",
+          title: "Outsole Tread & Edge Geometry",
+          category: "Geometry",
+          standard: "100% unworn outsole tread patterns and crisp edge bevels",
+          result: "Zero ground contact markings · Factory mold seam lines intact",
+          status: "EXCEPTIONAL",
+          notes: "Outsole compound flexible with zero oxidation or hardening.",
         },
         {
           step: 5,
-          title: "Crown, Pushers & Pressure Sealing",
+          title: "Eyelets, Hardware & Lace System",
           category: "Mechanical",
-          standard: "Vacuum & hydro-pressure tested to manufacturer rated depth",
-          result: "100% Hermetic seal verified at rated depth specification",
+          standard: "Palladium or enamelled eyelets with original waxed cotton or tubular laces",
+          result: "Smooth eyelet seating · Authentic factory lace weave",
           status: "PASSED",
-          notes: "Dual synthetic rubber gaskets lubricated with silicon grease; screw-down crown threads engage smoothly.",
+          notes: "Hardware firmly seated with zero loose rivets or oxidization.",
         },
         {
           step: 6,
-          title: "Sapphire Crystal & Cyclops Alignment",
+          title: "Heel Counter Stability & Collar Cushioning",
           category: "Geometry",
-          standard: "Zero chip, scratch, or anti-reflective coating deterioration",
-          result: "Crystal scratch-free · Laser etched coronet/seal aligned",
+          standard: "Rigid internal thermoplastic heel counter with supple padded collar",
+          result: "Heel structure symmetrical · Zero collapse or deformation",
           status: "PASSED",
-          notes: "Surface topography verified flawless under polarized oblique light analysis.",
+          notes: "Left and right heel counters calibrated within 1mm dimensional tolerance.",
         },
         {
           step: 7,
-          title: "Bracelet Stretch & Reference Hallmarks",
-          category: "Geometry",
-          standard: "Solid link tolerance, spring bar integrity, correct clasp code",
-          result: "Zero lateral link deflection · Factory clasp code verified",
-          status: "EXCEPTIONAL",
-          notes: "Spring bars renewed with authentic Swiss components. Glidelock / EasyLink mechanisms operate crisply.",
+          title: "Interior Leather Lining & Footbed",
+          category: "Preservation",
+          standard: "Supple kidskin or calfskin interior with anatomical arch support",
+          result: "Pristine interior · Zero heel friction or dye transfer",
+          status: "PASSED",
+          notes: "Lining leather supple and conditioned with pH-neutral leather balm.",
         },
         {
           step: 8,
-          title: "Hallmarks & Metal Purity Assay",
-          category: "Authenticity",
-          standard: "Deep Saint Bernard Swiss assay stamps and precious metal hallmarks",
-          result: "Clear metallurgical laser stamps · Verified gold/steel alloy",
+          title: "Sanitization & Storage Climate",
+          category: "Preservation",
+          standard: "Ozone sanitized and cedar conditioned prior to vault cataloging",
+          result: "Neutral storage aroma · Zero chemical dry-cleaner odor",
           status: "PASSED",
-          notes: "Hallmarks deep and crisp on lug undersides and clasp body with zero buffing attenuation.",
+          notes: "Stored in temperature and humidity controlled studio archive.",
         },
         {
           step: 9,
-          title: "Serial Number Ledger & Stolen Registry Check",
-          category: "Preservation",
-          standard: "Clean global registry status against The Watch Register & Art Loss",
-          result: "Certificate #TWR-2026-8819 cleared with zero flags",
-          status: "PASSED",
-          notes: "Cross-referenced against international lost & stolen watch databases and manufacturer production registers.",
+          title: "Original Presentation Box & Dust Sleeves",
+          category: "Authenticity",
+          standard: "Original branded presentation drawer/box with dual flannel dust sleeves",
+          result: "Complete original packaging set verified intact",
+          status: "EXCEPTIONAL",
+          notes: "Includes original serial barcode sticker matching shoe tongue label.",
         },
         {
           step: 10,
-          title: "Tamper-Evident Bag & Microchip Seal",
+          title: "Tamper-Evident Security Containment",
           category: "Custody",
-          standard: "Bonded armored packaging with serialized NFC security tag",
-          result: "Serialized bag ID: NS-VAULT-2026-CH · Double RFID seal",
+          standard: "Serialized courier security box with tamper-evident seal",
+          result: "Custody Seal ID: NS-FOOTWEAR-2026-CH",
           status: "EXCEPTIONAL",
-          notes: "Piece enclosed in inert micro-climate containment capsule ready for Ferrari Group / Malca-Amit dispatch.",
+          notes: "Double-boxed for courier dispatch with shock-absorbent cushioning.",
         },
       ];
     } else if (isLeather) {
@@ -321,7 +316,7 @@ export function ConditionChecklist({ product, conditionLabelText }: ConditionChe
         },
       ];
     }
-  }, [isWatch, isLeather]);
+  }, [isFootwear, isLeather]);
 
   const filtered = useMemo(() => {
     if (activeTab === "mechanical") return checklist.filter((p) => p.category === "Mechanical" || p.category === "Geometry");
@@ -437,7 +432,7 @@ export function ConditionChecklist({ product, conditionLabelText }: ConditionChe
                   activeTab === "mechanical" ? "border-neutral-950 text-neutral-950 font-bold" : "border-transparent text-neutral-400 hover:text-neutral-900"
                 }`}
               >
-                {isWatch ? "Movement & Geometry" : "Structure & Stitching"}
+                {isFootwear ? "Welt & Geometry" : isLeather ? "Leather & Hardware" : "Structure & Stitching"}
               </button>
               <button
                 type="button"

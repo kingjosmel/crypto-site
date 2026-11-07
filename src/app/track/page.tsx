@@ -139,7 +139,7 @@ export default function TrackPage() {
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 bg-[#10b981]/10 border border-[#10b981]/30 px-3 py-1 rounded-full text-xs text-[#047857] font-semibold mb-3 uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
-              Direct Armored Courier Telemetry
+              Direct Priority Courier Telemetry
             </div>
             <h1 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal tracking-tight mb-2">Track Your Order</h1>
             <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-xl">
@@ -254,11 +254,11 @@ export default function TrackPage() {
               </div>
               <div className="bg-white border border-[#ece8e1] p-3.5 sm:p-4 rounded-xs">
                 <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1">Courier & Service</span>
-                <strong className="text-xs sm:text-sm text-neutral-950 block truncate">{activeOrder.carrier || "Armored White-Glove"}</strong>
+                <strong className="text-xs sm:text-sm text-neutral-950 block truncate">{activeOrder.carrier || "FedEx Priority Express"}</strong>
               </div>
               <div className="bg-white border border-[#ece8e1] p-3.5 sm:p-4 rounded-xs">
                 <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block mb-1">Estimated Handover</span>
-                <strong className="text-xs sm:text-sm text-[#047857] block truncate">{activeOrder.estimatedDelivery || "2-3 Business Days"}</strong>
+                <strong className="text-xs sm:text-sm text-[#047857] block truncate">{activeOrder.estimatedDelivery || "2 to 3 Business Days"}</strong>
               </div>
             </div>
 
@@ -320,18 +320,18 @@ export default function TrackPage() {
                 </div>
                 <div className="p-3 border border-[#10b981] bg-[#10b981]/5 rounded-xs">
                   <span className="text-[10px] text-[#047857] font-bold block mb-1">✓ COMPLETED</span>
-                  <strong className="text-xs block text-neutral-950">Vault Authentication</strong>
-                  <span className="text-[10px] text-neutral-500">Microchip & seal</span>
+                  <strong className="text-xs block text-neutral-950">Atelier Authentication</strong>
+                  <span className="text-[10px] text-neutral-500">RFID seal verified</span>
                 </div>
                 <div className="p-3 border border-neutral-950 bg-[#faf9f6] rounded-xs">
                   <span className="text-[10px] text-neutral-950 font-bold block mb-1">● ACTIVE</span>
-                  <strong className="text-xs block text-neutral-950">Armored Handover</strong>
-                  <span className="text-[10px] text-neutral-500">Serialized bag</span>
+                  <strong className="text-xs block text-neutral-950">Courier Handover</strong>
+                  <span className="text-[10px] text-neutral-500">Serialized container</span>
                 </div>
                 <div className="p-3 border border-[#ece8e1] bg-[#faf9f6] opacity-75 rounded-xs">
                   <span className="text-[10px] text-neutral-400 font-semibold block mb-1">○ NEXT</span>
-                  <strong className="text-xs block text-neutral-950">Armed Transit</strong>
-                  <span className="text-[10px] text-neutral-500">Secured route</span>
+                  <strong className="text-xs block text-neutral-950">Express Transit</strong>
+                  <span className="text-[10px] text-neutral-500">GPS scan milestones</span>
                 </div>
                 <div className="p-3 border border-[#ece8e1] bg-[#faf9f6] opacity-75 rounded-xs col-span-2 sm:col-span-1">
                   <span className="text-[10px] text-neutral-400 font-semibold block mb-1">○ FINAL</span>

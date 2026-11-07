@@ -77,16 +77,16 @@ export function Header() {
               Collection
               <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
             </Link>
-            <Link href="/category/luxury-watches" className="hover:text-black transition-colors relative py-2 group">
-              Watches
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
-            </Link>
-            <Link href="/shop?brand=Goyard" className="hover:text-black transition-colors relative py-2 group">
-              Goyard Trunks
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
-            </Link>
             <Link href="/category/designer-clothing" className="hover:text-black transition-colors relative py-2 group">
               Apparel
+              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
+            </Link>
+            <Link href="/category/bags-and-leather-goods" className="hover:text-black transition-colors relative py-2 group">
+              Bags &amp; Leather
+              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
+            </Link>
+            <Link href="/category/luxury-shoes-and-sneakers" className="hover:text-black transition-colors relative py-2 group">
+              Footwear
               <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
             </Link>
             <Link href="/about" className="hover:text-black transition-colors relative py-2 group">
@@ -110,7 +110,7 @@ export function Header() {
                   id="header-search-bar"
                   name="q"
                   type="search"
-                  placeholder="Search timepieces, bags…"
+                  placeholder="Search apparel, leather, footwear…"
                   className="bg-transparent border-none text-xs text-neutral-900 focus:outline-none w-36 lg:w-48 placeholder:text-neutral-400"
                 />
                 <button type="submit" aria-label="Search catalog" className="text-neutral-500 hover:text-black pl-1 cursor-pointer">
@@ -144,7 +144,7 @@ export function Header() {
               <input
                 name="q"
                 type="search"
-                placeholder="Search watches, trunks, cashmere…"
+                placeholder="Search jackets, totes, footwear…"
                 className="w-full bg-[#fbfaf8] border border-[#d6d2c8] px-3.5 py-2.5 text-sm rounded-xs focus:outline-none focus:border-black transition-colors"
               />
               <button
@@ -166,23 +166,7 @@ export function Header() {
                 className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
               >
                 <span>The Full Archive</span>
-                <span className="text-xs text-neutral-400 font-normal">13 Pieces →</span>
-              </Link>
-              <Link
-                href="/category/luxury-watches"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
-              >
-                <span>Haute Horlogerie</span>
-                <span className="text-xs text-neutral-400 font-normal">Patek, Rolex, AP →</span>
-              </Link>
-              <Link
-                href="/shop?brand=Goyard"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
-              >
-                <span>Maison Goyard</span>
-                <span className="text-xs text-neutral-400 font-normal">Trunks & Totes →</span>
+                <span className="text-xs text-neutral-400 font-normal">15 Pieces →</span>
               </Link>
               <Link
                 href="/category/designer-clothing"
@@ -190,15 +174,31 @@ export function Header() {
                 className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
               >
                 <span>Designer Apparel</span>
-                <span className="text-xs text-neutral-400 font-normal">Overcoats & Cashmere →</span>
+                <span className="text-xs text-neutral-400 font-normal">Dior, LV, Loro Piana →</span>
+              </Link>
+              <Link
+                href="/category/bags-and-leather-goods"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
+              >
+                <span>Bags &amp; Leather Goods</span>
+                <span className="text-xs text-neutral-400 font-normal">Goyard &amp; Louis Vuitton →</span>
+              </Link>
+              <Link
+                href="/category/luxury-shoes-and-sneakers"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
+              >
+                <span>Luxury Footwear</span>
+                <span className="text-xs text-neutral-400 font-normal">Sneakers &amp; Loafers →</span>
               </Link>
               <Link
                 href="/about"
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
               >
-                <span>The Atelier & Vault</span>
-                <span className="text-xs text-neutral-400 font-normal">Provenance →</span>
+                <span>The Atelier</span>
+                <span className="text-xs text-neutral-400 font-normal">Provenance &amp; Quality →</span>
               </Link>
               <Link
                 href="/track"
@@ -285,10 +285,10 @@ export function Footer() {
           <div>
             <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#d4af37]">Private Client Allocations</span>
             <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal mt-2 tracking-tight">
-              Access rare complications & private vault arrivals.
+              Access rare arrivals &amp; private archive releases.
             </h3>
             <p className="text-xs text-[#8c887f] mt-2 max-w-md leading-relaxed">
-              Curated previews of Patek Philippe, Goyard trunks, and limited artisan pieces directly to your inbox before general release.
+              Curated previews of Goyard leather, designer tailoring, and luxury footwear directly to your inbox before general release.
             </p>
           </div>
           <div>
@@ -301,11 +301,11 @@ export function Footer() {
           <div>
             <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">The Collections</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/category/luxury-watches" className="hover:text-white transition-colors">Haute Horlogerie</Link></li>
-              <li><Link href="/shop?brand=Goyard" className="hover:text-white transition-colors">Maison Goyard Trunks</Link></li>
-              <li><Link href="/shop?brand=Patek%20Philippe" className="hover:text-white transition-colors">Patek Philippe Vault</Link></li>
-              <li><Link href="/shop?brand=Rolex" className="hover:text-white transition-colors">Rolex Professional Timepieces</Link></li>
-              <li><Link href="/category/designer-clothing" className="hover:text-white transition-colors">Cashmere & Outerwear</Link></li>
+              <li><Link href="/category/designer-clothing" className="hover:text-white transition-colors">Designer Outerwear &amp; Tailoring</Link></li>
+              <li><Link href="/category/bags-and-leather-goods" className="hover:text-white transition-colors">Bags &amp; Leather Goods</Link></li>
+              <li><Link href="/category/luxury-shoes-and-sneakers" className="hover:text-white transition-colors">Luxury Footwear &amp; Sneakers</Link></li>
+              <li><Link href="/shop?brand=Goyard" className="hover:text-white transition-colors">Maison Goyard</Link></li>
+              <li><Link href="/shop?brand=Louis%20Vuitton" className="hover:text-white transition-colors">Louis Vuitton</Link></li>
               <li><Link href="/shop" className="hover:text-white transition-colors">Full Seasonal Archive</Link></li>
             </ul>
           </div>
@@ -314,8 +314,8 @@ export function Footer() {
             <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">Client Concierge</h4>
             <ul className="space-y-2.5">
               <li><Link href="/track" className="hover:text-white transition-colors font-medium text-white flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" /> Track Live Order</Link></li>
-              <li><Link href="/shipping" className="hover:text-white transition-colors">Carrier Assignment Matrix</Link></li>
-              <li><Link href="/warranty" className="hover:text-white transition-colors">Condition Standards &amp; Warranty</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors">Carrier Delivery Matrix</Link></li>
+              <li><Link href="/warranty" className="hover:text-white transition-colors">Condition Standards &amp; Assurance</Link></li>
               <li><Link href="/returns-refunds" className="hover:text-white transition-colors">Inspection &amp; Returns</Link></li>
               <li><Link href="/faq" className="hover:text-white transition-colors">Frequently Asked Questions</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Private Client Concierge</Link></li>
@@ -326,10 +326,10 @@ export function Footer() {
             <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">Corporate &amp; Atelier</h4>
             <ul className="space-y-2.5">
               <li><Link href="/about" className="hover:text-white transition-colors font-medium text-white">Corporate Governance &amp; Filings</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors">Geneva Horology Vault</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">Paris Leathercraft Atelier</Link></li>
               <li><Link href="/about" className="hover:text-white transition-colors">New York Client Salon</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors">Paris Leathercraft Hub</Link></li>
-              <li><Link href="/shipping" className="hover:text-white transition-colors">Armored Escort Protocol</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">Milan Fabric Archive</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors">Insured Priority Logistics</Link></li>
             </ul>
           </div>
 

@@ -44,7 +44,7 @@ export default async function Home() {
               </h1>
 
               <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-lg mb-8">
-                An archival sanctuary of certified Swiss horology, historic Maison Goyard trunks, and tailored garments, authenticated under strict museum standards and dispatched under bonded white-glove custody.
+                An archival collection of tailored garments, fine leather goods, and luxury footwear, authenticated under strict atelier standards and dispatched with direct insured priority custody.
               </p>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -69,7 +69,7 @@ export default async function Home() {
               <div className="relative aspect-4/3 w-full bg-[#edebe4] rounded-xs overflow-hidden border border-[#e2ded6] shadow-xl group">
                 <Image
                   src="/images/hero_luxury_editorial.jpg"
-                  alt="Editorial still life showcasing luxury Swiss watch, tailored garments, and fine leather goods"
+                  alt="Editorial still life showcasing designer fashion, luxury footwear, and fine leather goods"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 650px"
@@ -82,10 +82,10 @@ export default async function Home() {
                 <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 bg-white/95 backdrop-blur-md p-3 sm:p-4 rounded-xs border border-[#e0ddd5] shadow-lg flex items-center justify-between gap-2">
                   <div className="min-w-0">
                     <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.15em] text-[#a3702b] block truncate">
-                      Private Vault Selection
+                      Private Archive Selection
                     </span>
                     <span className="text-xs sm:text-sm font-semibold text-neutral-950 truncate block">
-                      Patek Philippe Nautilus &amp; Maison Goyard
+                      Maison Goyard Leather &amp; Dior Atelier Tailoring
                     </span>
                   </div>
                   <Link
@@ -122,68 +122,14 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: Watches */}
-            <Link
-              href="/category/luxury-watches"
-              className="group relative aspect-4/3 sm:aspect-3/4 rounded-xs overflow-hidden border border-[#e4e1d8] shadow-sm block"
-            >
-              <Image
-                src="/images/editorial_atelier.jpg"
-                alt="Haute Horlogerie Workshop"
-                fill
-                sizes="(max-width: 768px) 100vw, 400px"
-                quality={95}
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="text-[10px] uppercase font-mono tracking-widest text-[#d4af37] block mb-1">
-                  Geneva Repository
-                </span>
-                <h3 className="font-serif text-2xl font-normal tracking-tight">Haute Horlogerie</h3>
-                <p className="text-xs text-neutral-300 mt-1">Patek Philippe, Rolex Cosmograph, Audemars Piguet, Richard Mille</p>
-                <span className="inline-block mt-3 text-xs uppercase font-semibold tracking-wider text-white group-hover:translate-x-1 transition-transform">
-                  Explore Watches →
-                </span>
-              </div>
-            </Link>
-
-            {/* Card 2: Goyard & Trunks */}
-            <Link
-              href="/shop?brand=Goyard"
-              className="group relative aspect-4/3 sm:aspect-3/4 rounded-xs overflow-hidden border border-[#e4e1d8] shadow-sm block"
-            >
-              <Image
-                src="/images/editorial_collection_curation.jpg"
-                alt="Maison Goyard Leathercraft"
-                fill
-                sizes="(max-width: 768px) 100vw, 400px"
-                quality={95}
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="text-[10px] uppercase font-mono tracking-widest text-[#d4af37] block mb-1">
-                  Parisian Heritage
-                </span>
-                <h3 className="font-serif text-2xl font-normal tracking-tight">Maison Goyard</h3>
-                <p className="text-xs text-neutral-300 mt-1">Saint Louis PM, Saïgon Mini Trunk, Anjou Reversible Tote</p>
-                <span className="inline-block mt-3 text-xs uppercase font-semibold tracking-wider text-white group-hover:translate-x-1 transition-transform">
-                  Explore Goyard →
-                </span>
-              </div>
-            </Link>
-
-            {/* Card 3: Designer Outerwear */}
+            {/* Card 1: Designer Clothing */}
             <Link
               href="/category/designer-clothing"
               className="group relative aspect-4/3 sm:aspect-3/4 rounded-xs overflow-hidden border border-[#e4e1d8] shadow-sm block"
             >
               <Image
-                src="/images/editorial_white_glove_courier.jpg"
-                alt="Luxury Designer Apparel and Cashmere"
+                src="/images/editorial_atelier.jpg"
+                alt="Designer Outerwear and Tailoring"
                 fill
                 sizes="(max-width: 768px) 100vw, 400px"
                 quality={95}
@@ -195,10 +141,64 @@ export default async function Home() {
                 <span className="text-[10px] uppercase font-mono tracking-widest text-[#d4af37] block mb-1">
                   Milan &amp; Paris Runways
                 </span>
-                <h3 className="font-serif text-2xl font-normal tracking-tight">Artisanal Outerwear</h3>
-                <p className="text-xs text-neutral-300 mt-1">Loro Piana Cashmere, Dior Homme Tailoring, Saint Laurent Leather</p>
+                <h3 className="font-serif text-2xl font-normal tracking-tight">Designer Clothing</h3>
+                <p className="text-xs text-neutral-300 mt-1">Loro Piana Cashmere, Dior Homme, Louis Vuitton Blouson</p>
                 <span className="inline-block mt-3 text-xs uppercase font-semibold tracking-wider text-white group-hover:translate-x-1 transition-transform">
-                  Explore Apparel →
+                  Explore Clothing →
+                </span>
+              </div>
+            </Link>
+
+            {/* Card 2: Goyard & Leather Goods */}
+            <Link
+              href="/category/bags-and-leather-goods"
+              className="group relative aspect-4/3 sm:aspect-3/4 rounded-xs overflow-hidden border border-[#e4e1d8] shadow-sm block"
+            >
+              <Image
+                src="/images/editorial_collection_curation.jpg"
+                alt="Maison Goyard and Fine Leathercraft"
+                fill
+                sizes="(max-width: 768px) 100vw, 400px"
+                quality={95}
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <span className="text-[10px] uppercase font-mono tracking-widest text-[#d4af37] block mb-1">
+                  Parisian Heritage
+                </span>
+                <h3 className="font-serif text-2xl font-normal tracking-tight">Bags &amp; Leather Goods</h3>
+                <p className="text-xs text-neutral-300 mt-1">Goyard Saint Louis, Louis Vuitton Keepall, Cardholders &amp; Wallets</p>
+                <span className="inline-block mt-3 text-xs uppercase font-semibold tracking-wider text-white group-hover:translate-x-1 transition-transform">
+                  Explore Leather Goods →
+                </span>
+              </div>
+            </Link>
+
+            {/* Card 3: Footwear */}
+            <Link
+              href="/category/luxury-shoes-and-sneakers"
+              className="group relative aspect-4/3 sm:aspect-3/4 rounded-xs overflow-hidden border border-[#e4e1d8] shadow-sm block"
+            >
+              <Image
+                src="/images/editorial_white_glove_courier.jpg"
+                alt="Luxury Footwear and Sneakers"
+                fill
+                sizes="(max-width: 768px) 100vw, 400px"
+                quality={95}
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <span className="text-[10px] uppercase font-mono tracking-widest text-[#d4af37] block mb-1">
+                  Artisanal Craft
+                </span>
+                <h3 className="font-serif text-2xl font-normal tracking-tight">Luxury Footwear</h3>
+                <p className="text-xs text-neutral-300 mt-1">Louis Vuitton Trainer, Dior Derby Loafers, Gucci GG Supreme</p>
+                <span className="inline-block mt-3 text-xs uppercase font-semibold tracking-wider text-white group-hover:translate-x-1 transition-transform">
+                  Explore Footwear →
                 </span>
               </div>
             </Link>
@@ -251,7 +251,7 @@ export default async function Home() {
               Provenance, Technical Verification &amp; Custody
             </h2>
             <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
-              We communicate confidence through institutional rigor rather than marketing claims. Every acquisition follows our documented three-pillar protocol governing condition taxonomy, horological diagnostics, and bonded courier transport.
+              We communicate confidence through institutional rigor rather than marketing claims. Every acquisition follows our documented three-pillar protocol governing condition taxonomy, textile diagnostics, and insured express courier transport.
             </p>
           </div>
 
@@ -266,7 +266,7 @@ export default async function Home() {
                   Tri-Tier Condition Taxonomy
                 </h3>
                 <p className="text-xs text-neutral-600 leading-relaxed mb-4">
-                  Every catalog piece is strictly designated as <strong>Unworn / Complete Set</strong>, <strong>Pristine Pre-Owned (9.5/10)</strong>, or <strong>Certified Restored / Overhauled</strong>. Box, papers, and factory serial matching are documented in an individual provenance dossier.
+                  Every catalog piece is strictly designated as <strong>Unworn / Complete Set</strong>, <strong>Pristine Pre-Owned (9.5/10)</strong>, or <strong>Certified Restored / Studio Cleaned</strong>. Dust bags, authentic tags, and house serial matching are documented in an individual provenance dossier.
                 </p>
               </div>
               <Link
@@ -284,17 +284,17 @@ export default async function Home() {
                   Protocol Pillar II
                 </span>
                 <h3 className="font-serif text-xl text-neutral-950 font-normal mb-3">
-                  Chronometric &amp; Material Analysis
+                  Material &amp; Structural Analysis
                 </h3>
                 <p className="text-xs text-neutral-600 leading-relaxed mb-4">
-                  Timepieces undergo 48-hour 5-position testing on electronic Witschi chronocomparators to verify COSC rate tolerances (+/- 2 sec/day). Archival leather is authenticated via chevron screen alignment, hand-stitching tension, and microchip interrogation.
+                  Archival leather is authenticated via chevron screen alignment, hand-stitching tension, and RFID microchip interrogation. Outerwear garments undergo weave density analysis and hardware hallmark verification.
                 </p>
               </div>
               <Link
                 href="/about"
                 className="text-xs font-semibold text-neutral-900 underline hover:text-[#a3702b] pt-3 border-t border-[#f0eee9]"
               >
-                Geneva Laboratory Details →
+                Atelier Inspection Details →
               </Link>
             </div>
 
@@ -305,24 +305,24 @@ export default async function Home() {
                   Protocol Pillar III
                 </span>
                 <h3 className="font-serif text-xl text-neutral-950 font-normal mb-3">
-                  Transparent Carrier Routing
+                  Insured Priority Routing
                 </h3>
                 <p className="text-xs text-neutral-600 leading-relaxed mb-4">
-                  Pieces &gt; $10k USD travel via <strong>Ferrari Group or Malca-Amit</strong> armored vehicles with dual armed security escorts and biometric handoff. Ready-to-wear &lt; $10k USD ships via <strong>FedEx International Priority</strong> in tamper-evident unbranded packaging.
+                  All acquired pieces ship via <strong>FedEx International Priority or DHL Express</strong> in tamper-evident unbranded packaging with direct adult signature and full transit insurance coverage.
                 </p>
               </div>
               <Link
                 href="/shipping"
                 className="text-xs font-semibold text-neutral-900 underline hover:text-[#a3702b] pt-3 border-t border-[#f0eee9]"
               >
-                Carrier Assignment Matrix →
+                Carrier Delivery Matrix →
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. Independently Verifiable Client Evidence & Settlement Ledger */}
+      {/* 5. Client Perspectives & Private Acquisition Testimonials */}
       <ClientEvidenceSection />
 
       {/* 6. The Houses / Brand Roster */}

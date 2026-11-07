@@ -28,7 +28,7 @@ export default function AboutPage() {
         <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm my-8">
           <Image
             src="/images/editorial_atelier.jpg"
-            alt="Northstar Geneva Horology Vault and Client Reception Atelier"
+            alt="Northstar Archive Studio and Client Reception Atelier"
             fill
             sizes="(max-width: 1024px) 100vw, 1000px"
             quality={95}
@@ -85,13 +85,13 @@ export default function AboutPage() {
 
             <div>
               <span className="text-neutral-400 uppercase font-semibold text-[10px] tracking-wider block mb-1">
-                Executive &amp; Horological Stewardship
+                Executive &amp; Curatorial Stewardship
               </span>
               <p className="font-medium text-neutral-900">
                 Dr. Alexandre de Saint-Germain, Managing Director
               </p>
               <p className="text-neutral-500 mt-0.5">
-                Marc-Antoine Keller, Head of Horological Verification (Geneva Master Watchmaker)
+                Marc-Antoine Keller, Head of Material &amp; Archival Authentication
               </p>
             </div>
 
@@ -118,7 +118,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-[#faf9f6] border border-[#ece8e1] p-6 rounded-xs">
               <span className="text-[10px] uppercase font-bold tracking-[0.16em] text-[#a3702b] block mb-2">
-                Headquarters &amp; Horology Vault
+                Headquarters &amp; Archival Vault
               </span>
               <h3 className="font-serif text-lg text-neutral-950 font-normal mb-2">Genève, Suisse</h3>
               <p className="text-xs text-neutral-600 leading-relaxed font-mono">
@@ -127,7 +127,7 @@ export default function AboutPage() {
                 1204 Genève, Switzerland
               </p>
               <p className="text-xs text-neutral-500 mt-3 pt-3 border-t border-[#ece8e1]">
-                <strong>Facility:</strong> High-security climate vault &amp; Witschi chronometric testing laboratory. By appointment only.
+                <strong>Facility:</strong> High-security climate archive &amp; textile inspection studio. By appointment only.
               </p>
             </div>
 
@@ -142,7 +142,7 @@ export default function AboutPage() {
                 New York, NY 10022, USA
               </p>
               <p className="text-xs text-neutral-500 mt-3 pt-3 border-t border-[#ece8e1]">
-                <strong>Facility:</strong> Private client viewing rooms &amp; domestic armored dispatch coordination.
+                <strong>Facility:</strong> Private client viewing rooms &amp; domestic priority express dispatch coordination.
               </p>
             </div>
 
@@ -157,7 +157,7 @@ export default function AboutPage() {
                 75001 Paris, France
               </p>
               <p className="text-xs text-neutral-500 mt-3 pt-3 border-t border-[#ece8e1]">
-                <strong>Facility:</strong> Goyard &amp; historic runway trunk conservation, restoration, and European customs hub.
+                <strong>Facility:</strong> Goyard &amp; historic luxury leather conservation, restoration, and European customs hub.
               </p>
             </div>
           </div>

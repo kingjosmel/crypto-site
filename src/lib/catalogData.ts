@@ -29,8 +29,7 @@ export type Product = {
 export const INITIAL_CATEGORIES: Category[] = [
   { _id: "660000000000000000000001", name: "Designer Clothing", slug: "designer-clothing", description: "Luxury overcoats, cashmere knits, jackets, and considered wardrobe pieces." },
   { _id: "660000000000000000000002", name: "Luxury Shoes & Sneakers", slug: "luxury-shoes-sneakers", description: "Designer sneakers, formal shoes, loafers, and premium footwear." },
-  { _id: "660000000000000000000003", name: "Bags, Wallets & Accessories", slug: "belts-wallets-accessories", description: "Iconic bags, Goyard trunks & totes, wallets, and fine leather accessories." },
-  { _id: "660000000000000000000004", name: "Luxury Watches", slug: "luxury-watches", description: "Exceptional timepieces from Patek Philippe, Rolex, Audemars Piguet, and Richard Mille." }
+  { _id: "660000000000000000000003", name: "Bags, Wallets & Accessories", slug: "belts-wallets-accessories", description: "Iconic bags, Goyard totes, wallets, and fine leather accessories." }
 ];
 
 export const INITIAL_PRODUCTS: Product[] = [
@@ -233,72 +232,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     updatedAt: "2026-01-18T10:00:00.000Z"
   },
   {
-    _id: "660000000000000000000110",
-    name: "Submariner Date 41mm",
-    slug: "submariner-date",
-    brand: "Rolex",
-    categoryId: "660000000000000000000004",
-    priceCents: 1450000,
-    currency: "USD",
-    sku: "RLX-WA-010",
-    condition: "PRE_OWNED",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Northstar 2-Year Certified Pre-Owned Watchmaker Warranty",
-    returnPolicy: "7-day inspection period with tamper-proof security seal intact.",
-    description: "An iconic pre-owned Submariner Date in Oystersteel with a black Cerachrom bezel and automatic calibre 3235 movement.",
-    specs: [{ key: "Model Reference", value: "126610LN" }, { key: "Case Diameter", value: "41 mm" }, { key: "Material", value: "Oystersteel" }, { key: "Bezel", value: "Cerachrom ceramic" }, { key: "Water Resistance", value: "300 meters / 1,000 feet" }, { key: "Power Reserve", value: "Approx. 70 hours" }],
-    sizes: ["Adjustable Oysterlock bracelet with Glidelock"],
-    authenticity: "Full set with original Rolex presentation box, warranty card, and green chronometer hangtag.",
-    images: [{ url: "/images/product_rolex_submariner.jpg", alt: "Rolex Submariner Date 41mm", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Rolex Submariner context view", position: 1 }],
-    createdAt: "2026-01-19T10:00:00.000Z",
-    updatedAt: "2026-01-19T10:00:00.000Z"
-  },
-  {
-    _id: "660000000000000000000111",
-    name: "Royal Oak Selfwinding 41mm",
-    slug: "royal-oak-selfwinding",
-    brand: "Audemars Piguet",
-    categoryId: "660000000000000000000004",
-    priceCents: 2850000,
-    currency: "USD",
-    sku: "AP-WA-011",
-    condition: "REFURBISHED",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Northstar 2-Year Certified Master Horologist Overhaul Warranty",
-    returnPolicy: "7-day inspection period with tamper-proof security seal intact.",
-    description: "Certified Restored: Completely disassembled, ultrasonically cleaned, mechanically regulated, and satin-brushed to factory bevel lines by Le Brassus-trained master watchmakers. Calibre 4302 tested to COSC precision tolerances.",
-    specs: [{ key: "Model Reference", value: "15500ST.OO.1220ST.01" }, { key: "Case", value: "Stainless steel 41 mm" }, { key: "Dial", value: "Bleu nuit, nuage 50 Grande Tapisserie" }, { key: "Glass", value: "Glareproofed sapphire crystal & caseback" }, { key: "Thickness", value: "10.4 mm" }],
-    sizes: ["Integrated stainless steel bracelet with AP folding clasp"],
-    authenticity: "Includes Audemars Piguet green leather archive box, restoration dossier, and timing certificate.",
-    images: [{ url: "/images/product_ap_royal_oak.jpg", alt: "Audemars Piguet Royal Oak Selfwinding", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Royal Oak craftsmanship", position: 1 }],
-    createdAt: "2026-01-20T10:00:00.000Z",
-    updatedAt: "2026-01-20T10:00:00.000Z"
-  },
-  {
-    _id: "660000000000000000000112",
-    name: "RM 011 Chronograph Felipe Massa",
-    slug: "rm-011-chronograph",
-    brand: "Richard Mille",
-    categoryId: "660000000000000000000004",
-    priceCents: 6850000,
-    currency: "USD",
-    sku: "RMI-WA-012",
-    condition: "PRE_OWNED",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Northstar 2-Year High Complications Warranty",
-    returnPolicy: "Inspection upon white-glove courier delivery.",
-    description: "A remarkable flyback chronograph in grade 5 titanium with an annual calendar, 60-minute countdown timer, and skeletonized automatic rotor.",
-    specs: [{ key: "Model Reference", value: "RM011 Ti" }, { key: "Case Dimensions", value: "50 mm x 40 mm x 16.15 mm" }, { key: "Material", value: "Grade 5 Titanium" }, { key: "Movement", value: "Skeletonized RMAC1 automatic flyback chronograph" }, { key: "Strap", value: "Vented black rubber with titanium deployant" }],
-    sizes: ["Titanium double-folding buckle"],
-    authenticity: "Includes original Richard Mille winder box, certificate of authenticity, and service papers.",
-    images: [{ url: "/images/product_rm_chronograph.jpg", alt: "Richard Mille RM 011 Chronograph", position: 0 }],
-    createdAt: "2026-01-21T10:00:00.000Z",
-    updatedAt: "2026-01-21T10:00:00.000Z"
-  },
-  {
     _id: "660000000000000000000113",
     name: "Goyard Saint Louis PM Tote",
     slug: "goyard-saint-louis-pm-tote",
@@ -328,37 +261,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     createdAt: "2026-01-22T10:00:00.000Z",
     updatedAt: "2026-01-22T10:00:00.000Z"
-  },
-  {
-    _id: "660000000000000000000114",
-    name: "Goyard Saïgon Mini Structured Bag",
-    slug: "goyard-saigon-mini-structured-bag",
-    brand: "Goyard",
-    categoryId: "660000000000000000000003",
-    priceCents: 640000,
-    currency: "USD",
-    sku: "GOY-BG-014",
-    condition: "NEW",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Maison Goyard atelier craftsmanship warranty",
-    returnPolicy: "Complimentary white-glove inspection upon delivery.",
-    description: "A celebrated trunkmaker icon in miniature proportions. The Saïgon Mini features hand-carved solid beechwood top handle and battens, reinforced leather trunk corners, and hand-painted Goyardine chevron canvas with a detachable leather cross-body strap.",
-    specs: [
-      { key: "Handle & Battens", value: "Hand-carved French solid beechwood" },
-      { key: "Exterior", value: "Goyardine canvas & Clamecy cowhide leather" },
-      { key: "Hardware", value: "Palladium-finish trunk rivets and clasp" },
-      { key: "Dimensions", value: "20 cm x 15 cm x 9 cm" },
-      { key: "Strap", value: "Removable and adjustable leather cross-body strap" }
-    ],
-    sizes: ["Mini Structure"],
-    authenticity: "Complete with Goyard presentation box, dust cover, and provenance card.",
-    images: [
-      { url: "/images/product_goyard_saigon.jpg", alt: "Goyard Saigon Mini Structured Handbag with wooden handle", position: 0 },
-      { url: "/images/hero_luxury_editorial.jpg", alt: "Goyard trunk craftsmanship detail", position: 1 }
-    ],
-    createdAt: "2026-01-23T10:00:00.000Z",
-    updatedAt: "2026-01-23T10:00:00.000Z"
   },
   {
     _id: "660000000000000000000115",
@@ -391,37 +293,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     updatedAt: "2026-01-24T10:00:00.000Z"
   },
   {
-    _id: "660000000000000000000116",
-    name: "Birkin 25 Togo Noir Gold Hardware",
-    slug: "hermes-birkin-25-togo-noir",
-    brand: "Hermès",
-    categoryId: "660000000000000000000003",
-    priceCents: 2850000,
-    currency: "USD",
-    sku: "HER-BG-016",
-    condition: "NEW",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Hermès International Artisan Lifetime Guarantee",
-    returnPolicy: "White-glove courier inspection and verification prior to handover.",
-    description: "The Holy Grail of luxury leather goods: an Hermès Birkin 25 handcrafted in supple, scratch-resistant Veau Togo calfskin in deep Noir, accented with gleaming 18k yellow gold-plated hardware and signature saddle-stitching.",
-    specs: [
-      { key: "Leather", value: "Veau Togo (grained baby calfskin)" },
-      { key: "Hardware", value: "18k Gold-plated brass" },
-      { key: "Dimensions", value: "25 cm x 20 cm x 13 cm" },
-      { key: "Stitching", value: "Selle hand-stitching with wax linen thread" },
-      { key: "Accessories", value: "Clochette, lock, 2 keys, rain jacket, felt protector" }
-    ],
-    sizes: ["25 cm"],
-    authenticity: "Full set in iconic Hermès orange box, ribbon, rain kit, and receipt archive.",
-    images: [
-      { url: "/images/product_hermes_birkin.jpg", alt: "Hermes Birkin 25 in Noir Togo leather with gold hardware", position: 0 },
-      { url: "/images/hero_luxury_editorial.jpg", alt: "Hermes Birkin leather texture detail", position: 1 }
-    ],
-    createdAt: "2026-01-25T10:00:00.000Z",
-    updatedAt: "2026-01-25T10:00:00.000Z"
-  },
-  {
     _id: "660000000000000000000117",
     name: "Keepall Bandoulière 50 Eclipse",
     slug: "lv-keepall-bandouliere-50-eclipse",
@@ -450,130 +321,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     createdAt: "2026-01-26T10:00:00.000Z",
     updatedAt: "2026-01-26T10:00:00.000Z"
-  },
-  {
-    _id: "660000000000000000000118",
-    name: "Nautilus 5711/1R Rose Gold",
-    slug: "patek-philippe-nautilus-5711-1r",
-    brand: "Patek Philippe",
-    categoryId: "660000000000000000000004",
-    priceCents: 14800000,
-    currency: "USD",
-    sku: "PAT-WA-018",
-    condition: "PRE_OWNED",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Northstar 2-Year Certified High Horology Warranty",
-    returnPolicy: "Tamper-sealed 7-day inspection period with secure courier.",
-    description: "The summit of luxury sports horology. Forged in solid 18k rose gold with an iconic porthole-inspired octagonal bezel, warm brown gradated horizontally embossed dial, and manufacture self-winding calibre 324 S C with 21k gold central rotor.",
-    specs: [
-      { key: "Reference", value: "5711/1R-001" },
-      { key: "Case Diameter", value: "40 mm" },
-      { key: "Case Material", value: "18k Rose Gold" },
-      { key: "Dial", value: "Brown sunburst with gold applied hour markers" },
-      { key: "Movement", value: "Mechanical self-winding Calibre 324 S C" },
-      { key: "Water Resistance", value: "120 meters" }
-    ],
-    sizes: ["Solid 18k rose gold bracelet with Nautilus fold-over clasp"],
-    authenticity: "Complete set with Patek Philippe wooden presentation box, Certificate of Origin, and museum leather folio.",
-    images: [
-      { url: "/images/product_patek_nautilus.jpg", alt: "Patek Philippe Nautilus 5711/1R in 18k Rose Gold", position: 0 },
-      { url: "/images/hero_luxury_editorial.jpg", alt: "Patek Philippe horology craftsmanship", position: 1 }
-    ],
-    createdAt: "2026-01-27T10:00:00.000Z",
-    updatedAt: "2026-01-27T10:00:00.000Z"
-  },
-  {
-    _id: "660000000000000000000119",
-    name: "Cosmograph Daytona 126500LN 'Panda'",
-    slug: "rolex-cosmograph-daytona-126500ln",
-    brand: "Rolex",
-    categoryId: "660000000000000000000004",
-    priceCents: 3450000,
-    currency: "USD",
-    sku: "RLX-WA-019",
-    condition: "REFURBISHED",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Northstar 2-Year Certified Master Horologist Overhaul Warranty",
-    returnPolicy: "7-day inspection window with tamper-evident security seal.",
-    description: "Certified Restored: Factory-specification complete movement overhaul, ultrasonic cleaning, timing regulation (+1 sec/day on Witschi chronocomparator), and ultrasonic gasket replacement. 100% original Rolex components with 2-year mechanical guarantee.",
-    specs: [
-      { key: "Reference", value: "126500LN" },
-      { key: "Case Diameter", value: "40 mm" },
-      { key: "Material", value: "Oystersteel (904L)" },
-      { key: "Bezel", value: "Black Cerachrom ceramic with platinum engraved numerals" },
-      { key: "Movement", value: "Calibre 4131 Perpetual chronograph with Chronergy escapement" },
-      { key: "Power Reserve", value: "Approx. 72 hours" }
-    ],
-    sizes: ["Oysterlock safety clasp with Easylink 5 mm comfort extension"],
-    authenticity: "Full collector set with green Rolex box, warranty card dated 2024, booklets, and chronometer tag.",
-    images: [
-      { url: "/images/product_rolex_daytona.jpg", alt: "Rolex Cosmograph Daytona 126500LN Panda dial", position: 0 }
-    ],
-    createdAt: "2026-01-28T10:00:00.000Z",
-    updatedAt: "2026-01-28T10:00:00.000Z"
-  },
-  {
-    _id: "660000000000000000000120",
-    name: "Royal Oak 'Jumbo' Extra-Thin 16202ST",
-    slug: "royal-oak-jumbo-extra-thin-16202st",
-    brand: "Audemars Piguet",
-    categoryId: "660000000000000000000004",
-    priceCents: 7800000,
-    currency: "USD",
-    sku: "AP-WA-020",
-    condition: "PRE_OWNED",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Northstar 2-Year Certified Pre-Owned Watchmaker Warranty",
-    returnPolicy: "7-day inspection window with tamper-evident security seal.",
-    description: "The true heir to Gérald Genta's original 1972 icon. Measuring just 8.1mm in profile, this 50th Anniversary tribute features the mythical 'Bleu Nuit, Nuage 50' Petite Tapisserie guilloché dial and the newly developed manufacture calibre 7121 with 55-hour power reserve.",
-    specs: [
-      { key: "Reference", value: "16202ST.OO.1240ST.01" },
-      { key: "Case Diameter", value: "39 mm" },
-      { key: "Thickness", value: "8.1 mm ultra-thin profile" },
-      { key: "Dial", value: "Bleu Nuit, Nuage 50 Petite Tapisserie" },
-      { key: "Movement", value: "Manufacture Calibre 7121 selfwinding" },
-      { key: "Water Resistance", value: "50 meters" }
-    ],
-    sizes: ["Integrated stainless steel bracelet with AP folding clasp"],
-    authenticity: "Includes AP green leather archive box, warranty card, and manufacture archives extract.",
-    images: [
-      { url: "/images/product_ap_jumbo.jpg", alt: "Audemars Piguet Royal Oak Jumbo Extra-Thin 16202ST", position: 0 }
-    ],
-    createdAt: "2026-01-29T10:00:00.000Z",
-    updatedAt: "2026-01-29T10:00:00.000Z"
-  },
-  {
-    _id: "660000000000000000000121",
-    name: "RM 67-02 Automatic Extra Flat",
-    slug: "rm-67-02-automatic-extra-flat",
-    brand: "Richard Mille",
-    categoryId: "660000000000000000000004",
-    priceCents: 29500000,
-    currency: "USD",
-    sku: "RMI-WA-021",
-    condition: "PRE_OWNED",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Northstar 2-Year High Complications Warranty",
-    returnPolicy: "Personal hand delivery and white-glove inspection.",
-    description: "Weighing a mere 32 grams, the RM 67-02 is the lightest automatic wristwatch ever created by Richard Mille. The ergonomic case is machined from proprietary Carbon TPT and Quartz TPT, enclosing the skeletonized CRMA7 titanium movement with DLC bridges.",
-    specs: [
-      { key: "Reference", value: "RM 67-02" },
-      { key: "Dimensions", value: "38.70 mm x 47.52 mm x 7.75 mm" },
-      { key: "Case Materials", value: "Carbon TPT & Quartz TPT" },
-      { key: "Movement", value: "Skeletonized automatic calibre CRMA7 with platinum rotor" },
-      { key: "Total Weight", value: "32 grams including seamless comfort strap" }
-    ],
-    sizes: ["Seamless elastic comfort strap with titanium inserts"],
-    authenticity: "Complete with Richard Mille technical winder trunk, warranty certificate, and service passport.",
-    images: [
-      { url: "/images/product_rm_6702.jpg", alt: "Richard Mille RM 67-02 Extra Flat Automatic", position: 0 }
-    ],
-    createdAt: "2026-01-30T10:00:00.000Z",
-    updatedAt: "2026-01-30T10:00:00.000Z"
   },
   {
     _id: "660000000000000000000122",
@@ -663,36 +410,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     createdAt: "2026-02-02T10:00:00.000Z",
     updatedAt: "2026-02-02T10:00:00.000Z"
-  },
-  {
-    _id: "660000000000000000000125",
-    name: "Classic Motor Biker Leather Jacket",
-    slug: "saint-laurent-classic-motor-biker-leather-jacket",
-    brand: "Saint Laurent",
-    categoryId: "660000000000000000000001",
-    priceCents: 520000,
-    currency: "USD",
-    sku: "SLP-CL-025",
-    condition: "REFURBISHED",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Northstar Archival Leathercraft Preservation Guarantee",
-    returnPolicy: "Complimentary returns within 14 days in pristine unworn condition.",
-    description: "Certified Restored: Archival runway reference carefully conditioned by Parisian leather specialists using neutral organic waxes, with all original silver-tone zippers ultrasonically serviced and lubricated.",
-    specs: [
-      { key: "Leather", value: "100% Grained Italian Lambskin" },
-      { key: "Hardware", value: "Heavy-gauge nickel-finish zips, snaps and buckle" },
-      { key: "Lining", value: "100% Black cupro silk" },
-      { key: "Pockets", value: "3 diagonal zip pockets, 1 snap flap coin pocket" },
-      { key: "Origin", value: "Handcrafted in Italy" }
-    ],
-    sizes: ["46", "48", "50", "52", "54"],
-    authenticity: "Complete with Saint Laurent Paris branded hangar and garment protective sleeve.",
-    images: [
-      { url: "/images/product_saint_laurent_leather.jpg", alt: "Saint Laurent Classic Motor Biker Leather Jacket", position: 0 }
-    ],
-    createdAt: "2026-02-03T10:00:00.000Z",
-    updatedAt: "2026-02-03T10:00:00.000Z"
   }
 ];
 
@@ -851,7 +568,7 @@ class Store {
   users: UserRecord[] = [...INITIAL_USERS];
   suppliers = [
     { _id: "660000000000000000000301", name: "Milano Prestige Consignments", contact: "contact@milanoprestige.it", status: "ACTIVE" },
-    { _id: "660000000000000000000302", name: "Geneva Vault Timepieces", contact: "vault@genevatime.ch", status: "ACTIVE" }
+    { _id: "660000000000000000000302", name: "Paris Leathercraft Atelier", contact: "atelier@parisleather.fr", status: "ACTIVE" }
   ];
   auditLogs = [
     { _id: "660000000000000000000401", action: "INITIALIZE_CATALOG", entity: "System", entityId: "SYS-01", createdAt: new Date().toISOString() }

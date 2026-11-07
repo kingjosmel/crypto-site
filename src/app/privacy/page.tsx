@@ -21,15 +21,15 @@ export default function PrivacyPage() {
         },
         {
           heading: "2. Scope of Client Data Collected",
-          body: "We collect only data necessary to fulfill high-value luxury acquisitions: contact information (name, encrypted email address, destination telephone number), physical delivery address for armored courier dispatch, and cryptographic wallet public addresses / transaction hashes for on-chain settlement verification. We never store private keys, seed phrases, or sensitive wallet secrets."
+          body: "We collect only data necessary to fulfill high-value luxury acquisitions: contact information (name, encrypted email address, destination telephone number), physical delivery address for secured courier dispatch, and cryptographic wallet public addresses / transaction hashes for on-chain settlement verification. We never store private keys, seed phrases, or sensitive wallet secrets."
         },
         {
           heading: "3. Discretion & Third-Party Disclosure Policy",
-          body: "Client identity and purchase histories are held under strict confidential protocols. We never sell, monetize, or license client data. Disclosures are strictly limited to verified fulfillment partners (Ferrari Group, Malca-Amit, or FedEx International Priority solely for delivery execution) and legal compliance authorities when mandated by Swiss federal statute."
+          body: "Client identity and purchase histories are held under strict confidential protocols. We never sell, monetize, or license client data. Disclosures are strictly limited to verified fulfillment partners (FedEx International Priority or DHL Express solely for delivery execution) and legal compliance authorities when mandated by Swiss federal statute."
         },
         {
-          heading: "4. Armored Transit & Identity Verification Data",
-          body: "Photographic identification presented to armored couriers upon physical handoff is verified on-device in real-time to prevent parcel diversion. Couriers do not store copies of your identity documents on unencrypted mobile devices."
+          heading: "4. Secured Transit & Identity Verification Data",
+          body: "Photographic identification presented to couriers upon physical handoff is verified on-device in real-time to prevent parcel diversion. Couriers do not store copies of your identity documents on unencrypted mobile devices."
         },
         {
           heading: "5. Client Rights & Data Erasure",

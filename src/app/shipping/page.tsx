@@ -3,8 +3,8 @@ import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
 
 export const metadata = {
-  title: "Secured Shipping & Armored Courier Logistics | Northstar / Supply",
-  description: "Comprehensive carrier matrix detailing Malca-Amit, Ferrari Group, and FedEx International Priority logistics protocols.",
+  title: "Secured Shipping & Courier Logistics | Northstar / Supply",
+  description: "Comprehensive logistics matrix detailing FedEx International Priority and DHL Express delivery protocols.",
 };
 
 export default function ShippingPage() {
@@ -14,13 +14,13 @@ export default function ShippingPage() {
         {/* Header Breadcrumb */}
         <div className="mb-4">
           <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
-            Logistics & Vault Fulfillment
+            Logistics & Atelier Fulfillment
           </span>
           <h1 className="font-serif text-3xl sm:text-5xl text-neutral-950 font-normal tracking-tight mb-4">
             Secured Shipping & Courier Matrix
           </h1>
           <p className="text-sm sm:text-base text-neutral-600 max-w-2xl leading-relaxed">
-            Every piece acquired through Northstar is cataloged, inspected, and dispatched under strict chain-of-custody protocols. Below is our transparent carrier assignment matrix specifying how orders are routed based on declared value and discipline.
+            Every piece acquired through Northstar is cataloged, inspected, and dispatched under strict chain-of-custody protocols. Below is our transparent carrier assignment matrix specifying how orders are routed.
           </p>
         </div>
 
@@ -28,7 +28,7 @@ export default function ShippingPage() {
         <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm my-8">
           <Image
             src="/images/editorial_white_glove_courier.jpg"
-            alt="Armored white glove courier presentation and serialized transit packaging"
+            alt="Discreet priority courier presentation and serialized transit packaging"
             fill
             sizes="(max-width: 1024px) 100vw, 1000px"
             quality={95}
@@ -58,25 +58,8 @@ export default function ShippingPage() {
                 <tbody className="divide-y divide-[#ece8e1] text-neutral-700">
                   <tr className="hover:bg-[#faf9f6] transition-colors">
                     <td className="p-4 sm:p-5">
-                      <strong className="text-neutral-950 block text-sm font-serif">Haute Horlogerie & Rare Trunks</strong>
-                      <span className="text-[11px] text-neutral-500 font-mono">Declared Value &gt; $10,000 USD</span>
-                    </td>
-                    <td className="p-4 sm:p-5">
-                      <span className="font-semibold text-neutral-950 block">Ferrari Group &amp; Malca-Amit</span>
-                      <span className="text-[11px] text-neutral-500">Dedicated Armored Transport</span>
-                    </td>
-                    <td className="p-4 sm:p-5 font-mono">
-                      1 to 3 Business Days
-                    </td>
-                    <td className="p-4 sm:p-5 text-[11px] leading-relaxed">
-                      Dual armed escorts, armored Mercedes/Sprinter vehicles, direct bonded vault-to-door handoff with zero hub sorting, biometric photo ID check, 100% full declared-value cargo syndicate insurance.
-                    </td>
-                  </tr>
-
-                  <tr className="hover:bg-[#faf9f6] transition-colors">
-                    <td className="p-4 sm:p-5">
-                      <strong className="text-neutral-950 block text-sm font-serif">Designer Outerwear, Footwear &amp; Accessories</strong>
-                      <span className="text-[11px] text-neutral-500 font-mono">Declared Value &le; $10,000 USD</span>
+                      <strong className="text-neutral-950 block text-sm font-serif">Archival Designer Outerwear &amp; Tailoring</strong>
+                      <span className="text-[11px] text-neutral-500 font-mono">Dior, Louis Vuitton, Loro Piana</span>
                     </td>
                     <td className="p-4 sm:p-5">
                       <span className="font-semibold text-neutral-950 block">FedEx International Priority</span>
@@ -87,6 +70,23 @@ export default function ShippingPage() {
                     </td>
                     <td className="p-4 sm:p-5 text-[11px] leading-relaxed">
                       Discreet unbranded tamper-evident container, real-time GPS telemetry checkpoints, direct adult signature required, full declared-value cargo insurance coverage included at no added cost.
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-[#faf9f6] transition-colors">
+                    <td className="p-4 sm:p-5">
+                      <strong className="text-neutral-950 block text-sm font-serif">Maison Goyard Leather Goods &amp; Footwear</strong>
+                      <span className="text-[11px] text-neutral-500 font-mono">Totes, Bags, Wallets &amp; Sneakers</span>
+                    </td>
+                    <td className="p-4 sm:p-5">
+                      <span className="font-semibold text-neutral-950 block">DHL Express Worldwide</span>
+                      <span className="text-[11px] text-neutral-500">Secured Air Cargo Priority</span>
+                    </td>
+                    <td className="p-4 sm:p-5 font-mono">
+                      2 to 3 Business Days
+                    </td>
+                    <td className="p-4 sm:p-5 text-[11px] leading-relaxed">
+                      Heavy-duty protective archive packaging, serialized barcode seals, direct photo-verified adult signature, zero unattended drop-off.
                     </td>
                   </tr>
                 </tbody>
@@ -102,7 +102,7 @@ export default function ShippingPage() {
               Packaging & Discretion Protocol
             </h3>
             <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
-              To eliminate targeting during transit, all parcels are packaged in discreet, unbranded industrial outer containers with zero external mentions of luxury houses, timepieces, or gold bullion. Inside, pieces are secured within climate-sealed archival boxes with serialized tamper-evident tape and an encrypted RFID tag for identity verification.
+              To eliminate targeting during transit, all parcels are packaged in discreet, unbranded industrial outer containers with zero external mentions of luxury houses. Inside, pieces are secured within climate-sealed archival boxes with serialized tamper-evident tape and an encrypted RFID tag for identity verification.
             </p>
           </div>
 
@@ -143,9 +143,9 @@ export default function ShippingPage() {
         {/* Inquiries Footnote */}
         <div className="bg-[#faf9f6] border border-[#ece8e1] p-6 rounded-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h4 className="text-sm font-semibold text-neutral-900">Custom Logistics & Vault-to-Vault Handoff</h4>
+            <h4 className="text-sm font-semibold text-neutral-900">Custom Courier Inquiries & Questions</h4>
             <p className="text-xs text-neutral-500 mt-1">
-              Private clients acquiring multiple high-complication pieces may coordinate custom armored flights or private depository deliveries.
+              Have specific delivery instructions or need timed delivery coordination? Contact our private client desk.
             </p>
           </div>
           <Link

@@ -16,10 +16,10 @@ const serif = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL("https://northstarsupply.example"),
   title: {
-    default: "Northstar / Supply | Luxury Fashion, Designer Trunks & Haute Horlogerie",
+    default: "Northstar / Supply | Luxury Fashion, Designer Outerwear & Leather Goods",
     template: "%s | Northstar / Supply",
   },
-  description: "An edited collection of luxury fashion, designer accessories, premium footwear, and exceptional watches with crypto checkout.",
+  description: "An edited collection of luxury fashion, designer outerwear, Goyard leathercraft, and luxury footwear with crypto checkout.",
   alternates: { canonical: "/" },
 };
 

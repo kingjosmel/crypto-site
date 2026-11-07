@@ -11,17 +11,11 @@ import {
 export type { Category, Image, Product, Spec };
 
 export const LUXURY_BRANDS = [
-  "Rolex",
-  "Audemars Piguet",
-  "Patek Philippe",
-  "Richard Mille",
-  "Goyard",
-  "Hermès",
-  "Louis Vuitton",
-  "Gucci",
   "Dior",
-  "Loro Piana",
-  "Saint Laurent"
+  "Gucci",
+  "Louis Vuitton",
+  "Goyard",
+  "Loro Piana"
 ] as const;
 
 type ProductResponse = {
@@ -96,7 +90,7 @@ export function formatPrice(cents: number) {
 export function conditionLabel(condition: Product["condition"]) {
   if (condition === "NEW") return "Unworn / Complete Set";
   if (condition === "PRE_OWNED") return "Pristine Pre-Owned (9.5/10)";
-  if (condition === "REFURBISHED") return "Certified Restored / Overhauled";
+  if (condition === "REFURBISHED") return "Certified Restored / Studio Cleaned";
   return "Verified";
 }
 
@@ -111,21 +105,21 @@ export function conditionDetails(condition: Product["condition"]) {
   switch (condition) {
     case "NEW":
       return {
-        title: "Unworn / Box & Papers",
-        definition: "Brand new, factory-sealed or museum stored. Never worn outside of professional vault cataloging.",
-        provenance: "Includes original manufacture presentation box, certificate of origin / warranty card, and all original factory collateral."
+        title: "Unworn / Complete Presentation Set",
+        definition: "Brand new, garment-bag or dust-bag preserved. Never worn outside of professional studio cataloging.",
+        provenance: "Includes original house tags, dust covers, authenticity cards, and presentation packaging."
       };
     case "PRE_OWNED":
       return {
         title: "Pristine Pre-Owned (Collector Grade 9.5/10)",
-        definition: "Pre-owned reference preserved in extraordinary aesthetic and mechanical condition with no aftermarket modifications.",
-        provenance: "Verified by master watchmakers / archivists with complete serialized movement and canvas inspection dossier."
+        definition: "Archival piece preserved in remarkable structural and textile condition with no stains, pulls, or alterations.",
+        provenance: "Independently verified by luxury fabric and leather authenticators with full stitch and serial audit."
       };
     case "REFURBISHED":
       return {
-        title: "Certified Restored / Overhauled",
-        definition: "Archival piece completely disassembled, ultrasonically cleaned, mechanically regulated, and restored to factory operational tolerances.",
-        provenance: "Accompanied by Northstar 2-Year Mechanical Warranty and master horologist service documentation."
+        title: "Certified Restored / Studio Cleaned",
+        definition: "Archival garment or leather piece professionally cleaned, conditioned with pH-balanced balms, and inspected.",
+        provenance: "Accompanied by Northstar atelier inspection dossier and authenticity guarantee."
       };
     default:
       return {
@@ -137,30 +131,15 @@ export function conditionDetails(condition: Product["condition"]) {
 }
 
 /**
- * Transparent Carrier Matrix resolving Finding 3:
- * High-value timepieces & rare trunks (> $10k) use Ferrari Group / Malca-Amit armored transport.
- * Ready-to-wear apparel, footwear & accessories (< $10k) use FedEx International Priority (Direct Adult Signature).
+ * Priority Express Courier:
+ * Designer apparel, leather goods, and luxury footwear delivered via FedEx International Priority or DHL Express.
  */
-export function getShippingCarrierDetails(priceCents: number, categoryId?: string) {
-  const isHighValue = priceCents >= 1000000 || categoryId === "660000000000000000000004";
-  if (isHighValue) {
-    return {
-      tier: "High-Value Armored Transport",
-      carriers: "Ferrari Group / Malca-Amit Armored Logistics",
-      transitTime: "1-3 Business Days",
-      features: [
-        "Dedicated armored vehicle transport with dual armed escorts",
-        "Direct bonded vault-to-door handoff with zero hub sorting",
-        "Biometric photo ID and direct recipient signature required",
-        "100% full declared-value Lloyd's of London syndicated cargo coverage"
-      ]
-    };
-  }
-
+export function getShippingCarrierDetails(..._args: unknown[]) {
+  void _args;
   return {
     tier: "Secured Express Courier",
-    carriers: "FedEx International Priority",
-    transitTime: "2-3 Business Days",
+    carriers: "FedEx International Priority / DHL Express",
+    transitTime: "2 to 3 Business Days",
     features: [
       "Discreet, unbranded tamper-evident outer presentation container",
       "Direct adult signature required upon physical handoff",

@@ -14,17 +14,13 @@ const categoryImages: Record<string, { url: string; alt: string }> = {
     url: "/images/product_dior_overcoat.jpg",
     alt: "Designer luxury tailored coats, knitwear, and evening apparel",
   },
-  "luxury-shoes-sneakers": {
+  "luxury-shoes-and-sneakers": {
     url: "/images/product_lv_trainer.jpg",
     alt: "Luxury footwear, formal shoes, and designer sneakers",
   },
-  "belts-wallets-accessories": {
+  "bags-and-leather-goods": {
     url: "/images/product_goyard_saint_louis.jpg",
-    alt: "Designer Goyard totes, Birkin bags, luggage, and fine accessories",
-  },
-  "luxury-watches": {
-    url: "/images/product_patek_nautilus.jpg",
-    alt: "Exceptional Swiss timepieces, Patek Philippe, and haute horlogerie",
+    alt: "Designer Goyard totes, Louis Vuitton luggage, and fine leather goods",
   },
 };
 
