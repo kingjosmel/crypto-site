@@ -72,7 +72,7 @@ export function HomeFeaturedShowcase({
 
         {/* 4-Column Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredProducts.slice(0, 8).map((product) => (
+          {filteredProducts.slice(0, 12).map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>
