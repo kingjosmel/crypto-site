@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CartLink } from "./CartLink";
+import { CryptoTickerBar } from "./CryptoTickerBar";
 
 function FooterNewsletter() {
   const [email, setEmail] = useState("");
@@ -47,13 +48,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e9e6df] transition-all">
       {/* 1. Slim Luxury Announcement Bar */}
-      <div className="bg-[#0f0f0f] text-[#f5f4f0] text-xs py-2 px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium tracking-wide">
-          <span className="hidden sm:inline text-neutral-400">Guaranteed 24-Hour USA Delivery</span>
-          <span className="mx-auto sm:mx-0 tracking-wider uppercase font-semibold">
-            Complimentary 24-Hour Shipping Across All 50 States · Crypto Accepted (BTC · ETH · SOL)
+      <div className="bg-[#0f0f0f] text-[#f5f4f0] text-xs py-2 px-4 border-b border-neutral-800">
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium tracking-wide gap-4">
+          <span className="hidden xl:inline text-neutral-400">Guaranteed 24-Hour USA Delivery</span>
+          <span className="mx-auto xl:mx-0 tracking-wider uppercase font-semibold">
+            Complimentary 24-Hour Shipping Across All 50 States · Pure Crypto (BTC · ETH · SOL)
           </span>
-          <Link href="/track" className="hidden sm:inline text-neutral-400 hover:text-white transition-colors">
+          <CryptoTickerBar />
+          <Link href="/track" className="hidden sm:inline text-neutral-400 hover:text-white transition-colors shrink-0">
             Track Order →
           </Link>
         </div>
