@@ -9,7 +9,7 @@ import { getCategories, getProducts } from "@/lib/api";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "The Archive Collection | Northstar / Supply",
-  description: "Certified haute horlogerie, Maison Goyard trunks, and luxury designer apparel.",
+  description: "Authentic designer bags, luxury footwear, and premium Italian apparel with 24-hour USA delivery.",
 };
 
 async function loadShop(brand?: string, condition?: string) {
@@ -55,7 +55,7 @@ export default async function ShopPage({
               <p className="text-sm text-neutral-600 max-w-xl leading-relaxed">
                 {brand
                   ? `Authenticated archive acquisitions from ${brand}, including original provenance, dust covers, and factory paperwork.`
-                  : "Certified timepieces from Patek Philippe, Rolex, Audemars Piguet, and Richard Mille alongside rare Maison Goyard trunks and tailored Italian cashmere."}
+                  : "Authentic designer bags from Goyard, Prada, and Celine alongside luxury footwear from Louis Vuitton and tailored Italian garments."}
               </p>
               <div className="mt-4 flex items-center gap-3 text-xs text-neutral-500 font-mono">
                 <span>Showing {totalCount} {totalCount === 1 ? "Piece" : "Pieces"}</span>

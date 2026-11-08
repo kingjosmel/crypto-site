@@ -29,7 +29,7 @@ export type Product = {
 export const INITIAL_CATEGORIES: Category[] = [
   { _id: "660000000000000000000001", name: "Designer Clothing", slug: "designer-clothing", description: "Luxury overcoats, cashmere knits, jackets, and considered wardrobe pieces." },
   { _id: "660000000000000000000002", name: "Luxury Shoes & Sneakers", slug: "luxury-shoes-sneakers", description: "Designer sneakers, formal shoes, loafers, and premium footwear." },
-  { _id: "660000000000000000000003", name: "Bags, Wallets & Accessories", slug: "belts-wallets-accessories", description: "Iconic bags, Goyard totes, wallets, and fine leather accessories." }
+  { _id: "660000000000000000000003", name: "Bags & Accessories", slug: "belts-wallets-accessories", description: "Iconic designer bags, totes, wallets, and fine leather accessories." }
 ];
 
 export const INITIAL_PRODUCTS: Product[] = [
@@ -256,8 +256,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["PM (Petite Modèle)"],
     authenticity: "Includes official Goyard signature yellow dust cover, felt insert, and tags.",
     images: [
-      { url: "/images/product_goyard_saint_louis.jpg", alt: "Goyard Saint Louis PM Tote Bag in black and tan Goyardine canvas", position: 0 },
-      { url: "/images/hero_luxury_editorial.jpg", alt: "Goyard Saint Louis editorial presentation", position: 1 }
+      { url: "/images/product_goyard_saint_louis.jpg", alt: "Goyard Saint Louis PM Tote Bag in black and tan Goyardine canvas", position: 0 }
     ],
     createdAt: "2026-01-22T10:00:00.000Z",
     updatedAt: "2026-01-22T10:00:00.000Z"
@@ -336,7 +335,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stockStatus: "IN_STOCK",
     warranty: "Loro Piana artisanal knitwear guarantee",
     returnPolicy: "Complimentary returns within 14 days in unworn condition.",
-    description: "The definition of quiet luxury: hand-combed baby cashmere gathered exclusively from the underfleece of Capra hircus kids in northern China. Features an intricate 7-gauge cable twist pattern, ribbed cuffs, and unparalleled cloud-like softness.",
+    description: "Hand-combed baby cashmere gathered from the underfleece of Capra hircus kids in northern China. Features an intricate 7-gauge cable twist pattern, ribbed cuffs, and unparalleled cloud-like softness.",
     specs: [
       { key: "Material", value: "100% Baby Cashmere (13.5 micron fiber)" },
       { key: "Knit", value: "7-gauge textured cable-twist" },
@@ -365,7 +364,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stockStatus: "IN_STOCK",
     warranty: "Dior Couture tailoring craftsmanship warranty",
     returnPolicy: "Complimentary returns within 14 days with tags attached.",
-    description: "A statuesque double-breasted long overcoat tailored from heavy midnight navy virgin wool with subtle tonal Dior Oblique jacquard weave. Designed with broad peak lapels, horn buttons, full interior cupro lining, and a clean structural drape.",
+    description: "A double-breasted long overcoat tailored from heavy midnight navy virgin wool with subtle tonal Dior Oblique jacquard weave. Designed with broad peak lapels, horn buttons, full interior cupro lining, and a clean structural drape.",
     specs: [
       { key: "Fabric", value: "95% Virgin Wool, 5% Cashmere" },
       { key: "Lining", value: "100% Cupro silk-finish jacquard" },
@@ -395,7 +394,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     stockStatus: "IN_STOCK",
     warranty: "Gucci ready-to-wear warranty",
     returnPolicy: "Complimentary returns within 14 days in unworn condition.",
-    description: "A celebration of 1970s sport luxe. Knitted in technical cotton-wool jacquard with an all-over archival GG monogram pattern in rich camel and espresso, accented by ivory chevron arm stripes and dark ribbed trims.",
+    description: "Knitted in technical cotton-wool jacquard with an all-over archival GG monogram pattern in rich camel and espresso, accented by ivory chevron arm stripes and dark ribbed trims.",
     specs: [
       { key: "Fabric", value: "70% Cotton, 30% Wool jacquard knit" },
       { key: "Piping", value: "Ivory and brown sporty sleeve trim" },
@@ -410,6 +409,96 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     createdAt: "2026-02-02T10:00:00.000Z",
     updatedAt: "2026-02-02T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000131",
+    name: "Prada Re-Nylon & Saffiano Shoulder Bag",
+    slug: "prada-re-nylon-saffiano-shoulder-bag",
+    brand: "Prada",
+    categoryId: "660000000000000000000003",
+    priceCents: 195000,
+    currency: "USD",
+    sku: "PRA-BG-031",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Prada Milan luxury goods authenticity warranty",
+    returnPolicy: "Complimentary returns within 14 days in original packaging.",
+    description: "Crafted from innovative regenerated nylon yarn paired with refined Saffiano leather trim. Features an adjustable woven shoulder strap, detachable mini pouch, and the enameled metal triangle logo.",
+    specs: [
+      { key: "Material", value: "Regenerated Re-Nylon and cross-hatch Saffiano leather" },
+      { key: "Hardware", value: "Polished steel-finish metal hardware" },
+      { key: "Dimensions", value: "22 cm x 16 cm x 6.5 cm" },
+      { key: "Strap", value: "Detachable adjustable nylon tape shoulder strap with mini pouch" },
+      { key: "Origin", value: "Made in Italy" }
+    ],
+    sizes: ["One Size"],
+    authenticity: "Includes Prada authenticity certificate card, RFID chip, and dust pouch.",
+    images: [
+      { url: "/images/product_prada_renylon.jpg", alt: "Prada Re-Nylon and Saffiano Leather Shoulder Bag in Black", position: 0 }
+    ],
+    createdAt: "2026-02-09T10:00:00.000Z",
+    updatedAt: "2026-02-09T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000132",
+    name: "Celine Triomphe Medium Shoulder Bag",
+    slug: "celine-triomphe-medium-shoulder-bag",
+    brand: "Celine",
+    categoryId: "660000000000000000000003",
+    priceCents: 345000,
+    currency: "USD",
+    sku: "CEL-BG-032",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Celine Paris artisan warranty",
+    returnPolicy: "Complimentary returns within 14 days with security tag intact.",
+    description: "Sculpted in glossy smooth black calfskin with lambskin lining and the metallic Triomphe clasp in glowing gold finish. Includes three inner compartments and an adjustable leather shoulder strap.",
+    specs: [
+      { key: "Leather", value: "100% Smooth shiny calfskin" },
+      { key: "Lining", value: "100% Lambskin interior" },
+      { key: "Hardware", value: "Gold-tone brass Triomphe closure" },
+      { key: "Dimensions", value: "22.5 cm x 16.5 cm x 7 cm" },
+      { key: "Origin", value: "Crafted in Italy" }
+    ],
+    sizes: ["Medium"],
+    authenticity: "Includes Celine boutique gift box, silk dust cover, and serial documentation.",
+    images: [
+      { url: "/images/product_celine_triomphe.jpg", alt: "Celine Triomphe Medium Shoulder Bag in Shiny Calfskin", position: 0 }
+    ],
+    createdAt: "2026-02-10T10:00:00.000Z",
+    updatedAt: "2026-02-10T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000133",
+    name: "Bottega Veneta Padded Cassette Bag",
+    slug: "bottega-veneta-padded-cassette-bag",
+    brand: "Bottega Veneta",
+    categoryId: "660000000000000000000003",
+    priceCents: 380000,
+    currency: "USD",
+    sku: "BOT-BG-033",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Bottega Veneta Certificate of Craft lifetime guarantee",
+    returnPolicy: "Complimentary returns within 14 days in unused condition.",
+    description: "An iconic modern classic created in maxi orthogonal double-face Intreccio weave with padded paper calf leather. Features an interior zippered pocket and an adjustable crossbody strap with triangular buckle.",
+    specs: [
+      { key: "Leather", value: "100% Padded French calfskin" },
+      { key: "Weave", value: "Maxi Intreccio orthogonal padding" },
+      { key: "Hardware", value: "Silver-finish signature triangular buckle" },
+      { key: "Dimensions", value: "26 cm x 18 cm x 8 cm" },
+      { key: "Origin", value: "Handcrafted in Montebello Vicentino, Italy" }
+    ],
+    sizes: ["One Size"],
+    authenticity: "Includes Bottega Veneta Certificate of Craft card and green branded dust bag.",
+    images: [
+      { url: "/images/product_bottega_cassette.jpg", alt: "Bottega Veneta Padded Cassette Crossbody Bag in Black Calfskin", position: 0 }
+    ],
+    createdAt: "2026-02-11T10:00:00.000Z",
+    updatedAt: "2026-02-11T10:00:00.000Z"
   }
 ];
 
@@ -477,7 +566,7 @@ export const INITIAL_ORDERS: OrderRecord[] = [
     paymentMethod: "CRYPTO_BTC",
     cryptoCurrency: "BTC",
     cryptoAmount: "0.00839553",
-    escrowAddress: "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu",
+    escrowAddress: "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp",
     txHash: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
     items: [
       {
@@ -567,8 +656,8 @@ class Store {
   orders: OrderRecord[] = [...INITIAL_ORDERS];
   users: UserRecord[] = [...INITIAL_USERS];
   suppliers = [
-    { _id: "660000000000000000000301", name: "Milano Prestige Consignments", contact: "contact@milanoprestige.it", status: "ACTIVE" },
-    { _id: "660000000000000000000302", name: "Paris Leathercraft Atelier", contact: "atelier@parisleather.fr", status: "ACTIVE" }
+    { _id: "660000000000000000000301", name: "Milano Luxury Logistics", contact: "logistics@milanoprestige.it", status: "ACTIVE" },
+    { _id: "660000000000000000000302", name: "Paris Express Fulfillment", contact: "dispatch@parislogistics.fr", status: "ACTIVE" }
   ];
   auditLogs = [
     { _id: "660000000000000000000401", action: "INITIALIZE_CATALOG", entity: "System", entityId: "SYS-01", createdAt: new Date().toISOString() }
@@ -613,7 +702,6 @@ export function getLocalProduct(slug: string): Product | undefined {
 export function getLocalProducts(params?: {
   category?: string;
   brand?: string;
-  condition?: "NEW" | "REFURBISHED" | "PRE_OWNED";
   q?: string;
   sort?: "price_asc" | "price_desc" | "newest" | "name";
   limit?: number;
@@ -629,10 +717,6 @@ export function getLocalProducts(params?: {
   if (params?.brand) {
     const brandLower = params.brand.toLowerCase();
     list = list.filter((p) => p.brand.toLowerCase() === brandLower);
-  }
-
-  if (params?.condition) {
-    list = list.filter((p) => p.condition === params.condition);
   }
 
   if (params?.q) {
@@ -716,20 +800,8 @@ export function createOrderRecord(data: {
   const orderNumber = `NS-${String(globalStore.orderCounter++).padStart(8, "0")}`;
   const trackingNumber = `TRK-NS-${randomSuffix}-EXP`;
   const guestToken = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
-
-  const isHighValue =
-    quote.totalCents >= 1000000 ||
-    data.items.some((i) => {
-      const prod = globalStore.products.find((p) => p._id === i.productId);
-      return prod?.categoryId === "660000000000000000000004" || (prod?.priceCents ?? 0) >= 1000000;
-    });
-
-  const carrier = isHighValue
-    ? "Ferrari Group / Malca-Amit Armored Logistics (Dual-Escort High-Value Transit)"
-    : "FedEx International Priority (Insured Express & Direct Adult Signature)";
-  const estimatedDelivery = isHighValue
-    ? "1-3 Business Days (Dedicated Armored Vehicle & Vault Hand-Off)"
-    : "2-3 Business Days (Full Insured Priority Delivery)";
+  const carrier = "24-Hour US Private Armored Air Courier";
+  const estimatedDelivery = "Guaranteed Within 24 Hours Anywhere in USA";
 
   const currency: "BTC" | "ETH" | "SOL" = data.cryptoCurrency || (data.paymentMethod?.includes("ETH") ? "ETH" : data.paymentMethod?.includes("SOL") ? "SOL" : "BTC");
   
@@ -744,10 +816,10 @@ export function createOrderRecord(data: {
 
   const defaultEscrowAddress =
     currency === "BTC"
-      ? "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu"
+      ? "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp"
       : currency === "ETH"
-      ? "0x120D139dB706614f71e470A97852679F6FaebcB7"
-      : "X2ro74HaRbZ2XKDJ57yMmsKFD3CS4y9XFKtzSeQkCQ1";
+      ? "0x71C8A6924dF17FEd1aA328906322B69041b31526"
+      : "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin";
 
   const escrowAddress = data.escrowAddress || defaultEscrowAddress;
   const txHash = data.txHash || `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;

@@ -23,7 +23,7 @@ export function LegalPage({ title, intro, sections, heroImage }: LegalPageProps)
     <SiteShell>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16">
         <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
-          Northstar / Supply Atelier
+          Northstar
         </span>
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-neutral-950 font-normal tracking-tight mb-4">
           {title}

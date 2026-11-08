@@ -1,16 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CatalogError } from "@/components/CatalogStates";
-import { ProductGrid } from "@/components/ProductGrid";
+import { HomeFeaturedShowcase } from "@/components/HomeFeaturedShowcase";
 import { SiteShell } from "@/components/SiteShell";
-import { ClientEvidenceSection } from "@/components/ClientEvidenceSection";
 import { getCategories, getProducts, LUXURY_BRANDS } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
 
 async function loadHome() {
   try {
-    return await Promise.all([getProducts("limit=8&sort=newest"), getCategories()]);
+    return await Promise.all([getProducts("limit=100&sort=newest"), getCategories()]);
   } catch {
     return null;
   }
@@ -19,57 +18,67 @@ async function loadHome() {
 export default async function Home() {
   const result = await loadHome();
   if (!result) return <SiteShell><CatalogError /></SiteShell>;
-  const [{ items: products }] = result;
+  const [{ items: products }, { items: categories }] = result;
 
   return (
     <SiteShell>
-      {/* 1. Flagship Hero Campaign: Restrained Luxury & Confident Typography */}
+      {/* 1. Flagship Hero Editorial Campaign */}
       <section className="relative bg-[#f8f7f4] border-b border-[#ece8e1] overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Copy Column */}
             <div className="lg:col-span-6 flex flex-col justify-center">
-              <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b]">
-                  2026 Archive Edition
-                </span>
-                <span className="text-neutral-400">·</span>
-                <span className="text-[10px] sm:text-[11px] uppercase font-medium tracking-[0.1em] text-neutral-500">
-                  Geneva · New York · Paris
-                </span>
-              </div>
+              <span className="text-[11px] uppercase font-bold tracking-[0.25em] text-[#8c887e] block mb-3">
+                Curated Luxury Archive · 2026 Collection
+              </span>
 
-              <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-neutral-950 font-normal leading-[1.12] sm:leading-[1.08] tracking-[-0.03em] mb-4 sm:mb-6 text-balance">
-                The Architecture of Rare Provenance.
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-neutral-950 font-normal leading-[1.08] tracking-[-0.03em] mb-6">
+                Modern Luxury, Delivered in 24 Hours.
               </h1>
 
-              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-lg mb-8">
-                An archival collection of tailored garments, fine leather goods, and luxury footwear, authenticated under strict atelier standards and dispatched with direct insured priority custody.
+              <p className="text-base text-neutral-600 leading-relaxed max-w-lg mb-8">
+                An edited collection of authentic Goyard bags, Prada accessories, Celine leather goods, and fine Italian garments. Guaranteed 24-hour delivery anywhere in the USA with instant crypto checkout.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <div className="flex flex-wrap items-center gap-4 mb-10">
                 <Link
                   href="/shop"
-                  className="w-full sm:w-auto text-center px-8 py-4 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-all shadow-sm"
+                  className="px-8 py-4 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-all shadow-sm rounded-xs"
                   style={{ color: "#ffffff" }}
                 >
-                  <span style={{ color: "#ffffff" }}>Explore Collection</span>
+                  <span style={{ color: "#ffffff" }}>Shop The Collection</span>
                 </Link>
                 <Link
-                  href="/about"
-                  className="w-full sm:w-auto text-center px-7 py-4 bg-white hover:bg-neutral-50 text-neutral-900 border border-[#d8d4cc] text-xs font-semibold uppercase tracking-[0.14em] transition-all"
+                  href="/category/belts-wallets-accessories"
+                  className="px-7 py-4 bg-white hover:bg-neutral-100 text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-[0.14em] transition-all rounded-xs"
                 >
-                  Corporate Identity
+                  Explore Bags
                 </Link>
+              </div>
+
+              {/* Quiet Micro Trust Markers */}
+              <div className="pt-6 border-t border-[#e6e2da] grid grid-cols-3 gap-4 text-left text-xs">
+                <div>
+                  <span className="block font-semibold text-neutral-900 uppercase tracking-wider text-[11px]">24h USA Delivery</span>
+                  <span className="text-[11px] text-neutral-500">All 50 states</span>
+                </div>
+                <div>
+                  <span className="block font-semibold text-neutral-900 uppercase tracking-wider text-[11px]">100% Authentic</span>
+                  <span className="text-[11px] text-neutral-500">Verified & certified</span>
+                </div>
+                <div>
+                  <span className="block font-semibold text-neutral-900 uppercase tracking-wider text-[11px]">Pure Crypto</span>
+                  <span className="text-[11px] text-neutral-500">BTC · ETH · SOL</span>
+                </div>
               </div>
             </div>
 
             {/* Right Visual Column */}
             <div className="lg:col-span-6">
-              <div className="relative aspect-4/3 w-full bg-[#edebe4] rounded-xs overflow-hidden border border-[#e2ded6] shadow-xl group">
+              <div className="relative aspect-4/3 w-full bg-[#edebe4] rounded-xs overflow-hidden border border-[#dedad2] shadow-xl group">
                 <Image
                   src="/images/hero_luxury_editorial.jpg"
-                  alt="Editorial still life showcasing designer fashion, luxury footwear, and fine leather goods"
+                  alt="Editorial still life showcasing authentic luxury designer bags, footwear, and tailored garments"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 650px"
@@ -77,270 +86,128 @@ export default async function Home() {
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-102"
                   referrerPolicy="no-referrer"
                 />
-
-                {/* Floating Showcase Pill */}
-                <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 bg-white/95 backdrop-blur-md p-3 sm:p-4 rounded-xs border border-[#e0ddd5] shadow-lg flex items-center justify-between gap-2">
-                  <div className="min-w-0">
-                    <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.15em] text-[#a3702b] block truncate">
-                      Private Archive Selection
-                    </span>
-                    <span className="text-xs sm:text-sm font-semibold text-neutral-950 truncate block">
-                      Maison Goyard Leather &amp; Dior Atelier Tailoring
-                    </span>
-                  </div>
-                  <Link
-                    href="/shop"
-                    className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-neutral-900 hover:text-[#a3702b] flex items-center gap-1 shrink-0"
-                  >
-                    View <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Curated Disciplines */}
-      <section className="py-16 bg-[#fbfaf8] border-b border-[#ece8e1]">
+      {/* 2. Value Proposition Strip (Quiet Luxury, 3 Pillars) */}
+      <section className="bg-white border-b border-[#ece8e1] py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
-            <div>
-              <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b]">
-                Curated Archives
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal mt-1 tracking-tight">
-                Explore by Discipline
-              </h2>
-            </div>
-            <Link
-              href="/shop"
-              className="text-xs font-semibold uppercase tracking-[0.1em] text-neutral-800 hover:text-black border-b border-black pb-0.5 transition-colors"
-            >
-              Browse All Categories →
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: Designer Clothing */}
-            <Link
-              href="/category/designer-clothing"
-              className="group relative aspect-4/3 sm:aspect-3/4 rounded-xs overflow-hidden border border-[#e4e1d8] shadow-sm block"
-            >
-              <Image
-                src="/images/editorial_atelier.jpg"
-                alt="Designer Outerwear and Tailoring"
-                fill
-                sizes="(max-width: 768px) 100vw, 400px"
-                quality={95}
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="text-[10px] uppercase font-mono tracking-widest text-[#d4af37] block mb-1">
-                  Milan &amp; Paris Runways
-                </span>
-                <h3 className="font-serif text-2xl font-normal tracking-tight">Designer Clothing</h3>
-                <p className="text-xs text-neutral-300 mt-1">Loro Piana Cashmere, Dior Homme, Louis Vuitton Blouson</p>
-                <span className="inline-block mt-3 text-xs uppercase font-semibold tracking-wider text-white group-hover:translate-x-1 transition-transform">
-                  Explore Clothing →
-                </span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
+              <div className="w-10 h-10 rounded-xs bg-[#f6f5f2] border border-[#e8e5de] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
+                01
               </div>
-            </Link>
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-900 mb-1">
+                  Guaranteed 24-Hour USA Delivery
+                </h3>
+                <p className="text-xs text-neutral-500 leading-relaxed">
+                  No backorders or waiting weeks. Everything listed is in stock and delivered directly to your door anywhere in the US within 24 hours.
+                </p>
+              </div>
+            </div>
 
-            {/* Card 2: Goyard & Leather Goods */}
-            <Link
-              href="/category/bags-and-leather-goods"
-              className="group relative aspect-4/3 sm:aspect-3/4 rounded-xs overflow-hidden border border-[#e4e1d8] shadow-sm block"
-            >
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
+              <div className="w-10 h-10 rounded-xs bg-[#f6f5f2] border border-[#e8e5de] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
+                02
+              </div>
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-900 mb-1">
+                  100% Lifetime Authenticity
+                </h3>
+                <p className="text-xs text-neutral-500 leading-relaxed">
+                  Every bag, shoe, and garment is physically inspected by specialists in New York. Includes original packaging, serial tags, and provenance papers.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
+              <div className="w-10 h-10 rounded-xs bg-[#f6f5f2] border border-[#e8e5de] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
+                03
+              </div>
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-900 mb-1">
+                  Instant Crypto Checkout
+                </h3>
+                <p className="text-xs text-neutral-500 leading-relaxed">
+                  Direct on-chain payment via Bitcoin, Ethereum, and Solana. Instant receipt, certificate, and live tracking dispatched straight to your email.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Interactive Seasonal Showcase (Direct Product Browsing) */}
+      <HomeFeaturedShowcase products={products} categories={categories} />
+
+      {/* 4. Editorial Spotlight: Physical Authenticity & Priority Courier */}
+      <section className="py-20 bg-[#f7f6f2] border-b border-[#ece8e1]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-6 relative aspect-16/10 rounded-xs overflow-hidden border border-[#dedad2] shadow-sm">
               <Image
                 src="/images/editorial_collection_curation.jpg"
-                alt="Maison Goyard and Fine Leathercraft"
+                alt="Specialist verifying authentic designer leatherwork and tailoring details"
                 fill
-                sizes="(max-width: 768px) 100vw, 400px"
+                sizes="(max-width: 1024px) 100vw, 600px"
                 quality={95}
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className="object-cover"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="text-[10px] uppercase font-mono tracking-widest text-[#d4af37] block mb-1">
-                  Parisian Heritage
-                </span>
-                <h3 className="font-serif text-2xl font-normal tracking-tight">Bags &amp; Leather Goods</h3>
-                <p className="text-xs text-neutral-300 mt-1">Goyard Saint Louis, Louis Vuitton Keepall, Cardholders &amp; Wallets</p>
-                <span className="inline-block mt-3 text-xs uppercase font-semibold tracking-wider text-white group-hover:translate-x-1 transition-transform">
-                  Explore Leather Goods →
-                </span>
-              </div>
-            </Link>
-
-            {/* Card 3: Footwear */}
-            <Link
-              href="/category/luxury-shoes-and-sneakers"
-              className="group relative aspect-4/3 sm:aspect-3/4 rounded-xs overflow-hidden border border-[#e4e1d8] shadow-sm block"
-            >
-              <Image
-                src="/images/editorial_white_glove_courier.jpg"
-                alt="Luxury Footwear and Sneakers"
-                fill
-                sizes="(max-width: 768px) 100vw, 400px"
-                quality={95}
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="text-[10px] uppercase font-mono tracking-widest text-[#d4af37] block mb-1">
-                  Artisanal Craft
-                </span>
-                <h3 className="font-serif text-2xl font-normal tracking-tight">Luxury Footwear</h3>
-                <p className="text-xs text-neutral-300 mt-1">Louis Vuitton Trainer, Dior Derby Loafers, Gucci GG Supreme</p>
-                <span className="inline-block mt-3 text-xs uppercase font-semibold tracking-wider text-white group-hover:translate-x-1 transition-transform">
-                  Explore Footwear →
-                </span>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Featured Acquisitions Collection Grid */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 gap-4">
-            <div>
-              <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b]">
-                Seasonal Allocations
+            </div>
+            <div className="lg:col-span-6 flex flex-col justify-center">
+              <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#8c887e] mb-2">
+                The Northstar Standard
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal mt-1 tracking-tight">
-                Featured Acquisitions
+              <h2 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal tracking-tight mb-5">
+                Authentic Craftsmanship. Zero Waiting.
               </h2>
-            </div>
-            <Link
-              href="/shop"
-              className="text-xs font-semibold uppercase tracking-[0.1em] text-neutral-900 hover:text-[#a3702b] border-b border-black pb-0.5 transition-colors"
-            >
-              View All Pieces →
-            </Link>
-          </div>
-
-          <ProductGrid products={products} />
-
-          <div className="text-center mt-12">
-            <Link
-              href="/shop"
-              className="inline-block px-8 py-4 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
-              style={{ color: "#ffffff" }}
-            >
-              <span style={{ color: "#ffffff" }}>Explore Complete Archive</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Single Consolidated Verification & Provenance Section (Luxury Restraint) */}
-      <section className="py-16 sm:py-24 bg-[#faf9f6] border-t border-b border-[#ece8e1]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
-              The Northstar Protocol
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal tracking-tight mb-4">
-              Provenance, Technical Verification &amp; Custody
-            </h2>
-            <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
-              We communicate confidence through institutional rigor rather than marketing claims. Every acquisition follows our documented three-pillar protocol governing condition taxonomy, textile diagnostics, and insured express courier transport.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Pillar 1 */}
-            <div className="bg-white border border-[#dedad0] rounded-xs p-6 shadow-xs flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block mb-2">
-                  Protocol Pillar I
-                </span>
-                <h3 className="font-serif text-xl text-neutral-950 font-normal mb-3">
-                  Tri-Tier Condition Taxonomy
-                </h3>
-                <p className="text-xs text-neutral-600 leading-relaxed mb-4">
-                  Every catalog piece is strictly designated as <strong>Unworn / Complete Set</strong>, <strong>Pristine Pre-Owned (9.5/10)</strong>, or <strong>Certified Restored / Studio Cleaned</strong>. Dust bags, authentic tags, and house serial matching are documented in an individual provenance dossier.
-                </p>
+              <p className="text-sm text-neutral-600 leading-relaxed mb-4">
+                We believe acquiring authentic designer fashion should be instantaneous and transparent. Every piece in our archive is held physically in our facility, verified for stitch precision, RFID microchips, and factory markings, and stored in climate-controlled conditions.
+              </p>
+              <p className="text-sm text-neutral-600 leading-relaxed mb-6">
+                The moment your cryptocurrency transaction settles, your order is packed in tamper-evident presentation containers and dispatched for guaranteed 24-hour delivery anywhere in the USA.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/about"
+                  className="px-6 py-3 bg-neutral-950 text-white text-xs font-semibold uppercase tracking-wider hover:bg-neutral-800 transition-colors rounded-xs"
+                  style={{ color: "#ffffff" }}
+                >
+                  <span style={{ color: "#ffffff" }}>About Our Process</span>
+                </Link>
+                <Link
+                  href="/shipping"
+                  className="px-6 py-3 bg-white text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-wider hover:bg-neutral-50 transition-colors rounded-xs"
+                >
+                  24-Hour Delivery Policy
+                </Link>
               </div>
-              <Link
-                href="/warranty"
-                className="text-xs font-semibold text-neutral-900 underline hover:text-[#a3702b] pt-3 border-t border-[#f0eee9]"
-              >
-                Review Condition Standards →
-              </Link>
-            </div>
-
-            {/* Pillar 2 */}
-            <div className="bg-white border border-[#dedad0] rounded-xs p-6 shadow-xs flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block mb-2">
-                  Protocol Pillar II
-                </span>
-                <h3 className="font-serif text-xl text-neutral-950 font-normal mb-3">
-                  Material &amp; Structural Analysis
-                </h3>
-                <p className="text-xs text-neutral-600 leading-relaxed mb-4">
-                  Archival leather is authenticated via chevron screen alignment, hand-stitching tension, and RFID microchip interrogation. Outerwear garments undergo weave density analysis and hardware hallmark verification.
-                </p>
-              </div>
-              <Link
-                href="/about"
-                className="text-xs font-semibold text-neutral-900 underline hover:text-[#a3702b] pt-3 border-t border-[#f0eee9]"
-              >
-                Atelier Inspection Details →
-              </Link>
-            </div>
-
-            {/* Pillar 3 */}
-            <div className="bg-white border border-[#dedad0] rounded-xs p-6 shadow-xs flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block mb-2">
-                  Protocol Pillar III
-                </span>
-                <h3 className="font-serif text-xl text-neutral-950 font-normal mb-3">
-                  Insured Priority Routing
-                </h3>
-                <p className="text-xs text-neutral-600 leading-relaxed mb-4">
-                  All acquired pieces ship via <strong>FedEx International Priority or DHL Express</strong> in tamper-evident unbranded packaging with direct adult signature and full transit insurance coverage.
-                </p>
-              </div>
-              <Link
-                href="/shipping"
-                className="text-xs font-semibold text-neutral-900 underline hover:text-[#a3702b] pt-3 border-t border-[#f0eee9]"
-              >
-                Carrier Delivery Matrix →
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. Client Perspectives & Private Acquisition Testimonials */}
-      <ClientEvidenceSection />
-
-      {/* 6. The Houses / Brand Roster */}
+      {/* 5. The Houses: Typographic Brand Roster */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#8c887e] block mb-3">
-            Master Artisan Houses
+            Featured Houses
           </span>
-          <h2 className="font-serif text-2xl sm:text-3xl text-neutral-950 font-normal tracking-tight mb-10">
-            Represented in the Archive
+          <h2 className="font-serif text-2xl sm:text-3xl text-neutral-950 font-normal tracking-tight mb-8">
+            Master Leather & Fashion Ateliers
           </h2>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 max-w-4xl mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 max-w-4xl mx-auto">
             {LUXURY_BRANDS.map((brand) => (
               <Link
                 key={brand}
                 href={`/shop?brand=${encodeURIComponent(brand)}`}
-                className="font-serif text-xl sm:text-2xl text-neutral-400 hover:text-black transition-colors px-2 py-1"
+                className="font-serif text-xl sm:text-2xl text-neutral-400 hover:text-black transition-colors px-2 py-1 tracking-tight"
               >
                 {brand}
               </Link>

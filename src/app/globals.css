@@ -170,109 +170,25 @@ a.bg-black:hover {
   margin-bottom: 28px;
 }
 
-html, body {
-  overflow-x: hidden;
-  max-width: 100vw;
-  width: 100%;
-}
-
-/* Mobile-friendly smooth scrolling for touch carousels */
-.scrollbar-none {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-}
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
-
-/* Checkout Layout */
-.checkout-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 380px;
-  gap: 48px;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 40px 24px 80px;
-}
-
-.checkout-form {
-  background: #ffffff;
-  border: 1px solid var(--line);
-  padding: 36px;
-  border-radius: 2px;
-}
-
-@media (max-width: 640px) {
-  .checkout-form {
-    padding: 20px 16px;
-  }
-}
-
-.checkout-form fieldset {
-  border: 0;
-  border-top: 1px solid var(--line);
-  margin: 28px 0 0;
-  padding: 24px 0 0;
-}
-
-.checkout-form legend {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ink);
-  padding: 0;
-  margin-bottom: 12px;
-}
-
-.checkout-form label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-top: 18px;
-}
-
-.checkout-form input,
-.checkout-form input[type="text"],
-.checkout-form input[type="email"],
-.checkout-form input[type="tel"],
-.checkout-form input[type="password"] {
+/* Checkout & Form Utilities */
+.form-input {
   display: block;
   width: 100%;
-  margin-top: 6px;
-  padding: 13px 16px;
-  border: 1px solid #d4d0c5;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
   border-radius: 2px;
   background: #fcfbf9;
-  font-size: 16px; /* iOS Safari auto-zoom prevention: 16px minimum */
+  font-size: 14px;
   color: var(--ink);
-  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
-  box-sizing: border-box;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
-@media (min-width: 640px) {
-  .checkout-form input,
-  .checkout-form input[type="text"],
-  .checkout-form input[type="email"],
-  .checkout-form input[type="tel"],
-  .checkout-form input[type="password"] {
-    font-size: 14px;
-  }
-}
-
-.checkout-form input:focus {
+.form-input:focus {
   border-color: #0f0f0f;
   background: #ffffff;
   outline: 2px solid #0f0f0f;
   outline-offset: -1px;
 }
-
-.checkout-form input::placeholder {
-  color: #9c978d;
-}
-
 
 .form-error {
   color: #dc2626;
@@ -374,92 +290,4 @@ html, body {
     grid-template-columns: 1fr;
     gap: 0;
   }
-  .account-panel {
-    padding: 24px 16px 60px;
-  }
-  .quote-panel {
-    padding: 20px 16px;
-  }
-  .state-panel {
-    margin: 32px auto;
-    padding: 24px 16px;
-  }
 }
-
-/* Admin Console Responsiveness */
-.admin-shell {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 16px 60px;
-}
-.admin-heading {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-@media (min-width: 768px) {
-  .admin-heading {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-.admin-auth {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: flex-end;
-}
-.admin-metrics {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 12px;
-  margin-bottom: 24px;
-}
-.admin-metrics > div {
-  background: #ffffff;
-  border: 1px solid var(--line);
-  padding: 16px;
-  border-radius: 2px;
-}
-.admin-columns {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-}
-@media (min-width: 1024px) {
-  .admin-columns {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-.admin-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 14px;
-  background: #ffffff;
-  border: 1px solid var(--line);
-  margin-bottom: 8px;
-  border-radius: 2px;
-}
-@media (min-width: 640px) {
-  .admin-row {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-.admin-row.compact {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  font-size: 13px;
-  padding: 8px 12px;
-}
-.admin-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-

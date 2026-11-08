@@ -8,7 +8,7 @@ import { getProducts } from "@/lib/api";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Search the Archive | Northstar / Supply",
-  description: "Search designer outerwear, Goyard leathercraft, and luxury footwear.",
+  description: "Search luxury designer bags, footwear, apparel, and fine accessories.",
 };
 
 async function loadSearch(q: string) {
@@ -37,25 +37,25 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                 Catalog Archive Search
               </span>
               <h1 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal tracking-tight mb-3">
-                {q ? `Search: “${q}”` : "Search The Archive"}
+                {q ? `Search: "${q}"` : "Search The Vault"}
               </h1>
               <p className="text-sm text-neutral-600 max-w-xl leading-relaxed mb-6">
                 {q
-                  ? `Found ${totalCount} ${totalCount === 1 ? "acquisition matching" : "acquisitions matching"} your query across outerwear, leather goods, and footwear.`
-                  : "Search our archive inventory by brand (e.g. Goyard, Dior, Gucci, Louis Vuitton) or garment style."}
+                  ? `Found ${totalCount} ${totalCount === 1 ? "item matching" : "items matching"} your query across bags, footwear, and apparel.`
+                  : "Search our private vault inventory by brand (e.g. Goyard, Prada, Celine, Dior) or category."}
               </p>
 
               {/* In-page Search Bar */}
-              <form action="/search" method="GET" className="flex flex-col sm:flex-row max-w-md gap-2">
+              <form action="/search" method="GET" className="flex max-w-md gap-2">
                 <input
                   name="q"
                   defaultValue={q}
-                  placeholder="Search Goyard, Dior, Louis Vuitton, Cashmere…"
-                  className="bg-white border border-[#d6d2c8] px-4 py-3 text-base sm:text-xs rounded-xs flex-1 focus:outline-none focus:border-black transition-colors min-h-[44px]"
+                  placeholder="Search Goyard, Prada, Celine, Cashmere..."
+                  className="bg-white border border-[#d6d2c8] px-4 py-3 text-xs rounded-xs flex-1 focus:outline-none focus:border-black transition-colors"
                 />
                 <button
                   type="submit"
-                  className="bg-neutral-950 text-white px-6 py-3 text-xs font-semibold uppercase tracking-wider hover:bg-neutral-800 transition-colors min-h-[44px] flex items-center justify-center"
+                  className="bg-neutral-950 text-white px-5 py-3 text-xs font-semibold uppercase tracking-wider hover:bg-neutral-800 transition-colors"
                   style={{ color: "#ffffff" }}
                 >
                   <span style={{ color: "#ffffff" }}>Search</span>
@@ -66,7 +66,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
             <div className="lg:col-span-5 relative aspect-16/9 rounded-xs overflow-hidden border border-[#e2ded6] shadow-sm">
               <Image
                 src="/images/editorial_collection_curation.jpg"
-                alt="Search the luxury fashion, leather goods and footwear collection"
+                alt="Search the luxury fashion, bags, footwear and accessories collection"
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 500px"
@@ -83,10 +83,10 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           result.items.length > 0 ? (
             <ProductGrid products={result.items} />
           ) : (
-            <EmptyState label={`No archive pieces matched “${q}”. Try searching for “Goyard”, “Dior”, “Louis Vuitton”, or “Cashmere”.`} />
+            <EmptyState label={`No items matched "${q}". Try searching for "Goyard", "Prada", "Celine", or "Cashmere".`} />
           )
         ) : (
-          <EmptyState label="Enter a designer house, leather style, or footwear name above." />
+          <EmptyState label="Enter a designer house, bag model, or garment name above." />
         )}
       </div>
     </SiteShell>

@@ -97,12 +97,10 @@ export function CartDrawer() {
             </button>
           </div>
 
-          {/* Complimentary Armored Shipping Bar */}
-          <div className="bg-[#f9f8f5] px-6 py-3 border-b border-[#ece9e2] flex items-center gap-2 text-xs text-neutral-700">
-            <span className="w-2 h-2 rounded-full bg-[#10b981]" />
-            <span className="font-medium text-[#047857]">Complimentary Armored Courier</span>
-            <span className="text-neutral-400">·</span>
-            <span className="text-neutral-600">Unlocked for US delivery</span>
+          {/* Complimentary 24-Hour USA Shipping Bar */}
+          <div className="bg-[#f9f8f5] px-6 py-3 border-b border-[#ece9e2] flex items-center justify-between text-xs text-neutral-700">
+            <span className="font-medium text-[#047857]">Guaranteed 24-Hour USA Delivery</span>
+            <span className="text-neutral-500 text-[11px] font-semibold">Complimentary ($0.00)</span>
           </div>
 
           {/* Cart Item List */}
@@ -121,7 +119,7 @@ export function CartDrawer() {
                 </div>
                 <h3 className="text-sm font-semibold text-neutral-900 mb-1">Your bag is empty</h3>
                 <p className="text-xs text-neutral-500 max-w-xs mx-auto mb-5">
-                  Explore our curated archive of rare watches, Goyard trunks, and designer outerwear.
+                  Explore our collection of designer bags, luxury footwear, and tailored apparel.
                 </p>
                 <Link
                   href="/shop"
@@ -219,11 +217,11 @@ export function CartDrawer() {
                 </span>
               </div>
               <div className="flex justify-between items-center mb-3 text-xs text-neutral-500">
-                <span>Armored Courier & Transit Insurance</span>
-                <span className="text-[#047857] font-medium">Complimentary ($0.00)</span>
+                <span>Guaranteed 24-Hour US Handover</span>
+                <span className="text-[#047857] font-semibold">Complimentary ($0.00)</span>
               </div>
-              <p className="text-[11px] text-neutral-400 mb-4 leading-normal">
-                Direct crypto escrow settlement via BTC, ETH, or SOL. White-glove courier dispatch.
+              <p className="text-[11px] text-neutral-500 mb-4 leading-normal">
+                Direct crypto escrow settlement via BTC, ETH, or SOL. Guaranteed delivery to any US address within 24 hours of confirmation.
               </p>
 
               <div className="space-y-2">

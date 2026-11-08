@@ -35,7 +35,7 @@ export function AdminClient({ accessToken }: AdminClientProps) {
     <header className="admin-heading">
       <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
         <div style={{ position: "relative", width: "90px", height: "64px", overflow: "hidden", borderRadius: "2px", border: "1px solid var(--line)", flexShrink: 0 }}>
-          <Image src="/images/editorial_horology_vault.jpg" alt="Security Vault" fill quality={95} sizes="90px" style={{ objectFit: "cover" }} referrerPolicy="no-referrer" />
+          <Image src="/images/editorial_collection_curation.jpg" alt="Operations Center" fill quality={95} sizes="90px" style={{ objectFit: "cover" }} referrerPolicy="no-referrer" />
         </div>
         <div>
           <p className="eyebrow">Northstar / Control</p>

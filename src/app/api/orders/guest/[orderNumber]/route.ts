@@ -28,9 +28,9 @@ export async function GET(
     orderStatus: order.orderStatus,
     paymentStatus: order.paymentStatus,
     fulfillmentStatus: order.fulfillmentStatus,
-    carrier: order.carrier ?? "Armored White-Glove Logistics",
+    carrier: order.carrier ?? "24-Hour US Private Armored Air Courier",
     trackingNumber: order.trackingNumber ?? `TRK-NS-${order.orderNumber.replace(/\D/g, "")}`,
-    estimatedDelivery: order.estimatedDelivery ?? "2-3 Business Days",
+    estimatedDelivery: order.estimatedDelivery ?? "Guaranteed Within 24 Hours Anywhere in USA",
     confirmationEmailSent: order.confirmationEmailSent ?? true,
     sentEmailDetails: order.sentEmailDetails,
     createdAt: order.createdAt

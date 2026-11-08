@@ -11,10 +11,13 @@ import {
 export type { Category, Image, Product, Spec };
 
 export const LUXURY_BRANDS = [
-  "Dior",
-  "Gucci",
   "Louis Vuitton",
+  "Gucci",
+  "Dior",
   "Goyard",
+  "Prada",
+  "Celine",
+  "Bottega Veneta",
   "Loro Piana"
 ] as const;
 
@@ -30,7 +33,6 @@ function parseQueryString(paramString: string) {
   return {
     category: searchParams.get("category") || undefined,
     brand: searchParams.get("brand") || undefined,
-    condition: (searchParams.get("condition") as "NEW" | "REFURBISHED" | "PRE_OWNED") || undefined,
     q: searchParams.get("q") || undefined,
     sort: (searchParams.get("sort") as "price_asc" | "price_desc" | "newest" | "name") || undefined,
     limit: searchParams.get("limit") ? Number(searchParams.get("limit")) : undefined,
@@ -88,63 +90,5 @@ export function formatPrice(cents: number) {
 }
 
 export function conditionLabel(condition: Product["condition"]) {
-  if (condition === "NEW") return "Unworn / Complete Set";
-  if (condition === "PRE_OWNED") return "Pristine Pre-Owned (9.5/10)";
-  if (condition === "REFURBISHED") return "Certified Restored / Studio Cleaned";
-  return "Verified";
-}
-
-export function conditionBadgeShort(condition: Product["condition"]) {
-  if (condition === "NEW") return "Unworn";
-  if (condition === "PRE_OWNED") return "Pre-Owned";
-  if (condition === "REFURBISHED") return "Restored";
-  return "Verified";
-}
-
-export function conditionDetails(condition: Product["condition"]) {
-  switch (condition) {
-    case "NEW":
-      return {
-        title: "Unworn / Complete Presentation Set",
-        definition: "Brand new, garment-bag or dust-bag preserved. Never worn outside of professional studio cataloging.",
-        provenance: "Includes original house tags, dust covers, authenticity cards, and presentation packaging."
-      };
-    case "PRE_OWNED":
-      return {
-        title: "Pristine Pre-Owned (Collector Grade 9.5/10)",
-        definition: "Archival piece preserved in remarkable structural and textile condition with no stains, pulls, or alterations.",
-        provenance: "Independently verified by luxury fabric and leather authenticators with full stitch and serial audit."
-      };
-    case "REFURBISHED":
-      return {
-        title: "Certified Restored / Studio Cleaned",
-        definition: "Archival garment or leather piece professionally cleaned, conditioned with pH-balanced balms, and inspected.",
-        provenance: "Accompanied by Northstar atelier inspection dossier and authenticity guarantee."
-      };
-    default:
-      return {
-        title: "Verified Archive Piece",
-        definition: "Inspected and authenticated by Northstar curators.",
-        provenance: "Includes archival certification documentation."
-      };
-  }
-}
-
-/**
- * Priority Express Courier:
- * Designer apparel, leather goods, and luxury footwear delivered via FedEx International Priority or DHL Express.
- */
-export function getShippingCarrierDetails(..._args: unknown[]) {
-  void _args;
-  return {
-    tier: "Secured Express Courier",
-    carriers: "FedEx International Priority / DHL Express",
-    transitTime: "2 to 3 Business Days",
-    features: [
-      "Discreet, unbranded tamper-evident outer presentation container",
-      "Direct adult signature required upon physical handoff",
-      "Full declared-value cargo transit insurance included at zero surcharge",
-      "Continuous GPS scan milestones with end-to-end telemetry"
-    ]
-  };
+  return condition === "PRE_OWNED" ? "Pre-owned" : condition === "REFURBISHED" ? "Refurbished" : "New";
 }

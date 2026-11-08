@@ -2,35 +2,60 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
 
-export const metadata = {
-  title: "Corporate Identity & Provenance | Northstar / Supply Holdings AG",
-  description: "Official legal entity disclosures, Geneva commercial registry filings, governance leadership, and verifiable international atelier locations.",
-};
-
 export default function AboutPage() {
   return (
     <SiteShell>
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-        {/* Header */}
-        <div className="mb-4">
-          <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
-            Institutional Heritage & Governance
-          </span>
-          <h1 className="font-serif text-3xl sm:text-5xl text-neutral-950 font-normal tracking-tight mb-4">
-            Corporate Identity &amp; Provenance
-          </h1>
-          <p className="text-sm sm:text-base text-neutral-600 max-w-2xl leading-relaxed">
-            Founded as an independent archival curation house, Northstar / Supply operates under strict Swiss corporate governance and international commerce compliance. Below are our registered legal disclosures, executive leadership, and physical vault locations.
-          </p>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
+          About Northstar
+        </span>
+        <h1 className="font-serif text-4xl sm:text-5xl text-neutral-950 font-normal tracking-tight mb-4">
+          Authentic Luxury Delivered in 24 Hours.
+        </h1>
+        <p className="text-base text-neutral-600 max-w-2xl leading-relaxed mb-8">
+          We built Northstar to make buying authentic luxury straightforward, fast, and secure. Browse verified designer bags, luxury footwear, and premium apparel ready to ship immediately to your door.
+        </p>
+
+        {/* 3 Pillars Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+          <div className="p-6 bg-white border border-[#ece8e1] rounded-xs shadow-2xs">
+            <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">01</span>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
+              Guaranteed 24-Hour USA Delivery
+            </h3>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              No long waits or backorders. Everything listed is in our hands and delivered to any US location within 24 hours.
+            </p>
+          </div>
+
+          <div className="p-6 bg-white border border-[#ece8e1] rounded-xs shadow-2xs">
+            <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">02</span>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
+              100% Verified Authentic
+            </h3>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Every designer bag, footwear piece, and garment is physically inspected, serialized, and authenticated with complete documentation.
+            </p>
+          </div>
+
+          <div className="p-6 bg-white border border-[#ece8e1] rounded-xs shadow-2xs">
+            <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">03</span>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
+              Instant Crypto Checkout
+            </h3>
+            <p className="text-xs text-neutral-600 leading-relaxed">
+              Pay natively with Bitcoin, Ethereum, or Solana. Direct on-chain confirmation without bank holds or red tape.
+            </p>
+          </div>
         </div>
 
         {/* Hero Visual */}
-        <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm my-8">
+        <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm mb-12">
           <Image
-            src="/images/editorial_atelier.jpg"
-            alt="Northstar Archive Studio and Client Reception Atelier"
+            src="/images/editorial_collection_curation.jpg"
+            alt="Northstar product curation and verification"
             fill
-            sizes="(max-width: 1024px) 100vw, 1000px"
+            sizes="(max-width: 900px) 100vw, 900px"
             quality={95}
             priority
             referrerPolicy="no-referrer"
@@ -38,173 +63,68 @@ export default function AboutPage() {
           />
         </div>
 
-        {/* Legal Entity & Commercial Registry Card */}
-        <div className="my-10 bg-white border border-[#dedad0] rounded-xs p-6 sm:p-8 shadow-xs">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#ece8e1] gap-4">
-            <div>
-              <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-1">
-                Official Corporate Entity Disclosure
-              </span>
-              <h2 className="font-serif text-2xl text-neutral-950 font-normal">
-                Northstar Supply Holdings AG
-              </h2>
-              <p className="text-xs text-neutral-500 font-mono mt-1">
-                Aktiengesellschaft / Société Anonyme (Swiss Stock Corporation)
-              </p>
-            </div>
-            <div className="bg-[#f7f6f2] border border-[#e5e2da] px-4 py-2 rounded-xs text-xs font-mono">
-              <span className="text-neutral-500 block text-[10px] uppercase">Federal UID</span>
-              <strong className="text-neutral-900">CHE-384.912.441</strong>
-            </div>
+        {/* Story & Philosophy Sections */}
+        <div className="divide-y divide-[#ece8e1] border-t border-b border-[#ece8e1]">
+          <div className="py-8">
+            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
+              Why We Started Northstar
+            </h2>
+            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl mb-3">
+              Traditional luxury shopping often comes with artificial friction: endless waitlists, pre-spend requirements, and stores that make customers jump through hoops just to buy a designer handbag or luxury footwear.
+            </p>
+            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
+              We took a different approach: if an item is displayed on our website, it is physically in stock and ready to buy. When you place an order, it is dispatched immediately without games or delays.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 text-xs text-neutral-700">
-            <div>
-              <span className="text-neutral-400 uppercase font-semibold text-[10px] tracking-wider block mb-1">
-                Commercial Registry Filing
-              </span>
-              <p className="font-medium text-neutral-900">
-                Registre du Commerce du Canton de Genève
-              </p>
-              <p className="text-neutral-500 font-mono mt-0.5">
-                Ref. No. CH-660.1.284.019-3 · Enterprise ID (IDE): CHE-384.912.441
-              </p>
-            </div>
+          <div className="py-8">
+            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
+              The 24-Hour Delivery Commitment
+            </h2>
+            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl mb-3">
+              We operate dedicated logistics to ensure that your purchase arrives anywhere in the United States in under 24 hours. Whether you are at home in New York, a vacation house in Aspen, or a hotel in Miami, your order is transported under full insurance and signed for in person.
+            </p>
+            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
+              Every package is sealed with serialized tamper-evident security tape, and you receive live milestone tracking directly to your email as soon as the transaction is confirmed.
+            </p>
+          </div>
 
-            <div>
-              <span className="text-neutral-400 uppercase font-semibold text-[10px] tracking-wider block mb-1">
-                United States Operating Subsidiary
-              </span>
-              <p className="font-medium text-neutral-900">
-                Northstar Luxury Supply LLC
-              </p>
-              <p className="text-neutral-500 font-mono mt-0.5">
-                Delaware File #7391024 · NY Dept. of State Foreign Entity #5920147
-              </p>
-            </div>
+          <div className="py-8">
+            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
+              Rigorous Authenticity Standards
+            </h2>
+            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl mb-3">
+              We believe trust is built on proof, not promises. Every handbag from Goyard, Prada, and Celine is examined for precision stitch alignment, leather grain authenticity, and RFID microchips. Designer footwear and tailoring from Louis Vuitton, Dior, and Gucci are inspected for complete boutique provenance.
+            </p>
+            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
+              All items include their original manufacturer packaging, serial tags, and official paperwork. We back every single sale with a 100% money-back authenticity guarantee.
+            </p>
+          </div>
 
-            <div>
-              <span className="text-neutral-400 uppercase font-semibold text-[10px] tracking-wider block mb-1">
-                Executive &amp; Curatorial Stewardship
-              </span>
-              <p className="font-medium text-neutral-900">
-                Dr. Alexandre de Saint-Germain, Managing Director
-              </p>
-              <p className="text-neutral-500 mt-0.5">
-                Marc-Antoine Keller, Head of Material &amp; Archival Authentication
-              </p>
-            </div>
-
-            <div>
-              <span className="text-neutral-400 uppercase font-semibold text-[10px] tracking-wider block mb-1">
-                Corporate Domicile &amp; Statutory Agent
-              </span>
-              <p className="font-medium text-neutral-900">
-                SGP Corporate Services SA
-              </p>
-              <p className="text-neutral-500 mt-0.5">
-                Rue du Rhône 42, 1204 Genève, Switzerland
-              </p>
-            </div>
+          <div className="py-8">
+            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
+              Built for Modern Digital Commerce
+            </h2>
+            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
+              By collecting payments directly in Bitcoin, Ethereum, and Solana, we eliminate banking wire limits, credit card fraud holds, and international transaction fees. It is fast, transparent, and settled directly between you and Northstar.
+            </p>
           </div>
         </div>
 
-        {/* Verifiable International Facilities */}
-        <div className="my-12">
-          <h2 className="font-serif text-2xl text-neutral-950 font-normal mb-6">
-            Physical Vaults &amp; International Client Salons
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-[#faf9f6] border border-[#ece8e1] p-6 rounded-xs">
-              <span className="text-[10px] uppercase font-bold tracking-[0.16em] text-[#a3702b] block mb-2">
-                Headquarters &amp; Archival Vault
-              </span>
-              <h3 className="font-serif text-lg text-neutral-950 font-normal mb-2">Genève, Suisse</h3>
-              <p className="text-xs text-neutral-600 leading-relaxed font-mono">
-                Northstar Supply Holdings AG<br />
-                Rue du Rhône 42<br />
-                1204 Genève, Switzerland
-              </p>
-              <p className="text-xs text-neutral-500 mt-3 pt-3 border-t border-[#ece8e1]">
-                <strong>Facility:</strong> High-security climate archive &amp; textile inspection studio. By appointment only.
-              </p>
-            </div>
-
-            <div className="bg-[#faf9f6] border border-[#ece8e1] p-6 rounded-xs">
-              <span className="text-[10px] uppercase font-bold tracking-[0.16em] text-[#a3702b] block mb-2">
-                North American Client Salon
-              </span>
-              <h3 className="font-serif text-lg text-neutral-950 font-normal mb-2">New York City, USA</h3>
-              <p className="text-xs text-neutral-600 leading-relaxed font-mono">
-                Northstar Luxury Supply LLC<br />
-                590 Madison Avenue, 21st Fl<br />
-                New York, NY 10022, USA
-              </p>
-              <p className="text-xs text-neutral-500 mt-3 pt-3 border-t border-[#ece8e1]">
-                <strong>Facility:</strong> Private client viewing rooms &amp; domestic priority express dispatch coordination.
-              </p>
-            </div>
-
-            <div className="bg-[#faf9f6] border border-[#ece8e1] p-6 rounded-xs">
-              <span className="text-[10px] uppercase font-bold tracking-[0.16em] text-[#a3702b] block mb-2">
-                Leathercraft Archive Hub
-              </span>
-              <h3 className="font-serif text-lg text-neutral-950 font-normal mb-2">Paris, France</h3>
-              <p className="text-xs text-neutral-600 leading-relaxed font-mono">
-                Northstar Paris S.A.S.<br />
-                14 Place Vendôme<br />
-                75001 Paris, France
-              </p>
-              <p className="text-xs text-neutral-500 mt-3 pt-3 border-t border-[#ece8e1]">
-                <strong>Facility:</strong> Goyard &amp; historic luxury leather conservation, restoration, and European customs hub.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Corporate Communications & Support Contacts */}
-        <div className="my-10 bg-white border border-[#ece8e1] p-6 sm:p-8 rounded-xs">
-          <h2 className="font-serif text-xl text-neutral-950 font-normal mb-4">
-            Corporate &amp; Direct Client Communications
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs">
-            <div>
-              <span className="text-neutral-400 uppercase font-semibold text-[10px] tracking-wider block mb-1">
-                Executive &amp; Legal Desk
-              </span>
-              <p className="text-neutral-900 font-mono">legal@northstar-supply.com</p>
-              <p className="text-neutral-500 mt-0.5">Corporate filings, provenance audits, and compliance.</p>
-            </div>
-
-            <div>
-              <span className="text-neutral-400 uppercase font-semibold text-[10px] tracking-wider block mb-1">
-                Private Client Concierge
-              </span>
-              <p className="text-neutral-900 font-mono">concierge@northstar-supply.com</p>
-              <p className="text-neutral-500 mt-0.5">Direct acquisition assistance and escrow settlement inquiries.</p>
-            </div>
-
-            <div>
-              <span className="text-neutral-400 uppercase font-semibold text-[10px] tracking-wider block mb-1">
-                Direct Switchboard
-              </span>
-              <p className="text-neutral-900 font-mono">+41 22 819 94 00 (Geneva)</p>
-              <p className="text-neutral-900 font-mono">+1 (212) 590-4820 (New York)</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Links to Verification and Shipping */}
-        <div className="pt-6 border-t border-[#ece8e1] flex flex-wrap gap-4 text-xs">
-          <Link href="/shipping" className="text-neutral-900 underline font-medium hover:text-[#a3702b]">
-            View Secured Shipping &amp; Carrier Matrix →
+        {/* Action Button */}
+        <div className="pt-10 flex flex-wrap items-center gap-4">
+          <Link
+            href="/shop"
+            className="px-7 py-3.5 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
+            style={{ color: "#ffffff" }}
+          >
+            <span style={{ color: "#ffffff" }}>Explore Available Pieces</span>
           </Link>
-          <Link href="/terms" className="text-neutral-900 underline font-medium hover:text-[#a3702b]">
-            Commercial Terms of Service →
-          </Link>
-          <Link href="/privacy" className="text-neutral-900 underline font-medium hover:text-[#a3702b]">
-            Institutional Privacy Policy →
+          <Link
+            href="/contact"
+            className="px-6 py-3.5 bg-white hover:bg-neutral-50 text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
+          >
+            Contact Customer Support
           </Link>
         </div>
       </div>

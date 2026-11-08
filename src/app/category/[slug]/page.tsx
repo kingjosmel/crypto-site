@@ -14,13 +14,13 @@ const categoryImages: Record<string, { url: string; alt: string }> = {
     url: "/images/product_dior_overcoat.jpg",
     alt: "Designer luxury tailored coats, knitwear, and evening apparel",
   },
-  "luxury-shoes-and-sneakers": {
+  "luxury-shoes-sneakers": {
     url: "/images/product_lv_trainer.jpg",
     alt: "Luxury footwear, formal shoes, and designer sneakers",
   },
-  "bags-and-leather-goods": {
+  "belts-wallets-accessories": {
     url: "/images/product_goyard_saint_louis.jpg",
-    alt: "Designer Goyard totes, Louis Vuitton luggage, and fine leather goods",
+    alt: "Designer Goyard totes, Prada bags, Celine shoulder bags, and fine leather accessories",
   },
 };
 
@@ -41,16 +41,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-async function loadCategory(slug: string, brand?: string, condition?: "NEW" | "PRE_OWNED" | "REFURBISHED") {
+async function loadCategory(slug: string, brand?: string) {
   try {
     const { items: categories } = await getCategories();
     const category = categories.find((item) => item.slug === slug);
     if (!category) return { kind: "missing" as const };
-    const query = new URLSearchParams({ limit: "100", category: category._id, sort: "name" });
-    if (brand) query.set("brand", brand);
-    if (condition) query.set("condition", condition);
-
-    const { items: products } = await getProducts(query.toString());
+    const { items: products } = await getProducts(
+      `limit=100&category=${category._id}&sort=name${brand ? `&brand=${encodeURIComponent(brand)}` : ""}`
+    );
     return { kind: "data" as const, category, categories, products };
   } catch {
     return { kind: "error" as const };
@@ -62,11 +60,11 @@ export default async function CategoryPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ brand?: string; condition?: "NEW" | "PRE_OWNED" | "REFURBISHED" }>;
+  searchParams: Promise<{ brand?: string }>;
 }) {
   const { slug } = await params;
-  const { brand, condition } = await searchParams;
-  const result = await loadCategory(slug, brand, condition);
+  const { brand } = await searchParams;
+  const result = await loadCategory(slug, brand);
   if (result.kind === "error") return <SiteShell><CatalogError /></SiteShell>;
   if (result.kind === "missing") notFound();
 
@@ -87,7 +85,7 @@ export default async function CategoryPage({
               <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
                 Department Archive
               </span>
-              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-neutral-950 font-normal tracking-tight mb-3">
+              <h1 className="font-serif text-4xl sm:text-5xl text-neutral-950 font-normal tracking-tight mb-3">
                 {result.category.name}
               </h1>
               <p className="text-sm text-neutral-600 max-w-xl leading-relaxed">
@@ -123,7 +121,6 @@ export default async function CategoryPage({
           categories={result.categories}
           activeCategory={slug}
           activeBrand={brand}
-          activeCondition={condition}
         />
 
         {/* Product Grid */}

@@ -179,7 +179,7 @@ export function InstantCryptoCheckoutButton({
     >
       <span>
         {navigating
-          ? "Securing Allocation & Proceeding to Checkout…"
+          ? "Securing Allocation & Proceeding to Checkout..."
           : "Instant Crypto Checkout (BTC · ETH · SOL)"}
       </span>
       <span aria-hidden="true">→</span>

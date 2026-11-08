@@ -4,52 +4,73 @@ import Link from "next/link";
 import { useState } from "react";
 import { CartLink } from "./CartLink";
 
+function FooterNewsletter() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("loading");
+    setTimeout(() => {
+      setStatus("success");
+      setEmail("");
+    }, 600);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex max-w-md w-full gap-2">
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Enter your email"
+        disabled={status === "success"}
+        className="bg-[#1a1a1a] text-white border border-[#333] px-4 py-2.5 text-xs rounded-xs flex-1 focus:outline-none focus:border-white placeholder:text-neutral-500 transition-colors"
+      />
+      <button
+        type="submit"
+        disabled={status === "loading" || status === "success"}
+        className="px-5 py-2.5 bg-white text-black hover:bg-neutral-200 text-xs font-semibold uppercase tracking-wider rounded-xs transition-colors shrink-0 disabled:opacity-80"
+        style={{ color: "#000000" }}
+      >
+        <span style={{ color: "#000000" }}>{status === "success" ? "Subscribed" : "Subscribe"}</span>
+      </button>
+    </form>
+  );
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e9e6df] transition-all">
-      {/* Announcement Bar */}
-      <div className="bg-[#0f0f0f] text-[#f5f4f0] text-[10px] sm:text-[11px] font-medium tracking-[0.06em] sm:tracking-[0.08em] py-2 px-3 sm:px-4 text-center overflow-hidden">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="hidden md:flex items-center gap-4 text-[#a39f96]">
-            <span>NEW YORK · GENEVA · PARIS</span>
-            <span>·</span>
-            <span>GUEST CHECKOUT</span>
-          </div>
-          <div className="mx-auto flex items-center justify-center gap-1.5 sm:gap-2 truncate max-w-full">
-            <span className="sm:hidden font-medium tracking-wide truncate">
-              Northstar / Supply · Geneva · New York · Paris
-            </span>
-            <span className="hidden sm:inline font-medium tracking-wide text-neutral-300">
-              Northstar Supply Holdings AG · Secured Courier Delivery on All Archival Allocations
-            </span>
-          </div>
-          <div className="hidden md:flex items-center gap-4 text-[#a39f96]">
-            <Link href="/about" className="hover:text-white transition-colors">
-              Corporate Governance
-            </Link>
-            <span>·</span>
-            <Link href="/track" className="hover:text-white transition-colors">
-              Order Telemetry
-            </Link>
-          </div>
+      {/* 1. Slim Luxury Announcement Bar */}
+      <div className="bg-[#0f0f0f] text-[#f5f4f0] text-xs py-2 px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium tracking-wide">
+          <span className="hidden sm:inline text-neutral-400">Guaranteed 24-Hour USA Delivery</span>
+          <span className="mx-auto sm:mx-0 tracking-wider uppercase font-semibold">
+            Complimentary 24-Hour Shipping Across All 50 States · Crypto Accepted (BTC · ETH · SOL)
+          </span>
+          <Link href="/track" className="hidden sm:inline text-neutral-400 hover:text-white transition-colors">
+            Track Order →
+          </Link>
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-8">
-          {/* Mobile menu button */}
+      {/* 2. Main Luxury Top Bar (3-Zone Contract) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 gap-8">
+          {/* Mobile hamburger trigger */}
           <div className="flex items-center lg:hidden">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 -ml-1 text-neutral-800 hover:text-black min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+              className="p-2 -ml-2 text-neutral-800 hover:text-black cursor-pointer"
               aria-label="Toggle navigation menu"
-              aria-expanded={mobileMenuOpen}
             >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {mobileMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -59,61 +80,53 @@ export function Header() {
             </button>
           </div>
 
-          {/* Wordmark / Brand Logo */}
+          {/* Zone 1: Wordmark Logo */}
           <div className="flex items-center shrink-0">
-            <Link href="/" className="group flex flex-col" aria-label="Northstar / Supply home">
-              <span className="font-serif text-xl sm:text-2xl lg:text-[26px] tracking-[-0.03em] font-normal text-neutral-950 group-hover:text-neutral-700 transition-colors">
-                NORTHSTAR
-              </span>
-              <span className="text-[8px] sm:text-[9px] tracking-[0.24em] uppercase text-neutral-400 font-sans -mt-1 font-medium">
-                Vault & Atelier
-              </span>
+            <Link
+              href="/"
+              className="font-serif text-2xl sm:text-3xl tracking-[0.18em] uppercase font-normal text-neutral-950 hover:text-neutral-700 transition-colors"
+              aria-label="Northstar Home"
+            >
+              NORTHSTAR
             </Link>
           </div>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-7 text-[13px] font-medium tracking-[0.06em] uppercase text-neutral-700" aria-label="Primary navigation">
-            <Link href="/shop" className="hover:text-black transition-colors relative py-2 group">
-              Collection
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
+          {/* Zone 2: Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-neutral-700" aria-label="Primary navigation">
+            <Link href="/shop" className="hover:text-black transition-colors py-1">
+              Shop All
             </Link>
-            <Link href="/category/designer-clothing" className="hover:text-black transition-colors relative py-2 group">
+            <Link href="/category/belts-wallets-accessories" className="hover:text-black transition-colors py-1">
+              Bags
+            </Link>
+            <Link href="/category/designer-clothing" className="hover:text-black transition-colors py-1">
               Apparel
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
             </Link>
-            <Link href="/category/bags-and-leather-goods" className="hover:text-black transition-colors relative py-2 group">
-              Bags &amp; Leather
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
-            </Link>
-            <Link href="/category/luxury-shoes-and-sneakers" className="hover:text-black transition-colors relative py-2 group">
+            <Link href="/category/luxury-shoes-sneakers" className="hover:text-black transition-colors py-1">
               Footwear
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
             </Link>
-            <Link href="/about" className="hover:text-black transition-colors relative py-2 group">
-              Atelier
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-black transition-all group-hover:w-full" />
+            <Link href="/about" className="hover:text-black transition-colors py-1">
+              About
             </Link>
-            <Link href="/track" className="hover:text-[#047857] transition-colors relative py-2 group text-neutral-800 font-semibold flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
-              Track Order
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#10b981] transition-all group-hover:w-full" />
+            <Link href="/contact" className="hover:text-black transition-colors py-1">
+              Contact
             </Link>
           </nav>
 
-          {/* Right Actions: Search + Cart */}
-          <div className="flex items-center gap-2 sm:gap-6 shrink-0">
-            {/* Search Input Bar (Desktop) */}
-            <form action="/search" method="GET" className="relative hidden sm:block">
-              <label htmlFor="header-search-bar" className="sr-only">Search the archive</label>
-              <div className="flex items-center border border-[#d9d5cb] rounded-xs px-3 py-1.5 bg-[#fbfaf8] hover:border-neutral-500 focus-within:border-black transition-colors">
+          {/* Zone 3: Search + Track + Shopping Bag */}
+          <div className="flex items-center gap-3 sm:gap-5 shrink-0">
+            {/* Search Input Bar */}
+            <form action="/search" method="GET" className="relative hidden md:block">
+              <label htmlFor="header-search-bar" className="sr-only">Search catalog</label>
+              <div className="flex items-center border border-[#d6d2c8] rounded-xs px-3 py-1.5 bg-[#fbfaf8] hover:border-neutral-500 focus-within:border-black transition-colors">
                 <input
                   id="header-search-bar"
                   name="q"
                   type="search"
-                  placeholder="Search apparel, leather, footwear…"
-                  className="bg-transparent border-none text-xs text-neutral-900 focus:outline-none w-36 lg:w-48 placeholder:text-neutral-400"
+                  placeholder="Search designer pieces..."
+                  className="bg-transparent border-none text-xs text-neutral-900 focus:outline-none w-28 lg:w-44 placeholder:text-neutral-400"
                 />
-                <button type="submit" aria-label="Search catalog" className="text-neutral-500 hover:text-black pl-1 cursor-pointer">
+                <button type="submit" aria-label="Submit search" className="text-neutral-500 hover:text-black pl-1 cursor-pointer">
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
@@ -121,114 +134,52 @@ export function Header() {
               </div>
             </form>
 
-            {/* Quick Track Link for Mobile */}
+            {/* Quick Track Link */}
             <Link
               href="/track"
-              className="lg:hidden text-xs text-neutral-700 font-semibold uppercase tracking-wider px-2 py-1.5 rounded-xs hover:bg-neutral-100 min-h-[44px] flex items-center"
-              aria-label="Track live dispatch"
+              className="hidden sm:inline-block text-xs font-semibold tracking-wider uppercase text-neutral-700 hover:text-black transition-colors"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] mr-1.5" />
-              Track
+              Track Order
             </Link>
 
-            {/* Shopping Bag Trigger (Opens CartDrawer) */}
+            {/* Shopping Bag Trigger */}
             <CartLink />
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer Overlay */}
+        {/* Mobile Navigation Dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-[#ece9e2] py-5 px-1 space-y-5 bg-white animate-fadeIn">
-            {/* Mobile Search */}
-            <form action="/search" method="GET" className="relative">
+          <div className="lg:hidden border-t border-[#ece9e2] py-4 space-y-4 bg-white">
+            <form action="/search" method="GET" className="mb-3">
               <input
                 name="q"
                 type="search"
-                placeholder="Search jackets, totes, footwear…"
-                className="w-full bg-[#fbfaf8] border border-[#d6d2c8] px-3.5 py-2.5 text-sm rounded-xs focus:outline-none focus:border-black transition-colors"
+                placeholder="Search collection..."
+                className="w-full border border-[#d6d2c8] px-3.5 py-2 text-xs rounded-xs bg-[#fbfaf8]"
               />
-              <button
-                type="submit"
-                aria-label="Submit search"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
             </form>
-
-            {/* Curated Categories */}
-            <div className="flex flex-col divide-y divide-[#f2efe9] text-sm font-medium uppercase tracking-wider text-neutral-900">
-              <Link
-                href="/shop"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
-              >
-                <span>The Full Archive</span>
-                <span className="text-xs text-neutral-400 font-normal">15 Pieces →</span>
+            <div className="flex flex-col space-y-3 text-xs font-semibold uppercase tracking-wider text-neutral-800">
+              <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                Shop All
               </Link>
-              <Link
-                href="/category/designer-clothing"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
-              >
-                <span>Designer Apparel</span>
-                <span className="text-xs text-neutral-400 font-normal">Dior, LV, Loro Piana →</span>
+              <Link href="/category/belts-wallets-accessories" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                Bags & Leather
               </Link>
-              <Link
-                href="/category/bags-and-leather-goods"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
-              >
-                <span>Bags &amp; Leather Goods</span>
-                <span className="text-xs text-neutral-400 font-normal">Goyard &amp; Louis Vuitton →</span>
+              <Link href="/category/designer-clothing" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                Designer Apparel
               </Link>
-              <Link
-                href="/category/luxury-shoes-and-sneakers"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
-              >
-                <span>Luxury Footwear</span>
-                <span className="text-xs text-neutral-400 font-normal">Sneakers &amp; Loafers →</span>
+              <Link href="/category/luxury-shoes-sneakers" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                Footwear
               </Link>
-              <Link
-                href="/about"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-3.5 flex items-center justify-between hover:text-[#a3702b] transition-colors"
-              >
-                <span>The Atelier</span>
-                <span className="text-xs text-neutral-400 font-normal">Provenance &amp; Quality →</span>
+              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                About Northstar
               </Link>
-              <Link
-                href="/track"
-                onClick={() => setMobileMenuOpen(false)}
-                className="py-3.5 flex items-center justify-between text-[#047857] font-semibold"
-              >
-                <span className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#10b981]" />
-                  Track Live Order Telemetry
-                </span>
-                <span className="text-xs font-mono">Real-time →</span>
+              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                Contact Customer Support
               </Link>
-            </div>
-
-            {/* Mobile Footer Trust / Payment info */}
-            <div className="pt-4 border-t border-[#ece9e2] flex flex-col gap-3 text-xs text-neutral-500">
-              <div className="flex items-center justify-between">
-                <span>Direct Crypto Escrow</span>
-                <div className="flex items-center gap-1.5 font-mono text-[10px] font-semibold">
-                  <span className="bg-[#f5f4ef] px-1.5 py-0.5 rounded-xs text-[#f7931a] border border-[#e5e2da]">BTC</span>
-                  <span className="bg-[#f5f4ef] px-1.5 py-0.5 rounded-xs text-[#627eea] border border-[#e5e2da]">ETH</span>
-                  <span className="bg-[#f5f4ef] px-1.5 py-0.5 rounded-xs text-[#14f195] border border-[#e5e2da]">SOL</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between text-[11px]">
-                <span>Concierge Desk: 9am to 7pm EST</span>
-                <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-neutral-900 underline font-medium">
-                  Contact
-                </Link>
-              </div>
+              <Link href="/track" onClick={() => setMobileMenuOpen(false)} className="text-neutral-900 font-semibold py-1">
+                Track Order →
+              </Link>
             </div>
           </div>
         )}
@@ -237,58 +188,19 @@ export function Header() {
   );
 }
 
-function FooterNewsletter() {
-  const [subscribed, setSubscribed] = useState(false);
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setSubscribed(true);
-  };
-
-  if (subscribed) {
-    return (
-      <div className="bg-[#1a1a1a] border border-[#333333] text-emerald-400 text-xs px-4 py-3.5 rounded-xs flex items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-emerald-400" />
-        <span>Your allocation invitation has been registered to the vault desk.</span>
-      </div>
-    );
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row max-w-md gap-2">
-      <input
-        type="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter client email address"
-        className="bg-[#1a1a1a] border border-[#333333] text-white text-base sm:text-xs px-4 py-3.5 rounded-xs flex-1 focus:outline-none focus:border-white transition-colors placeholder:text-[#666] min-h-[44px]"
-      />
-      <button
-        type="submit"
-        className="bg-white text-black hover:bg-[#e6e4df] text-xs font-semibold px-6 py-3.5 uppercase tracking-wider transition-colors shrink-0 cursor-pointer min-h-[44px] flex items-center justify-center"
-      >
-        Join Access
-      </button>
-    </form>
-  );
-}
-
 export function Footer() {
   return (
-    <footer className="bg-[#0f0f0f] text-[#a8a49c] border-t border-[#262626] pt-12 sm:pt-16 pb-12 mt-16 sm:mt-20">
+    <footer className="bg-[#111111] text-[#99958e] border-t border-[#262626] pt-14 pb-12 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Newsletter / Concierge Bar */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 pb-12 sm:pb-16 border-b border-[#262626] items-center">
+        {/* Newsletter Bar */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-12 border-b border-[#262626] items-center">
           <div>
-            <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#d4af37]">Private Client Allocations</span>
-            <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal mt-2 tracking-tight">
-              Access rare arrivals &amp; private archive releases.
+            <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#d4af37]">Stay Connected</span>
+            <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal mt-1.5 tracking-tight">
+              Curated releases and new additions.
             </h3>
-            <p className="text-xs text-[#8c887f] mt-2 max-w-md leading-relaxed">
-              Curated previews of Goyard leather, designer tailoring, and luxury footwear directly to your inbox before general release.
+            <p className="text-xs text-[#8c887f] mt-1.5 max-w-md leading-relaxed">
+              Receive updates when rare designer bags, luxury footwear, and seasonal garments are added to the collection.
             </p>
           </div>
           <div>
@@ -296,80 +208,69 @@ export function Footer() {
           </div>
         </div>
 
-        {/* 4 Column Directory */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 sm:py-14 border-b border-[#262626] text-xs">
+        {/* 4 Clean Columns */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 border-b border-[#262626] text-xs">
           <div>
-            <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">The Collections</h4>
+            <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">Collection</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/category/designer-clothing" className="hover:text-white transition-colors">Designer Outerwear &amp; Tailoring</Link></li>
-              <li><Link href="/category/bags-and-leather-goods" className="hover:text-white transition-colors">Bags &amp; Leather Goods</Link></li>
-              <li><Link href="/category/luxury-shoes-and-sneakers" className="hover:text-white transition-colors">Luxury Footwear &amp; Sneakers</Link></li>
-              <li><Link href="/shop?brand=Goyard" className="hover:text-white transition-colors">Maison Goyard</Link></li>
-              <li><Link href="/shop?brand=Louis%20Vuitton" className="hover:text-white transition-colors">Louis Vuitton</Link></li>
-              <li><Link href="/shop" className="hover:text-white transition-colors">Full Seasonal Archive</Link></li>
+              <li><Link href="/shop" className="hover:text-white transition-colors">All Pieces</Link></li>
+              <li><Link href="/category/belts-wallets-accessories" className="hover:text-white transition-colors">Bags & Leather</Link></li>
+              <li><Link href="/category/designer-clothing" className="hover:text-white transition-colors">Apparel & Jackets</Link></li>
+              <li><Link href="/category/luxury-shoes-sneakers" className="hover:text-white transition-colors">Footwear & Sneakers</Link></li>
+              <li><Link href="/shop?brand=Goyard" className="hover:text-white transition-colors">Goyard</Link></li>
+              <li><Link href="/shop?brand=Prada" className="hover:text-white transition-colors">Prada</Link></li>
+              <li><Link href="/shop?brand=Celine" className="hover:text-white transition-colors">Celine</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">Client Concierge</h4>
+            <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">Client Care</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/track" className="hover:text-white transition-colors font-medium text-white flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" /> Track Live Order</Link></li>
-              <li><Link href="/shipping" className="hover:text-white transition-colors">Carrier Delivery Matrix</Link></li>
-              <li><Link href="/warranty" className="hover:text-white transition-colors">Condition Standards &amp; Assurance</Link></li>
-              <li><Link href="/returns-refunds" className="hover:text-white transition-colors">Inspection &amp; Returns</Link></li>
+              <li><Link href="/track" className="hover:text-white transition-colors text-white font-medium">Track Your Order</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors">24-Hour Delivery Policy</Link></li>
+              <li><Link href="/warranty" className="hover:text-white transition-colors">Authenticity Guarantee</Link></li>
+              <li><Link href="/returns-refunds" className="hover:text-white transition-colors">Returns & Refunds</Link></li>
               <li><Link href="/faq" className="hover:text-white transition-colors">Frequently Asked Questions</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors">Private Client Concierge</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">Contact Support</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">Corporate &amp; Atelier</h4>
+            <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">About Northstar</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/about" className="hover:text-white transition-colors font-medium text-white">Corporate Governance &amp; Filings</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors">Paris Leathercraft Atelier</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors">New York Client Salon</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors">Milan Fabric Archive</Link></li>
-              <li><Link href="/shipping" className="hover:text-white transition-colors">Insured Priority Logistics</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">Our Story & Standards</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors">Guaranteed 24-Hour USA Delivery</Link></li>
+              <li><Link href="/warranty" className="hover:text-white transition-colors">Physical Inspection & Provenance</Link></li>
+              <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
+              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-semibold uppercase tracking-[0.12em] text-[11px] mb-4">Crypto Payment &amp; Escrow</h4>
+            <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">Crypto Checkout</h4>
             <p className="text-[#8c887f] leading-relaxed mb-4 text-[11px]">
-              We settle transactions in cryptocurrency via non-custodial vault escrow. All orders clear on-chain with instant mempool confirmation and zero intermediary custody.
+              Orders are settled directly on-chain via Bitcoin, Ethereum, and Solana. Private, instant checkout with zero credit card holds or wire processing delays.
             </p>
             <div className="flex flex-wrap gap-2 text-[10px] font-mono">
-              <span className="bg-[#1f1f1f] text-[#f7931a] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">BITCOIN (BTC)</span>
-              <span className="bg-[#1f1f1f] text-[#627eea] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">ETHEREUM (ETH)</span>
-              <span className="bg-[#1f1f1f] text-[#14f195] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">SOLANA (SOL)</span>
+              <span className="bg-[#1a1a1a] text-[#f7931a] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">BITCOIN (BTC)</span>
+              <span className="bg-[#1a1a1a] text-[#627eea] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">ETHEREUM (ETH)</span>
+              <span className="bg-[#1a1a1a] text-[#14f195] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">SOLANA (SOL)</span>
             </div>
           </div>
         </div>
 
-        {/* Institutional Corporate Impressum */}
-        <div className="py-6 border-b border-[#222222] text-[11px] text-[#78756e] flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-          <div>
-            <strong className="text-white block font-medium">Northstar Supply Holdings AG</strong>
-            <span>Registre du Commerce de Genève · IDE / UID: CHE-384.912.441 · Rue du Rhône 42, 1204 Genève, Switzerland</span>
-          </div>
-          <div className="text-neutral-500 font-mono text-[10px]">
-            <span>US Operating Unit: Northstar Luxury Supply LLC (DE File #7391024, 590 Madison Ave, New York)</span>
-          </div>
-        </div>
-
         {/* Bottom Bar */}
-        <div className="pt-6 flex flex-col md:flex-row items-center justify-between text-[11px] text-[#6b6861] gap-4 text-center md:text-left">
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3">
-            <span className="font-serif text-white font-semibold text-sm">NORTHSTAR / SUPPLY</span>
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-[#6b6861] gap-4">
+          <div className="flex items-center gap-3">
+            <span className="font-serif text-white font-semibold tracking-wider text-sm">NORTHSTAR / SUPPLY</span>
             <span>·</span>
-            <span>© 2026 Northstar Supply Holdings AG. All Rights Reserved.</span>
+            <span>(c) 2026 Northstar / Supply. All Rights Reserved.</span>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            <Link href="/about" className="hover:text-white transition-colors">Governance &amp; Impressum</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/shipping" className="hover:text-white transition-colors">Shipping Matrix</Link>
-            <Link href="/track" className="hover:text-white transition-colors">Order Tracking</Link>
+          <div className="flex items-center gap-6">
+            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link href="/shipping" className="hover:text-white transition-colors">Shipping</Link>
+            <Link href="/track" className="hover:text-white transition-colors">Tracking</Link>
           </div>
         </div>
       </div>
