@@ -6,6 +6,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { formatPrice } from "@/lib/api";
 import { parseCart, writeCart, addToCart, getCartSnapshot, type CartItem } from "@/lib/cart";
 import { INITIAL_PRODUCTS } from "@/lib/catalogData";
+import { CryptoQRCode } from "@/components/CryptoQRCode";
 
 export type CryptoCurrency = "BTC" | "ETH" | "SOL";
 
@@ -28,7 +29,7 @@ export const CRYPTO_CONFIG: Record<CryptoCurrency, CryptoOption> = {
     name: "Bitcoin",
     icon: "₿",
     network: "Bitcoin Mainnet (Native SegWit)",
-    address: "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp",
+    address: "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu",
     rateUsd: 85000,
     decimals: 8,
     confirmations: "2 Block Confirmations (~20 min)",
@@ -40,7 +41,7 @@ export const CRYPTO_CONFIG: Record<CryptoCurrency, CryptoOption> = {
     name: "Ethereum",
     icon: "Ξ",
     network: "Ethereum Mainnet (ERC-20)",
-    address: "0x71C8A6924dF17FEd1aA328906322B69041b31526",
+    address: "0x120D139dB706614f71e470A97852679F6FaebcB7",
     rateUsd: 2600,
     decimals: 6,
     confirmations: "12 Block Confirmations (~3 min)",
@@ -52,7 +53,7 @@ export const CRYPTO_CONFIG: Record<CryptoCurrency, CryptoOption> = {
     name: "Solana",
     icon: "◎",
     network: "Solana Mainnet (SPL)",
-    address: "9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin",
+    address: "X2ro74HaRbZ2XKDJ57yMmsKFD3CS4y9XFKtzSeQkCQ1",
     rateUsd: 180,
     decimals: 4,
     confirmations: "32 Confirmations (~15 sec)",
@@ -98,69 +99,6 @@ const subscribe = (callback: () => void) => {
   return () => window.removeEventListener("northstar-cart-change", callback);
 };
 const getSnapshot = getCartSnapshot;
-
-// Clean QR SVG matrix styled for premier crypto checkout
-function VaultCryptoQR({ symbol, color }: { symbol: CryptoCurrency; color: string }) {
-  return (
-    <div className="relative w-36 h-36 bg-white p-2 border border-[#d6d2c8] rounded-xs shadow-inner shrink-0 flex items-center justify-center">
-      <svg viewBox="0 0 100 100" className="w-full h-full" fill="#111111" aria-label={`${symbol} QR code`}>
-        {/* Top-Left Finder Square */}
-        <rect x="6" y="6" width="24" height="24" fill="#111" rx="2" />
-        <rect x="10" y="10" width="16" height="16" fill="#fff" />
-        <rect x="14" y="14" width="8" height="8" fill={color} />
-
-        {/* Top-Right Finder Square */}
-        <rect x="70" y="6" width="24" height="24" fill="#111" rx="2" />
-        <rect x="74" y="10" width="16" height="16" fill="#fff" />
-        <rect x="78" y="14" width="8" height="8" fill={color} />
-
-        {/* Bottom-Left Finder Square */}
-        <rect x="6" y="70" width="24" height="24" fill="#111" rx="2" />
-        <rect x="10" y="74" width="16" height="16" fill="#fff" />
-        <rect x="14" y="78" width="8" height="8" fill={color} />
-
-        {/* Timing Pattern Lines */}
-        <line x1="34" y1="18" x2="66" y2="18" stroke="#333" strokeWidth="2" strokeDasharray="3,3" />
-        <line x1="18" y1="34" x2="18" y2="66" stroke="#333" strokeWidth="2" strokeDasharray="3,3" />
-
-        {/* Matrix Data Representation */}
-        <rect x="36" y="24" width="4" height="4" />
-        <rect x="44" y="24" width="4" height="4" />
-        <rect x="52" y="24" width="4" height="4" />
-        <rect x="60" y="24" width="4" height="4" />
-
-        <rect x="24" y="36" width="4" height="4" />
-        <rect x="24" y="44" width="4" height="4" />
-        <rect x="24" y="52" width="4" height="4" />
-        <rect x="24" y="60" width="4" height="4" />
-
-        <rect x="72" y="36" width="4" height="4" />
-        <rect x="80" y="36" width="4" height="4" />
-        <rect x="76" y="44" width="4" height="4" />
-        <rect x="84" y="52" width="4" height="4" />
-        <rect x="72" y="60" width="4" height="4" />
-
-        <rect x="36" y="72" width="4" height="4" />
-        <rect x="44" y="76" width="4" height="4" />
-        <rect x="52" y="72" width="4" height="4" />
-        <rect x="60" y="80" width="4" height="4" />
-        <rect x="64" y="72" width="4" height="4" />
-
-        <rect x="72" y="72" width="4" height="4" />
-        <rect x="80" y="76" width="4" height="4" />
-        <rect x="76" y="84" width="4" height="4" />
-        <rect x="84" y="84" width="4" height="4" />
-      </svg>
-      {/* Center Crypto Icon Badge */}
-      <div
-        className="absolute inset-0 m-auto w-8 h-8 rounded-full border-2 border-white shadow-md flex items-center justify-center font-bold text-xs"
-        style={{ backgroundColor: color, color: "#ffffff" }}
-      >
-        {symbol === "BTC" ? "₿" : symbol === "ETH" ? "Ξ" : "◎"}
-      </div>
-    </div>
-  );
-}
 
 export function CheckoutForm() {
   const cartSnapshot = useSyncExternalStore(subscribe, getSnapshot, () => "[]");
@@ -715,8 +653,15 @@ export function CheckoutForm() {
 
               {/* Deposit Address Box */}
               <div className="border border-[#d6d2c8] bg-[#faf9f6] p-5 rounded-xs space-y-4">
-                <div className="flex flex-col sm:flex-row items-center gap-5">
-                  <VaultCryptoQR symbol={cryptoCurrency} color={currentCrypto.accentColor} />
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                  <CryptoQRCode
+                    address={currentCrypto.address}
+                    symbol={cryptoCurrency}
+                    amount={calculatedCryptoAmount}
+                    size={140}
+                    showWalletLink={true}
+                    className="shrink-0"
+                  />
 
                   <div className="flex-1 min-w-0 space-y-3 w-full">
                     <div>
@@ -804,7 +749,7 @@ export function CheckoutForm() {
             {/* Line items list */}
             <div className="space-y-4 max-h-[380px] overflow-y-auto pr-1">
               {cart.map((item) => (
-                <div key={item.productId} className="flex items-center gap-4 py-2 border-b border-[#f4f3ef] last:border-none">
+                <div key={`${item.productId}-${item.size || "std"}`} className="flex items-center gap-4 py-2 border-b border-[#f4f3ef] last:border-none">
                   <div className="relative w-16 h-20 bg-[#f7f6f3] shrink-0 border border-[#ece8e1] rounded-xs overflow-hidden">
                     {item.imageUrl && (
                       <Image
@@ -825,6 +770,11 @@ export function CheckoutForm() {
                     <h3 className="text-xs font-medium text-neutral-950 leading-snug truncate">
                       {item.name}
                     </h3>
+                    {item.size && (
+                      <span className="text-[10px] uppercase font-semibold tracking-wider text-neutral-600 block mt-0.5">
+                        Size: {item.size}
+                      </span>
+                    )}
                     <span className="text-[11px] text-neutral-500 block mt-0.5 font-mono">
                       {formatPrice(item.priceCents)} each
                     </span>

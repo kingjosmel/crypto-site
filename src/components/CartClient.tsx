@@ -18,20 +18,20 @@ export function CartClient() {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot, () => "[]");
   const items = parseCart(snapshot);
 
-  const updateQuantity = (productId: string, newQty: number) => {
+  const updateQuantity = (productId: string, newQty: number, size?: string) => {
     if (newQty <= 0) {
-      writeCart(items.filter((item) => item.productId !== productId));
+      writeCart(items.filter((item) => !(item.productId === productId && item.size === size)));
     } else {
       writeCart(
         items.map((entry) =>
-          entry.productId === productId ? { ...entry, qty: newQty } : entry
+          entry.productId === productId && entry.size === size ? { ...entry, qty: newQty } : entry
         )
       );
     }
   };
 
-  const removeItem = (productId: string) => {
-    writeCart(items.filter((entry) => entry.productId !== productId));
+  const removeItem = (productId: string, size?: string) => {
+    writeCart(items.filter((entry) => !(entry.productId === productId && entry.size === size)));
   };
 
   if (!items.length) {
@@ -98,7 +98,7 @@ export function CartClient() {
 
           <div className="border border-[#ece8e1] bg-white rounded-xs divide-y divide-[#ece8e1]">
             {items.map((item) => (
-              <div key={item.productId} className="p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between">
+              <div key={`${item.productId}-${item.size || "std"}`} className="p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between">
                 <div className="flex gap-4 items-center min-w-0">
                   <div className="relative w-20 h-24 bg-[#f6f5f2] shrink-0 rounded-xs overflow-hidden border border-[#ece8e1]">
                     {item.imageUrl ? (
@@ -122,6 +122,11 @@ export function CartClient() {
                         {item.name}
                       </Link>
                     </h3>
+                    {item.size && (
+                      <span className="inline-block text-[10px] uppercase font-semibold tracking-wider bg-neutral-100 text-neutral-800 px-2 py-0.5 rounded-xs mt-1">
+                        Size: {item.size}
+                      </span>
+                    )}
                     <p className="text-xs text-neutral-500 font-mono mt-1">
                       {formatPrice(item.priceCents)} each
                     </p>
@@ -137,8 +142,8 @@ export function CartClient() {
                   <div className="flex items-center border border-[#d6d3cb] rounded-xs bg-[#faf9f6]">
                     <button
                       type="button"
-                      onClick={() => updateQuantity(item.productId, item.qty - 1)}
-                      className="px-3 py-1.5 text-xs text-neutral-700 hover:text-black transition-colors"
+                      onClick={() => updateQuantity(item.productId, item.qty - 1, item.size)}
+                      className="px-3 py-1.5 text-xs text-neutral-700 hover:text-black transition-colors cursor-pointer"
                       aria-label="Decrease quantity"
                     >
                       −
@@ -148,8 +153,8 @@ export function CartClient() {
                     </span>
                     <button
                       type="button"
-                      onClick={() => updateQuantity(item.productId, item.qty + 1)}
-                      className="px-3 py-1.5 text-xs text-neutral-700 hover:text-black transition-colors"
+                      onClick={() => updateQuantity(item.productId, item.qty + 1, item.size)}
+                      className="px-3 py-1.5 text-xs text-neutral-700 hover:text-black transition-colors cursor-pointer"
                       aria-label="Increase quantity"
                     >
                       +
@@ -163,8 +168,8 @@ export function CartClient() {
                     </span>
                     <button
                       type="button"
-                      onClick={() => removeItem(item.productId)}
-                      className="text-xs text-neutral-400 hover:text-red-600 transition-colors underline mt-1"
+                      onClick={() => removeItem(item.productId, item.size)}
+                      className="text-xs text-neutral-400 hover:text-red-600 transition-colors underline mt-1 cursor-pointer"
                     >
                       Remove
                     </button>

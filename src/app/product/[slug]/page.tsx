@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { conditionLabel, formatPrice, getProduct, getProducts, type Product } from "@/lib/api";
 import { SiteShell } from "@/components/SiteShell";
-import { AddToCartButton, InstantCryptoCheckoutButton } from "@/components/AddToCartButton";
+import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
 import { ProductCard } from "@/components/ProductCard";
 
 export const dynamic = "force-dynamic";
@@ -154,48 +154,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <span className="text-neutral-500 font-mono text-[11px]">24-Hour USA Delivery</span>
               </div>
 
-              {/* Sizes / Dimensions */}
-              {product.sizes?.length > 0 && (
-                <div className="mb-6">
-                  <span className="text-xs font-bold uppercase tracking-wider text-neutral-800 block mb-2">
-                    Available Sizing:
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {product.sizes.map((sz) => (
-                      <span
-                        key={sz}
-                        className="px-3.5 py-1.5 border border-[#d6d2c8] text-xs font-medium bg-white text-neutral-800 rounded-xs"
-                      >
-                        {sz}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Actions: Add to Bag + Direct Checkout */}
-              <div className="space-y-3 mb-6">
-                <AddToCartButton
-                  item={{
-                    productId: product._id,
-                    slug: product.slug,
-                    name: product.name,
-                    priceCents: product.priceCents,
-                    imageUrl: product.images[0]?.url,
-                  }}
-                  className="w-full py-4 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer rounded-xs"
-                />
-
-                <InstantCryptoCheckoutButton
-                  item={{
-                    productId: product._id,
-                    slug: product.slug,
-                    name: product.name,
-                    priceCents: product.priceCents,
-                    imageUrl: product.images[0]?.url,
-                  }}
-                  className="w-full py-3.5 px-4 bg-[#f5f4ef] hover:bg-[#eae8e1] text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-[0.12em] transition-colors flex items-center justify-center gap-2 cursor-pointer rounded-xs"
-                />
+              {/* Interactive Size Selection & Purchase Actions */}
+              <div className="mb-6">
+                <ProductPurchasePanel product={product} />
               </div>
 
               {/* Quiet Luxury Guarantee Strip */}

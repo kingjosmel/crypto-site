@@ -45,20 +45,20 @@ export function CartDrawer() {
   const totalCount = cart.reduce((acc, item) => acc + item.qty, 0);
   const subtotalCents = cart.reduce((acc, item) => acc + item.priceCents * item.qty, 0);
 
-  const updateQuantity = (productId: string, newQty: number) => {
+  const updateQuantity = (productId: string, newQty: number, size?: string) => {
     if (newQty <= 0) {
-      writeCart(cart.filter((item) => item.productId !== productId));
+      writeCart(cart.filter((item) => !(item.productId === productId && item.size === size)));
     } else {
       writeCart(
         cart.map((item) =>
-          item.productId === productId ? { ...item, qty: newQty } : item
+          item.productId === productId && item.size === size ? { ...item, qty: newQty } : item
         )
       );
     }
   };
 
-  const removeItem = (productId: string) => {
-    writeCart(cart.filter((item) => item.productId !== productId));
+  const removeItem = (productId: string, size?: string) => {
+    writeCart(cart.filter((item) => !(item.productId === productId && item.size === size)));
   };
 
   if (!isOpen) return null;
@@ -132,7 +132,7 @@ export function CartDrawer() {
               </div>
             ) : (
               cart.map((item) => (
-                <div key={item.productId} className="py-4 flex gap-4">
+                <div key={`${item.productId}-${item.size || "std"}`} className="py-4 flex gap-4">
                   {/* Thumbnail */}
                   <div className="relative w-20 h-24 bg-[#f3f2ee] shrink-0 border border-[#ece9e2] rounded-xs overflow-hidden">
                     {item.imageUrl ? (
@@ -163,9 +163,16 @@ export function CartDrawer() {
                           {item.name}
                         </Link>
                       </h4>
-                      <p className="text-xs text-neutral-500 mt-1 font-mono">
-                        {formatPrice(item.priceCents)}
-                      </p>
+                      <div className="flex items-center gap-2 mt-1">
+                        {item.size && (
+                          <span className="text-[10.5px] font-mono font-medium text-neutral-700 bg-[#f4f3ef] border border-[#e2dfd7] px-1.5 py-0.5 rounded-xs">
+                            Size: {item.size}
+                          </span>
+                        )}
+                        <span className="text-xs text-neutral-500 font-mono">
+                          {formatPrice(item.priceCents)}
+                        </span>
+                      </div>
                     </div>
 
                     <div className="flex items-center justify-between pt-2">
@@ -173,7 +180,7 @@ export function CartDrawer() {
                       <div className="flex items-center border border-[#d6d3cb] rounded-xs bg-white">
                         <button
                           type="button"
-                          onClick={() => updateQuantity(item.productId, item.qty - 1)}
+                          onClick={() => updateQuantity(item.productId, item.qty - 1, item.size)}
                           className="w-8 h-8 flex items-center justify-center text-xs font-medium text-neutral-600 hover:text-black active:bg-neutral-100 transition-colors cursor-pointer"
                           aria-label="Decrease quantity"
                         >
@@ -184,7 +191,7 @@ export function CartDrawer() {
                         </span>
                         <button
                           type="button"
-                          onClick={() => updateQuantity(item.productId, item.qty + 1)}
+                          onClick={() => updateQuantity(item.productId, item.qty + 1, item.size)}
                           className="w-8 h-8 flex items-center justify-center text-xs font-medium text-neutral-600 hover:text-black active:bg-neutral-100 transition-colors cursor-pointer"
                           aria-label="Increase quantity"
                         >
@@ -195,7 +202,7 @@ export function CartDrawer() {
                       {/* Remove Button */}
                       <button
                         type="button"
-                        onClick={() => removeItem(item.productId)}
+                        onClick={() => removeItem(item.productId, item.size)}
                         className="text-xs text-neutral-400 hover:text-red-600 transition-colors underline cursor-pointer"
                       >
                         Remove

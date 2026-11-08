@@ -276,7 +276,7 @@ export default function TrackPage() {
                 <div>
                   <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", marginBottom: "2px" }}>Receiving Vault Address</span>
                   <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "2px 5px", borderRadius: "2px", display: "block" }}>
-                    {activeOrder.escrowAddress || "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp"}
+                    {activeOrder.escrowAddress || "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu"}
                   </code>
                 </div>
                 {activeOrder.txHash && (

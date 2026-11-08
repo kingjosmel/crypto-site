@@ -4,6 +4,7 @@ export type CartItem = {
   name: string;
   priceCents: number;
   imageUrl?: string;
+  size?: string;
   qty: number;
 };
 
@@ -170,7 +171,9 @@ export function writeCart(items: CartItem[]) {
 
 export function addToCart(item: Omit<CartItem, "qty">): CartItem[] {
   const cart = readCart();
-  const existing = cart.find((entry) => entry.productId === item.productId);
+  const existing = cart.find(
+    (entry) => entry.productId === item.productId && (item.size ? entry.size === item.size : true)
+  );
   if (existing) {
     existing.qty = Math.min(10, existing.qty + 1);
   } else {

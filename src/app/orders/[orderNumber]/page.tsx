@@ -97,7 +97,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
             <div>
               <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", textTransform: "uppercase", marginBottom: "3px" }}>Vault Receiving Address</span>
               <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "3px 6px", borderRadius: "2px", display: "block" }}>
-                {order.escrowAddress || "bc1q7x9w4k8zlp2mn00u9jrh3tyv5as8d7x8f9g4kp"}
+                {order.escrowAddress || "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu"}
               </code>
             </div>
 
