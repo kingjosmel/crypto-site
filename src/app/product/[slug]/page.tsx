@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -6,6 +5,9 @@ import { conditionLabel, formatPrice, getProduct, getProducts, type Product } fr
 import { SiteShell } from "@/components/SiteShell";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductGallery } from "@/components/ProductGallery";
+import { ConditionChecklist } from "@/components/ConditionChecklist";
+import { StickyMobileBar } from "@/components/StickyMobileBar";
 
 export const dynamic = "force-dynamic";
 
@@ -63,8 +65,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const relatedResult = await getProducts(`limit=4&sort=newest`).catch(() => ({ items: [] }));
   const relatedProducts = relatedResult.items.filter((p) => p.slug !== product.slug).slice(0, 4);
 
-  const mainImage = product.images[0];
-
   return (
     <SiteShell>
       <ProductJsonLd product={product} />
@@ -81,52 +81,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
         {/* 2-Column Shopify PDP Layout */}
         <article className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* Left Column: Gallery */}
-          <div className="lg:col-span-7 flex flex-col gap-4">
-            {/* Primary Main Image Frame (Luxury 4:5 Aspect Ratio) */}
-            <div className="relative aspect-4/5 w-full bg-[#f6f5f2] rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm">
-              {mainImage && (
-                <Image
-                  src={mainImage.url}
-                  alt={mainImage.alt || product.name}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 750px"
-                  quality={95}
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              )}
+          {/* Left Column: Interactive Multi-Angle Gallery */}
+          <div className="lg:col-span-7">
+            <ProductGallery
+              images={product.images}
+              productName={product.name}
+              conditionLabelText={conditionLabel(product.condition)}
+            />
 
-              {/* Floating Provenance Seal Badge */}
-              <div className="absolute top-4 left-4 flex flex-col gap-1.5">
-                <span className="text-[10px] font-mono tracking-widest uppercase bg-white/95 backdrop-blur-xs text-neutral-900 px-3 py-1 border border-[#dedad2] rounded-xs font-semibold shadow-xs">
-                  {conditionLabel(product.condition)}
-                </span>
-                <span className="text-[10px] tracking-wider uppercase bg-[#10b981]/10 backdrop-blur-xs text-[#047857] px-3 py-1 border border-[#10b981]/30 rounded-xs font-semibold shadow-xs">
-                  RFID Verified
-                </span>
-              </div>
-            </div>
-
-            {/* Secondary Angle Thumbnails if present */}
-            {product.images.length > 1 && (
-              <div className="grid grid-cols-3 gap-3">
-                {product.images.map((img, idx) => (
-                  <div key={`${img.url}-${idx}`} className="relative aspect-4/5 bg-[#f6f5f2] rounded-xs overflow-hidden border border-[#ece8e1]">
-                    <Image
-                      src={img.url}
-                      alt={img.alt || `${product.name} angle ${idx + 1}`}
-                      fill
-                      sizes="200px"
-                      quality={95}
-                      className="object-cover"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+            {/* Interactive 10-Point Condition Breakdown */}
+            <ConditionChecklist brand={product.brand} sku={product.sku} />
           </div>
 
           {/* Right Column: Sticky Purchase Module */}
@@ -163,15 +127,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <div className="bg-[#faf9f6] p-4 border border-[#ece8e1] rounded-xs space-y-2.5 text-xs text-neutral-600">
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
-                  <span><strong>Guaranteed 24-Hour USA Delivery:</strong> Hand-delivered anywhere in the USA within 24 hours of payment.</span>
+                  <span><strong>Guaranteed 24-Hour USA Delivery:</strong> Dispatched via priority express courier with signature required.</span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
-                  <span><strong>100% Lifetime Authenticity:</strong> Verified RFID microchips, original dust bag, tags, and documentation.</span>
+                  <span><strong>100% Lifetime Authenticity:</strong> Physical serial audit, RFID microchips, original dust bag, box, and tags.</span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
-                  <span><strong>Instant Crypto Settlement:</strong> BTC, ETH, and SOL escrow with live dispatch tracking to email.</span>
+                  <span><strong>Direct Crypto Settlement:</strong> Pay privately with Bitcoin, Ethereum, or Solana without wire limits.</span>
                 </div>
               </div>
             </div>
@@ -201,30 +165,50 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   </div>
                   {product.specs.map((spec) => (
                     <div key={spec.key} className="flex justify-between py-1 border-b border-[#f3f2ee]">
-                      <dt className="text-neutral-500">{spec.key}</dt>
-                      <dd className="text-neutral-900 font-medium text-right">{spec.value}</dd>
-                    </div>
+                    <dt className="text-neutral-500">{spec.key}</dt>
+                    <dd className="text-neutral-900 font-medium text-right">{spec.value}</dd>
+                  </div>
                   ))}
                 </dl>
               </details>
 
               <details className="py-4 group">
                 <summary className="font-semibold uppercase tracking-wider text-neutral-900 cursor-pointer flex justify-between items-center list-none">
-                  <span>Guaranteed 24-Hour Nationwide Delivery Protocol</span>
+                  <span>How Crypto Payment & 24h Shipping Works</span>
                   <span className="text-neutral-400 group-open:rotate-180 transition-transform">↓</span>
                 </summary>
-                <div className="mt-3 text-neutral-600 leading-relaxed space-y-2">
-                  <p>
-                    <strong>Anywhere in the USA within 24 Hours:</strong> No matter where you reside in the United States: from Manhattan to Maui, Aspen to Austin, Los Angeles to Chicago, or Miami to Seattle: our dedicated private armored air courier hand-delivers your acquired piece directly to your door within 24 hours of on-chain confirmation.
-                  </p>
-                  <p>
-                    Every parcel is encased in serialized tamper-evident packaging with direct photo ID signature handover and 100% full declared value transit insurance at zero additional charge.
-                  </p>
+                <div className="mt-3 text-neutral-600 leading-relaxed space-y-3">
+                  <div className="flex items-start gap-2">
+                    <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">1</span>
+                    <p><strong>Select Coin:</strong> Choose Bitcoin (BTC), Ethereum (ETH), or Solana (SOL) at checkout. The exact crypto total is calculated with zero payment surcharges.</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">2</span>
+                    <p><strong>Transfer Funds:</strong> Scan the QR code or copy the generated deposit address from your wallet.</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">3</span>
+                    <p><strong>Instant Confirmation:</strong> Once verified on-chain, your order status updates immediately and a receipt with live tracking is generated.</p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">4</span>
+                    <p><strong>24-Hour Delivery:</strong> Dispatched via FedEx Priority Overnight or UPS Next Day Air with direct signature required upon delivery.</p>
+                  </div>
                 </div>
               </details>
             </div>
           </div>
         </article>
+
+        {/* Discrete Sticky Mobile Purchase Bar */}
+        <StickyMobileBar
+          productName={product.name}
+          priceCents={product.priceCents}
+          productId={product._id}
+          slug={product.slug}
+          imageUrl={product.images[0]?.url}
+          brand={product.brand}
+        />
 
         {/* You May Also Like Section */}
         {relatedProducts.length > 0 && (

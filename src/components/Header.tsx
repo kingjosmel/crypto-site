@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CartLink } from "./CartLink";
-import { CryptoTickerBar } from "./CryptoTickerBar";
 
 function FooterNewsletter() {
   const [email, setEmail] = useState("");
@@ -47,15 +46,14 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e9e6df] transition-all">
-      {/* 1. Slim Luxury Announcement Bar */}
+      {/* 1. Clean Minimal Announcement Bar */}
       <div className="bg-[#0f0f0f] text-[#f5f4f0] text-xs py-2 px-4 border-b border-neutral-800">
-        <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium tracking-wide gap-4">
-          <span className="hidden xl:inline text-neutral-400">Guaranteed 24-Hour USA Delivery</span>
-          <span className="mx-auto xl:mx-0 tracking-wider uppercase font-semibold">
-            Complimentary 24-Hour Shipping Across All 50 States · Pure Crypto (BTC · ETH · SOL)
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium tracking-wide">
+          <span className="hidden sm:inline text-neutral-400">Guaranteed 24-Hour USA Delivery</span>
+          <span className="mx-auto sm:mx-0 tracking-wider uppercase font-semibold text-neutral-200">
+            Free Express Shipping Across All 50 States · Pay with BTC, ETH, or SOL
           </span>
-          <CryptoTickerBar />
-          <Link href="/track" className="hidden sm:inline text-neutral-400 hover:text-white transition-colors shrink-0">
+          <Link href="/track" className="hidden md:inline text-neutral-400 hover:text-white transition-colors shrink-0">
             Track Order →
           </Link>
         </div>
@@ -94,11 +92,11 @@ export function Header() {
           </div>
 
           {/* Zone 2: Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8 text-xs font-semibold tracking-[0.15em] uppercase text-neutral-700" aria-label="Primary navigation">
+          <nav className="hidden lg:flex items-center gap-7 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-700" aria-label="Primary navigation">
             <Link href="/shop" className="hover:text-black transition-colors py-1">
               Shop All
             </Link>
-            <Link href="/category/belts-wallets-accessories" className="hover:text-black transition-colors py-1">
+            <Link href="/category/designer-bags" className="hover:text-black transition-colors py-1">
               Bags
             </Link>
             <Link href="/category/designer-clothing" className="hover:text-black transition-colors py-1">
@@ -106,6 +104,9 @@ export function Header() {
             </Link>
             <Link href="/category/luxury-shoes-sneakers" className="hover:text-black transition-colors py-1">
               Footwear
+            </Link>
+            <Link href="/category/belts-wallets-accessories" className="hover:text-black transition-colors py-1">
+              Leather Goods
             </Link>
             <Link href="/about" className="hover:text-black transition-colors py-1">
               About
@@ -164,14 +165,17 @@ export function Header() {
               <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
                 Shop All
               </Link>
-              <Link href="/category/belts-wallets-accessories" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
-                Bags & Leather
+              <Link href="/category/designer-bags" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                Designer Bags
               </Link>
               <Link href="/category/designer-clothing" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
                 Designer Apparel
               </Link>
               <Link href="/category/luxury-shoes-sneakers" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
                 Footwear
+              </Link>
+              <Link href="/category/belts-wallets-accessories" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                Small Leather Goods
               </Link>
               <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
                 About Northstar

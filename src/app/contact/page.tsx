@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
+import { ContactForm } from "@/components/ContactForm";
 
 export default function ContactPage() {
   return (
@@ -15,6 +16,9 @@ export default function ContactPage() {
         <p className="text-base text-neutral-600 max-w-2xl leading-relaxed mb-8">
           Have a question about a product, delivery, or cryptocurrency payment? We are here to help and reply promptly.
         </p>
+
+        {/* Interactive Contact Form */}
+        <ContactForm />
 
         {/* Quick Contact Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">

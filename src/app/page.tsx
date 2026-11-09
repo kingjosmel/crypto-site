@@ -49,7 +49,7 @@ export default async function Home() {
                   <span style={{ color: "#ffffff" }}>Shop The Collection</span>
                 </Link>
                 <Link
-                  href="/category/belts-wallets-accessories"
+                  href="/category/designer-bags"
                   className="px-7 py-4 bg-white hover:bg-neutral-100 text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-[0.14em] transition-all rounded-xs"
                 >
                   Explore Bags
@@ -192,7 +192,176 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 5. The Houses: Typographic Brand Roster */}
+      {/* 5. Verified Client Deliveries & Customer Photos */}
+      <section className="py-20 bg-white border-b border-[#ece8e1]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+            <div>
+              <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#047857] block mb-2">
+                Verified Deliveries & Social Proof
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal tracking-tight">
+                Customer Unboxings Across the USA
+              </h2>
+            </div>
+            <p className="text-xs text-neutral-500 max-w-sm">
+              Real unboxing photos shared by clients who purchased with Bitcoin, Ethereum, and Solana with 24-hour delivery.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-[#faf9f6] border border-[#ece8e1] rounded-xs overflow-hidden group">
+              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+                <Image
+                  src="/images/customer_unboxing_goyard.jpg"
+                  alt="Customer holding Goyard Saint Louis PM tote bag"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 300px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-103"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
+                  <span>Austin, TX</span>
+                  <span className="text-[#047857] font-semibold">Delivered in 21h</span>
+                </div>
+                <strong className="text-xs text-neutral-950 block">Goyard Saint Louis PM Tote</strong>
+                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
+                  &ldquo;Paid with SOL. Tracking hit my inbox right after the tx confirmed, and the bag arrived the next afternoon.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-[#faf9f6] border border-[#ece8e1] rounded-xs overflow-hidden group">
+              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+                <Image
+                  src="/images/customer_holding_celine.jpg"
+                  alt="Customer carrying Celine Triomphe shoulder bag"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 300px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-103"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
+                  <span>Miami, FL</span>
+                  <span className="text-[#047857] font-semibold">Delivered in 19h</span>
+                </div>
+                <strong className="text-xs text-neutral-950 block">Celine Triomphe Shoulder Bag</strong>
+                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
+                  &ldquo;Immaculate condition with full boutique box and dust bag. The leather is stunning. 10/10 service.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-[#faf9f6] border border-[#ece8e1] rounded-xs overflow-hidden group">
+              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+                <Image
+                  src="/images/customer_wearing_sneakers.jpg"
+                  alt="Customer wearing luxury designer sneakers"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 300px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-103"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
+                  <span>Los Angeles, CA</span>
+                  <span className="text-[#047857] font-semibold">Delivered in 23h</span>
+                </div>
+                <strong className="text-xs text-neutral-950 block">Louis Vuitton Monogram Trainer</strong>
+                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
+                  &ldquo;Checked out using ETH in 30 seconds. Double-boxed with tamper tape and signature verification on arrival.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-[#faf9f6] border border-[#ece8e1] rounded-xs overflow-hidden group">
+              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+                <Image
+                  src="/images/customer_cardholder_delivery.jpg"
+                  alt="Customer unboxing small leather goods package"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 300px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-103"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
+                  <span>New York, NY</span>
+                  <span className="text-[#047857] font-semibold">Delivered in 16h</span>
+                </div>
+                <strong className="text-xs text-neutral-950 block">Goyard Cardholder & Prada Belt</strong>
+                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
+                  &ldquo;Smooth BTC transfer. Received serial audit paperwork and house ribbon inside. Will be ordering again.&rdquo;
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Step-by-Step Crypto Payment & 24h Delivery Guide */}
+      <section className="py-16 sm:py-20 bg-[#faf9f6] border-b border-[#ece8e1]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
+              Transparent Commerce
+            </span>
+            <h2 className="font-serif text-3xl text-neutral-950 font-normal tracking-tight">
+              How Crypto Payment & 24h Shipping Works
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="bg-white border border-[#ece8e1] p-6 rounded-xs shadow-2xs">
+              <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">01</span>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
+                Choose Your Piece & Coin
+              </h3>
+              <p className="text-xs text-neutral-600 leading-relaxed">
+                Select your item and choose Bitcoin (BTC), Ethereum (ETH), or Solana (SOL) at checkout.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#ece8e1] p-6 rounded-xs shadow-2xs">
+              <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">02</span>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
+                Scan & Send Payment
+              </h3>
+              <p className="text-xs text-neutral-600 leading-relaxed">
+                Scan the on-screen QR code or copy the escrow deposit address directly from your crypto wallet.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#ece8e1] p-6 rounded-xs shadow-2xs">
+              <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">03</span>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
+                Instant Confirmation
+              </h3>
+              <p className="text-xs text-neutral-600 leading-relaxed">
+                Your transaction confirms on-chain in minutes. Order invoice and live tracking are emailed automatically.
+              </p>
+            </div>
+
+            <div className="bg-white border border-[#ece8e1] p-6 rounded-xs shadow-2xs">
+              <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">04</span>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
+                24h Insured Delivery
+              </h3>
+              <p className="text-xs text-neutral-600 leading-relaxed">
+                Dispatched via FedEx Priority Overnight or UPS Next Day Air with direct signature required across all 50 states.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. The Houses: Typographic Brand Roster */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#8c887e] block mb-3">

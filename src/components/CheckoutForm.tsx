@@ -7,7 +7,7 @@ import { formatPrice } from "@/lib/api";
 import { parseCart, writeCart, addToCart, getCartSnapshot, type CartItem } from "@/lib/cart";
 import { INITIAL_PRODUCTS } from "@/lib/catalogData";
 import { CryptoQRCode } from "@/components/CryptoQRCode";
-import { useLiveCryptoRates, calculateCryptoAmount, formatCryptoUsdPrice } from "@/lib/cryptoRates";
+import { useLiveCryptoRates, calculateCryptoAmount } from "@/lib/cryptoRates";
 
 export type CryptoCurrency = "BTC" | "ETH" | "SOL";
 
@@ -114,7 +114,7 @@ export function CheckoutForm() {
   const [discountApplied, setDiscountApplied] = useState(false);
 
   // Live real-time cryptocurrency rates via Coinpaprika
-  const { rates: liveRates, loading: ratesLoading, refresh: refreshRates } = useLiveCryptoRates(15000);
+  const { rates: liveRates } = useLiveCryptoRates(15000);
 
   // Auto-populate cart if user arrived with ?buyNow=<id-or-slug>
   useEffect(() => {
@@ -652,35 +652,9 @@ export function CheckoutForm() {
                       <span className="text-xs font-mono font-bold text-neutral-950 mt-1">
                         {coinAmount} {coin.symbol}
                       </span>
-                      <span className="text-[10px] font-mono text-neutral-500 mt-0.5">
-                        {formatCryptoUsdPrice(coinRate)}
-                      </span>
                     </button>
                   );
                 })}
-              </div>
-
-              {/* Live Market Price Index Feed from Coinpaprika */}
-              <div className="mb-5 bg-[#faf9f6] border border-[#d6d2c8] p-3 rounded-xs flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-                  <span className="font-semibold text-neutral-900">
-                    Live {currentCrypto.name} Rate:{" "}
-                    <span className="font-mono">{formatCryptoUsdPrice(liveRateUsd)}</span>
-                  </span>
-                  <span className="text-[10px] text-neutral-500 uppercase tracking-wider hidden sm:inline">
-                    · Coinpaprika Real-Time Feed
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => refreshRates()}
-                  className="text-[11px] font-semibold text-[#a3702b] hover:text-black uppercase tracking-wider flex items-center gap-1 cursor-pointer"
-                  title="Click to refresh current price rate from Coinpaprika"
-                >
-                  <span>↻</span>
-                  <span>{ratesLoading ? "Syncing…" : "Sync Price"}</span>
-                </button>
               </div>
 
               {/* Deposit Address Box */}
@@ -876,9 +850,6 @@ export function CheckoutForm() {
                   </span>
                   <span className="text-xs font-mono font-semibold text-[#a3702b] block">
                     ≈ {calculatedCryptoAmount} {currentCrypto.symbol}
-                  </span>
-                  <span className="text-[10px] font-mono text-neutral-400 block mt-0.5">
-                    @ {formatCryptoUsdPrice(liveRateUsd)}/{currentCrypto.symbol}
                   </span>
                 </div>
               </div>

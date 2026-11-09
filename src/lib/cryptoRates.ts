@@ -105,7 +105,10 @@ export function useLiveCryptoRates(pollingIntervalMs: number = 30000) {
 
   useEffect(() => {
     isMounted.current = true;
-    fetchRates();
+
+    const timer = setTimeout(() => {
+      fetchRates();
+    }, 0);
 
     const interval = setInterval(() => {
       // Avoid polling when tab is inactive to save bandwidth
@@ -125,6 +128,7 @@ export function useLiveCryptoRates(pollingIntervalMs: number = 30000) {
 
     return () => {
       isMounted.current = false;
+      clearTimeout(timer);
       clearInterval(interval);
       if (typeof document !== "undefined") {
         document.removeEventListener("visibilitychange", handleVisibilityChange);

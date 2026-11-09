@@ -10,6 +10,10 @@ import { getCategories, getProducts } from "@/lib/api";
 export const dynamic = "force-dynamic";
 
 const categoryImages: Record<string, { url: string; alt: string }> = {
+  "designer-bags": {
+    url: "/images/product_goyard_saint_louis.jpg",
+    alt: "Designer Goyard totes, Prada leather bags, Celine shoulder bags, and luxury luggage",
+  },
   "designer-clothing": {
     url: "/images/product_dior_overcoat.jpg",
     alt: "Designer luxury tailored coats, knitwear, and evening apparel",
@@ -19,8 +23,8 @@ const categoryImages: Record<string, { url: string; alt: string }> = {
     alt: "Luxury footwear, formal shoes, and designer sneakers",
   },
   "belts-wallets-accessories": {
-    url: "/images/product_goyard_saint_louis.jpg",
-    alt: "Designer Goyard totes, Prada bags, Celine shoulder bags, and fine leather accessories",
+    url: "/images/product_bottega_wallet.jpg",
+    alt: "Designer cardholders, fine leather wallets, luxury belts, and accessories",
   },
 };
 

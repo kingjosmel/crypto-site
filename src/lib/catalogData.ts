@@ -29,7 +29,8 @@ export type Product = {
 export const INITIAL_CATEGORIES: Category[] = [
   { _id: "660000000000000000000001", name: "Designer Clothing", slug: "designer-clothing", description: "Luxury overcoats, cashmere knits, jackets, and considered wardrobe pieces." },
   { _id: "660000000000000000000002", name: "Luxury Shoes & Sneakers", slug: "luxury-shoes-sneakers", description: "Designer sneakers, formal shoes, loafers, and premium footwear." },
-  { _id: "660000000000000000000003", name: "Bags & Accessories", slug: "belts-wallets-accessories", description: "Iconic designer bags, totes, wallets, and fine leather accessories." }
+  { _id: "660000000000000000000003", name: "Designer Bags & Luggage", slug: "designer-bags", description: "Iconic Goyard totes, Prada leather bags, Celine shoulder bags, and luxury luggage." },
+  { _id: "660000000000000000000004", name: "Small Leather Goods & Belts", slug: "belts-wallets-accessories", description: "Designer cardholders, wallets, belts, and luxury leather accessories." }
 ];
 
 export const INITIAL_PRODUCTS: Product[] = [
@@ -170,7 +171,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     name: "Goyard Saint Sulpice Cardholder",
     slug: "goyard-saint-sulpice-cardholder",
     brand: "Goyard",
-    categoryId: "660000000000000000000003",
+    categoryId: "660000000000000000000004",
     priceCents: 65000,
     currency: "USD",
     sku: "GOY-AC-007",
@@ -183,7 +184,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "Goyardine canvas & Vauzelles calfskin" }, { key: "Dimensions", value: "7 cm x 10.5 cm" }, { key: "Capacity", value: "4 card slots + 1 center pocket" }],
     sizes: ["One Size"],
     authenticity: "Includes signature yellow gift box and ribbon.",
-    images: [{ url: "/images/product_goyard_cardholder.jpg", alt: "Goyard Saint Sulpice cardholder", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Goyard cardholder detail", position: 1 }],
+    images: [
+      { url: "/images/product_goyard_cardholder.jpg", alt: "Goyard Saint Sulpice cardholder front", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Hand-stenciled Goyardine chevron inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Original Maison Goyard presentation box and yellow ribbon", position: 2 }
+    ],
     createdAt: "2026-01-16T10:00:00.000Z",
     updatedAt: "2026-01-16T10:00:00.000Z"
   },
@@ -192,7 +197,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     name: "Reversible Leather Belt",
     slug: "reversible-leather-belt",
     brand: "Gucci",
-    categoryId: "660000000000000000000003",
+    categoryId: "660000000000000000000004",
     priceCents: 72000,
     currency: "USD",
     sku: "GUC-AC-008",
@@ -205,7 +210,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "Full-grain calfskin & GG canvas" }, { key: "Width", value: "35 mm" }, { key: "Buckle", value: "Interlocking G shiny gold-toned" }],
     sizes: ["80", "85", "90", "95", "100"],
     authenticity: "Includes dust bag and serial number stamping.",
-    images: [{ url: "/images/product_gucci_belt.jpg", alt: "Gucci reversible leather belt", position: 0 }],
+    images: [
+      { url: "/images/product_gucci_belt.jpg", alt: "Gucci reversible leather belt", position: 0 },
+      { url: "/images/inspection_hardware_zipper.jpg", alt: "Interlocking G gold buckle detail inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Gucci presentation box and dust bag", position: 2 }
+    ],
     createdAt: "2026-01-17T10:00:00.000Z",
     updatedAt: "2026-01-17T10:00:00.000Z"
   },
@@ -214,7 +223,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     name: "Classic Monogram Wallet",
     slug: "classic-monogram-wallet",
     brand: "Louis Vuitton",
-    categoryId: "660000000000000000000003",
+    categoryId: "660000000000000000000004",
     priceCents: 92000,
     currency: "USD",
     sku: "LVI-AC-009",
@@ -227,7 +236,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "Monogram coated canvas" }, { key: "Lining", value: "Cross-grain leather" }, { key: "Dimensions", value: "11.5 cm x 9 cm" }],
     sizes: ["One Size"],
     authenticity: "Verified with RFID microchip authentication.",
-    images: [{ url: "/images/product_lv_wallet.jpg", alt: "Louis Vuitton monogram multiple wallet", position: 0 }],
+    images: [
+      { url: "/images/product_lv_wallet.jpg", alt: "Louis Vuitton monogram multiple wallet", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Monogram canvas edge glazing and cross-grain inspection", position: 1 },
+      { url: "/images/inspection_rfid_serial.jpg", alt: "LV microchip verification and hot-stamp audit", position: 2 }
+    ],
     createdAt: "2026-01-18T10:00:00.000Z",
     updatedAt: "2026-01-18T10:00:00.000Z"
   },
@@ -729,7 +742,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["39", "40", "41", "42", "43", "44", "45"],
     authenticity: "Includes Prada box, dust covers, and authentic store cards.",
     images: [
-      { url: "/images/product_dior_loafer_1793508325257.jpg", alt: "Prada Monolith Brushed Leather Lug Sole Loafers in Black", position: 0 }
+      { url: "/images/product_prada_monolith.jpg", alt: "Prada Monolith Brushed Leather Lug Sole Loafers in Black", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Lug sole tread and leather welt inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Prada shoe box and branded dust bags", position: 2 }
     ],
     createdAt: "2026-02-19T10:00:00.000Z",
     updatedAt: "2026-02-19T10:00:00.000Z"
@@ -758,7 +773,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes Saint Laurent dust bag, control card, and original documentation.",
     images: [
-      { url: "/images/product_saint_laurent_leather.jpg", alt: "Saint Laurent Le 5 à 7 Leather Shoulder Bag in Black", position: 0 }
+      { url: "/images/product_ysl_le5a7.jpg", alt: "Saint Laurent Le 5 à 7 Leather Shoulder Bag in Black", position: 0 },
+      { url: "/images/inspection_hardware_zipper.jpg", alt: "YSL Cassandre hook closure and stitching inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Saint Laurent boutique box and dust cover", position: 2 }
     ],
     createdAt: "2026-02-20T10:00:00.000Z",
     updatedAt: "2026-02-20T10:00:00.000Z"
@@ -787,7 +804,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["40", "41", "42", "43", "44"],
     authenticity: "Verified with Dior boutique packaging and certificate of origin.",
     images: [
-      { url: "/images/product_dior_loafer.jpg", alt: "Dior Explorer Oblique Loafer in Black and Jacquard", position: 0 }
+      { url: "/images/product_dior_loafer.jpg", alt: "Dior Explorer Oblique Loafer in Black and Jacquard", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Oblique jacquard weave and welt stitching inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Dior footwear presentation box and shoe pouches", position: 2 }
     ],
     createdAt: "2026-02-21T10:00:00.000Z",
     updatedAt: "2026-02-21T10:00:00.000Z"
@@ -816,7 +835,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["39", "40", "41", "42", "43", "44", "45"],
     authenticity: "Complete with green Gucci presentation box, shoe bags, and booklet.",
     images: [
-      { url: "/images/product_gucci_sneaker_1793508325679.jpg", alt: "Gucci Horsebit 1953 Leather Loafer in Dark Brown", position: 0 }
+      { url: "/images/product_gucci_horsebit.jpg", alt: "Gucci Horsebit 1953 Leather Loafer in Dark Brown", position: 0 },
+      { url: "/images/inspection_hardware_zipper.jpg", alt: "Miniature gold horsebit hardware and moccasin toe detail", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Green Gucci presentation box and shoe pouches", position: 2 }
     ],
     createdAt: "2026-02-22T10:00:00.000Z",
     updatedAt: "2026-02-22T10:00:00.000Z"
@@ -846,7 +867,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["55 cm (Cabin Size)"],
     authenticity: "Includes RFID microchip tracking tag, dust cover, and leather luggage tag.",
     images: [
-      { url: "/images/product_lv_keepall.jpg", alt: "Louis Vuitton Horizon 55 Rolling Luggage", position: 0 }
+      { url: "/images/product_lv_horizon.jpg", alt: "Louis Vuitton Horizon 55 Rolling Luggage", position: 0 },
+      { url: "/images/inspection_hardware_zipper.jpg", alt: "TSA lock and rolling wheel mechanism inspection", position: 1 },
+      { url: "/images/inspection_rfid_serial.jpg", alt: "RFID microchip scan and date stamp verification", position: 2 }
     ],
     createdAt: "2026-02-23T10:00:00.000Z",
     updatedAt: "2026-02-23T10:00:00.000Z"
@@ -856,7 +879,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     name: "Bottega Veneta Intrecciato Bi-Fold Wallet",
     slug: "bottega-veneta-intrecciato-bi-fold-wallet",
     brand: "Bottega Veneta",
-    categoryId: "660000000000000000000003",
+    categoryId: "660000000000000000000004",
     priceCents: 75000,
     currency: "USD",
     sku: "BOT-AC-046",
@@ -875,7 +898,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes Certificate of Craft card and green cotton dust cloth.",
     images: [
-      { url: "/images/product_lv_wallet_1793508327811.jpg", alt: "Bottega Veneta Intrecciato Bi-Fold Wallet in Black", position: 0 }
+      { url: "/images/product_bottega_wallet.jpg", alt: "Bottega Veneta Intrecciato Bi-Fold Wallet in Black", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Intrecciato hand-woven calfskin pattern inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Certificate of Craft and green presentation cloth", position: 2 }
     ],
     createdAt: "2026-02-24T10:00:00.000Z",
     updatedAt: "2026-02-24T10:00:00.000Z"
@@ -885,7 +910,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     name: "Celine Triomphe Smooth Calfskin Belt",
     slug: "celine-triomphe-smooth-calfskin-belt",
     brand: "Celine",
-    categoryId: "660000000000000000000003",
+    categoryId: "660000000000000000000004",
     priceCents: 72000,
     currency: "USD",
     sku: "CEL-AC-047",
@@ -904,7 +929,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["75", "80", "85", "90", "95"],
     authenticity: "Includes Celine box, serial number stamp, and travel pouch.",
     images: [
-      { url: "/images/product_gucci_belt_1793508327083.jpg", alt: "Celine Triomphe Smooth Calfskin Belt in Black", position: 0 }
+      { url: "/images/product_celine_belt.jpg", alt: "Celine Triomphe Smooth Calfskin Belt in Black", position: 0 },
+      { url: "/images/inspection_hardware_zipper.jpg", alt: "Gold-finish Triomphe metal buckle close-up", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Celine box, serial number stamp, and travel pouch", position: 2 }
     ],
     createdAt: "2026-02-25T10:00:00.000Z",
     updatedAt: "2026-02-25T10:00:00.000Z"
@@ -933,7 +960,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["39", "40", "41", "42", "43", "44"],
     authenticity: "Includes Loro Piana original box and cedar shoe horn.",
     images: [
-      { url: "/images/product_loro_piana_openwalk.jpg", alt: "Loro Piana Summer Charms Walk Suede Loafer", position: 0 }
+      { url: "/images/product_loro_piana_openwalk.jpg", alt: "Loro Piana Summer Charms Walk Suede Loafer", position: 0 },
+      { url: "/images/inspection_hardware_zipper.jpg", alt: "Palladium charm and suede stitching inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Loro Piana presentation packaging", position: 2 }
     ],
     createdAt: "2026-02-26T10:00:00.000Z",
     updatedAt: "2026-02-26T10:00:00.000Z"
@@ -943,7 +972,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     name: "Dior Oblique Reversible Cashmere Scarf",
     slug: "dior-oblique-reversible-cashmere-scarf",
     brand: "Dior",
-    categoryId: "660000000000000000000001",
+    categoryId: "660000000000000000000004",
     priceCents: 89000,
     currency: "USD",
     sku: "DIO-CL-049",
@@ -962,10 +991,200 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Complete with Dior boutique gift box, silk ribbon, and authenticity card.",
     images: [
-      { url: "/images/product_dior_silk_shirt_1793508290802.jpg", alt: "Dior Oblique Reversible Cashmere Scarf in Navy", position: 0 }
+      { url: "/images/product_dior_scarf.jpg", alt: "Dior Oblique Reversible Cashmere Scarf in Navy", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Cashmere jacquard weave and fringe edge inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Dior boutique presentation box and ribbon", position: 2 }
     ],
     createdAt: "2026-02-27T10:00:00.000Z",
     updatedAt: "2026-02-27T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000150",
+    name: "Prada Saffiano Leather Cardholder",
+    slug: "prada-saffiano-leather-cardholder",
+    brand: "Prada",
+    categoryId: "660000000000000000000004",
+    priceCents: 42000,
+    currency: "USD",
+    sku: "PRA-AC-050",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Prada 2-year luxury leathercraft warranty",
+    returnPolicy: "Complimentary returns within 14 days in unused condition.",
+    description: "Sleek and minimalist cardholder crafted in durable black Saffiano crosshatch calf leather. Front face is accented with the iconic enameled metal Prada triangle logo.",
+    specs: [
+      { key: "Leather", value: "Black Saffiano crosshatch calfskin" },
+      { key: "Logo", value: "Enameled metal triangle logo" },
+      { key: "Capacity", value: "6 credit card slots + 1 center note pocket" },
+      { key: "Dimensions", value: "10 cm x 8 cm" },
+      { key: "Origin", value: "Made in Italy" }
+    ],
+    sizes: ["One Size"],
+    authenticity: "Includes stamped Prada authenticity certificate card and presentation box.",
+    images: [
+      { url: "/images/product_bottega_wallet.jpg", alt: "Prada Saffiano Leather Cardholder in Black", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Crosshatch leather texture inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Prada presentation box and documentation", position: 2 }
+    ],
+    createdAt: "2026-02-28T10:00:00.000Z",
+    updatedAt: "2026-02-28T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000151",
+    name: "Saint Laurent Tiny Cassandre Card Case",
+    slug: "saint-laurent-tiny-cassandre-card-case",
+    brand: "Saint Laurent",
+    categoryId: "660000000000000000000004",
+    priceCents: 39500,
+    currency: "USD",
+    sku: "SLP-AC-051",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Saint Laurent leather goods warranty",
+    returnPolicy: "Complimentary returns within 14 days in unused condition.",
+    description: "An understated card case in matte black grained calfskin, accented with tiny oxidized metal YSL Cassandre initials on the front bottom corner.",
+    specs: [
+      { key: "Leather", value: "Full-grain matte calfskin" },
+      { key: "Emblem", value: "Tiny oxidized silver YSL monogram" },
+      { key: "Slots", value: "4 card slots + 1 center compartment" },
+      { key: "Dimensions", value: "10.5 cm x 7.5 cm" },
+      { key: "Origin", value: "Made in Italy" }
+    ],
+    sizes: ["One Size"],
+    authenticity: "Verified with Saint Laurent authenticity card and black dust pouch.",
+    images: [
+      { url: "/images/customer_cardholder_delivery.jpg", alt: "Saint Laurent Tiny Cassandre Card Case", position: 0 },
+      { url: "/images/inspection_rfid_serial.jpg", alt: "Saint Laurent serial foil stamp inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Saint Laurent black presentation box", position: 2 }
+    ],
+    createdAt: "2026-03-01T10:00:00.000Z",
+    updatedAt: "2026-03-01T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000152",
+    name: "Goyard Insert Victoire Card Wallet",
+    slug: "goyard-insert-victoire-card-wallet",
+    brand: "Goyard",
+    categoryId: "660000000000000000000004",
+    priceCents: 85000,
+    currency: "USD",
+    sku: "GOY-AC-052",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Maison Goyard craftsmanship warranty",
+    returnPolicy: "Complimentary returns within 14 days in unused condition.",
+    description: "Designed to slide effortlessly into a breast pocket or inside the Goyard Victoire wallet. Handcrafted in black and tan chevron Goyardine canvas with yellow lambskin card slots.",
+    specs: [
+      { key: "Material", value: "Goyardine canvas & Vauzelles calfskin" },
+      { key: "Pockets", value: "4 card slots + 2 flat receipt compartments" },
+      { key: "Dimensions", value: "10.5 cm x 8 cm" },
+      { key: "Origin", value: "Made in France" }
+    ],
+    sizes: ["One Size"],
+    authenticity: "Includes Maison Goyard signature yellow gift box and ribbon.",
+    images: [
+      { url: "/images/product_goyard_cardholder.jpg", alt: "Goyard Insert Victoire Card Wallet", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Chevron point dots inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Maison Goyard signature yellow packaging", position: 2 }
+    ],
+    createdAt: "2026-03-02T10:00:00.000Z",
+    updatedAt: "2026-03-02T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000153",
+    name: "Gucci Double G Buckle Leather Belt",
+    slug: "gucci-double-g-buckle-leather-belt",
+    brand: "Gucci",
+    categoryId: "660000000000000000000004",
+    priceCents: 52000,
+    currency: "USD",
+    sku: "GUC-AC-053",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Gucci 2-year craftsmanship warranty",
+    returnPolicy: "Complimentary returns within 14 days in unworn condition.",
+    description: "A wide leather belt in smooth black heat-treated calfskin with the signature antiqued brass Double G buckle.",
+    specs: [
+      { key: "Leather", value: "Full-grain calfskin leather" },
+      { key: "Width", value: "3.0 cm" },
+      { key: "Buckle", value: "Antiqued brass Double G hardware" },
+      { key: "Origin", value: "Made in Italy" }
+    ],
+    sizes: ["80", "85", "90", "95", "100"],
+    authenticity: "Includes Gucci dust bag, serial number stamp, and boutique box.",
+    images: [
+      { url: "/images/product_gucci_belt.jpg", alt: "Gucci Double G Buckle Leather Belt in Black", position: 0 },
+      { url: "/images/inspection_hardware_zipper.jpg", alt: "Double G brass buckle inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Gucci green gift box and dust bag", position: 2 }
+    ],
+    createdAt: "2026-03-03T10:00:00.000Z",
+    updatedAt: "2026-03-03T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000154",
+    name: "Burberry Vintage Check Wool-Silk Scarf",
+    slug: "burberry-vintage-check-wool-silk-scarf",
+    brand: "Burberry",
+    categoryId: "660000000000000000000004",
+    priceCents: 48000,
+    currency: "USD",
+    sku: "BUR-AC-054",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Burberry 1-year product guarantee",
+    returnPolicy: "Complimentary returns within 14 days with tags attached.",
+    description: "Lightweight rectangular scarf woven in an airy blend of wool and mulberry silk, decorated with the iconic archival Vintage check.",
+    specs: [
+      { key: "Composition", value: "51% Wool, 49% Mulberry silk" },
+      { key: "Dimensions", value: "220 cm x 70 cm" },
+      { key: "Edges", value: "Eyelash fringing along ends" },
+      { key: "Origin", value: "Woven in Italy" }
+    ],
+    sizes: ["One Size"],
+    authenticity: "Includes Burberry presentation box, garment tags, and certificate.",
+    images: [
+      { url: "/images/product_dior_scarf.jpg", alt: "Burberry Vintage Check Lightweight Scarf", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Gauze weave and fringed hem inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Burberry presentation box and tag", position: 2 }
+    ],
+    createdAt: "2026-03-04T10:00:00.000Z",
+    updatedAt: "2026-03-04T10:00:00.000Z"
+  },
+  {
+    _id: "660000000000000000000155",
+    name: "Goyard Saint Sulpice Cardholder in Burgundy",
+    slug: "goyard-saint-sulpice-cardholder-burgundy",
+    brand: "Goyard",
+    categoryId: "660000000000000000000004",
+    priceCents: 69000,
+    currency: "USD",
+    sku: "GOY-AC-055",
+    condition: "NEW",
+    status: "ACTIVE",
+    stockStatus: "IN_STOCK",
+    warranty: "Maison Goyard craftsmanship warranty",
+    returnPolicy: "Complimentary returns within 14 days in unused condition.",
+    description: "Rare special-color edition of the Saint-Sulpice in Burgundy chevron Goyardine canvas, paired with rich wine-red calfskin and yellow lining.",
+    specs: [
+      { key: "Material", value: "Burgundy Goyardine canvas & Vauzelles calfskin" },
+      { key: "Capacity", value: "4 card slots + 1 center pocket" },
+      { key: "Dimensions", value: "7 cm x 10.5 cm" },
+      { key: "Origin", value: "Made in France" }
+    ],
+    sizes: ["One Size"],
+    authenticity: "Includes signature yellow gift box, ribbon, and boutique card.",
+    images: [
+      { url: "/images/product_goyard_cardholder.jpg", alt: "Goyard Saint Sulpice Cardholder in Burgundy", position: 0 },
+      { url: "/images/inspection_stitching_detail.jpg", alt: "Burgundy Goyardine canvas texture inspection", position: 1 },
+      { url: "/images/inspection_packaging_box.jpg", alt: "Maison Goyard signature yellow box and ribbon", position: 2 }
+    ],
+    createdAt: "2026-03-05T10:00:00.000Z",
+    updatedAt: "2026-03-05T10:00:00.000Z"
   }
 ];
 
