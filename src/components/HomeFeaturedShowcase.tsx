@@ -83,7 +83,7 @@ export function HomeFeaturedShowcase({
             className="inline-flex items-center gap-2 px-8 py-4 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-colors shadow-sm rounded-xs"
             style={{ color: "#ffffff" }}
           >
-            <span style={{ color: "#ffffff" }}>Explore Complete Archive ({products.length} Items)</span>
+            <span style={{ color: "#ffffff" }}>Explore Complete Archive</span>
             <span aria-hidden="true" style={{ color: "#ffffff" }}>→</span>
           </Link>
         </div>

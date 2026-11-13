@@ -20,7 +20,9 @@ export const LUXURY_BRANDS = [
   "Bottega Veneta",
   "Loro Piana",
   "Saint Laurent",
-  "The Row"
+  "The Row",
+  "AMIRI",
+  "UGG"
 ] as const;
 
 type ProductResponse = {
