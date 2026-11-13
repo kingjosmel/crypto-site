@@ -33,7 +33,7 @@ export function LegalPage({ title, intro, sections, heroImage }: LegalPageProps)
         </p>
 
         {/* Hero Visual */}
-        <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm mb-12">
+        <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#dcdcdc] shadow-sm mb-12">
           <Image
             src={image.url}
             alt={image.alt}
@@ -47,7 +47,7 @@ export function LegalPage({ title, intro, sections, heroImage }: LegalPageProps)
         </div>
 
         {/* Sections */}
-        <div className="divide-y divide-[#ece8e1] border-t border-b border-[#ece8e1]">
+        <div className="divide-y divide-[#dcdcdc] border-t border-b border-[#dcdcdc]">
           {sections.map((section) => (
             <div key={section.heading} className="py-8">
               <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">

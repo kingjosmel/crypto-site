@@ -23,12 +23,12 @@ export default async function Home() {
   return (
     <SiteShell>
       {/* 1. Flagship Hero Editorial Campaign */}
-      <section className="relative bg-[#f8f7f4] border-b border-[#ece8e1] overflow-hidden">
+      <section className="relative bg-[#ebebeb] border-b border-[#dcdcdc] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Copy Column */}
             <div className="lg:col-span-6 flex flex-col justify-center">
-              <span className="text-[11px] uppercase font-bold tracking-[0.25em] text-[#8c887e] block mb-3">
+              <span className="text-[11px] uppercase font-bold tracking-[0.25em] text-[#6b6b6b] block mb-3">
                 Curated Luxury Archive · 2026 Collection
               </span>
 
@@ -50,7 +50,7 @@ export default async function Home() {
                 </Link>
                 <Link
                   href="/category/designer-bags"
-                  className="px-7 py-4 bg-white hover:bg-neutral-100 text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-[0.14em] transition-all rounded-xs"
+                  className="px-7 py-4 bg-white hover:bg-neutral-100 text-neutral-900 border border-[#cccccc] text-xs font-semibold uppercase tracking-[0.14em] transition-all rounded-xs"
                 >
                   Explore Bags
                 </Link>
@@ -75,7 +75,7 @@ export default async function Home() {
 
             {/* Right Visual Column */}
             <div className="lg:col-span-6">
-              <div className="relative aspect-4/3 w-full bg-[#edebe4] rounded-xs overflow-hidden border border-[#dedad2] shadow-xl group">
+              <div className="relative aspect-4/3 w-full bg-[#e2e2e2] rounded-xs overflow-hidden border border-[#d4d4d4] shadow-xl group">
                 <Image
                   src="/images/hero_luxury_editorial.jpg"
                   alt="Editorial still life showcasing authentic luxury designer bags, footwear, and tailored garments"
@@ -93,11 +93,11 @@ export default async function Home() {
       </section>
 
       {/* 2. Value Proposition Strip (Quiet Luxury, 3 Pillars) */}
-      <section className="bg-white border-b border-[#ece8e1] py-10">
+      <section className="bg-[#f5f5f5] border-b border-[#dcdcdc] py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-              <div className="w-10 h-10 rounded-xs bg-[#f6f5f2] border border-[#e8e5de] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
+              <div className="w-10 h-10 rounded-xs bg-[#ebebeb] border border-[#dcdcdc] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
                 01
               </div>
               <div>
@@ -111,7 +111,7 @@ export default async function Home() {
             </div>
 
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-              <div className="w-10 h-10 rounded-xs bg-[#f6f5f2] border border-[#e8e5de] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
+              <div className="w-10 h-10 rounded-xs bg-[#ebebeb] border border-[#dcdcdc] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
                 02
               </div>
               <div>
@@ -125,7 +125,7 @@ export default async function Home() {
             </div>
 
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-              <div className="w-10 h-10 rounded-xs bg-[#f6f5f2] border border-[#e8e5de] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
+              <div className="w-10 h-10 rounded-xs bg-[#ebebeb] border border-[#dcdcdc] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
                 03
               </div>
               <div>
@@ -145,10 +145,10 @@ export default async function Home() {
       <HomeFeaturedShowcase products={products} categories={categories} />
 
       {/* 4. Editorial Spotlight: Physical Authenticity & Priority Courier */}
-      <section className="py-20 bg-[#f7f6f2] border-b border-[#ece8e1]">
+      <section className="py-20 bg-[#f3f3f3] border-b border-[#dcdcdc]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6 relative aspect-16/10 rounded-xs overflow-hidden border border-[#dedad2] shadow-sm">
+            <div className="lg:col-span-6 relative aspect-16/10 rounded-xs overflow-hidden border border-[#d4d4d4] shadow-sm">
               <Image
                 src="/images/editorial_collection_curation.jpg"
                 alt="Specialist verifying authentic designer leatherwork and tailoring details"
@@ -160,7 +160,7 @@ export default async function Home() {
               />
             </div>
             <div className="lg:col-span-6 flex flex-col justify-center">
-              <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#8c887e] mb-2">
+              <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#6b6b6b] mb-2">
                 The Northstar Standard
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal tracking-tight mb-5">
@@ -182,7 +182,7 @@ export default async function Home() {
                 </Link>
                 <Link
                   href="/shipping"
-                  className="px-6 py-3 bg-white text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-wider hover:bg-neutral-50 transition-colors rounded-xs"
+                  className="px-6 py-3 bg-white text-neutral-900 border border-[#cccccc] text-xs font-semibold uppercase tracking-wider hover:bg-neutral-50 transition-colors rounded-xs"
                 >
                   24-Hour Delivery Policy
                 </Link>
@@ -193,7 +193,7 @@ export default async function Home() {
       </section>
 
       {/* 5. Verified Client Deliveries & Customer Photos */}
-      <section className="py-20 bg-white border-b border-[#ece8e1]">
+      <section className="py-20 bg-[#f5f5f5] border-b border-[#dcdcdc]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
             <div>
@@ -210,7 +210,7 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-[#faf9f6] border border-[#ece8e1] rounded-xs overflow-hidden group">
+            <div className="bg-[#ebebeb] border border-[#dcdcdc] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
                   src="/images/customer_unboxing_goyard.jpg"
@@ -233,7 +233,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="bg-[#faf9f6] border border-[#ece8e1] rounded-xs overflow-hidden group">
+            <div className="bg-[#ebebeb] border border-[#dcdcdc] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
                   src="/images/customer_holding_celine.jpg"
@@ -256,7 +256,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="bg-[#faf9f6] border border-[#ece8e1] rounded-xs overflow-hidden group">
+            <div className="bg-[#ebebeb] border border-[#dcdcdc] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
                   src="/images/customer_wearing_sneakers.jpg"
@@ -279,14 +279,14 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="bg-[#faf9f6] border border-[#ece8e1] rounded-xs overflow-hidden group">
+            <div className="bg-[#ebebeb] border border-[#dcdcdc] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
-                  src="/images/customer_cardholder_delivery.jpg"
-                  alt="Customer unboxing small leather goods package"
+                  src="/images/customer_unboxing_lemon8.webp"
+                  alt="Customer unboxing Dior boutique gift box and authenticity card"
                   fill
                   sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-103"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-103"
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -295,9 +295,9 @@ export default async function Home() {
                   <span>New York, NY</span>
                   <span className="text-[#047857] font-semibold">Delivered in 16h</span>
                 </div>
-                <strong className="text-xs text-neutral-950 block">Goyard Cardholder & Prada Belt</strong>
+                <strong className="text-xs text-neutral-950 block">Dior Silk &amp; Leather Allocation</strong>
                 <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
-                  &ldquo;Smooth BTC transfer. Received serial audit paperwork and house ribbon inside. Will be ordering again.&rdquo;
+                  &ldquo;Smooth BTC transfer. Arrived in the original Dior boutique box with ribbon and card inside. Will order again.&rdquo;
                 </p>
               </div>
             </div>
@@ -306,7 +306,7 @@ export default async function Home() {
       </section>
 
       {/* 6. Step-by-Step Crypto Payment & 24h Delivery Guide */}
-      <section className="py-16 sm:py-20 bg-[#faf9f6] border-b border-[#ece8e1]">
+      <section className="py-16 sm:py-20 bg-[#ebebeb] border-b border-[#dcdcdc]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
@@ -318,7 +318,7 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-white border border-[#ece8e1] p-6 rounded-xs shadow-2xs">
+            <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">01</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
                 Choose Your Piece & Coin
@@ -328,7 +328,7 @@ export default async function Home() {
               </p>
             </div>
 
-            <div className="bg-white border border-[#ece8e1] p-6 rounded-xs shadow-2xs">
+            <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">02</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
                 Scan & Send Payment
@@ -338,7 +338,7 @@ export default async function Home() {
               </p>
             </div>
 
-            <div className="bg-white border border-[#ece8e1] p-6 rounded-xs shadow-2xs">
+            <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">03</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
                 Instant Confirmation
@@ -348,7 +348,7 @@ export default async function Home() {
               </p>
             </div>
 
-            <div className="bg-white border border-[#ece8e1] p-6 rounded-xs shadow-2xs">
+            <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">04</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
                 24h Insured Delivery
@@ -362,9 +362,9 @@ export default async function Home() {
       </section>
 
       {/* 7. The Houses: Typographic Brand Roster */}
-      <section className="py-16 sm:py-20 bg-white">
+      <section className="py-16 sm:py-20 bg-[#f5f5f5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#8c887e] block mb-3">
+          <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#6b6b6b] block mb-3">
             Featured Houses
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl text-neutral-950 font-normal tracking-tight mb-8">
@@ -376,7 +376,7 @@ export default async function Home() {
               <Link
                 key={brand}
                 href={`/shop?brand=${encodeURIComponent(brand)}`}
-                className="font-serif text-xl sm:text-2xl text-neutral-400 hover:text-black transition-colors px-2 py-1 tracking-tight"
+                className="font-serif text-xl sm:text-2xl text-neutral-600 hover:text-black transition-colors px-2 py-1 tracking-tight"
               >
                 {brand}
               </Link>

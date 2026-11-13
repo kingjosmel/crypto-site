@@ -115,7 +115,7 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
       {/* Main High-Resolution Frame */}
       <div
         ref={containerRef}
-        className="group relative aspect-4/3 w-full bg-[#f6f5f2] rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm select-none cursor-crosshair"
+        className="group relative aspect-4/3 w-full bg-[#ebebeb] rounded-xs overflow-hidden border border-[#dcdcdc] shadow-sm select-none cursor-crosshair"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onMouseMove={handleMouseMove}
@@ -144,7 +144,7 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
 
         {/* Condition Badge (Top Left) */}
         <div className="absolute top-3.5 left-3.5 z-10 pointer-events-none">
-          <span className="text-[10px] font-sans tracking-wider uppercase bg-white/95 backdrop-blur-xs text-neutral-900 px-3 py-1.5 border border-[#dedad2] rounded-xs font-semibold shadow-xs">
+          <span className="text-[10px] font-sans tracking-wider uppercase bg-white/95 backdrop-blur-xs text-neutral-900 px-3 py-1.5 border border-[#d4d4d4] rounded-xs font-semibold shadow-xs">
             {conditionLabelText}
           </span>
         </div>
@@ -161,7 +161,7 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
           <button
             type="button"
             onClick={() => setIsLightboxOpen(true)}
-            className="cursor-pointer bg-white/95 hover:bg-white text-neutral-800 hover:text-black border border-[#d6d2c8] px-2.5 py-1.5 rounded-xs text-[11px] font-medium shadow-xs flex items-center gap-1.5 transition-colors"
+            className="cursor-pointer bg-white/95 hover:bg-white text-neutral-800 hover:text-black border border-[#cccccc] px-2.5 py-1.5 rounded-xs text-[11px] font-medium shadow-xs flex items-center gap-1.5 transition-colors"
             title="Expand Fullscreen Lightbox"
           >
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -178,7 +178,7 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
             e.stopPropagation();
             handlePrev();
           }}
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-neutral-900 border border-[#d6d2c8] flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity shadow-sm cursor-pointer z-10"
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-neutral-900 border border-[#cccccc] flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity shadow-sm cursor-pointer z-10"
           aria-label="Previous image angle"
         >
           ‹
@@ -189,7 +189,7 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
             e.stopPropagation();
             handleNext();
           }}
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-neutral-900 border border-[#d6d2c8] flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity shadow-sm cursor-pointer z-10"
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-neutral-900 border border-[#cccccc] flex items-center justify-center opacity-80 sm:opacity-0 group-hover:opacity-100 transition-opacity shadow-sm cursor-pointer z-10"
           aria-label="Next image angle"
         >
           ›
@@ -221,7 +221,7 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
               className={`relative aspect-4/3 rounded-xs overflow-hidden border transition-all cursor-pointer text-left ${
                 isSelected
                   ? "border-neutral-950 ring-2 ring-neutral-950/20 shadow-xs"
-                  : "border-[#ece8e1] hover:border-neutral-400 opacity-75 hover:opacity-100"
+                  : "border-[#dcdcdc] hover:border-neutral-400 opacity-75 hover:opacity-100"
               }`}
             >
               <Image

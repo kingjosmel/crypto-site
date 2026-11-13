@@ -95,8 +95,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
           {/* Right Column: Sticky Purchase Module */}
           <div className="lg:col-span-5 lg:sticky lg:top-28 flex flex-col justify-between">
-            <div className="pb-6 border-b border-[#ece8e1]">
-              <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#8c887e] block mb-2">
+            <div className="pb-6 border-b border-[#dcdcdc]">
+              <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#6b6b6b] block mb-2">
                 {product.brand}
               </span>
               <h1 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal leading-tight tracking-tight mb-3">
@@ -124,7 +124,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </div>
 
               {/* Quiet Luxury Guarantee Strip */}
-              <div className="bg-[#faf9f6] p-4 border border-[#ece8e1] rounded-xs space-y-2.5 text-xs text-neutral-600">
+              <div className="bg-[#ebebeb] p-4 border border-[#dcdcdc] rounded-xs space-y-2.5 text-xs text-neutral-600">
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
                   <span><strong>Guaranteed 24-Hour USA Delivery:</strong> Dispatched via priority express courier with signature required.</span>
@@ -141,7 +141,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Accordion / Specifications Details */}
-            <div className="divide-y divide-[#ece8e1] text-xs pt-2">
+            <div className="divide-y divide-[#dcdcdc] text-xs pt-2">
               <details className="py-4 group" open>
                 <summary className="font-semibold uppercase tracking-wider text-neutral-900 cursor-pointer flex justify-between items-center list-none">
                   <span>Product Description & Provenance</span>
@@ -159,12 +159,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <span className="text-neutral-400 group-open:rotate-180 transition-transform">↓</span>
                 </summary>
                 <dl className="mt-3 space-y-2">
-                  <div className="flex justify-between py-1 border-b border-[#f3f2ee]">
+                  <div className="flex justify-between py-1 border-b border-[#ebebeb]">
                     <dt className="text-neutral-500">Stock SKU</dt>
                     <dd className="font-mono text-neutral-900">{product.sku}</dd>
                   </div>
                   {product.specs.map((spec) => (
-                    <div key={spec.key} className="flex justify-between py-1 border-b border-[#f3f2ee]">
+                    <div key={spec.key} className="flex justify-between py-1 border-b border-[#ebebeb]">
                     <dt className="text-neutral-500">{spec.key}</dt>
                     <dd className="text-neutral-900 font-medium text-right">{spec.value}</dd>
                   </div>
@@ -212,7 +212,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
         {/* You May Also Like Section */}
         {relatedProducts.length > 0 && (
-          <div className="mt-24 pt-12 border-t border-[#ece8e1]">
+          <div className="mt-24 pt-12 border-t border-[#dcdcdc]">
             <div className="flex justify-between items-end mb-8">
               <div>
                 <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b]">

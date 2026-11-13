@@ -70,7 +70,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
         </div>
 
         {/* Crypto Payment & Escrow Clearance Panel */}
-        <div style={{ background: "#ffffff", border: "1px solid #d4d0c5", padding: "20px 24px", borderRadius: "2px", marginBottom: "35px" }}>
+        <div style={{ background: "#ffffff", border: "1px solid #cccccc", padding: "20px 24px", borderRadius: "2px", marginBottom: "35px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "10px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />

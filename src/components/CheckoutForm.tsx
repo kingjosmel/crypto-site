@@ -241,9 +241,9 @@ export function CheckoutForm() {
 
     return (
       <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16">
-        <div className="bg-white border border-[#ece8e1] rounded-xs p-8 sm:p-12 shadow-sm">
+        <div className="bg-white border border-[#dcdcdc] rounded-xs p-8 sm:p-12 shadow-sm">
           {/* Header */}
-          <div className="text-center pb-8 border-b border-[#ece8e1]">
+          <div className="text-center pb-8 border-b border-[#dcdcdc]">
             <div className="w-14 h-14 rounded-full bg-[#10b981]/10 text-[#10b981] flex items-center justify-center text-2xl mx-auto mb-4 font-bold">
               ✓
             </div>
@@ -259,7 +259,7 @@ export function CheckoutForm() {
           </div>
 
           {/* Order Details Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-b border-[#ece8e1] text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-b border-[#dcdcdc] text-xs">
             <div>
               <span className="text-neutral-400 uppercase tracking-wider block mb-1">Order Number</span>
               <strong className="text-neutral-950 font-mono text-sm">{completedOrder.orderNumber}</strong>
@@ -279,7 +279,7 @@ export function CheckoutForm() {
           </div>
 
           {/* Crypto Settlement Information */}
-          <div className="my-6 p-4 rounded-xs border border-[#ece8e1] bg-[#faf9f6]">
+          <div className="my-6 p-4 rounded-xs border border-[#dcdcdc] bg-[#ebebeb]">
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-900">
                 Blockchain Deposit Details
@@ -289,13 +289,13 @@ export function CheckoutForm() {
               </span>
             </div>
             <div className="space-y-2 text-xs">
-              <div className="flex justify-between items-center bg-white p-2.5 border border-[#ece8e1] rounded-xs">
+              <div className="flex justify-between items-center bg-white p-2.5 border border-[#dcdcdc] rounded-xs">
                 <span className="text-neutral-500">Deposit Address:</span>
                 <span className="font-mono text-neutral-800 truncate ml-2 max-w-[260px] sm:max-w-none">
                   {completedOrder.escrowAddress}
                 </span>
               </div>
-              <div className="flex justify-between items-center bg-white p-2.5 border border-[#ece8e1] rounded-xs">
+              <div className="flex justify-between items-center bg-white p-2.5 border border-[#dcdcdc] rounded-xs">
                 <span className="text-neutral-500">Transaction Hash:</span>
                 <span className="font-mono text-neutral-800 truncate ml-2 max-w-[260px] sm:max-w-none">
                   {completedOrder.txHash}
@@ -305,7 +305,7 @@ export function CheckoutForm() {
           </div>
 
           {/* Purchased Items List */}
-          <div className="py-6 border-b border-[#ece8e1]">
+          <div className="py-6 border-b border-[#dcdcdc]">
             <h2 className="text-xs font-bold uppercase tracking-wider text-neutral-900 mb-4">
               Items Ordered ({completedOrder.items?.length || 0})
             </h2>
@@ -341,7 +341,7 @@ export function CheckoutForm() {
             </Link>
             <Link
               href="/shop"
-              className="px-6 py-3.5 bg-white hover:bg-neutral-50 text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
+              className="px-6 py-3.5 bg-white hover:bg-neutral-50 text-neutral-900 border border-[#cccccc] text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
             >
               Continue Shopping
             </Link>
@@ -355,7 +355,7 @@ export function CheckoutForm() {
   if (!cart.length) {
     return (
       <div className="max-w-xl mx-auto py-20 px-4 text-center">
-        <div className="relative w-40 h-28 mx-auto mb-6 rounded-xs overflow-hidden border border-[#ece8e1] shadow-xs">
+        <div className="relative w-40 h-28 mx-auto mb-6 rounded-xs overflow-hidden border border-[#dcdcdc] shadow-xs">
           <Image
             src="/images/editorial_collection_curation.jpg"
             alt="Northstar Archive Collection"
@@ -390,7 +390,7 @@ export function CheckoutForm() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       {/* Breadcrumb Header */}
-      <div className="flex items-center justify-between pb-6 mb-8 border-b border-[#ece8e1]">
+      <div className="flex items-center justify-between pb-6 mb-8 border-b border-[#dcdcdc]">
         <div className="flex items-center gap-2 text-xs text-neutral-500">
           <Link href="/cart" className="hover:text-black transition-colors">Bag</Link>
           <span>/</span>
@@ -409,7 +409,7 @@ export function CheckoutForm() {
         <div className="lg:col-span-7">
           <form onSubmit={handleSubmitOrder} className="space-y-8">
             {/* 1. Contact Information */}
-            <section className="bg-white p-6 sm:p-8 border border-[#ece8e1] rounded-xs shadow-2xs">
+            <section className="bg-white p-6 sm:p-8 border border-[#dcdcdc] rounded-xs shadow-2xs">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950">
                   Contact Information
@@ -429,7 +429,7 @@ export function CheckoutForm() {
                     required
                     autoComplete="email"
                     placeholder="name@example.com"
-                    className="w-full px-3.5 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                    className="w-full px-3.5 py-3 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
                   />
                   <p className="text-[11px] text-neutral-500 mt-1">
                     Your order invoice and courier tracking coordinates will be sent here.
@@ -451,7 +451,7 @@ export function CheckoutForm() {
             </section>
 
             {/* 2. Shipping Address */}
-            <section className="bg-white p-6 sm:p-8 border border-[#ece8e1] rounded-xs shadow-2xs">
+            <section className="bg-white p-6 sm:p-8 border border-[#dcdcdc] rounded-xs shadow-2xs">
               <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950 mb-4">
                 Shipping Address
               </h2>
@@ -466,7 +466,7 @@ export function CheckoutForm() {
                     type="text"
                     disabled
                     value="United States (Guaranteed 24-Hour Delivery)"
-                    className="w-full px-3.5 py-3 bg-[#f4f3ef] border border-[#d6d2c8] rounded-none text-sm text-neutral-700 cursor-not-allowed font-medium"
+                    className="w-full px-3.5 py-3 bg-[#e5e5e5] border border-[#cccccc] rounded-none text-sm text-neutral-700 cursor-not-allowed font-medium"
                   />
                 </div>
 
@@ -482,7 +482,7 @@ export function CheckoutForm() {
                       required
                       autoComplete="name"
                       placeholder="e.g. Alexander Wright"
-                      className="w-full px-3.5 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                      className="w-full px-3.5 py-3 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
                     />
                   </div>
 
@@ -497,7 +497,7 @@ export function CheckoutForm() {
                       required
                       autoComplete="tel"
                       placeholder="e.g. (555) 019-2834"
-                      className="w-full px-3.5 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                      className="w-full px-3.5 py-3 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
                     />
                   </div>
                 </div>
@@ -513,7 +513,7 @@ export function CheckoutForm() {
                     required
                     autoComplete="shipping street-address"
                     placeholder="House number and street name"
-                    className="w-full px-3.5 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                    className="w-full px-3.5 py-3 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
                   />
                 </div>
 
@@ -527,7 +527,7 @@ export function CheckoutForm() {
                     type="text"
                     autoComplete="shipping address-line2"
                     placeholder="Apartment, suite, unit, etc."
-                    className="w-full px-3.5 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                    className="w-full px-3.5 py-3 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
                   />
                 </div>
 
@@ -543,7 +543,7 @@ export function CheckoutForm() {
                       required
                       autoComplete="shipping address-level2"
                       placeholder="e.g. New York"
-                      className="w-full px-3.5 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                      className="w-full px-3.5 py-3 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
                     />
                   </div>
 
@@ -560,7 +560,7 @@ export function CheckoutForm() {
                       maxLength={2}
                       autoComplete="shipping address-level1"
                       placeholder="NY"
-                      className="w-full px-3.5 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 uppercase placeholder:text-neutral-400 transition-colors"
+                      className="w-full px-3.5 py-3 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 uppercase placeholder:text-neutral-400 transition-colors"
                     />
                   </div>
 
@@ -576,7 +576,7 @@ export function CheckoutForm() {
                       pattern="[0-9]{5}(-[0-9]{4})?"
                       autoComplete="shipping postal-code"
                       placeholder="10021"
-                      className="w-full px-3.5 py-3 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                      className="w-full px-3.5 py-3 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
                     />
                   </div>
                 </div>
@@ -584,11 +584,11 @@ export function CheckoutForm() {
             </section>
 
             {/* 3. Shipping Method */}
-            <section className="bg-white p-6 sm:p-8 border border-[#ece8e1] rounded-xs shadow-2xs">
+            <section className="bg-white p-6 sm:p-8 border border-[#dcdcdc] rounded-xs shadow-2xs">
               <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950 mb-4">
                 Shipping Method
               </h2>
-              <div className="p-4 border-2 border-neutral-950 bg-[#faf9f6] rounded-xs flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+              <div className="p-4 border-2 border-neutral-950 bg-[#ebebeb] rounded-xs flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                 <div>
                   <div className="flex items-center gap-2">
                     <strong className="text-sm text-neutral-950 font-semibold">
@@ -609,7 +609,7 @@ export function CheckoutForm() {
             </section>
 
             {/* 4. Payment: Cryptocurrency */}
-            <section className="bg-white p-6 sm:p-8 border border-[#ece8e1] rounded-xs shadow-2xs">
+            <section className="bg-white p-6 sm:p-8 border border-[#dcdcdc] rounded-xs shadow-2xs">
               <div className="flex justify-between items-center mb-2">
                 <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950">
                   Payment Method
@@ -635,8 +635,8 @@ export function CheckoutForm() {
                       onClick={() => setCryptoCurrency(coinKey)}
                       className={`p-3.5 sm:p-4 border text-center transition-all cursor-pointer rounded-xs flex flex-col items-center justify-center ${
                         isSelected
-                          ? "border-neutral-950 bg-[#faf9f6] shadow-xs ring-1 ring-neutral-950"
-                          : "border-[#d6d2c8] bg-white hover:border-neutral-400"
+                          ? "border-neutral-950 bg-[#ebebeb] shadow-xs ring-1 ring-neutral-950"
+                          : "border-[#cccccc] bg-white hover:border-neutral-400"
                       }`}
                     >
                       <span
@@ -658,7 +658,7 @@ export function CheckoutForm() {
               </div>
 
               {/* Deposit Address Box */}
-              <div className="border border-[#d6d2c8] bg-[#faf9f6] p-5 rounded-xs space-y-4">
+              <div className="border border-[#cccccc] bg-[#ebebeb] p-5 rounded-xs space-y-4">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                   <CryptoQRCode
                     address={currentCrypto.address}
@@ -683,7 +683,7 @@ export function CheckoutForm() {
                           {copiedField === "addr" ? "Copied" : "Copy"}
                         </button>
                       </div>
-                      <div className="p-2.5 bg-white border border-[#d6d2c8] font-mono text-xs text-neutral-900 break-all select-all">
+                      <div className="p-2.5 bg-white border border-[#cccccc] font-mono text-xs text-neutral-900 break-all select-all">
                         {currentCrypto.address}
                       </div>
                     </div>
@@ -701,7 +701,7 @@ export function CheckoutForm() {
                           {copiedField === "amt" ? "Copied" : "Copy"}
                         </button>
                       </div>
-                      <div className="p-2.5 bg-white border border-[#d6d2c8] flex justify-between items-center">
+                      <div className="p-2.5 bg-white border border-[#cccccc] flex justify-between items-center">
                         <span className="font-mono text-sm font-bold text-neutral-950">
                           {calculatedCryptoAmount} {currentCrypto.symbol}
                         </span>
@@ -713,7 +713,7 @@ export function CheckoutForm() {
                   </div>
                 </div>
 
-                <div className="text-[11px] text-neutral-500 border-t border-[#ece8e1] pt-3 leading-relaxed">
+                <div className="text-[11px] text-neutral-500 border-t border-[#dcdcdc] pt-3 leading-relaxed">
                   Send only {currentCrypto.name} to this address via the {currentCrypto.network}. Settlement is automatically detected on-chain.
                 </div>
               </div>
@@ -747,16 +747,16 @@ export function CheckoutForm() {
 
         {/* Right Column: Order Summary (Shopify sticky sidebar style) */}
         <div className="lg:col-span-5 sticky top-24">
-          <div className="bg-white border border-[#ece8e1] p-6 sm:p-8 rounded-xs shadow-2xs space-y-6">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950 pb-4 border-b border-[#ece8e1]">
+          <div className="bg-white border border-[#dcdcdc] p-6 sm:p-8 rounded-xs shadow-2xs space-y-6">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950 pb-4 border-b border-[#dcdcdc]">
               Order Summary ({cart.length})
             </h2>
 
             {/* Line items list */}
             <div className="space-y-4 max-h-[380px] overflow-y-auto pr-1">
               {cart.map((item) => (
-                <div key={`${item.productId}-${item.size || "std"}`} className="flex items-center gap-4 py-2 border-b border-[#f4f3ef] last:border-none">
-                  <div className="relative w-16 h-20 bg-[#f7f6f3] shrink-0 border border-[#ece8e1] rounded-xs overflow-hidden">
+                <div key={`${item.productId}-${item.size || "std"}`} className="flex items-center gap-4 py-2 border-b border-[#e5e5e5] last:border-none">
+                  <div className="relative w-16 h-20 bg-[#ebebeb] shrink-0 border border-[#dcdcdc] rounded-xs overflow-hidden">
                     {item.imageUrl && (
                       <Image
                         src={item.imageUrl}
@@ -801,7 +801,7 @@ export function CheckoutForm() {
                   placeholder="Discount code or promo"
                   value={discountCode}
                   onChange={(e) => setDiscountCode(e.target.value)}
-                  className="flex-1 px-3 py-2 bg-[#fcfbf9] border border-[#d6d2c8] focus:border-black focus:bg-white focus:outline-none rounded-none text-xs text-neutral-900 placeholder:text-neutral-400"
+                  className="flex-1 px-3 py-2 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-xs text-neutral-900 placeholder:text-neutral-400"
                 />
                 <button
                   type="button"
@@ -810,7 +810,7 @@ export function CheckoutForm() {
                       setDiscountApplied(true);
                     }
                   }}
-                  className="px-4 py-2 bg-[#f4f3ef] hover:bg-[#e8e6df] text-neutral-800 text-xs font-semibold uppercase tracking-wider border border-[#d6d2c8] transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-[#e5e5e5] hover:bg-[#d4d4d4] text-neutral-800 text-xs font-semibold uppercase tracking-wider border border-[#cccccc] transition-colors cursor-pointer"
                 >
                   Apply
                 </button>
@@ -823,7 +823,7 @@ export function CheckoutForm() {
             </div>
 
             {/* Price Breakdown */}
-            <div className="pt-4 border-t border-[#ece8e1] space-y-2.5 text-xs">
+            <div className="pt-4 border-t border-[#dcdcdc] space-y-2.5 text-xs">
               <div className="flex justify-between text-neutral-600">
                 <span>Subtotal</span>
                 <span className="font-mono text-neutral-950 font-medium">{formatPrice(subtotalCents)}</span>
@@ -842,7 +842,7 @@ export function CheckoutForm() {
                 <span>Estimated Sales Tax (8.25%)</span>
                 <span className="font-mono text-neutral-950">{formatPrice(taxCents)}</span>
               </div>
-              <div className="pt-4 border-t border-[#ece8e1] flex justify-between items-baseline">
+              <div className="pt-4 border-t border-[#dcdcdc] flex justify-between items-baseline">
                 <span className="text-sm font-semibold text-neutral-950">Total</span>
                 <div className="text-right">
                   <span className="text-xl font-mono font-bold text-neutral-950 block">
@@ -856,7 +856,7 @@ export function CheckoutForm() {
             </div>
 
             {/* Trust Badges */}
-            <div className="pt-4 border-t border-[#ece8e1] space-y-2 text-[11px] text-neutral-600">
+            <div className="pt-4 border-t border-[#dcdcdc] space-y-2 text-[11px] text-neutral-600">
               <div className="flex items-center gap-2">
                 <span className="text-[#047857]">✓</span>
                 <span>Guaranteed 24-Hour delivery to any US address</span>

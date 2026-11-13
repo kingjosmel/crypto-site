@@ -22,7 +22,7 @@ export default function LoginPage() {
               Access your bespoke acquisitions, cryptographically secured invoices, and private courier tracking.
             </p>
           </div>
-          <div className="relative w-full aspect-16/10 rounded-xs overflow-hidden border border-[#ece8e1] shadow-xs">
+          <div className="relative w-full aspect-16/10 rounded-xs overflow-hidden border border-[#dcdcdc] shadow-xs">
             <Image
               src="/images/editorial_atelier.jpg"
               alt="Northstar Private Atelier"

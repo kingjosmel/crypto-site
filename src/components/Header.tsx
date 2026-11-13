@@ -45,9 +45,9 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e9e6df] transition-all">
+    <header className="sticky top-0 z-40 bg-[#f5f5f5]/95 backdrop-blur-md border-b border-[#dcdcdc] transition-all">
       {/* 1. Clean Minimal Announcement Bar */}
-      <div className="bg-[#0f0f0f] text-[#f5f4f0] text-xs py-2 px-4 border-b border-neutral-800">
+      <div className="bg-[#0f0f0f] text-[#f5f5f5] text-xs py-2 px-4 border-b border-neutral-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium tracking-wide">
           <span className="hidden sm:inline text-neutral-400">Guaranteed 24-Hour USA Delivery</span>
           <span className="mx-auto sm:mx-0 tracking-wider uppercase font-semibold text-neutral-200">
@@ -121,7 +121,7 @@ export function Header() {
             {/* Search Input Bar */}
             <form action="/search" method="GET" className="relative hidden md:block">
               <label htmlFor="header-search-bar" className="sr-only">Search catalog</label>
-              <div className="flex items-center border border-[#d6d2c8] rounded-xs px-3 py-1.5 bg-[#fbfaf8] hover:border-neutral-500 focus-within:border-black transition-colors">
+              <div className="flex items-center border border-[#cccccc] rounded-xs px-3 py-1.5 bg-[#f5f5f5] hover:border-neutral-500 focus-within:border-black transition-colors">
                 <input
                   id="header-search-bar"
                   name="q"
@@ -152,13 +152,13 @@ export function Header() {
 
         {/* Mobile Navigation Dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-[#ece9e2] py-4 space-y-4 bg-white">
+          <div className="lg:hidden border-t border-[#dcdcdc] py-4 space-y-4 bg-white">
             <form action="/search" method="GET" className="mb-3">
               <input
                 name="q"
                 type="search"
                 placeholder="Search collection..."
-                className="w-full border border-[#d6d2c8] px-3.5 py-2 text-xs rounded-xs bg-[#fbfaf8]"
+                className="w-full border border-[#cccccc] px-3.5 py-2 text-xs rounded-xs bg-[#f5f5f5]"
               />
             </form>
             <div className="flex flex-col space-y-3 text-xs font-semibold uppercase tracking-wider text-neutral-800">
@@ -196,7 +196,7 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="bg-[#111111] text-[#99958e] border-t border-[#262626] pt-14 pb-12 mt-auto">
+    <footer className="bg-[#111111] text-[#999999] border-t border-[#262626] pt-14 pb-12 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Newsletter Bar */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-12 border-b border-[#262626] items-center">
@@ -205,7 +205,7 @@ export function Footer() {
             <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal mt-1.5 tracking-tight">
               Curated releases and new additions.
             </h3>
-            <p className="text-xs text-[#8c887f] mt-1.5 max-w-md leading-relaxed">
+            <p className="text-xs text-[#8c8c8c] mt-1.5 max-w-md leading-relaxed">
               Receive updates when rare designer bags, luxury footwear, and seasonal garments are added to the collection.
             </p>
           </div>
@@ -220,7 +220,8 @@ export function Footer() {
             <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">Collection</h4>
             <ul className="space-y-2.5">
               <li><Link href="/shop" className="hover:text-white transition-colors">All Pieces</Link></li>
-              <li><Link href="/category/belts-wallets-accessories" className="hover:text-white transition-colors">Bags & Leather</Link></li>
+              <li><Link href="/category/designer-bags" className="hover:text-white transition-colors">Designer Bags</Link></li>
+              <li><Link href="/category/belts-wallets-accessories" className="hover:text-white transition-colors">Small Leather Goods</Link></li>
               <li><Link href="/category/designer-clothing" className="hover:text-white transition-colors">Apparel & Jackets</Link></li>
               <li><Link href="/category/luxury-shoes-sneakers" className="hover:text-white transition-colors">Footwear & Sneakers</Link></li>
               <li><Link href="/shop?brand=Goyard" className="hover:text-white transition-colors">Goyard</Link></li>
@@ -254,7 +255,7 @@ export function Footer() {
 
           <div>
             <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">Crypto Checkout</h4>
-            <p className="text-[#8c887f] leading-relaxed mb-4 text-[11px]">
+            <p className="text-[#8c8c8c] leading-relaxed mb-4 text-[11px]">
               Orders are settled directly on-chain via Bitcoin, Ethereum, and Solana. Private, instant checkout with zero credit card holds or wire processing delays.
             </p>
             <div className="flex flex-wrap gap-2 text-[10px] font-mono">
@@ -266,7 +267,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-[#6b6861] gap-4">
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-[#6b6b6b] gap-4">
           <div className="flex items-center gap-3">
             <span className="font-serif text-white font-semibold tracking-wider text-sm">NORTHSTAR / SUPPLY</span>
             <span>·</span>

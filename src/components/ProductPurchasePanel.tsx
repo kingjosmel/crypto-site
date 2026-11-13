@@ -116,12 +116,12 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
     <div className="space-y-6">
       {/* Interactive Size Selection Module */}
       {availableSizes.length > 0 && (
-        <div className="bg-[#faf9f6] p-4 border border-[#ece8e1] rounded-xs space-y-3">
+        <div className="bg-[#ebebeb] p-4 border border-[#dcdcdc] rounded-xs space-y-3">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold uppercase tracking-wider text-neutral-900 flex items-center gap-1.5">
               <span>Available Sizing:</span>
               {selectedSize && (
-                <span className="text-[#047857] font-semibold font-mono bg-white px-2 py-0.5 border border-[#d6d2c8] rounded-xs text-[11px]">
+                <span className="text-[#047857] font-semibold font-mono bg-white px-2 py-0.5 border border-[#cccccc] rounded-xs text-[11px]">
                   Selected: {selectedSize}
                 </span>
               )}
@@ -150,7 +150,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
                   className={`min-w-[48px] h-11 px-3.5 flex items-center justify-center text-xs font-semibold rounded-xs transition-all cursor-pointer ${
                     isSelected
                       ? "bg-neutral-950 text-white border-2 border-neutral-950 shadow-xs ring-1 ring-neutral-950"
-                      : "bg-white text-neutral-800 border border-[#d6d2c8] hover:border-black hover:bg-[#f6f5f1]"
+                      : "bg-white text-neutral-800 border border-[#cccccc] hover:border-black hover:bg-[#f6f5f1]"
                   }`}
                   style={isSelected ? { color: "#ffffff", backgroundColor: "#0f0f0f" } : undefined}
                 >
@@ -219,7 +219,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
           type="button"
           onClick={handleInstantCryptoBuy}
           disabled={isNavigating}
-          className="w-full py-3.5 px-4 bg-[#f5f4ef] hover:bg-[#eae8e1] active:bg-[#dedad0] text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-[0.12em] transition-colors flex items-center justify-center gap-2 cursor-pointer rounded-xs shadow-2xs disabled:opacity-75"
+          className="w-full py-3.5 px-4 bg-[#e3e3e3] hover:bg-[#d8d8d8] active:bg-[#d4d4d4] text-neutral-900 border border-[#cccccc] text-xs font-semibold uppercase tracking-[0.12em] transition-colors flex items-center justify-center gap-2 cursor-pointer rounded-xs shadow-2xs disabled:opacity-75"
         >
           <span className="font-mono text-[#f7931a] font-bold">₿</span>
           <span className="font-mono text-[#627eea] font-bold">Ξ</span>
@@ -273,7 +273,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
             className="bg-white border border-[#d8d4cc] rounded-xs w-full max-w-lg p-6 shadow-2xl space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-3 border-b border-[#ece8e1]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#dcdcdc]">
               <div>
                 <span className="text-[10px] uppercase font-bold tracking-widest text-[#a3702b]">
                   {product.brand} · Archival Sizing Reference
@@ -297,16 +297,16 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
                 <p className="text-neutral-600 leading-relaxed">
                   Belt size corresponds to the length in centimeters measured from the buckle prong to the middle adjustment hole:
                 </p>
-                <div className="border border-[#ece8e1] rounded-xs overflow-hidden">
+                <div className="border border-[#dcdcdc] rounded-xs overflow-hidden">
                   <table className="w-full text-left">
-                    <thead className="bg-[#faf9f6] border-b border-[#ece8e1] text-[11px] font-bold uppercase text-neutral-700">
+                    <thead className="bg-[#ebebeb] border-b border-[#dcdcdc] text-[11px] font-bold uppercase text-neutral-700">
                       <tr>
                         <th className="p-2.5">Belt Size (cm)</th>
                         <th className="p-2.5">Waist (Inches)</th>
                         <th className="p-2.5">Pants Size (US)</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#ece8e1]">
+                    <tbody className="divide-y divide-[#dcdcdc]">
                       <tr><td className="p-2.5 font-mono font-medium">75</td><td className="p-2.5">28 to 30 in</td><td className="p-2.5">28 - 29</td></tr>
                       <tr><td className="p-2.5 font-mono font-medium">80</td><td className="p-2.5">30 to 32 in</td><td className="p-2.5">30 - 31</td></tr>
                       <tr><td className="p-2.5 font-mono font-medium">85</td><td className="p-2.5">32 to 34 in</td><td className="p-2.5">32 - 33</td></tr>
@@ -323,9 +323,9 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
                 <p className="text-neutral-600 leading-relaxed">
                   Footwear sizes correspond to European standard sizing (EU). All pairs fit true to size:
                 </p>
-                <div className="border border-[#ece8e1] rounded-xs overflow-hidden">
+                <div className="border border-[#dcdcdc] rounded-xs overflow-hidden">
                   <table className="w-full text-left">
-                    <thead className="bg-[#faf9f6] border-b border-[#ece8e1] text-[11px] font-bold uppercase text-neutral-700">
+                    <thead className="bg-[#ebebeb] border-b border-[#dcdcdc] text-[11px] font-bold uppercase text-neutral-700">
                       <tr>
                         <th className="p-2.5">EU Size</th>
                         <th className="p-2.5">US Men</th>
@@ -333,7 +333,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
                         <th className="p-2.5">Foot Length</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#ece8e1]">
+                    <tbody className="divide-y divide-[#dcdcdc]">
                       <tr><td className="p-2.5 font-mono font-medium">39</td><td className="p-2.5">6.5</td><td className="p-2.5">5.5</td><td className="p-2.5">25.0 cm</td></tr>
                       <tr><td className="p-2.5 font-mono font-medium">40</td><td className="p-2.5">7.5</td><td className="p-2.5">6.5</td><td className="p-2.5">25.5 cm</td></tr>
                       <tr><td className="p-2.5 font-mono font-medium">41</td><td className="p-2.5">8.0</td><td className="p-2.5">7.0</td><td className="p-2.5">26.0 cm</td></tr>
@@ -352,9 +352,9 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
                 <p className="text-neutral-600 leading-relaxed">
                   Garments follow traditional European sartorial proportions:
                 </p>
-                <div className="border border-[#ece8e1] rounded-xs overflow-hidden">
+                <div className="border border-[#dcdcdc] rounded-xs overflow-hidden">
                   <table className="w-full text-left">
-                    <thead className="bg-[#faf9f6] border-b border-[#ece8e1] text-[11px] font-bold uppercase text-neutral-700">
+                    <thead className="bg-[#ebebeb] border-b border-[#dcdcdc] text-[11px] font-bold uppercase text-neutral-700">
                       <tr>
                         <th className="p-2.5">EU Size</th>
                         <th className="p-2.5">Standard</th>
@@ -362,7 +362,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
                         <th className="p-2.5">Waist (Inches)</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#ece8e1]">
+                    <tbody className="divide-y divide-[#dcdcdc]">
                       <tr><td className="p-2.5 font-mono font-medium">46</td><td className="p-2.5">S</td><td className="p-2.5">36 in</td><td className="p-2.5">30 in</td></tr>
                       <tr><td className="p-2.5 font-mono font-medium">48</td><td className="p-2.5">M</td><td className="p-2.5">38 in</td><td className="p-2.5">32 in</td></tr>
                       <tr><td className="p-2.5 font-mono font-medium">50</td><td className="p-2.5">L</td><td className="p-2.5">40 in</td><td className="p-2.5">34 in</td></tr>

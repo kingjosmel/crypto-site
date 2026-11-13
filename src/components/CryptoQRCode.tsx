@@ -88,7 +88,7 @@ export function CryptoQRCode({
     <div className={`flex flex-col items-center ${className}`}>
       {/* QR Code Container */}
       <div
-        className="relative bg-white p-2.5 border border-[#d6d2c8] rounded-xs shadow-sm flex items-center justify-center transition-all hover:border-neutral-900"
+        className="relative bg-white p-2.5 border border-[#cccccc] rounded-xs shadow-sm flex items-center justify-center transition-all hover:border-neutral-900"
         style={{ width: size + 16, height: size + 16 }}
       >
         {dataUrl ? (

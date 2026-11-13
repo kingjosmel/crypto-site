@@ -22,7 +22,7 @@ export function ProductGallery({
   return (
     <div className="flex flex-col gap-4">
       {/* Primary Main Image Frame */}
-      <div className="relative aspect-4/5 w-full bg-[#f6f5f2] rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm">
+      <div className="relative aspect-4/5 w-full bg-[#ebebeb] rounded-xs overflow-hidden border border-[#dcdcdc] shadow-sm">
         {activeImage && (
           <Image
             src={activeImage.url}
@@ -31,14 +31,14 @@ export function ProductGallery({
             priority
             sizes="(max-width: 1024px) 100vw, 750px"
             quality={95}
-            className="object-cover transition-opacity duration-300"
+            className="object-contain p-2 transition-opacity duration-300"
             referrerPolicy="no-referrer"
           />
         )}
 
         {/* Floating Provenance & Inspection Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-1.5 z-10">
-          <span className="text-[10px] font-mono tracking-widest uppercase bg-white/95 backdrop-blur-xs text-neutral-900 px-3 py-1 border border-[#dedad2] rounded-xs font-semibold shadow-xs">
+          <span className="text-[10px] font-mono tracking-widest uppercase bg-white/95 backdrop-blur-xs text-neutral-900 px-3 py-1 border border-[#d4d4d4] rounded-xs font-semibold shadow-xs">
             {conditionLabelText}
           </span>
           <span className="text-[10px] tracking-wider uppercase bg-[#10b981]/15 backdrop-blur-xs text-[#047857] px-3 py-1 border border-[#10b981]/30 rounded-xs font-semibold shadow-xs">
@@ -64,10 +64,10 @@ export function ProductGallery({
                 key={`${img.url}-${idx}`}
                 type="button"
                 onClick={() => setSelectedIndex(idx)}
-                className={`relative aspect-4/5 bg-[#f6f5f2] rounded-xs overflow-hidden border transition-all cursor-pointer group ${
+                className={`relative aspect-4/5 bg-[#ebebeb] rounded-xs overflow-hidden border transition-all cursor-pointer group ${
                   isActive
                     ? "border-neutral-950 ring-2 ring-neutral-950 ring-offset-1"
-                    : "border-[#ece8e1] hover:border-neutral-400 opacity-75 hover:opacity-100"
+                    : "border-[#dcdcdc] hover:border-neutral-400 opacity-75 hover:opacity-100"
                 }`}
                 aria-label={`View angle ${idx + 1}`}
               >
@@ -77,11 +77,11 @@ export function ProductGallery({
                   fill
                   sizes="160px"
                   quality={85}
-                  className="object-cover"
+                  className="object-contain p-1"
                   referrerPolicy="no-referrer"
                 />
                 <span className="absolute bottom-1 left-1 text-[9px] font-mono uppercase bg-white/90 px-1 py-0.5 rounded-2xs text-neutral-800 line-clamp-1 opacity-90">
-                  {idx === 0 ? "Front" : idx === 1 ? "Detail" : idx === 2 ? "Package" : "Scan"}
+                  {idx === 0 ? "Front" : `View ${idx + 1}`}
                 </span>
               </button>
             );

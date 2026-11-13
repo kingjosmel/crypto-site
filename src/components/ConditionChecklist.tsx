@@ -19,11 +19,11 @@ export function ConditionChecklist({ brand, sku }: { brand: string; sku: string 
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border border-[#ece8e1] rounded-xs bg-white overflow-hidden my-4">
+    <div className="border border-[#dcdcdc] rounded-xs bg-white overflow-hidden my-4">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-4 flex items-center justify-between text-left hover:bg-[#faf9f6] transition-colors cursor-pointer"
+        className="w-full p-4 flex items-center justify-between text-left hover:bg-[#ebebeb] transition-colors cursor-pointer"
         aria-expanded={isOpen}
       >
         <div className="flex items-center gap-3">
@@ -46,13 +46,13 @@ export function ConditionChecklist({ brand, sku }: { brand: string; sku: string 
       </button>
 
       {isOpen && (
-        <div className="p-4 pt-2 border-t border-[#ece8e1] bg-[#faf9f6] space-y-2.5">
+        <div className="p-4 pt-2 border-t border-[#dcdcdc] bg-[#ebebeb] space-y-2.5">
           <p className="text-[11px] text-neutral-600 mb-3">
             Every {brand} item is physically graded and verified by our specialists in New York before listing. High-resolution inspection photos of any point can be provided upon request prior to checkout.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
             {CHECKLIST_ITEMS.map((item) => (
-              <div key={item.id} className="p-2.5 bg-white border border-[#ece8e1] rounded-xs flex items-start gap-2">
+              <div key={item.id} className="p-2.5 bg-white border border-[#dcdcdc] rounded-xs flex items-start gap-2">
                 <span className="text-[#047857] font-bold text-xs shrink-0 mt-0.5">✓</span>
                 <div>
                   <strong className="text-neutral-900 text-xs block font-medium">

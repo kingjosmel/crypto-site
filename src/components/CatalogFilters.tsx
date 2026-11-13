@@ -31,10 +31,10 @@ export function CatalogFilters({
   };
 
   return (
-    <div className="mb-6 sm:mb-10 pb-5 sm:pb-6 border-b border-[#ece8e1] space-y-3 sm:space-y-4">
+    <div className="mb-6 sm:mb-10 pb-5 sm:pb-6 border-b border-[#dcdcdc] space-y-3 sm:space-y-4">
       {/* 1. Category Tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
-        <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-neutral-400 mr-1 shrink-0">
+        <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-neutral-600 mr-1 shrink-0">
           Discipline:
         </span>
         <Link
@@ -42,7 +42,7 @@ export function CatalogFilters({
           className={`px-3 sm:px-3.5 py-1.5 text-xs font-medium rounded-xs uppercase tracking-wider shrink-0 transition-colors min-h-[36px] flex items-center ${
             !activeCategory
               ? "bg-neutral-950 text-white"
-              : "bg-[#f5f4ef] text-neutral-700 hover:bg-[#eae8e1]"
+              : "bg-[#e3e3e3] text-neutral-700 hover:bg-[#d8d8d8]"
           }`}
           style={!activeCategory ? { color: "#ffffff" } : undefined}
         >
@@ -55,7 +55,7 @@ export function CatalogFilters({
             className={`px-3 sm:px-3.5 py-1.5 text-xs font-medium rounded-xs uppercase tracking-wider shrink-0 transition-colors min-h-[36px] flex items-center ${
               activeCategory === category.slug
                 ? "bg-neutral-950 text-white"
-                : "bg-[#f5f4ef] text-neutral-700 hover:bg-[#eae8e1]"
+                : "bg-[#e3e3e3] text-neutral-700 hover:bg-[#d8d8d8]"
             }`}
             style={activeCategory === category.slug ? { color: "#ffffff" } : undefined}
           >
@@ -66,7 +66,7 @@ export function CatalogFilters({
 
       {/* 2. Condition Standard Filter */}
       <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
-        <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-neutral-400 mr-1 shrink-0">
+        <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-neutral-600 mr-1 shrink-0">
           Condition:
         </span>
         <Link
@@ -74,7 +74,7 @@ export function CatalogFilters({
           className={`px-2.5 sm:px-3 py-1 text-xs shrink-0 rounded-xs transition-colors min-h-[32px] flex items-center ${
             !activeCondition
               ? "bg-neutral-900 text-white font-medium"
-              : "bg-white border border-[#dedad0] text-neutral-600 hover:text-black"
+              : "bg-white border border-[#d4d4d4] text-neutral-600 hover:text-black"
           }`}
           style={!activeCondition ? { color: "#ffffff" } : undefined}
         >
@@ -85,7 +85,7 @@ export function CatalogFilters({
           className={`px-2.5 sm:px-3 py-1 text-xs shrink-0 rounded-xs transition-colors min-h-[32px] flex items-center gap-1.5 ${
             activeCondition === "NEW"
               ? "bg-neutral-900 text-white font-medium"
-              : "bg-white border border-[#dedad0] text-neutral-600 hover:text-black"
+              : "bg-white border border-[#d4d4d4] text-neutral-600 hover:text-black"
           }`}
           style={activeCondition === "NEW" ? { color: "#ffffff" } : undefined}
         >
@@ -96,7 +96,7 @@ export function CatalogFilters({
           className={`px-2.5 sm:px-3 py-1 text-xs shrink-0 rounded-xs transition-colors min-h-[32px] flex items-center gap-1.5 ${
             activeCondition === "PRE_OWNED"
               ? "bg-neutral-900 text-white font-medium"
-              : "bg-white border border-[#dedad0] text-neutral-600 hover:text-black"
+              : "bg-white border border-[#d4d4d4] text-neutral-600 hover:text-black"
           }`}
           style={activeCondition === "PRE_OWNED" ? { color: "#ffffff" } : undefined}
         >
@@ -107,7 +107,7 @@ export function CatalogFilters({
           className={`px-2.5 sm:px-3 py-1 text-xs shrink-0 rounded-xs transition-colors min-h-[32px] flex items-center gap-1.5 ${
             activeCondition === "REFURBISHED"
               ? "bg-neutral-900 text-white font-medium"
-              : "bg-white border border-[#dedad0] text-neutral-600 hover:text-black"
+              : "bg-white border border-[#d4d4d4] text-neutral-600 hover:text-black"
           }`}
           style={activeCondition === "REFURBISHED" ? { color: "#ffffff" } : undefined}
         >
@@ -117,7 +117,7 @@ export function CatalogFilters({
 
       {/* 3. House Filter Bar */}
       <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
-        <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-neutral-400 mr-1 shrink-0">
+        <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-neutral-600 mr-1 shrink-0">
           House:
         </span>
         <Link

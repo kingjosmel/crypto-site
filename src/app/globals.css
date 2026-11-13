@@ -2,11 +2,11 @@
 
 :root {
   --ink: #0f0f0f;
-  --paper: #faf9f6;
+  --paper: #ebebeb;
   --paper-elevated: #ffffff;
-  --muted: #6e6a62;
-  --line: #eae7e0;
-  --line-strong: #d4d0c5;
+  --muted: #595959;
+  --line: #dcdcdc;
+  --line-strong: #cccccc;
   --accent: #9a6e2e;
   --emerald: #059669;
   --font-serif: "Playfair Display", Georgia, serif;
@@ -130,11 +130,11 @@ a.bg-black:hover {
 .button-light {
   background: #ffffff;
   color: #0f0f0f;
-  border: 1px solid #d4d0c5;
+  border: 1px solid #cccccc;
 }
 
 .button-light:hover {
-  background: #f4f3ef;
+  background: #e5e5e5;
   border-color: #0f0f0f;
 }
 
@@ -177,7 +177,7 @@ a.bg-black:hover {
   padding: 12px 14px;
   border: 1px solid var(--line-strong);
   border-radius: 2px;
-  background: #fcfbf9;
+  background: #f7f7f7;
   font-size: 14px;
   color: var(--ink);
   transition: border-color 0.15s ease, background 0.15s ease;
@@ -219,7 +219,7 @@ a.bg-black:hover {
   justify-content: space-between;
   padding: 10px 0;
   font-size: 13.5px;
-  border-bottom: 1px solid #f2efe9;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .quote-total {

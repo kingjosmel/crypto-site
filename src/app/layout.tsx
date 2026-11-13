@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${sans.variable} ${serif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#faf9f6] text-[#0f0f0f] selection:bg-[#0f0f0f] selection:text-white">
+      <body className="min-h-full flex flex-col font-sans bg-[#ebebeb] text-[#0f0f0f] selection:bg-[#0f0f0f] selection:text-white">
         {children}
       </body>
     </html>

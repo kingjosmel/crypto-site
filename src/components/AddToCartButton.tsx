@@ -173,7 +173,7 @@ export function InstantCryptoCheckoutButton({
       disabled={navigating}
       className={
         className ||
-        "w-full py-3.5 px-4 bg-[#f4f3ef] hover:bg-[#e8e6e0] text-neutral-900 border border-[#d8d5cd] text-xs font-semibold uppercase tracking-[0.12em] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-75"
+        "w-full py-3.5 px-4 bg-[#e5e5e5] hover:bg-[#e8e6e0] text-neutral-900 border border-[#d8d5cd] text-xs font-semibold uppercase tracking-[0.12em] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-75"
       }
       aria-label="Instant Crypto Checkout via BTC, ETH, or SOL"
     >

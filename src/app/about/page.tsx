@@ -18,7 +18,7 @@ export default function AboutPage() {
 
         {/* 3 Pillars Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-          <div className="p-6 bg-white border border-[#ece8e1] rounded-xs shadow-2xs">
+          <div className="p-6 bg-white border border-[#dcdcdc] rounded-xs shadow-2xs">
             <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">01</span>
             <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
               Guaranteed 24-Hour USA Delivery
@@ -28,7 +28,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="p-6 bg-white border border-[#ece8e1] rounded-xs shadow-2xs">
+          <div className="p-6 bg-white border border-[#dcdcdc] rounded-xs shadow-2xs">
             <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">02</span>
             <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
               100% Verified Authentic
@@ -38,7 +38,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="p-6 bg-white border border-[#ece8e1] rounded-xs shadow-2xs">
+          <div className="p-6 bg-white border border-[#dcdcdc] rounded-xs shadow-2xs">
             <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">03</span>
             <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
               Instant Crypto Checkout
@@ -50,7 +50,7 @@ export default function AboutPage() {
         </div>
 
         {/* Hero Visual */}
-        <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm mb-12">
+        <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#dcdcdc] shadow-sm mb-12">
           <Image
             src="/images/editorial_collection_curation.jpg"
             alt="Northstar product curation and verification"
@@ -64,7 +64,7 @@ export default function AboutPage() {
         </div>
 
         {/* Story & Philosophy Sections */}
-        <div className="divide-y divide-[#ece8e1] border-t border-b border-[#ece8e1]">
+        <div className="divide-y divide-[#dcdcdc] border-t border-b border-[#dcdcdc]">
           <div className="py-8">
             <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
               Why We Started Northstar
@@ -91,7 +91,7 @@ export default function AboutPage() {
         </div>
 
         {/* Authenticity Process Section with Icons */}
-        <div className="my-12 bg-white border border-[#ece8e1] p-6 sm:p-8 rounded-xs">
+        <div className="my-12 bg-white border border-[#dcdcdc] p-6 sm:p-8 rounded-xs">
           <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
             Verification Protocol
           </span>
@@ -103,7 +103,7 @@ export default function AboutPage() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border border-[#ece8e1] p-4 bg-[#faf9f6] rounded-xs">
+            <div className="border border-[#dcdcdc] p-4 bg-[#ebebeb] rounded-xs">
               <div className="w-10 h-10 rounded-full bg-[#0f0f0f] text-white flex items-center justify-center font-bold text-sm mb-3">
                 1
               </div>
@@ -115,7 +115,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="border border-[#ece8e1] p-4 bg-[#faf9f6] rounded-xs">
+            <div className="border border-[#dcdcdc] p-4 bg-[#ebebeb] rounded-xs">
               <div className="w-10 h-10 rounded-full bg-[#0f0f0f] text-white flex items-center justify-center font-bold text-sm mb-3">
                 2
               </div>
@@ -127,7 +127,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="border border-[#ece8e1] p-4 bg-[#faf9f6] rounded-xs">
+            <div className="border border-[#dcdcdc] p-4 bg-[#ebebeb] rounded-xs">
               <div className="w-10 h-10 rounded-full bg-[#0f0f0f] text-white flex items-center justify-center font-bold text-sm mb-3">
                 3
               </div>
@@ -154,7 +154,7 @@ export default function AboutPage() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-white border border-[#ece8e1] rounded-xs overflow-hidden">
+            <div className="bg-white border border-[#dcdcdc] rounded-xs overflow-hidden">
               <div className="relative aspect-4/3 w-full">
                 <Image
                   src="/images/customer_unboxing_goyard.jpg"
@@ -177,7 +177,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="bg-white border border-[#ece8e1] rounded-xs overflow-hidden">
+            <div className="bg-white border border-[#dcdcdc] rounded-xs overflow-hidden">
               <div className="relative aspect-4/3 w-full">
                 <Image
                   src="/images/customer_holding_celine.jpg"
@@ -200,7 +200,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="bg-white border border-[#ece8e1] rounded-xs overflow-hidden">
+            <div className="bg-white border border-[#dcdcdc] rounded-xs overflow-hidden">
               <div className="relative aspect-4/3 w-full">
                 <Image
                   src="/images/customer_cardholder_delivery.jpg"
@@ -236,7 +236,7 @@ export default function AboutPage() {
           </Link>
           <Link
             href="/contact"
-            className="px-6 py-3.5 bg-white hover:bg-neutral-50 text-neutral-900 border border-[#d6d2c8] text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
+            className="px-6 py-3.5 bg-white hover:bg-neutral-50 text-neutral-900 border border-[#cccccc] text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
           >
             Contact Customer Support
           </Link>

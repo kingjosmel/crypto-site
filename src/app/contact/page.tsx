@@ -22,17 +22,17 @@ export default function ContactPage() {
 
         {/* Quick Contact Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-          <div className="p-5 bg-white border border-[#ece8e1] rounded-xs">
+          <div className="p-5 bg-white border border-[#dcdcdc] rounded-xs">
             <span className="text-xs uppercase font-bold text-neutral-400 block mb-1">Email Support</span>
             <strong className="text-sm text-neutral-950 block">support@northstarsupply.com</strong>
             <span className="text-xs text-neutral-500 mt-1 block">Quick replies within 1 to 2 hours</span>
           </div>
-          <div className="p-5 bg-white border border-[#ece8e1] rounded-xs">
+          <div className="p-5 bg-white border border-[#dcdcdc] rounded-xs">
             <span className="text-xs uppercase font-bold text-neutral-400 block mb-1">Support Hours</span>
             <strong className="text-sm text-neutral-950 block">Mon - Sat: 9:00 AM to 7:00 PM EST</strong>
             <span className="text-xs text-neutral-500 mt-1 block">Assistance 6 days a week</span>
           </div>
-          <div className="p-5 bg-white border border-[#ece8e1] rounded-xs">
+          <div className="p-5 bg-white border border-[#dcdcdc] rounded-xs">
             <span className="text-xs uppercase font-bold text-neutral-400 block mb-1">Order Tracking</span>
             <Link href="/track" className="text-sm text-[#047857] font-semibold hover:underline block">
               Track Active Order →
@@ -42,7 +42,7 @@ export default function ContactPage() {
         </div>
 
         {/* Hero Visual */}
-        <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#ece8e1] shadow-sm mb-12">
+        <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#dcdcdc] shadow-sm mb-12">
           <Image
             src="/images/editorial_white_glove_courier.jpg"
             alt="Northstar direct customer support and delivery"
@@ -56,7 +56,7 @@ export default function ContactPage() {
         </div>
 
         {/* Information Sections */}
-        <div className="divide-y divide-[#ece8e1] border-t border-b border-[#ece8e1]">
+        <div className="divide-y divide-[#dcdcdc] border-t border-b border-[#dcdcdc]">
           <div className="py-8">
             <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
               Order Inquiries and Delivery Updates

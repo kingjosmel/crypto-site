@@ -257,7 +257,7 @@ export default function TrackPage() {
             </div>
 
             {/* Crypto Settlement Telemetry */}
-            <div style={{ background: "#ffffff", border: "1px solid #d4d0c5", padding: "18px 20px", borderRadius: "2px", marginBottom: "35px" }}>
+            <div style={{ background: "#ffffff", border: "1px solid #cccccc", padding: "18px 20px", borderRadius: "2px", marginBottom: "35px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "8px" }}>
                 <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, color: "#10b981" }}>
                   ● Non-Custodial Crypto Settlement

@@ -74,7 +74,7 @@ export function StickyMobileBuyBar({ product, triggerId = "main-purchase-cta" }:
 
   return (
     <div
-      className={`lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#dedad0] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out px-4 pt-2.5 pb-[max(env(safe-area-inset-bottom),0.75rem)] ${
+      className={`lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#d4d4d4] shadow-[0_-4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 ease-in-out px-4 pt-2.5 pb-[max(env(safe-area-inset-bottom),0.75rem)] ${
         isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
       }`}
       aria-hidden={!isVisible}
@@ -83,7 +83,7 @@ export function StickyMobileBuyBar({ product, triggerId = "main-purchase-cta" }:
         {/* Left: Thumbnail & Price Info */}
         <div className="flex items-center gap-2.5 min-w-0 flex-1">
           {product.images[0]?.url && (
-            <div className="relative w-10 h-10 rounded-xs overflow-hidden border border-[#ece8e1] shrink-0 bg-[#f7f6f2]">
+            <div className="relative w-10 h-10 rounded-xs overflow-hidden border border-[#dcdcdc] shrink-0 bg-[#f3f3f3]">
               <Image
                 src={product.images[0].url}
                 alt={product.name}

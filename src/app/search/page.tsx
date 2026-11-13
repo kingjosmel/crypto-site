@@ -30,7 +30,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     <SiteShell>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
         {/* Search Header Banner */}
-        <div className="mb-10 pb-8 border-b border-[#ece8e1]">
+        <div className="mb-10 pb-8 border-b border-[#dcdcdc]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7">
               <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
@@ -51,7 +51,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                   name="q"
                   defaultValue={q}
                   placeholder="Search Goyard, Prada, Celine, Cashmere..."
-                  className="bg-white border border-[#d6d2c8] px-4 py-3 text-xs rounded-xs flex-1 focus:outline-none focus:border-black transition-colors"
+                  className="bg-white border border-[#cccccc] px-4 py-3 text-xs rounded-xs flex-1 focus:outline-none focus:border-black transition-colors"
                 />
                 <button
                   type="submit"
@@ -63,7 +63,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
               </form>
             </div>
 
-            <div className="lg:col-span-5 relative aspect-16/9 rounded-xs overflow-hidden border border-[#e2ded6] shadow-sm">
+            <div className="lg:col-span-5 relative aspect-16/9 rounded-xs overflow-hidden border border-[#d4d4d4] shadow-sm">
               <Image
                 src="/images/editorial_collection_curation.jpg"
                 alt="Search the luxury fashion, bags, footwear and accessories collection"

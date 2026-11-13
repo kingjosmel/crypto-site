@@ -74,9 +74,9 @@ export function CartDrawer() {
 
       {/* Drawer Container Panel */}
       <div className="fixed inset-y-0 right-0 flex max-w-full pl-0 sm:pl-10 z-50 pointer-events-auto">
-        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col border-l border-[#e8e6e1] animate-slide-left h-full">
+        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col border-l border-[#dcdcdc] animate-slide-left h-full">
           {/* Drawer Header */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-[#ece9e2]">
+          <div className="flex items-center justify-between px-6 py-5 border-b border-[#dcdcdc]">
             <div className="flex items-center gap-2">
               <h2 className="text-base font-semibold tracking-tight text-neutral-900 uppercase text-[13px] tracking-[0.1em]">
                 Your Bag
@@ -98,13 +98,13 @@ export function CartDrawer() {
           </div>
 
           {/* Complimentary 24-Hour USA Shipping Bar */}
-          <div className="bg-[#f9f8f5] px-6 py-3 border-b border-[#ece9e2] flex items-center justify-between text-xs text-neutral-700">
+          <div className="bg-[#f3f3f3] px-6 py-3 border-b border-[#dcdcdc] flex items-center justify-between text-xs text-neutral-700">
             <span className="font-medium text-[#047857]">Guaranteed 24-Hour USA Delivery</span>
             <span className="text-neutral-500 text-[11px] font-semibold">Complimentary ($0.00)</span>
           </div>
 
           {/* Cart Item List */}
-          <div className="flex-1 overflow-y-auto px-6 py-4 divide-y divide-[#ece9e2]">
+          <div className="flex-1 overflow-y-auto px-6 py-4 divide-y divide-[#dcdcdc]">
             {cart.length === 0 ? (
               <div className="py-16 text-center">
                 <div className="relative w-40 h-28 mx-auto mb-4 opacity-75">
@@ -134,7 +134,7 @@ export function CartDrawer() {
               cart.map((item) => (
                 <div key={`${item.productId}-${item.size || "std"}`} className="py-4 flex gap-4">
                   {/* Thumbnail */}
-                  <div className="relative w-20 h-24 bg-[#f3f2ee] shrink-0 border border-[#ece9e2] rounded-xs overflow-hidden">
+                  <div className="relative w-20 h-24 bg-[#ebebeb] shrink-0 border border-[#dcdcdc] rounded-xs overflow-hidden">
                     {item.imageUrl ? (
                       <Image
                         src={item.imageUrl}
@@ -165,7 +165,7 @@ export function CartDrawer() {
                       </h4>
                       <div className="flex items-center gap-2 mt-1">
                         {item.size && (
-                          <span className="text-[10.5px] font-mono font-medium text-neutral-700 bg-[#f4f3ef] border border-[#e2dfd7] px-1.5 py-0.5 rounded-xs">
+                          <span className="text-[10.5px] font-mono font-medium text-neutral-700 bg-[#e5e5e5] border border-[#d4d4d4] px-1.5 py-0.5 rounded-xs">
                             Size: {item.size}
                           </span>
                         )}
@@ -177,7 +177,7 @@ export function CartDrawer() {
 
                     <div className="flex items-center justify-between pt-2">
                       {/* Quantity Stepper with touch-friendly size */}
-                      <div className="flex items-center border border-[#d6d3cb] rounded-xs bg-white">
+                      <div className="flex items-center border border-[#cccccc] rounded-xs bg-white">
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.productId, item.qty - 1, item.size)}
@@ -216,7 +216,7 @@ export function CartDrawer() {
 
           {/* Drawer Footer */}
           {cart.length > 0 && (
-            <div className="border-t border-[#ece9e2] px-6 py-5 bg-[#faf9f6]">
+            <div className="border-t border-[#dcdcdc] px-6 py-5 bg-[#ebebeb]">
               <div className="flex justify-between items-center mb-1 text-sm">
                 <span className="text-neutral-600">Subtotal</span>
                 <span className="font-semibold text-neutral-900 font-mono text-base">

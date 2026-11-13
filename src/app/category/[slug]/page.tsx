@@ -83,7 +83,7 @@ export default async function CategoryPage({
     <SiteShell>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
         {/* Category Hero Banner */}
-        <div className="mb-10 pb-8 border-b border-[#ece8e1]">
+        <div className="mb-10 pb-8 border-b border-[#dcdcdc]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7">
               <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
@@ -105,7 +105,7 @@ export default async function CategoryPage({
               </div>
             </div>
 
-            <div className="lg:col-span-5 relative aspect-16/9 rounded-xs overflow-hidden border border-[#e2ded6] shadow-sm">
+            <div className="lg:col-span-5 relative aspect-16/9 rounded-xs overflow-hidden border border-[#d4d4d4] shadow-sm">
               <Image
                 src={heroVisual.url}
                 alt={heroVisual.alt}

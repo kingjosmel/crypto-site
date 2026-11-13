@@ -62,7 +62,7 @@ export function StickyMobileBar({
   if (!visible) return null;
 
   return (
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#ece8e1] px-4 py-3 shadow-2xl animate-fade-in">
+    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#dcdcdc] px-4 py-3 shadow-2xl animate-fade-in">
       <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
         <div className="min-w-0 flex-1">
           <span className="text-[10px] uppercase font-bold text-neutral-400 block truncate">

@@ -37,7 +37,7 @@ export function CartClient() {
   if (!items.length) {
     return (
       <div className="max-w-2xl mx-auto py-20 px-4 text-center">
-        <div className="relative w-48 h-32 mx-auto mb-6 rounded-xs overflow-hidden border border-[#ece8e1] shadow-xs">
+        <div className="relative w-48 h-32 mx-auto mb-6 rounded-xs overflow-hidden border border-[#dcdcdc] shadow-xs">
           <Image
             src="/images/editorial_collection_curation.jpg"
             alt="The Northstar / Supply curated edit"
@@ -75,7 +75,7 @@ export function CartClient() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-      <div className="mb-8 pb-4 border-b border-[#ece8e1]">
+      <div className="mb-8 pb-4 border-b border-[#dcdcdc]">
         <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-1">
           Review Allocations
         </span>
@@ -96,11 +96,11 @@ export function CartClient() {
             <span className="font-mono font-bold">$0.00</span>
           </div>
 
-          <div className="border border-[#ece8e1] bg-white rounded-xs divide-y divide-[#ece8e1]">
+          <div className="border border-[#dcdcdc] bg-white rounded-xs divide-y divide-[#dcdcdc]">
             {items.map((item) => (
               <div key={`${item.productId}-${item.size || "std"}`} className="p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between">
                 <div className="flex gap-4 items-center min-w-0">
-                  <div className="relative w-20 h-24 bg-[#f6f5f2] shrink-0 rounded-xs overflow-hidden border border-[#ece8e1]">
+                  <div className="relative w-20 h-24 bg-[#ebebeb] shrink-0 rounded-xs overflow-hidden border border-[#dcdcdc]">
                     {item.imageUrl ? (
                       <Image
                         src={item.imageUrl}
@@ -139,7 +139,7 @@ export function CartClient() {
 
                 <div className="flex items-center gap-6 self-end sm:self-center">
                   {/* Quantity Stepper */}
-                  <div className="flex items-center border border-[#d6d3cb] rounded-xs bg-[#faf9f6]">
+                  <div className="flex items-center border border-[#cccccc] rounded-xs bg-[#ebebeb]">
                     <button
                       type="button"
                       onClick={() => updateQuantity(item.productId, item.qty - 1, item.size)}
@@ -188,8 +188,8 @@ export function CartClient() {
         </div>
 
         {/* Right: Order Summary */}
-        <div className="lg:col-span-4 bg-white border border-[#ece8e1] rounded-xs p-6 shadow-sm">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-900 pb-4 border-b border-[#ece8e1]">
+        <div className="lg:col-span-4 bg-white border border-[#dcdcdc] rounded-xs p-6 shadow-sm">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-900 pb-4 border-b border-[#dcdcdc]">
             Order Summary
           </h2>
 
@@ -206,7 +206,7 @@ export function CartClient() {
               <span>Estimated Sales Tax (8.25%)</span>
               <span className="font-mono">{formatPrice(taxCents)}</span>
             </div>
-            <div className="pt-4 border-t border-[#ece8e1] flex justify-between items-baseline">
+            <div className="pt-4 border-t border-[#dcdcdc] flex justify-between items-baseline">
               <span className="font-semibold text-neutral-950">Estimated Total</span>
               <span className="font-mono text-2xl font-bold text-neutral-950">{formatPrice(totalCents)}</span>
             </div>
@@ -230,9 +230,9 @@ export function CartClient() {
               Cryptocurrency Exclusive Settlement
             </span>
             <div className="flex items-center justify-center gap-2 text-[10px] font-mono">
-              <span className="bg-[#f5f4f0] text-[#f7931a] px-2 py-0.5 border border-[#e5e2da] rounded-xs font-semibold">BTC</span>
-              <span className="bg-[#f5f4f0] text-[#627eea] px-2 py-0.5 border border-[#e5e2da] rounded-xs font-semibold">ETH</span>
-              <span className="bg-[#f5f4f0] text-[#14f195] px-2 py-0.5 border border-[#e5e2da] rounded-xs font-semibold">SOL</span>
+              <span className="bg-[#f5f5f5] text-[#f7931a] px-2 py-0.5 border border-[#e5e2da] rounded-xs font-semibold">BTC</span>
+              <span className="bg-[#f5f5f5] text-[#627eea] px-2 py-0.5 border border-[#e5e2da] rounded-xs font-semibold">ETH</span>
+              <span className="bg-[#f5f5f5] text-[#14f195] px-2 py-0.5 border border-[#e5e2da] rounded-xs font-semibold">SOL</span>
             </div>
           </div>
         </div>

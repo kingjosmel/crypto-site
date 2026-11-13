@@ -52,7 +52,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "100% Silk twill" }, { key: "Fit", value: "Relaxed European cut" }, { key: "Origin", value: "Made in Italy" }],
     sizes: ["XS", "S", "M", "L", "XL"],
     authenticity: "Includes original tags and boutique authenticity certificate.",
-    images: [{ url: "/images/product_dior_silk_shirt.jpg", alt: "Dior silk twill evening shirt", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Dior evening shirt editorial view", position: 1 }],
+    images: [
+      { url: "/assets/aistudio/photo_55_2026-11-12_06-13-03_7b8da75f.jpg", alt: "Silk twill evening shirt front view", position: 0 },
+      { url: "/assets/aistudio/photo_51_2026-11-12_06-13-03_a40a3694.jpg", alt: "Silk twill evening shirt editorial look", position: 1 },
+      { url: "/assets/aistudio/photo_52_2026-11-12_06-13-03_459a6ce2.jpg", alt: "Silk twill evening shirt stand collar detail", position: 2 }
+    ],
     createdAt: "2026-01-10T10:00:00.000Z",
     updatedAt: "2026-01-10T10:00:00.000Z"
   },
@@ -74,7 +78,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "Cotton canvas" }, { key: "Lining", value: "Cupro silk blend" }, { key: "Closure", value: "Dual zip fastening" }],
     sizes: ["S", "M", "L", "XL"],
     authenticity: "Verified with RFID microchip authentication tag.",
-    images: [{ url: "/images/product_lv_jacket.jpg", alt: "Louis Vuitton monogram blouson", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Louis Vuitton blouson detail", position: 1 }],
+    images: [
+      { url: "/assets/aistudio/photo_45_2026-11-12_06-13-03_602d3a4c.jpg", alt: "Cropped zip blouson front view", position: 0 },
+      { url: "/assets/aistudio/photo_42_2026-11-12_06-13-02_565d2906.jpg", alt: "Cropped zip blouson full silhouette", position: 1 },
+      { url: "/assets/aistudio/photo_43_2026-11-12_06-13-02_7309d600.jpg", alt: "Cropped zip blouson studio look", position: 2 },
+      { url: "/assets/aistudio/photo_50_2026-11-12_06-13-03_6fb6fc8e.jpg", alt: "Cropped zip blouson styling view", position: 3 },
+      { url: "/assets/aistudio/photo_47_2026-11-12_06-13-03_80ffae08.jpg", alt: "Cropped zip blouson collar detail", position: 4 },
+      { url: "/assets/aistudio/photo_48_2026-11-12_06-13-03_f13a28c7.jpg", alt: "Cropped zip blouson side profile", position: 5 },
+      { url: "/assets/aistudio/photo_49_2026-11-12_06-13-03_8e0d52fa.jpg", alt: "Cropped zip blouson zipper close-up", position: 6 }
+    ],
     createdAt: "2026-01-11T10:00:00.000Z",
     updatedAt: "2026-01-11T10:00:00.000Z"
   },
@@ -96,7 +108,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Material", value: "100% Virgin wool" }, { key: "Cut", value: "Tailored Italian fit" }, { key: "Origin", value: "Made in Italy" }],
     sizes: ["46", "48", "50", "52"],
     authenticity: "Includes official house garment bag and authentication card.",
-    images: [{ url: "/images/product_gucci_jacket.jpg", alt: "Gucci double breasted wool jacket", position: 0 }, { url: "/images/hero_luxury_editorial.jpg", alt: "Gucci jacket editorial view", position: 1 }],
+    images: [
+      { url: "/assets/aistudio/photo_82_2026-11-12_06-13-03_bc832264.jpg", alt: "Double-breasted wool suit jacket full look", position: 0 },
+      { url: "/assets/aistudio/photo_83_2026-11-12_06-13-04_57957782.jpg", alt: "Double-breasted wool suit trouser drape and loafer detail", position: 1 }
+    ],
     createdAt: "2026-01-12T10:00:00.000Z",
     updatedAt: "2026-01-12T10:00:00.000Z"
   },
@@ -118,7 +133,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Upper", value: "Polished calfskin" }, { key: "Sole", value: "Hand-stitched leather" }, { key: "Construction", value: "Blake stitched" }],
     sizes: ["40", "41", "42", "43", "44", "45"],
     authenticity: "Official house dust covers and provenance documentation included.",
-    images: [{ url: "/images/product_dior_loafer.jpg", alt: "Dior leather city loafer", position: 0 }],
+    images: [
+      { url: "/assets/aistudio/photo_71_2026-11-12_06-13-03_1e408abb.jpg", alt: "Leather City black tassel loafers pair", position: 0 },
+      { url: "/assets/aistudio/photo_70_2026-11-12_06-13-03_49fdc4cf.jpg", alt: "Leather City black tassel loafer side profile", position: 1 },
+      { url: "/assets/aistudio/photo_72_2026-11-12_06-13-03_a4038f13.jpg", alt: "Leather City black tassel loafers angled view", position: 2 },
+      { url: "/assets/aistudio/photo_69_2026-11-12_06-13-03_ae8dadfb.jpg", alt: "Leather City black tassel loafers three-quarter view", position: 3 }
+    ],
     createdAt: "2026-01-13T10:00:00.000Z",
     updatedAt: "2026-01-13T10:00:00.000Z"
   },
@@ -140,7 +160,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Upper", value: "Smooth leather & GG canvas" }, { key: "Sole", value: "Natural rubber outsole" }],
     sizes: ["39", "40", "41", "42", "43", "44"],
     authenticity: "Includes serial verification and branded shoebox.",
-    images: [{ url: "/images/product_gucci_sneaker.jpg", alt: "Gucci court sneaker", position: 0 }],
+    images: [
+      { url: "/assets/aistudio/photo_75_2026-11-12_06-13-03_e3b421ce.jpg", alt: "Gucci GG suede sneaker side profile", position: 0 },
+      { url: "/assets/aistudio/photo_77_2026-11-12_06-13-03_d5cefeff.jpg", alt: "Gucci GG suede sneaker inner profile", position: 1 },
+      { url: "/assets/aistudio/photo_76_2026-11-12_06-13-03_1450d169.jpg", alt: "Gucci GG suede sneaker top-down view", position: 2 }
+    ],
     createdAt: "2026-01-14T10:00:00.000Z",
     updatedAt: "2026-01-14T10:00:00.000Z"
   },
@@ -162,7 +186,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     specs: [{ key: "Upper", value: "Textile and calf leather" }, { key: "Sole", value: "Bi-color rubber" }, { key: "Hours to stitch", value: "7 hours" }],
     sizes: ["40", "41", "42", "43", "44"],
     authenticity: "Microchipped NFC verification tag built-in.",
-    images: [{ url: "/images/product_lv_trainer.jpg", alt: "Louis Vuitton monogram trainer", position: 0 }],
+    images: [
+      { url: "/assets/aistudio/photo_73_2026-11-12_06-13-03_8b7cfe72.jpg", alt: "Louis Vuitton monogram trainer side profile", position: 0 },
+      { url: "/assets/aistudio/photo_74_2026-11-12_06-13-03_7eeebb3c.jpg", alt: "Louis Vuitton monogram trainer opposite profile", position: 1 }
+    ],
     createdAt: "2026-01-15T10:00:00.000Z",
     updatedAt: "2026-01-15T10:00:00.000Z"
   },
@@ -185,9 +212,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes signature yellow gift box and ribbon.",
     images: [
-      { url: "/images/product_goyard_cardholder.jpg", alt: "Goyard Saint Sulpice cardholder front", position: 0 },
-      { url: "/images/inspection_stitching_detail.jpg", alt: "Hand-stenciled Goyardine chevron inspection", position: 1 },
-      { url: "/images/inspection_packaging_box.jpg", alt: "Original Maison Goyard presentation box and yellow ribbon", position: 2 }
+      { url: "/assets/aistudio/photo_32_2026-11-12_06-13-02_fb771048.jpg", alt: "Goyard Saint Sulpice cardholder front", position: 0 },
+      { url: "/assets/aistudio/photo_33_2026-11-12_06-13-02_75232c49.jpg", alt: "Goyard Saint Sulpice cardholder motif reverse", position: 1 },
+      { url: "/assets/aistudio/photo_31_2026-11-12_06-13-02_a84ba2cd.jpg", alt: "Goyard Saint Sulpice cardholder angled slot view", position: 2 }
     ],
     createdAt: "2026-01-16T10:00:00.000Z",
     updatedAt: "2026-01-16T10:00:00.000Z"
@@ -299,7 +326,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["PM"],
     authenticity: "Includes signature Goyard dust bag and boutique packaging.",
     images: [
-      { url: "/images/product_goyard_anjou.jpg", alt: "Goyard Anjou PM Reversible Tote Bag in green Goyardine canvas", position: 0 }
+      { url: "/assets/aistudio/photo_1_2026-11-12_01-17-12_43db69f9.jpg", alt: "Goyard Anjou PM Reversible Tote in Grey front view", position: 0 },
+      { url: "/assets/aistudio/photo_2_2026-11-12_01-17-12_bef33770.jpg", alt: "Goyard Anjou PM Reversible Tote back view", position: 1 },
+      { url: "/assets/aistudio/photo_4_2026-11-12_01-17-12_412d1755.jpg", alt: "Goyard Anjou PM Reversible Tote three-quarter angle", position: 2 },
+      { url: "/assets/aistudio/photo_3_2026-11-12_01-17-12_89df9b33.jpg", alt: "Goyard Anjou PM Reversible Tote base view", position: 3 },
+      { url: "/assets/aistudio/photo_5_2026-11-12_01-17-12_e3865845.jpg", alt: "Goyard Anjou PM Reversible Tote interior calfskin lining", position: 4 },
+      { url: "/assets/aistudio/photo_6_2026-11-12_01-17-12_4b43bd0d.jpg", alt: "Goyardine chevron canvas and stitching detail", position: 5 },
+      { url: "/assets/aistudio/photo_7_2026-11-12_01-17-12_37eda9da.jpg", alt: "Goyard Paris stamp and handle attachment detail", position: 6 }
     ],
     createdAt: "2026-01-24T10:00:00.000Z",
     updatedAt: "2026-01-24T10:00:00.000Z"
@@ -329,7 +362,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["50 cm (Carry-On Size)"],
     authenticity: "RFID microchip authentication verified with original dust bag and luggage tag.",
     images: [
-      { url: "/images/product_lv_keepall.jpg", alt: "Louis Vuitton Keepall Bandouliere 50 Monogram Eclipse", position: 0 }
+      { url: "/assets/aistudio/photo_5_2026-11-12_01-19-36_9beec078.jpg", alt: "Louis Vuitton Keepall Bandoulière 50 Eclipse three-quarter view", position: 0 },
+      { url: "/assets/aistudio/photo_7_2026-11-12_01-19-36_3c20fcc0.jpg", alt: "Louis Vuitton Keepall Bandoulière 50 Eclipse front view with strap", position: 1 },
+      { url: "/assets/aistudio/photo_6_2026-11-12_01-19-36_17086fac.jpg", alt: "Louis Vuitton Keepall Bandoulière 50 Eclipse base view", position: 2 },
+      { url: "/assets/aistudio/photo_4_2026-11-12_01-19-36_a2b0dff5.jpg", alt: "Louis Vuitton Keepall Bandoulière 50 Eclipse handles and shoulder strap", position: 3 },
+      { url: "/assets/aistudio/photo_3_2026-11-12_01-19-36_56aaac4f.jpg", alt: "Louis Vuitton Keepall Bandoulière 50 Eclipse LV zipper hardware", position: 4 },
+      { url: "/assets/aistudio/photo_2_2026-11-12_01-19-36_14db5ecb.jpg", alt: "Louis Vuitton Keepall Bandoulière 50 Eclipse engraved clasps", position: 5 },
+      { url: "/assets/aistudio/photo_1_2026-11-12_01-19-36_6ae9e5d1.jpg", alt: "Louis Vuitton Paris Made in France leather stamp", position: 6 }
     ],
     createdAt: "2026-01-26T10:00:00.000Z",
     updatedAt: "2026-01-26T10:00:00.000Z"
@@ -418,7 +457,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["XS", "S", "M", "L", "XL"],
     authenticity: "Official Gucci packaging, hanger, and RFID security verification tag.",
     images: [
-      { url: "/images/product_gucci_track_jacket.jpg", alt: "Gucci GG Jacquard Monogram Zip Jacket", position: 0 }
+      { url: "/assets/aistudio/photo_39_2026-11-12_06-13-02_6204dee2.jpg", alt: "Gucci GG Jacquard shirt-jacket front model view", position: 0 },
+      { url: "/assets/aistudio/photo_40_2026-11-12_06-13-02_12df23e8.jpg", alt: "Gucci GG Jacquard shirt-jacket flatlay", position: 1 },
+      { url: "/assets/aistudio/photo_46_2026-11-12_06-13-03_8dba9abb.jpg", alt: "Gucci GG Jacquard shirt-jacket back view", position: 2 },
+      { url: "/assets/aistudio/photo_44_2026-11-12_06-13-03_9d8af38b.jpg", alt: "Gucci GG Jacquard shirt-jacket full look", position: 3 },
+      { url: "/assets/aistudio/photo_41_2026-11-12_06-13-02_400948cf.jpg", alt: "Gucci GG Jacquard shirt-jacket collar detail", position: 4 }
     ],
     createdAt: "2026-02-02T10:00:00.000Z",
     updatedAt: "2026-02-02T10:00:00.000Z"
@@ -448,7 +491,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes Prada authenticity certificate card, RFID chip, and dust pouch.",
     images: [
-      { url: "/images/product_prada_renylon.jpg", alt: "Prada Re-Nylon and Saffiano Leather Shoulder Bag in Black", position: 0 }
+      { url: "/assets/aistudio/photo_1_2026-11-12_06-13-02_dc92d6bb.jpg", alt: "Prada Re-Nylon shoulder bag three-quarter view", position: 0 },
+      { url: "/assets/aistudio/photo_3_2026-11-12_06-13-02_ed38fe4c.jpg", alt: "Prada Re-Nylon shoulder bag front view", position: 1 },
+      { url: "/assets/aistudio/photo_2_2026-11-12_06-13-02_2dd5721d.jpg", alt: "Prada Re-Nylon shoulder bag back view", position: 2 }
     ],
     createdAt: "2026-02-09T10:00:00.000Z",
     updatedAt: "2026-02-09T10:00:00.000Z"
@@ -508,7 +553,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes Bottega Veneta Certificate of Craft card and green branded dust bag.",
     images: [
-      { url: "/images/product_bottega_cassette.jpg", alt: "Bottega Veneta Padded Cassette Crossbody Bag in Black Calfskin", position: 0 }
+      { url: "/assets/aistudio/photo_10_2026-11-12_06-13-02_f6183256.jpg", alt: "Bottega Veneta Padded Cassette Bag front view", position: 0 },
+      { url: "/assets/aistudio/photo_9_2026-11-12_06-13-02_9149dfe2.jpg", alt: "Bottega Veneta Padded Cassette Bag back view", position: 1 },
+      { url: "/assets/aistudio/photo_8_2026-11-12_06-13-02_94a26a63.jpg", alt: "Bottega Veneta Padded Cassette Bag side angle", position: 2 },
+      { url: "/assets/aistudio/photo_7_2026-11-12_06-13-02_606157c6.jpg", alt: "Bottega Veneta Padded Cassette Bag base view", position: 3 },
+      { url: "/assets/aistudio/photo_4_2026-11-12_06-13-02_20daf328.jpg", alt: "Bottega Veneta Padded Cassette Bag weave detail", position: 4 },
+      { url: "/assets/aistudio/photo_5_2026-11-12_06-13-02_c9528b90.jpg", alt: "Bottega Veneta Padded Cassette Bag corner stitching", position: 5 },
+      { url: "/assets/aistudio/photo_6_2026-11-12_06-13-02_7e014e07.jpg", alt: "Bottega Veneta Padded Cassette Bag interior", position: 6 }
     ],
     createdAt: "2026-02-11T10:00:00.000Z",
     updatedAt: "2026-02-11T10:00:00.000Z"
@@ -537,7 +588,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["Micro"],
     authenticity: "Includes Prada certificate card, stamped boutique booklet, and dust bag.",
     images: [
-      { url: "/images/product_prada_galleria.jpg", alt: "Prada Galleria Micro Saffiano Tote in Black", position: 0 }
+      { url: "/assets/aistudio/photo_16_2026-11-12_06-13-02_9621714b.jpg", alt: "Prada Galleria Micro Saffiano Tote front view", position: 0 },
+      { url: "/assets/aistudio/photo_14_2026-11-12_06-13-02_d345465e.jpg", alt: "Prada Galleria Micro Saffiano Tote three-quarter view", position: 1 },
+      { url: "/assets/aistudio/photo_15_2026-11-12_06-13-02_57e2ccb6.jpg", alt: "Prada Galleria Micro Saffiano Tote back view", position: 2 },
+      { url: "/assets/aistudio/photo_13_2026-11-12_06-13-02_9e2ac77b.jpg", alt: "Prada Galleria Micro Saffiano Tote side profile", position: 3 },
+      { url: "/assets/aistudio/photo_12_2026-11-12_06-13-02_b5608370.jpg", alt: "Prada Galleria Micro Saffiano Tote gold emblem detail", position: 4 },
+      { url: "/assets/aistudio/photo_11_2026-11-12_06-13-02_a19e3a96.jpg", alt: "Prada Galleria Micro Saffiano Tote interior lining", position: 5 }
     ],
     createdAt: "2026-02-12T10:00:00.000Z",
     updatedAt: "2026-02-12T10:00:00.000Z"
@@ -566,7 +622,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Verified with embossed archival foil branding and original boutique tags.",
     images: [
-      { url: "/images/product_the_row_bag.jpg", alt: "The Row Half Moon Leather Shoulder Bag in Black", position: 0 }
+      { url: "/assets/aistudio/photo_19_2026-11-12_06-13-02_be6ee8a4.jpg", alt: "The Row dark brown suede tote front view", position: 0 },
+      { url: "/assets/aistudio/photo_20_2026-11-12_06-13-02_510afc6f.jpg", alt: "The Row dark brown suede tote back view", position: 1 },
+      { url: "/assets/aistudio/photo_17_2026-11-12_06-13-02_bbcf2811.jpg", alt: "The Row dark brown suede tote top view", position: 2 },
+      { url: "/assets/aistudio/photo_18_2026-11-12_06-13-02_fbe51126.jpg", alt: "The Row dark brown suede tote texture detail", position: 3 }
     ],
     createdAt: "2026-02-13T10:00:00.000Z",
     updatedAt: "2026-02-13T10:00:00.000Z"
@@ -595,7 +654,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["40", "41", "42", "43", "44", "45"],
     authenticity: "Includes Loro Piana flannel shoe bags and presentation box.",
     images: [
-      { url: "/images/product_loro_piana_openwalk.jpg", alt: "Loro Piana Open Walk Suede Loafers in Sand Warm Beige", position: 0 }
+      { url: "/assets/aistudio/photo_78_2026-11-12_06-13-03_c3320289.jpg", alt: "Loro Piana brown leather and suede loafers pair", position: 0 },
+      { url: "/assets/aistudio/photo_79_2026-11-12_06-13-03_706f23e1.jpg", alt: "Loro Piana brown leather and suede loafer side profile", position: 1 },
+      { url: "/assets/aistudio/photo_81_2026-11-12_06-13-03_9db160ac.jpg", alt: "Loro Piana brown leather and suede loafers angled pair", position: 2 },
+      { url: "/assets/aistudio/photo_80_2026-11-12_06-13-03_211d8b41.jpg", alt: "Loro Piana brown leather and suede loafers heel view", position: 3 }
     ],
     createdAt: "2026-02-14T10:00:00.000Z",
     updatedAt: "2026-02-14T10:00:00.000Z"
@@ -713,7 +775,9 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["55 cm"],
     authenticity: "Complete with original Goyard serialization stamp and archival dust bag.",
     images: [
-      { url: "/images/product_goyard_trunk.jpg", alt: "Goyard Palace 55 Monogram Rigid Trunk Case", position: 0 }
+      { url: "/assets/aistudio/photo_21_2026-11-12_06-13-02_b3a30575.jpg", alt: "Goyard Palace trunk case three-quarter view", position: 0 },
+      { url: "/assets/aistudio/photo_22_2026-11-12_06-13-02_f26270f1.jpg", alt: "Goyard Palace trunk case front clasp view", position: 1 },
+      { url: "/assets/aistudio/photo_23_2026-11-12_06-13-02_81d2226a.jpg", alt: "Goyard Palace trunk case open yellow interior", position: 2 }
     ],
     createdAt: "2026-02-18T10:00:00.000Z",
     updatedAt: "2026-02-18T10:00:00.000Z"
@@ -742,9 +806,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["39", "40", "41", "42", "43", "44", "45"],
     authenticity: "Includes Prada box, dust covers, and authentic store cards.",
     images: [
-      { url: "/images/product_prada_monolith.jpg", alt: "Prada Monolith Brushed Leather Lug Sole Loafers in Black", position: 0 },
-      { url: "/images/inspection_stitching_detail.jpg", alt: "Lug sole tread and leather welt inspection", position: 1 },
-      { url: "/images/inspection_packaging_box.jpg", alt: "Prada shoe box and branded dust bags", position: 2 }
+      { url: "/assets/aistudio/photo_68_2026-11-12_06-13-03_432e89aa.jpg", alt: "Prada Monolith brushed leather loafers three-quarter pair", position: 0 },
+      { url: "/assets/aistudio/photo_66_2026-11-12_06-13-03_b43cd205.jpg", alt: "Prada Monolith brushed leather loafers top view", position: 1 },
+      { url: "/assets/aistudio/photo_67_2026-11-12_06-13-03_db3437a5.jpg", alt: "Prada Monolith brushed leather loafers side profile", position: 2 },
+      { url: "/assets/aistudio/photo_65_2026-11-12_06-13-03_fe7fdf3f.jpg", alt: "Prada Monolith brushed leather loafers styled look", position: 3 }
     ],
     createdAt: "2026-02-19T10:00:00.000Z",
     updatedAt: "2026-02-19T10:00:00.000Z"
@@ -804,9 +869,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["40", "41", "42", "43", "44"],
     authenticity: "Verified with Dior boutique packaging and certificate of origin.",
     images: [
-      { url: "/images/product_dior_loafer.jpg", alt: "Dior Explorer Oblique Loafer in Black and Jacquard", position: 0 },
-      { url: "/images/inspection_stitching_detail.jpg", alt: "Oblique jacquard weave and welt stitching inspection", position: 1 },
-      { url: "/images/inspection_packaging_box.jpg", alt: "Dior footwear presentation box and shoe pouches", position: 2 }
+      { url: "/assets/aistudio/photo_62_2026-11-12_06-13-03_c700cfa5.jpg", alt: "Dior Explorer Oblique suede loafer three-quarter pair", position: 0 },
+      { url: "/assets/aistudio/photo_61_2026-11-12_06-13-03_482a08ff.jpg", alt: "Dior Explorer Oblique suede loafer side profile", position: 1 },
+      { url: "/assets/aistudio/photo_63_2026-11-12_06-13-03_2ffec8df.jpg", alt: "Dior Explorer Oblique suede loafer angled pair", position: 2 },
+      { url: "/assets/aistudio/photo_64_2026-11-12_06-13-03_6d31bd06.jpg", alt: "Dior Explorer Oblique suede loafer top view", position: 3 },
+      { url: "/assets/aistudio/photo_60_2026-11-12_06-13-03_bb3a55dc.jpg", alt: "Dior Explorer Oblique suede loafer heel view", position: 4 }
     ],
     createdAt: "2026-02-21T10:00:00.000Z",
     updatedAt: "2026-02-21T10:00:00.000Z"
@@ -835,9 +902,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["39", "40", "41", "42", "43", "44", "45"],
     authenticity: "Complete with green Gucci presentation box, shoe bags, and booklet.",
     images: [
-      { url: "/images/product_gucci_horsebit.jpg", alt: "Gucci Horsebit 1953 Leather Loafer in Dark Brown", position: 0 },
-      { url: "/images/inspection_hardware_zipper.jpg", alt: "Miniature gold horsebit hardware and moccasin toe detail", position: 1 },
-      { url: "/images/inspection_packaging_box.jpg", alt: "Green Gucci presentation box and shoe pouches", position: 2 }
+      { url: "/assets/aistudio/photo_56_2026-11-12_06-13-03_e341d424.jpg", alt: "Gucci Horsebit 1953 leather loafer side profile", position: 0 },
+      { url: "/assets/aistudio/photo_57_2026-11-12_06-13-03_ab2e832e.jpg", alt: "Gucci Horsebit 1953 leather loafer inner profile", position: 1 },
+      { url: "/assets/aistudio/photo_59_2026-11-12_06-13-03_8402ed2c.jpg", alt: "Gucci Horsebit 1953 leather loafer angled view", position: 2 },
+      { url: "/assets/aistudio/photo_58_2026-11-12_06-13-03_8ee663f3.jpg", alt: "Gucci Horsebit 1953 leather loafer top view", position: 3 }
     ],
     createdAt: "2026-02-22T10:00:00.000Z",
     updatedAt: "2026-02-22T10:00:00.000Z"
@@ -867,9 +935,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["55 cm (Cabin Size)"],
     authenticity: "Includes RFID microchip tracking tag, dust cover, and leather luggage tag.",
     images: [
-      { url: "/images/product_lv_horizon.jpg", alt: "Louis Vuitton Horizon 55 Rolling Luggage", position: 0 },
-      { url: "/images/inspection_hardware_zipper.jpg", alt: "TSA lock and rolling wheel mechanism inspection", position: 1 },
-      { url: "/images/inspection_rfid_serial.jpg", alt: "RFID microchip scan and date stamp verification", position: 2 }
+      { url: "/assets/aistudio/photo_28_2026-11-12_06-13-02_60453201.jpg", alt: "Louis Vuitton Horizon 55 suitcase three-quarter view", position: 0 },
+      { url: "/assets/aistudio/photo_30_2026-11-12_06-13-02_14129dd2.jpg", alt: "Louis Vuitton Horizon 55 suitcase front view", position: 1 },
+      { url: "/assets/aistudio/photo_27_2026-11-12_06-13-02_510b9dfc.jpg", alt: "Louis Vuitton Horizon 55 suitcase open interior", position: 2 },
+      { url: "/assets/aistudio/photo_26_2026-11-12_06-13-02_c8c371cd.jpg", alt: "Louis Vuitton Horizon 55 suitcase embossed tag", position: 3 },
+      { url: "/assets/aistudio/photo_25_2026-11-12_06-13-02_aeedc170.jpg", alt: "Louis Vuitton Horizon 55 suitcase monogram tab", position: 4 },
+      { url: "/assets/aistudio/photo_29_2026-11-12_06-13-02_be318710.jpg", alt: "Louis Vuitton Horizon 55 suitcase zipper pull", position: 5 },
+      { url: "/assets/aistudio/photo_24_2026-11-12_06-13-02_8af2e05d.jpg", alt: "Louis Vuitton Horizon 55 suitcase lining detail", position: 6 }
     ],
     createdAt: "2026-02-23T10:00:00.000Z",
     updatedAt: "2026-02-23T10:00:00.000Z"
@@ -898,9 +970,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes Certificate of Craft card and green cotton dust cloth.",
     images: [
-      { url: "/images/product_bottega_wallet.jpg", alt: "Bottega Veneta Intrecciato Bi-Fold Wallet in Black", position: 0 },
-      { url: "/images/inspection_stitching_detail.jpg", alt: "Intrecciato hand-woven calfskin pattern inspection", position: 1 },
-      { url: "/images/inspection_packaging_box.jpg", alt: "Certificate of Craft and green presentation cloth", position: 2 }
+      { url: "/assets/aistudio/photo_37_2026-11-12_06-13-02_06f25b89.jpg", alt: "Bottega Veneta Intrecciato wallet front", position: 0 },
+      { url: "/assets/aistudio/photo_36_2026-11-12_06-13-02_420497ba.jpg", alt: "Bottega Veneta Intrecciato wallet stripe detail", position: 1 },
+      { url: "/assets/aistudio/photo_38_2026-11-12_06-13-02_d78a976d.jpg", alt: "Bottega Veneta Intrecciato wallet reverse", position: 2 },
+      { url: "/assets/aistudio/photo_35_2026-11-12_06-13-02_e550fc6d.jpg", alt: "Bottega Veneta Intrecciato wallet three-quarter view", position: 3 },
+      { url: "/assets/aistudio/photo_34_2026-11-12_06-13-02_f33b34d9.jpg", alt: "Bottega Veneta Intrecciato wallet open interior", position: 4 }
     ],
     createdAt: "2026-02-24T10:00:00.000Z",
     updatedAt: "2026-02-24T10:00:00.000Z"
@@ -960,7 +1034,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["39", "40", "41", "42", "43", "44"],
     authenticity: "Includes Loro Piana original box and cedar shoe horn.",
     images: [
-      { url: "/images/product_loro_piana_openwalk.jpg", alt: "Loro Piana Summer Charms Walk Suede Loafer", position: 0 },
+      { url: "/images/product_loro_piana_summer_charms.jpg", alt: "Loro Piana Summer Charms Walk Suede Loafer", position: 0 },
       { url: "/images/inspection_hardware_zipper.jpg", alt: "Palladium charm and suede stitching inspection", position: 1 },
       { url: "/images/inspection_packaging_box.jpg", alt: "Loro Piana presentation packaging", position: 2 }
     ],
@@ -1023,7 +1097,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes stamped Prada authenticity certificate card and presentation box.",
     images: [
-      { url: "/images/product_bottega_wallet.jpg", alt: "Prada Saffiano Leather Cardholder in Black", position: 0 },
+      { url: "/images/product_prada_cardholder.jpg", alt: "Prada Saffiano Leather Cardholder in Black", position: 0 },
       { url: "/images/inspection_stitching_detail.jpg", alt: "Crosshatch leather texture inspection", position: 1 },
       { url: "/images/inspection_packaging_box.jpg", alt: "Prada presentation box and documentation", position: 2 }
     ],
@@ -1086,7 +1160,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes Maison Goyard signature yellow gift box and ribbon.",
     images: [
-      { url: "/images/product_goyard_cardholder.jpg", alt: "Goyard Insert Victoire Card Wallet", position: 0 },
+      { url: "/images/product_goyard_victoire_wallet.jpg", alt: "Goyard Insert Victoire Card Wallet", position: 0 },
       { url: "/images/inspection_stitching_detail.jpg", alt: "Chevron point dots inspection", position: 1 },
       { url: "/images/inspection_packaging_box.jpg", alt: "Maison Goyard signature yellow packaging", position: 2 }
     ],
@@ -1117,7 +1191,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["80", "85", "90", "95", "100"],
     authenticity: "Includes Gucci dust bag, serial number stamp, and boutique box.",
     images: [
-      { url: "/images/product_gucci_belt.jpg", alt: "Gucci Double G Buckle Leather Belt in Black", position: 0 },
+      { url: "/images/product_gucci_double_g_belt.jpg", alt: "Gucci Double G Buckle Leather Belt in Black", position: 0 },
       { url: "/images/inspection_hardware_zipper.jpg", alt: "Double G brass buckle inspection", position: 1 },
       { url: "/images/inspection_packaging_box.jpg", alt: "Gucci green gift box and dust bag", position: 2 }
     ],
@@ -1148,7 +1222,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes Burberry presentation box, garment tags, and certificate.",
     images: [
-      { url: "/images/product_dior_scarf.jpg", alt: "Burberry Vintage Check Lightweight Scarf", position: 0 },
+      { url: "/images/product_burberry_scarf.jpg", alt: "Burberry Vintage Check Lightweight Scarf", position: 0 },
       { url: "/images/inspection_stitching_detail.jpg", alt: "Gauze weave and fringed hem inspection", position: 1 },
       { url: "/images/inspection_packaging_box.jpg", alt: "Burberry presentation box and tag", position: 2 }
     ],
@@ -1179,7 +1253,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     sizes: ["One Size"],
     authenticity: "Includes signature yellow gift box, ribbon, and boutique card.",
     images: [
-      { url: "/images/product_goyard_cardholder.jpg", alt: "Goyard Saint Sulpice Cardholder in Burgundy", position: 0 },
+      { url: "/images/product_goyard_burgundy.jpg", alt: "Goyard Saint Sulpice Cardholder in Burgundy", position: 0 },
       { url: "/images/inspection_stitching_detail.jpg", alt: "Burgundy Goyardine canvas texture inspection", position: 1 },
       { url: "/images/inspection_packaging_box.jpg", alt: "Maison Goyard signature yellow box and ribbon", position: 2 }
     ],
@@ -1434,7 +1508,8 @@ export function getLocalProducts(params?: {
   return { items, pagination: { limit, page, nextCursor, hasMore, total: list.length } };
 }
 
-export function calculateQuote(items: { productId: string; qty: number }[], address: { state: string }) {
+export function calculateQuote(items: { productId: string; qty: number }[], _address: { state: string }) {
+  void _address;
   const quoteItems: {
     productId: string;
     name: string;
@@ -1460,7 +1535,7 @@ export function calculateQuote(items: { productId: string; qty: number }[], addr
   }
 
   const subtotalCents = quoteItems.reduce((acc, i) => acc + i.lineTotalCents, 0);
-  const shippingCents = address.state === "AK" ? 2499 : address.state === "HI" ? 1999 : 999;
+  const shippingCents = 0;
   const taxCents = Math.round((subtotalCents * 825) / 10000);
   const totalCents = subtotalCents + shippingCents + taxCents;
 

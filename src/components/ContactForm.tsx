@@ -56,8 +56,8 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white border border-[#ece8e1] p-6 sm:p-8 rounded-xs space-y-5 my-6">
-      <div className="border-b border-[#ece8e1] pb-4">
+    <form onSubmit={handleSubmit} className="bg-white border border-[#dcdcdc] p-6 sm:p-8 rounded-xs space-y-5 my-6">
+      <div className="border-b border-[#dcdcdc] pb-4">
         <h2 className="font-serif text-xl text-neutral-950 font-normal">Send Us a Message</h2>
         <p className="text-xs text-neutral-500 mt-1">
           Have an inquiry regarding sizing, cryptocurrency checkout, or delivery coordination? Drop us a note below.
@@ -82,7 +82,7 @@ export function ContactForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Alex Morgan"
-            className="w-full bg-[#faf9f6] border border-[#d6d2c8] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors"
+            className="w-full bg-[#ebebeb] border border-[#cccccc] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors"
           />
         </div>
 
@@ -97,7 +97,7 @@ export function ContactForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="alex@example.com"
-            className="w-full bg-[#faf9f6] border border-[#d6d2c8] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors"
+            className="w-full bg-[#ebebeb] border border-[#cccccc] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors"
           />
         </div>
       </div>
@@ -112,7 +112,7 @@ export function ContactForm() {
           value={orderNumber}
           onChange={(e) => setOrderNumber(e.target.value)}
           placeholder="e.g. NS-00000001"
-          className="w-full bg-[#faf9f6] border border-[#d6d2c8] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors font-mono"
+          className="w-full bg-[#ebebeb] border border-[#cccccc] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors font-mono"
         />
       </div>
 
@@ -127,7 +127,7 @@ export function ContactForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="How can we assist you today? Let us know about specific items, sizing, crypto transfers, or delivery arrangements..."
-          className="w-full bg-[#faf9f6] border border-[#d6d2c8] p-3.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors resize-y"
+          className="w-full bg-[#ebebeb] border border-[#cccccc] p-3.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors resize-y"
         />
       </div>
 

@@ -72,7 +72,7 @@ export function ClientEvidenceSection() {
   const filtered = filter === "ALL" ? TESTIMONIALS : TESTIMONIALS.filter((t) => t.category === filter);
 
   return (
-    <section className="py-16 sm:py-24 bg-[#f8f7f4] border-t border-b border-[#ece8e1]">
+    <section className="py-16 sm:py-24 bg-[#ebebeb] border-t border-b border-[#dcdcdc]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -96,7 +96,7 @@ export function ClientEvidenceSection() {
               className={`px-3.5 py-1.5 text-xs font-medium rounded-xs uppercase tracking-wider transition-colors cursor-pointer ${
                 filter === "ALL"
                   ? "bg-neutral-950 text-white"
-                  : "bg-white text-neutral-600 border border-[#dedad0] hover:text-black hover:border-neutral-400"
+                  : "bg-white text-neutral-600 border border-[#d4d4d4] hover:text-black hover:border-neutral-400"
               }`}
               style={filter === "ALL" ? { color: "#ffffff" } : undefined}
             >
@@ -108,7 +108,7 @@ export function ClientEvidenceSection() {
               className={`px-3.5 py-1.5 text-xs font-medium rounded-xs uppercase tracking-wider transition-colors cursor-pointer ${
                 filter === "Apparel"
                   ? "bg-neutral-950 text-white"
-                  : "bg-white text-neutral-600 border border-[#dedad0] hover:text-black hover:border-neutral-400"
+                  : "bg-white text-neutral-600 border border-[#d4d4d4] hover:text-black hover:border-neutral-400"
               }`}
               style={filter === "Apparel" ? { color: "#ffffff" } : undefined}
             >
@@ -120,7 +120,7 @@ export function ClientEvidenceSection() {
               className={`px-3.5 py-1.5 text-xs font-medium rounded-xs uppercase tracking-wider transition-colors cursor-pointer ${
                 filter === "Leathercraft"
                   ? "bg-neutral-950 text-white"
-                  : "bg-white text-neutral-600 border border-[#dedad0] hover:text-black hover:border-neutral-400"
+                  : "bg-white text-neutral-600 border border-[#d4d4d4] hover:text-black hover:border-neutral-400"
               }`}
               style={filter === "Leathercraft" ? { color: "#ffffff" } : undefined}
             >
@@ -132,7 +132,7 @@ export function ClientEvidenceSection() {
               className={`px-3.5 py-1.5 text-xs font-medium rounded-xs uppercase tracking-wider transition-colors cursor-pointer ${
                 filter === "Footwear"
                   ? "bg-neutral-950 text-white"
-                  : "bg-white text-neutral-600 border border-[#dedad0] hover:text-black hover:border-neutral-400"
+                  : "bg-white text-neutral-600 border border-[#d4d4d4] hover:text-black hover:border-neutral-400"
               }`}
               style={filter === "Footwear" ? { color: "#ffffff" } : undefined}
             >
@@ -146,7 +146,7 @@ export function ClientEvidenceSection() {
           {filtered.map((item) => (
             <article
               key={item.id}
-              className="bg-white border border-[#dedad0] rounded-xs p-6 sm:p-7 shadow-xs hover:border-[#b0aaa0] transition-colors flex flex-col justify-between"
+              className="bg-white border border-[#d4d4d4] rounded-xs p-6 sm:p-7 shadow-xs hover:border-[#b0aaa0] transition-colors flex flex-col justify-between"
             >
               <div>
                 {/* Top Row: Client Ref & Location */}
@@ -197,7 +197,7 @@ export function ClientEvidenceSection() {
         </div>
 
         {/* Client Assurance Note (Understated, No NDA) */}
-        <div className="mt-10 sm:mt-12 bg-white border border-[#dedad0] rounded-xs p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="mt-10 sm:mt-12 bg-white border border-[#d4d4d4] rounded-xs p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-1.5">
               <span className="w-2 h-2 rounded-full bg-[#a3702b]" />
