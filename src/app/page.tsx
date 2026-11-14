@@ -213,77 +213,8 @@ export default async function Home() {
             <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
-                  src="/images/customer_unboxing_goyard.jpg"
-                  alt="Customer holding Goyard Saint Louis PM tote bag"
-                  fill
-                  sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-103"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
-                  <span>Austin, TX</span>
-                  <span className="text-[#047857] font-semibold">Delivered in 21h</span>
-                </div>
-                <strong className="text-xs text-neutral-950 block">Goyard Saint Louis PM Tote</strong>
-                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
-                  &ldquo;Paid with SOL. Tracking hit my inbox right after the tx confirmed, and the bag arrived the next afternoon.&rdquo;
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
-              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
-                <Image
-                  src="/images/customer_holding_celine.jpg"
-                  alt="Customer carrying Celine Triomphe shoulder bag"
-                  fill
-                  sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-103"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
-                  <span>Miami, FL</span>
-                  <span className="text-[#047857] font-semibold">Delivered in 19h</span>
-                </div>
-                <strong className="text-xs text-neutral-950 block">Celine Triomphe Shoulder Bag</strong>
-                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
-                  &ldquo;Immaculate condition with full boutique box and dust bag. The leather is stunning. 10/10 service.&rdquo;
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
-              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
-                <Image
-                  src="/images/customer_wearing_sneakers.jpg"
-                  alt="Customer wearing luxury designer sneakers"
-                  fill
-                  sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-103"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
-                  <span>Los Angeles, CA</span>
-                  <span className="text-[#047857] font-semibold">Delivered in 23h</span>
-                </div>
-                <strong className="text-xs text-neutral-950 block">Louis Vuitton Monogram Trainer</strong>
-                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
-                  &ldquo;Checked out using ETH in 30 seconds. Double-boxed with tamper tape and signature verification on arrival.&rdquo;
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
-              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
-                <Image
-                  src="/images/customer_unboxing_lemon8.webp"
-                  alt="Customer unboxing Dior boutique gift box and authenticity card"
+                  src="/assets/aistudio/goyard-bag-review-alpin-backpack-1024x819_25fb4e5b.jpg"
+                  alt="Customer unboxing black Goyard Alpin MM Backpack with green Goyard box"
                   fill
                   sizes="(max-width: 640px) 100vw, 300px"
                   className="object-cover object-top transition-transform duration-500 group-hover:scale-103"
@@ -292,12 +223,81 @@ export default async function Home() {
               </div>
               <div className="p-4">
                 <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
+                  <span>Austin, TX</span>
+                  <span className="text-[#047857] font-semibold">Delivered in 21h</span>
+                </div>
+                <strong className="text-xs text-neutral-950 block">Goyard Alpin MM Backpack</strong>
+                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
+                  &ldquo;Paid with SOL. Tracking hit my inbox right after the tx confirmed, and the backpack arrived in its green box the next afternoon.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
+              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+                <Image
+                  src="/images/customer_unboxing_lemon8.webp"
+                  alt="Customer unboxing Christian Dior ribbon-tied boutique box and gift envelope"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 300px"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-103"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
+                  <span>Miami, FL</span>
+                  <span className="text-[#047857] font-semibold">Delivered in 19h</span>
+                </div>
+                <strong className="text-xs text-neutral-950 block">Dior Saddle Leather Bag</strong>
+                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
+                  &ldquo;Immaculate condition with full Dior boutique gift box, white ribbon, and card sleeve. 10/10 presentation.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
+              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+                <Image
+                  src="/assets/aistudio/vfc6qnkizeeh1_26f75b63.jpg"
+                  alt="Customer unboxing Louis Vuitton Trio Messenger bag in Monogram Eclipse canvas with detachable front pocket and jacquard strap"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 300px"
+                  className="object-cover object-[center_58%] transition-transform duration-500 group-hover:scale-103"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
+                  <span>Los Angeles, CA</span>
+                  <span className="text-[#047857] font-semibold">Delivered in 23h</span>
+                </div>
+                <strong className="text-xs text-neutral-950 block">Louis Vuitton Trio Messenger</strong>
+                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
+                  &ldquo;Checked out using ETH in 30 seconds. Monogram Eclipse canvas is crisp, strap hardware intact, and double-boxed on arrival.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
+              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+                <Image
+                  src="/assets/aistudio/photo_2026-11-14_04-51-16_bfceacac.jpg"
+                  alt="Customer unboxing Lady Dior Mini Handbag inside white Dior presentation box with ribbon and dust bag"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 300px"
+                  className="object-cover object-[center_62%] transition-transform duration-500 group-hover:scale-103"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="p-4">
+                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
                   <span>New York, NY</span>
                   <span className="text-[#047857] font-semibold">Delivered in 16h</span>
                 </div>
-                <strong className="text-xs text-neutral-950 block">Dior Silk &amp; Leather Allocation</strong>
+                <strong className="text-xs text-neutral-950 block">Lady Dior Mini Crystal Cannage Bag</strong>
                 <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
-                  &ldquo;Smooth BTC transfer. Arrived in the original Dior boutique box with ribbon and card inside. Will order again.&rdquo;
+                  &ldquo;Smooth BTC transfer. Arrived in the original Dior boutique box with DIOR ribbon and dust bag inside. Will order again.&rdquo;
                 </p>
               </div>
             </div>

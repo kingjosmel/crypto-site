@@ -157,11 +157,11 @@ export default function AboutPage() {
             <div className="bg-white border border-[#dcdcdc] rounded-xs overflow-hidden">
               <div className="relative aspect-4/3 w-full">
                 <Image
-                  src="/images/customer_unboxing_goyard.jpg"
-                  alt="Customer holding Goyard tote bag"
+                  src="/assets/aistudio/goyard-bag-review-alpin-backpack-1024x819_25fb4e5b.jpg"
+                  alt="Customer unboxing black Goyard Alpin MM Backpack with green Goyard box"
                   fill
                   sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover"
+                  className="object-cover object-top"
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -170,9 +170,9 @@ export default function AboutPage() {
                   <span>Austin, TX</span>
                   <span className="text-[#047857] font-semibold">Delivered in 21h</span>
                 </div>
-                <strong className="text-xs text-neutral-950 block">Goyard Saint Louis PM Tote</strong>
+                <strong className="text-xs text-neutral-950 block">Goyard Alpin MM Backpack</strong>
                 <p className="text-xs text-neutral-600 mt-1 italic">
-                  &ldquo;Paid with SOL. Tracking hit my inbox right after the tx confirmed, and the bag was on my doorstep the next afternoon.&rdquo;
+                  &ldquo;Paid with SOL. Tracking hit my inbox right after the tx confirmed, and the backpack was on my doorstep the next afternoon.&rdquo;
                 </p>
               </div>
             </div>
@@ -180,11 +180,11 @@ export default function AboutPage() {
             <div className="bg-white border border-[#dcdcdc] rounded-xs overflow-hidden">
               <div className="relative aspect-4/3 w-full">
                 <Image
-                  src="/images/customer_holding_celine.jpg"
-                  alt="Customer holding Celine bag"
+                  src="/images/customer_unboxing_lemon8.webp"
+                  alt="Customer unboxing Christian Dior ribbon-tied boutique box and gift envelope"
                   fill
                   sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover"
+                  className="object-cover object-top"
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -193,9 +193,9 @@ export default function AboutPage() {
                   <span>Miami, FL</span>
                   <span className="text-[#047857] font-semibold">Delivered in 19h</span>
                 </div>
-                <strong className="text-xs text-neutral-950 block">Celine Triomphe Shoulder Bag</strong>
+                <strong className="text-xs text-neutral-950 block">Dior Saddle Leather Bag</strong>
                 <p className="text-xs text-neutral-600 mt-1 italic">
-                  &ldquo;Flawless leather and immaculate hardware. Came with the full boutique box and dust bag. Absolutely legit.&rdquo;
+                  &ldquo;Flawless leather and immaculate presentation. Came with the full Dior boutique box, white ribbon, and card sleeve. Absolutely legit.&rdquo;
                 </p>
               </div>
             </div>
@@ -203,22 +203,22 @@ export default function AboutPage() {
             <div className="bg-white border border-[#dcdcdc] rounded-xs overflow-hidden">
               <div className="relative aspect-4/3 w-full">
                 <Image
-                  src="/images/customer_cardholder_delivery.jpg"
-                  alt="Customer unboxing small leather goods package"
+                  src="/assets/aistudio/vfc6qnkizeeh1_26f75b63.jpg"
+                  alt="Customer unboxing Louis Vuitton Trio Messenger bag in Monogram Eclipse canvas with detachable front pocket and jacquard strap"
                   fill
                   sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover"
+                  className="object-cover object-[center_58%]"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <div className="p-4">
                 <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
-                  <span>New York, NY</span>
-                  <span className="text-[#047857] font-semibold">Delivered in 16h</span>
+                  <span>Los Angeles, CA</span>
+                  <span className="text-[#047857] font-semibold">Delivered in 23h</span>
                 </div>
-                <strong className="text-xs text-neutral-950 block">Goyard Saint Sulpice & LV Card Case</strong>
+                <strong className="text-xs text-neutral-950 block">Louis Vuitton Trio Messenger</strong>
                 <p className="text-xs text-neutral-600 mt-1 italic">
-                  &ldquo;Smooth checkout with BTC. Package was double boxed with security tamper tape. 10/10 service.&rdquo;
+                  &ldquo;Smooth checkout with ETH. Monogram Eclipse canvas, detachable front pouch, and LV strap arrived double-boxed in 23 hours.&rdquo;
                 </p>
               </div>
             </div>
