@@ -23,7 +23,7 @@ export default async function Home() {
   return (
     <SiteShell>
       {/* 1. Flagship Hero Editorial Campaign */}
-      <section className="relative bg-[#ebebeb] border-b border-[#dcdcdc] overflow-hidden">
+      <section className="relative bg-white border-b border-[#e5e5e5] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Copy Column */}
@@ -93,11 +93,11 @@ export default async function Home() {
       </section>
 
       {/* 2. Value Proposition Strip (Quiet Luxury, 3 Pillars) */}
-      <section className="bg-[#f5f5f5] border-b border-[#dcdcdc] py-10">
+      <section className="bg-[#fafafa] border-b border-[#e5e5e5] py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-              <div className="w-10 h-10 rounded-xs bg-[#ebebeb] border border-[#dcdcdc] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
+              <div className="w-10 h-10 rounded-xs bg-white border border-[#e5e5e5] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
                 01
               </div>
               <div>
@@ -111,7 +111,7 @@ export default async function Home() {
             </div>
 
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-              <div className="w-10 h-10 rounded-xs bg-[#ebebeb] border border-[#dcdcdc] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
+              <div className="w-10 h-10 rounded-xs bg-white border border-[#e5e5e5] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
                 02
               </div>
               <div>
@@ -125,7 +125,7 @@ export default async function Home() {
             </div>
 
             <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-              <div className="w-10 h-10 rounded-xs bg-[#ebebeb] border border-[#dcdcdc] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
+              <div className="w-10 h-10 rounded-xs bg-white border border-[#e5e5e5] flex items-center justify-center shrink-0 text-sm font-serif font-bold text-neutral-900">
                 03
               </div>
               <div>
@@ -145,7 +145,7 @@ export default async function Home() {
       <HomeFeaturedShowcase products={products} categories={categories} />
 
       {/* 4. Editorial Spotlight: Physical Authenticity & Priority Courier */}
-      <section className="py-20 bg-[#f3f3f3] border-b border-[#dcdcdc]">
+      <section className="py-20 bg-[#fafafa] border-b border-[#e5e5e5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 relative aspect-16/10 rounded-xs overflow-hidden border border-[#d4d4d4] shadow-sm">
@@ -193,7 +193,7 @@ export default async function Home() {
       </section>
 
       {/* 5. Verified Client Deliveries & Customer Photos */}
-      <section className="py-20 bg-[#f5f5f5] border-b border-[#dcdcdc]">
+      <section className="py-20 bg-white border-b border-[#e5e5e5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
             <div>
@@ -210,7 +210,7 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-[#ebebeb] border border-[#dcdcdc] rounded-xs overflow-hidden group">
+            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
                   src="/images/customer_unboxing_goyard.jpg"
@@ -233,7 +233,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="bg-[#ebebeb] border border-[#dcdcdc] rounded-xs overflow-hidden group">
+            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
                   src="/images/customer_holding_celine.jpg"
@@ -256,7 +256,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="bg-[#ebebeb] border border-[#dcdcdc] rounded-xs overflow-hidden group">
+            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
                   src="/images/customer_wearing_sneakers.jpg"
@@ -279,7 +279,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="bg-[#ebebeb] border border-[#dcdcdc] rounded-xs overflow-hidden group">
+            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
                   src="/images/customer_unboxing_lemon8.webp"
@@ -306,7 +306,7 @@ export default async function Home() {
       </section>
 
       {/* 6. Step-by-Step Crypto Payment & 24h Delivery Guide */}
-      <section className="py-16 sm:py-20 bg-[#ebebeb] border-b border-[#dcdcdc]">
+      <section className="py-16 sm:py-20 bg-[#fafafa] border-b border-[#e5e5e5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
@@ -362,7 +362,7 @@ export default async function Home() {
       </section>
 
       {/* 7. The Houses: Typographic Brand Roster */}
-      <section className="py-16 sm:py-20 bg-[#f5f5f5]">
+      <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-[10px] uppercase font-bold tracking-[0.25em] text-[#6b6b6b] block mb-3">
             Featured Houses

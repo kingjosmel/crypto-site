@@ -23,7 +23,7 @@ export function ConditionChecklist({ brand, sku }: { brand: string; sku: string 
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-4 flex items-center justify-between text-left hover:bg-[#ebebeb] transition-colors cursor-pointer"
+        className="w-full p-4 flex items-center justify-between text-left hover:bg-[#fafafa] transition-colors cursor-pointer"
         aria-expanded={isOpen}
       >
         <div className="flex items-center gap-3">
@@ -46,7 +46,7 @@ export function ConditionChecklist({ brand, sku }: { brand: string; sku: string 
       </button>
 
       {isOpen && (
-        <div className="p-4 pt-2 border-t border-[#dcdcdc] bg-[#ebebeb] space-y-2.5">
+        <div className="p-4 pt-2 border-t border-[#e5e5e5] bg-[#fafafa] space-y-2.5">
           <p className="text-[11px] text-neutral-600 mb-3">
             Every {brand} item is physically graded and verified by our specialists in New York before listing. High-resolution inspection photos of any point can be provided upon request prior to checkout.
           </p>

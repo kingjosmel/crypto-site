@@ -45,7 +45,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-[#f5f5f5]/95 backdrop-blur-md border-b border-[#dcdcdc] transition-all">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e5e5e5] transition-all">
       {/* 1. Clean Minimal Announcement Bar */}
       <div className="bg-[#0f0f0f] text-[#f5f5f5] text-xs py-2 px-4 border-b border-neutral-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium tracking-wide">
@@ -121,7 +121,7 @@ export function Header() {
             {/* Search Input Bar */}
             <form action="/search" method="GET" className="relative hidden md:block">
               <label htmlFor="header-search-bar" className="sr-only">Search catalog</label>
-              <div className="flex items-center border border-[#cccccc] rounded-xs px-3 py-1.5 bg-[#f5f5f5] hover:border-neutral-500 focus-within:border-black transition-colors">
+              <div className="flex items-center border border-[#d4d4d4] rounded-xs px-3 py-1.5 bg-[#fafafa] hover:border-neutral-500 focus-within:border-black transition-colors">
                 <input
                   id="header-search-bar"
                   name="q"
@@ -158,7 +158,7 @@ export function Header() {
                 name="q"
                 type="search"
                 placeholder="Search collection..."
-                className="w-full border border-[#cccccc] px-3.5 py-2 text-xs rounded-xs bg-[#f5f5f5]"
+                className="w-full border border-[#d4d4d4] px-3.5 py-2 text-xs rounded-xs bg-[#fafafa]"
               />
             </form>
             <div className="flex flex-col space-y-3 text-xs font-semibold uppercase tracking-wider text-neutral-800">

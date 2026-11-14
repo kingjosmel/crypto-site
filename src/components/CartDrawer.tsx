@@ -98,7 +98,7 @@ export function CartDrawer() {
           </div>
 
           {/* Complimentary 24-Hour USA Shipping Bar */}
-          <div className="bg-[#f3f3f3] px-6 py-3 border-b border-[#dcdcdc] flex items-center justify-between text-xs text-neutral-700">
+          <div className="bg-[#fafafa] px-6 py-3 border-b border-[#e5e5e5] flex items-center justify-between text-xs text-neutral-700">
             <span className="font-medium text-[#047857]">Guaranteed 24-Hour USA Delivery</span>
             <span className="text-neutral-500 text-[11px] font-semibold">Complimentary ($0.00)</span>
           </div>
@@ -134,7 +134,7 @@ export function CartDrawer() {
               cart.map((item) => (
                 <div key={`${item.productId}-${item.size || "std"}`} className="py-4 flex gap-4">
                   {/* Thumbnail */}
-                  <div className="relative w-20 h-24 bg-[#ebebeb] shrink-0 border border-[#dcdcdc] rounded-xs overflow-hidden">
+                  <div className="relative w-20 h-24 bg-white shrink-0 border border-[#e5e5e5] rounded-xs overflow-hidden">
                     {item.imageUrl ? (
                       <Image
                         src={item.imageUrl}
@@ -216,7 +216,7 @@ export function CartDrawer() {
 
           {/* Drawer Footer */}
           {cart.length > 0 && (
-            <div className="border-t border-[#dcdcdc] px-6 py-5 bg-[#ebebeb]">
+            <div className="border-t border-[#e5e5e5] px-6 py-5 bg-white">
               <div className="flex justify-between items-center mb-1 text-sm">
                 <span className="text-neutral-600">Subtotal</span>
                 <span className="font-semibold text-neutral-900 font-mono text-base">

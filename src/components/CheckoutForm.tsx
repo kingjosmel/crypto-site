@@ -279,7 +279,7 @@ export function CheckoutForm() {
           </div>
 
           {/* Crypto Settlement Information */}
-          <div className="my-6 p-4 rounded-xs border border-[#dcdcdc] bg-[#ebebeb]">
+          <div className="my-6 p-4 rounded-xs border border-[#e5e5e5] bg-[#fafafa]">
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-900">
                 Blockchain Deposit Details
@@ -588,7 +588,7 @@ export function CheckoutForm() {
               <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950 mb-4">
                 Shipping Method
               </h2>
-              <div className="p-4 border-2 border-neutral-950 bg-[#ebebeb] rounded-xs flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+              <div className="p-4 border-2 border-neutral-950 bg-[#fafafa] rounded-xs flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                 <div>
                   <div className="flex items-center gap-2">
                     <strong className="text-sm text-neutral-950 font-semibold">
@@ -635,7 +635,7 @@ export function CheckoutForm() {
                       onClick={() => setCryptoCurrency(coinKey)}
                       className={`p-3.5 sm:p-4 border text-center transition-all cursor-pointer rounded-xs flex flex-col items-center justify-center ${
                         isSelected
-                          ? "border-neutral-950 bg-[#ebebeb] shadow-xs ring-1 ring-neutral-950"
+                          ? "border-neutral-950 bg-[#fafafa] shadow-xs ring-1 ring-neutral-950"
                           : "border-[#cccccc] bg-white hover:border-neutral-400"
                       }`}
                     >
@@ -658,7 +658,7 @@ export function CheckoutForm() {
               </div>
 
               {/* Deposit Address Box */}
-              <div className="border border-[#cccccc] bg-[#ebebeb] p-5 rounded-xs space-y-4">
+              <div className="border border-[#d4d4d4] bg-[#fafafa] p-5 rounded-xs space-y-4">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                   <CryptoQRCode
                     address={currentCrypto.address}
@@ -756,7 +756,7 @@ export function CheckoutForm() {
             <div className="space-y-4 max-h-[380px] overflow-y-auto pr-1">
               {cart.map((item) => (
                 <div key={`${item.productId}-${item.size || "std"}`} className="flex items-center gap-4 py-2 border-b border-[#e5e5e5] last:border-none">
-                  <div className="relative w-16 h-20 bg-[#ebebeb] shrink-0 border border-[#dcdcdc] rounded-xs overflow-hidden">
+                  <div className="relative w-16 h-20 bg-white shrink-0 border border-[#e5e5e5] rounded-xs overflow-hidden">
                     {item.imageUrl && (
                       <Image
                         src={item.imageUrl}

@@ -116,7 +116,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
     <div className="space-y-6">
       {/* Interactive Size Selection Module */}
       {availableSizes.length > 0 && (
-        <div className="bg-[#ebebeb] p-4 border border-[#dcdcdc] rounded-xs space-y-3">
+        <div className="bg-[#fafafa] p-4 border border-[#e5e5e5] rounded-xs space-y-3">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold uppercase tracking-wider text-neutral-900 flex items-center gap-1.5">
               <span>Available Sizing:</span>
@@ -299,7 +299,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
                 </p>
                 <div className="border border-[#dcdcdc] rounded-xs overflow-hidden">
                   <table className="w-full text-left">
-                    <thead className="bg-[#ebebeb] border-b border-[#dcdcdc] text-[11px] font-bold uppercase text-neutral-700">
+                    <thead className="bg-[#fafafa] border-b border-[#e5e5e5] text-[11px] font-bold uppercase text-neutral-700">
                       <tr>
                         <th className="p-2.5">Belt Size (cm)</th>
                         <th className="p-2.5">Waist (Inches)</th>
@@ -325,7 +325,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
                 </p>
                 <div className="border border-[#dcdcdc] rounded-xs overflow-hidden">
                   <table className="w-full text-left">
-                    <thead className="bg-[#ebebeb] border-b border-[#dcdcdc] text-[11px] font-bold uppercase text-neutral-700">
+                    <thead className="bg-[#fafafa] border-b border-[#e5e5e5] text-[11px] font-bold uppercase text-neutral-700">
                       <tr>
                         <th className="p-2.5">EU Size</th>
                         <th className="p-2.5">US Men</th>
@@ -354,7 +354,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
                 </p>
                 <div className="border border-[#dcdcdc] rounded-xs overflow-hidden">
                   <table className="w-full text-left">
-                    <thead className="bg-[#ebebeb] border-b border-[#dcdcdc] text-[11px] font-bold uppercase text-neutral-700">
+                    <thead className="bg-[#fafafa] border-b border-[#e5e5e5] text-[11px] font-bold uppercase text-neutral-700">
                       <tr>
                         <th className="p-2.5">EU Size</th>
                         <th className="p-2.5">Standard</th>

@@ -83,7 +83,7 @@ export function StickyMobileBuyBar({ product, triggerId = "main-purchase-cta" }:
         {/* Left: Thumbnail & Price Info */}
         <div className="flex items-center gap-2.5 min-w-0 flex-1">
           {product.images[0]?.url && (
-            <div className="relative w-10 h-10 rounded-xs overflow-hidden border border-[#dcdcdc] shrink-0 bg-[#f3f3f3]">
+            <div className="relative w-10 h-10 rounded-xs overflow-hidden border border-[#e5e5e5] shrink-0 bg-white">
               <Image
                 src={product.images[0].url}
                 alt={product.name}

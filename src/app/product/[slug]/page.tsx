@@ -124,7 +124,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </div>
 
               {/* Quiet Luxury Guarantee Strip */}
-              <div className="bg-[#ebebeb] p-4 border border-[#dcdcdc] rounded-xs space-y-2.5 text-xs text-neutral-600">
+              <div className="bg-[#fafafa] p-4 border border-[#e5e5e5] rounded-xs space-y-2.5 text-xs text-neutral-600">
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
                   <span><strong>Guaranteed 24-Hour USA Delivery:</strong> Dispatched via priority express courier with signature required.</span>
@@ -159,12 +159,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <span className="text-neutral-400 group-open:rotate-180 transition-transform">↓</span>
                 </summary>
                 <dl className="mt-3 space-y-2">
-                  <div className="flex justify-between py-1 border-b border-[#ebebeb]">
+                  <div className="flex justify-between py-1 border-b border-[#e5e5e5]">
                     <dt className="text-neutral-500">Stock SKU</dt>
                     <dd className="font-mono text-neutral-900">{product.sku}</dd>
                   </div>
                   {product.specs.map((spec) => (
-                    <div key={spec.key} className="flex justify-between py-1 border-b border-[#ebebeb]">
+                    <div key={spec.key} className="flex justify-between py-1 border-b border-[#e5e5e5]">
                     <dt className="text-neutral-500">{spec.key}</dt>
                     <dd className="text-neutral-900 font-medium text-right">{spec.value}</dd>
                   </div>
@@ -226,9 +226,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 View All Pieces →
               </Link>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:overflow-visible no-scrollbar">
               {relatedProducts.map((rel) => (
-                <ProductCard key={rel._id} product={rel} />
+                <div
+                  key={rel._id}
+                  className="shrink-0 w-[64vw] max-w-[270px] sm:w-[42vw] md:w-auto md:max-w-none snap-start"
+                >
+                  <ProductCard product={rel} />
+                </div>
               ))}
             </div>
           </div>

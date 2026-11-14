@@ -22,7 +22,7 @@ export function ProductGallery({
   return (
     <div className="flex flex-col gap-4">
       {/* Primary Main Image Frame */}
-      <div className="relative aspect-4/5 w-full bg-[#ebebeb] rounded-xs overflow-hidden border border-[#dcdcdc] shadow-sm">
+      <div className="relative aspect-4/5 w-full bg-white rounded-xs overflow-hidden border border-[#e5e5e5] shadow-sm">
         {activeImage && (
           <Image
             src={activeImage.url}
@@ -64,10 +64,10 @@ export function ProductGallery({
                 key={`${img.url}-${idx}`}
                 type="button"
                 onClick={() => setSelectedIndex(idx)}
-                className={`relative aspect-4/5 bg-[#ebebeb] rounded-xs overflow-hidden border transition-all cursor-pointer group ${
+                className={`relative aspect-4/5 bg-white rounded-xs overflow-hidden border transition-all cursor-pointer group ${
                   isActive
                     ? "border-neutral-950 ring-2 ring-neutral-950 ring-offset-1"
-                    : "border-[#dcdcdc] hover:border-neutral-400 opacity-75 hover:opacity-100"
+                    : "border-[#e5e5e5] hover:border-neutral-400 opacity-75 hover:opacity-100"
                 }`}
                 aria-label={`View angle ${idx + 1}`}
               >

@@ -33,9 +33,9 @@ export function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <article className="group relative flex flex-col bg-white border border-[#dcdcdc] hover:border-[#999999] transition-all duration-300 rounded-xs overflow-hidden shadow-2xs hover:shadow-md">
-      {/* Product Image Frame (4:5 studio proportion matching #ebebeb background) */}
-      <div className="relative aspect-4/5 w-full bg-[#ebebeb] overflow-hidden block">
+    <article className="group relative flex flex-col bg-white border border-[#e5e5e5] hover:border-[#999999] transition-all duration-300 rounded-xs overflow-hidden shadow-2xs hover:shadow-md">
+      {/* Product Image Frame (4:5 studio proportion matching white background) */}
+      <div className="relative aspect-4/5 w-full bg-white overflow-hidden block">
         <Link
           href={`/product/${product.slug}`}
           className="absolute inset-0 block"
@@ -82,7 +82,7 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
 
       {/* Product Details */}
-      <div className="p-4 flex flex-col flex-1 justify-between gap-3 bg-[#f7f7f7]">
+      <div className="p-4 flex flex-col flex-1 justify-between gap-3 bg-white">
         <div>
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#666666] block mb-1">
             {product.brand}

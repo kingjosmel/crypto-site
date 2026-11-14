@@ -115,7 +115,7 @@ export function MultiAngleGallery({ product, conditionLabelText }: MultiAngleGal
       {/* Main High-Resolution Frame */}
       <div
         ref={containerRef}
-        className="group relative aspect-4/3 w-full bg-[#ebebeb] rounded-xs overflow-hidden border border-[#dcdcdc] shadow-sm select-none cursor-crosshair"
+        className="group relative aspect-4/3 w-full bg-white rounded-xs overflow-hidden border border-[#e5e5e5] shadow-sm select-none cursor-crosshair"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onMouseMove={handleMouseMove}

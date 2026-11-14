@@ -82,7 +82,7 @@ export function ContactForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g. Alex Morgan"
-            className="w-full bg-[#ebebeb] border border-[#cccccc] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors"
+            className="w-full bg-[#fafafa] border border-[#d4d4d4] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:bg-white focus:border-black transition-colors"
           />
         </div>
 
@@ -97,7 +97,7 @@ export function ContactForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="alex@example.com"
-            className="w-full bg-[#ebebeb] border border-[#cccccc] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors"
+            className="w-full bg-[#fafafa] border border-[#d4d4d4] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:bg-white focus:border-black transition-colors"
           />
         </div>
       </div>
@@ -112,7 +112,7 @@ export function ContactForm() {
           value={orderNumber}
           onChange={(e) => setOrderNumber(e.target.value)}
           placeholder="e.g. NS-00000001"
-          className="w-full bg-[#ebebeb] border border-[#cccccc] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors font-mono"
+          className="w-full bg-[#fafafa] border border-[#d4d4d4] px-3.5 py-2.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:bg-white focus:border-black transition-colors font-mono"
         />
       </div>
 
@@ -127,7 +127,7 @@ export function ContactForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="How can we assist you today? Let us know about specific items, sizing, crypto transfers, or delivery arrangements..."
-          className="w-full bg-[#ebebeb] border border-[#cccccc] p-3.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:border-black transition-colors resize-y"
+          className="w-full bg-[#fafafa] border border-[#d4d4d4] p-3.5 text-xs text-neutral-900 rounded-xs focus:outline-none focus:bg-white focus:border-black transition-colors resize-y"
         />
       </div>
 

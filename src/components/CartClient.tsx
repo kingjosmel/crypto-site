@@ -100,7 +100,7 @@ export function CartClient() {
             {items.map((item) => (
               <div key={`${item.productId}-${item.size || "std"}`} className="p-6 flex flex-col sm:flex-row gap-5 items-start sm:items-center justify-between">
                 <div className="flex gap-4 items-center min-w-0">
-                  <div className="relative w-20 h-24 bg-[#ebebeb] shrink-0 rounded-xs overflow-hidden border border-[#dcdcdc]">
+                  <div className="relative w-20 h-24 bg-white shrink-0 rounded-xs overflow-hidden border border-[#e5e5e5]">
                     {item.imageUrl ? (
                       <Image
                         src={item.imageUrl}
@@ -139,7 +139,7 @@ export function CartClient() {
 
                 <div className="flex items-center gap-6 self-end sm:self-center">
                   {/* Quantity Stepper */}
-                  <div className="flex items-center border border-[#cccccc] rounded-xs bg-[#ebebeb]">
+                  <div className="flex items-center border border-[#d4d4d4] rounded-xs bg-white">
                     <button
                       type="button"
                       onClick={() => updateQuantity(item.productId, item.qty - 1, item.size)}
@@ -230,9 +230,9 @@ export function CartClient() {
               Cryptocurrency Exclusive Settlement
             </span>
             <div className="flex items-center justify-center gap-2 text-[10px] font-mono">
-              <span className="bg-[#f5f5f5] text-[#f7931a] px-2 py-0.5 border border-[#e5e2da] rounded-xs font-semibold">BTC</span>
-              <span className="bg-[#f5f5f5] text-[#627eea] px-2 py-0.5 border border-[#e5e2da] rounded-xs font-semibold">ETH</span>
-              <span className="bg-[#f5f5f5] text-[#14f195] px-2 py-0.5 border border-[#e5e2da] rounded-xs font-semibold">SOL</span>
+              <span className="bg-[#fafafa] text-[#f7931a] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">BTC</span>
+              <span className="bg-[#fafafa] text-[#627eea] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">ETH</span>
+              <span className="bg-[#fafafa] text-[#14f195] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">SOL</span>
             </div>
           </div>
         </div>

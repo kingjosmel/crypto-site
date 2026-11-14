@@ -103,7 +103,7 @@ export default function AboutPage() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border border-[#dcdcdc] p-4 bg-[#ebebeb] rounded-xs">
+            <div className="border border-[#e5e5e5] p-4 bg-[#fafafa] rounded-xs">
               <div className="w-10 h-10 rounded-full bg-[#0f0f0f] text-white flex items-center justify-center font-bold text-sm mb-3">
                 1
               </div>
@@ -115,7 +115,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="border border-[#dcdcdc] p-4 bg-[#ebebeb] rounded-xs">
+            <div className="border border-[#e5e5e5] p-4 bg-[#fafafa] rounded-xs">
               <div className="w-10 h-10 rounded-full bg-[#0f0f0f] text-white flex items-center justify-center font-bold text-sm mb-3">
                 2
               </div>
@@ -127,7 +127,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="border border-[#dcdcdc] p-4 bg-[#ebebeb] rounded-xs">
+            <div className="border border-[#e5e5e5] p-4 bg-[#fafafa] rounded-xs">
               <div className="w-10 h-10 rounded-full bg-[#0f0f0f] text-white flex items-center justify-center font-bold text-sm mb-3">
                 3
               </div>

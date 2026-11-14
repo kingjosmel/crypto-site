@@ -2,11 +2,11 @@
 
 :root {
   --ink: #0f0f0f;
-  --paper: #ebebeb;
+  --paper: #ffffff;
   --paper-elevated: #ffffff;
   --muted: #595959;
-  --line: #dcdcdc;
-  --line-strong: #cccccc;
+  --line: #e5e5e5;
+  --line-strong: #d4d4d4;
   --accent: #9a6e2e;
   --emerald: #059669;
   --font-serif: "Playfair Display", Georgia, serif;
@@ -291,3 +291,14 @@ a.bg-black:hover {
     gap: 0;
   }
 }
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
