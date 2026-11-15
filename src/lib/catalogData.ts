@@ -220,32 +220,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     updatedAt: "2026-01-16T10:00:00.000Z"
   },
   {
-    _id: "660000000000000000000108",
-    name: "Reversible Leather Belt",
-    slug: "reversible-leather-belt",
-    brand: "Gucci",
-    categoryId: "660000000000000000000004",
-    priceCents: 72000,
-    currency: "USD",
-    sku: "GUC-AC-008",
-    condition: "NEW",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Gucci 2-year leather goods guarantee",
-    returnPolicy: "Complimentary returns within 14 days in unworn condition.",
-    description: "A versatile reversible belt in smooth black leather on one face and monogram canvas on the reverse.",
-    specs: [{ key: "Material", value: "Full-grain calfskin & GG canvas" }, { key: "Width", value: "35 mm" }, { key: "Buckle", value: "Interlocking G shiny gold-toned" }],
-    sizes: ["80", "85", "90", "95", "100"],
-    authenticity: "Includes dust bag and serial number stamping.",
-    images: [
-      { url: "/images/product_gucci_belt.jpg", alt: "Gucci reversible leather belt", position: 0 },
-      { url: "/images/inspection_hardware_zipper.jpg", alt: "Interlocking G gold buckle detail inspection", position: 1 },
-      { url: "/images/inspection_packaging_box.jpg", alt: "Gucci presentation box and dust bag", position: 2 }
-    ],
-    createdAt: "2026-01-17T10:00:00.000Z",
-    updatedAt: "2026-01-17T10:00:00.000Z"
-  },
-  {
     _id: "660000000000000000000109",
     name: "Classic Monogram Wallet",
     slug: "classic-monogram-wallet",
@@ -1011,37 +985,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     updatedAt: "2026-02-25T10:00:00.000Z"
   },
   {
-    _id: "660000000000000000000148",
-    name: "Loro Piana Summer Charms Walk Suede Loafer",
-    slug: "loro-piana-summer-charms-walk-suede-loafer",
-    brand: "Loro Piana",
-    categoryId: "660000000000000000000002",
-    priceCents: 98000,
-    currency: "USD",
-    sku: "LOR-SH-048",
-    condition: "NEW",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Loro Piana craftsmanship guarantee",
-    returnPolicy: "Complimentary returns within 14 days with protective sole sticker intact.",
-    description: "Classic driving and seaside moccasins in ultra-soft unlined suede leather treated with a water-repellent finish. Adorned with delicate mini padlock and ring charms on the band.",
-    specs: [
-      { key: "Upper", value: "Unlined calfskin suede" },
-      { key: "Charms", value: "Palladium metal charms on vamp" },
-      { key: "Sole", value: "Off-white rubber with LP monogram tread" },
-      { key: "Origin", value: "Made in Italy" }
-    ],
-    sizes: ["39", "40", "41", "42", "43", "44"],
-    authenticity: "Includes Loro Piana original box and cedar shoe horn.",
-    images: [
-      { url: "/images/product_loro_piana_summer_charms.jpg", alt: "Loro Piana Summer Charms Walk Suede Loafer", position: 0 },
-      { url: "/images/inspection_hardware_zipper.jpg", alt: "Palladium charm and suede stitching inspection", position: 1 },
-      { url: "/images/inspection_packaging_box.jpg", alt: "Loro Piana presentation packaging", position: 2 }
-    ],
-    createdAt: "2026-02-26T10:00:00.000Z",
-    updatedAt: "2026-02-26T10:00:00.000Z"
-  },
-  {
     _id: "660000000000000000000149",
     name: "Dior Oblique Reversible Cashmere Scarf",
     slug: "dior-oblique-reversible-cashmere-scarf",
@@ -1166,37 +1109,6 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     createdAt: "2026-03-02T10:00:00.000Z",
     updatedAt: "2026-03-02T10:00:00.000Z"
-  },
-  {
-    _id: "660000000000000000000153",
-    name: "Gucci Double G Buckle Leather Belt",
-    slug: "gucci-double-g-buckle-leather-belt",
-    brand: "Gucci",
-    categoryId: "660000000000000000000004",
-    priceCents: 52000,
-    currency: "USD",
-    sku: "GUC-AC-053",
-    condition: "NEW",
-    status: "ACTIVE",
-    stockStatus: "IN_STOCK",
-    warranty: "Gucci 2-year craftsmanship warranty",
-    returnPolicy: "Complimentary returns within 14 days in unworn condition.",
-    description: "A wide leather belt in smooth black heat-treated calfskin with the signature antiqued brass Double G buckle.",
-    specs: [
-      { key: "Leather", value: "Full-grain calfskin leather" },
-      { key: "Width", value: "3.0 cm" },
-      { key: "Buckle", value: "Antiqued brass Double G hardware" },
-      { key: "Origin", value: "Made in Italy" }
-    ],
-    sizes: ["80", "85", "90", "95", "100"],
-    authenticity: "Includes Gucci dust bag, serial number stamp, and boutique box.",
-    images: [
-      { url: "/images/product_gucci_double_g_belt.jpg", alt: "Gucci Double G Buckle Leather Belt in Black", position: 0 },
-      { url: "/images/inspection_hardware_zipper.jpg", alt: "Double G brass buckle inspection", position: 1 },
-      { url: "/images/inspection_packaging_box.jpg", alt: "Gucci green gift box and dust bag", position: 2 }
-    ],
-    createdAt: "2026-03-03T10:00:00.000Z",
-    updatedAt: "2026-03-03T10:00:00.000Z"
   },
   {
     _id: "660000000000000000000154",
