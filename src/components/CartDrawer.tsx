@@ -228,7 +228,7 @@ export function CartDrawer() {
                 <span className="text-[#047857] font-semibold">Complimentary ($0.00)</span>
               </div>
               <p className="text-[11px] text-neutral-500 mb-4 leading-normal">
-                Escrow-protected settlement via USDC, BTC, ETH, or SOL—with 14-day return wallet protection.
+                Escrow-protected settlement via BTC, ETH, or SOL—with 14-day return wallet protection.
               </p>
 
               <div className="space-y-2">

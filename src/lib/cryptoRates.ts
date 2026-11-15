@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 
-export type CryptoCurrency = "BTC" | "ETH" | "SOL" | "USDC";
+export type CryptoCurrency = "BTC" | "ETH" | "SOL";
 
 export interface CryptoRateInfo {
   price: number;
@@ -15,14 +15,12 @@ export const DEFAULT_CRYPTO_RATES: CryptoRatesMap = {
   BTC: { price: 75808.81, change24h: 0 },
   ETH: { price: 2235.61, change24h: 0 },
   SOL: { price: 89.21, change24h: 0 },
-  USDC: { price: 1.0, change24h: 0 },
 };
 
 export const CRYPTO_DECIMALS: Record<CryptoCurrency, number> = {
   BTC: 8,
   ETH: 6,
   SOL: 4,
-  USDC: 2,
 };
 
 /**
@@ -88,10 +86,6 @@ export function useLiveCryptoRates(pollingIntervalMs: number = 30000) {
           SOL: {
             price: data.rates.SOL?.price ?? DEFAULT_CRYPTO_RATES.SOL.price,
             change24h: data.rates.SOL?.change24h ?? 0,
-          },
-          USDC: {
-            price: data.rates.USDC?.price ?? DEFAULT_CRYPTO_RATES.USDC.price,
-            change24h: data.rates.USDC?.change24h ?? 0,
           },
         });
         setLastUpdated(data.lastUpdated ? new Date(data.lastUpdated) : new Date());

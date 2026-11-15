@@ -68,7 +68,7 @@ export default async function Home() {
                 </div>
                 <div>
                   <span className="block font-semibold text-neutral-900 uppercase tracking-wider text-[11px]">Protected Crypto</span>
-                  <span className="text-[11px] text-neutral-500">USDC · BTC · ETH · SOL</span>
+                  <span className="text-[11px] text-neutral-500">BTC · ETH · SOL</span>
                 </div>
               </div>
             </div>
@@ -133,7 +133,7 @@ export default async function Home() {
                   Protected Crypto Escrow
                 </h3>
                 <p className="text-xs text-neutral-500 leading-relaxed">
-                  Settle in USDC, BTC, ETH, or SOL with a registered personal Refund Return Wallet and 14-day inspection protection.
+                  Settle in BTC, ETH, or SOL with a registered personal Refund Return Wallet and 14-day inspection protection.
                 </p>
               </div>
             </div>
@@ -324,7 +324,7 @@ export default async function Home() {
                 Select Crypto Asset
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Choose immediate escrow settlement in USDC, BTC, ETH, or SOL at live market rates.
+                Choose immediate escrow settlement in BTC, ETH, or SOL at live market rates.
               </p>
             </div>
 

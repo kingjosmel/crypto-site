@@ -16,14 +16,12 @@ const FALLBACK_RATES: Record<string, { price: number; change24h: number }> = {
   BTC: { price: 75800, change24h: 0 },
   ETH: { price: 2235, change24h: 0 },
   SOL: { price: 89.2, change24h: 0 },
-  USDC: { price: 1.0, change24h: 0 },
 };
 
 const ENDPOINTS: Record<string, string> = {
   BTC: "https://api.coinpaprika.com/v1/tickers/btc-bitcoin",
   ETH: "https://api.coinpaprika.com/v1/tickers/eth-ethereum",
   SOL: "https://api.coinpaprika.com/v1/tickers/sol-solana",
-  USDC: "https://api.coinpaprika.com/v1/tickers/usdc-usd-coin",
 };
 
 // In-memory cache for fast response and avoiding rate limits

@@ -41,8 +41,6 @@ export function CryptoQRCode({
       return amount && parseFloat(amount) > 0
         ? `solana:${address}?amount=${amount}`
         : `solana:${address}`;
-    } else if (sym === "USDC") {
-      return `ethereum:${address}`;
     }
     return address;
   }, [address, symbol, amount, format]);
@@ -83,14 +81,12 @@ export function CryptoQRCode({
   };
 
   const badgeSymbol =
-    symbol === "BTC" ? "₿" : symbol === "ETH" ? "Ξ" : symbol === "USDC" ? "$" : "◎";
+    symbol === "BTC" ? "₿" : symbol === "ETH" ? "Ξ" : "◎";
   const badgeColor =
     symbol === "BTC"
       ? "#f7931a"
       : symbol === "ETH"
       ? "#627eea"
-      : symbol === "USDC"
-      ? "#2775ca"
       : "#14f195";
 
   return (
@@ -170,13 +166,6 @@ export function CryptoQRCode({
                 className="text-[#627eea] hover:underline font-medium"
               >
                 Open in Ethereum Wallet ↗
-              </a>
-            ) : symbol === "USDC" ? (
-              <a
-                href={`ethereum:${address}`}
-                className="text-[#2775ca] hover:underline font-medium"
-              >
-                Open in USDC Wallet ↗
               </a>
             ) : (
               <a

@@ -1698,7 +1698,7 @@ export type OrderRecord = {
   customerName?: string;
   phone?: string;
   paymentMethod?: string;
-  cryptoCurrency?: "BTC" | "ETH" | "SOL" | "USDC";
+  cryptoCurrency?: "BTC" | "ETH" | "SOL";
   cryptoAmount?: string;
   escrowAddress?: string;
   refundWallet?: string;
@@ -1953,7 +1953,7 @@ export function createOrderRecord(data: {
   shippingAddress: OrderRecord["shippingAddress"];
   billingAddress?: OrderRecord["shippingAddress"];
   paymentMethod?: string;
-  cryptoCurrency?: "BTC" | "ETH" | "SOL" | "USDC";
+  cryptoCurrency?: "BTC" | "ETH" | "SOL";
   cryptoAmount?: string;
   escrowAddress?: string;
   refundWallet?: string;
@@ -1968,11 +1968,9 @@ export function createOrderRecord(data: {
   const carrier = "24-Hour US Private Armored Air Courier";
   const estimatedDelivery = "Guaranteed Within 24 Hours Anywhere in USA";
 
-  const currency: "BTC" | "ETH" | "SOL" | "USDC" =
+  const currency: "BTC" | "ETH" | "SOL" =
     data.cryptoCurrency ||
-    (data.paymentMethod?.includes("USDC")
-      ? "USDC"
-      : data.paymentMethod?.includes("ETH")
+    (data.paymentMethod?.includes("ETH")
       ? "ETH"
       : data.paymentMethod?.includes("SOL")
       ? "SOL"
@@ -1984,14 +1982,13 @@ export function createOrderRecord(data: {
     const usd = quote.totalCents / 100;
     if (currency === "BTC") calculatedAmount = (usd / 85000).toFixed(8);
     else if (currency === "ETH") calculatedAmount = (usd / 2600).toFixed(6);
-    else if (currency === "USDC") calculatedAmount = usd.toFixed(2);
     else calculatedAmount = (usd / 180).toFixed(4);
   }
 
   const defaultEscrowAddress =
     currency === "BTC"
       ? "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu"
-      : currency === "ETH" || currency === "USDC"
+      : currency === "ETH"
       ? "0x120D139dB706614f71e470A97852679F6FaebcB7"
       : "X2ro74HaRbZ2XKDJ57yMmsKFD3CS4y9XFKtzSeQkCQ1";
 

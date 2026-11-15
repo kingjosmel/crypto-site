@@ -12,11 +12,11 @@ export default function FaqPage() {
       sections={[
         {
           heading: "How does protected crypto payment + 24-hour shipping work?",
-          body: "1. Select Crypto at checkout and choose USD Coin (USDC), Bitcoin (BTC), Ethereum (ETH), or Solana (SOL).\n2. Optionally enter your personal Refund Return Wallet address so any 14-day return settles directly to your wallet rather than an exchange hot wallet.\n3. Send payment from your wallet or exchange app via QR code or deposit address.\n4. Within minutes of confirmation, you receive an automated receipt, return protection summary, and live courier tracking.\n5. Your piece is shipped via FedEx Priority Overnight or UPS Next Day Air, arriving within 24 hours with signature verification."
+          body: "1. Select Crypto at checkout and choose Bitcoin (BTC), Ethereum (ETH), or Solana (SOL).\n2. Optionally enter your personal Refund Return Wallet address so any 14-day return settles directly to your wallet rather than an exchange hot wallet.\n3. Send payment from your wallet or exchange app via QR code or deposit address.\n4. Within minutes of confirmation, you receive an automated receipt, return protection summary, and live courier tracking.\n5. Your piece is shipped via FedEx Priority Overnight or UPS Next Day Air, arriving within 24 hours with signature verification."
         },
         {
-          heading: "What cryptocurrencies and stablecoins are accepted?",
-          body: "We accept USD Coin (USDC on ERC-20) for 1:1 dollar-pegged price stability, alongside Bitcoin (BTC on Native SegWit), Ethereum (ETH on ERC-20), and Solana (SOL on SPL). You can pay directly from any self-custodial wallet or exchange account."
+          heading: "What cryptocurrencies are accepted?",
+          body: "We accept Bitcoin (BTC on Native SegWit), Ethereum (ETH on ERC-20), and Solana (SOL on SPL). You can pay directly from any self-custodial wallet or exchange account."
         },
         {
           heading: "What is a Refund Return Wallet and why should I add it?",
@@ -28,7 +28,7 @@ export default function FaqPage() {
         },
         {
           heading: "What happens if I need to return an item?",
-          body: "We offer a 14-day inspection and return window for items in their original, unused condition with all designer tags and packaging intact. Refunds are remitted directly to your registered Refund Return Wallet based on the exact USD purchase value (or 1:1 in USDC)."
+          body: "We offer a 14-day inspection and return window for items in their original, unused condition with all designer tags and packaging intact. Refunds are remitted directly to your registered Refund Return Wallet based on the exact USD purchase value."
         }
       ]}
     />

@@ -85,7 +85,7 @@ export default function ContactPage() {
               Protected Settlement &amp; Refund Return Wallets
             </h2>
             <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
-              We accept USD Coin (USDC), Bitcoin (BTC), Ethereum (ETH), and Solana (SOL) with 14-day inspection escrow protection. If you need help registering your Refund Return Wallet or verifying a network deposit address, our support team is happy to assist at every step.
+              We accept Bitcoin (BTC), Ethereum (ETH), and Solana (SOL) with 14-day inspection escrow protection. If you need help registering your Refund Return Wallet or verifying a network deposit address, our support team is happy to assist at every step.
             </p>
           </div>
 

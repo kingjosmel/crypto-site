@@ -19,8 +19,8 @@ export default function ReturnsRefundsPage() {
           body: "Bags must show no creasing or signs of wear. Footwear must have protective sole coverings untampered. All designer cards, certificates, and accessories must be returned in the original delivery box."
         },
         {
-          heading: "Refund Return Wallet & USD-Pegged Payouts",
-          body: "Clients can register a personal Refund Return Wallet right at checkout so refunds never risk being routed back to a shared exchange hot wallet. Refunds for USDC, Bitcoin, Ethereum, or Solana orders are remitted directly to your registered return wallet based on the full USD invoice total (1:1 in USDC or converted at the live spot rate upon return approval)."
+          heading: "Refund Return Wallet & USD-Value Payouts",
+          body: "Clients can register a personal Refund Return Wallet right at checkout so refunds never risk being routed back to a shared exchange hot wallet. Refunds for Bitcoin, Ethereum, or Solana orders are remitted directly to your registered return wallet based on the full USD invoice total at the live spot rate upon return approval."
         }
       ]}
     />

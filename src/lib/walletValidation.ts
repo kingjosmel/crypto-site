@@ -1,4 +1,4 @@
-export type SupportedCryptoAsset = "BTC" | "ETH" | "SOL" | "USDC";
+export type SupportedCryptoAsset = "BTC" | "ETH" | "SOL";
 
 const STORE_ESCROW_ADDRESSES = new Set([
   "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu",
@@ -12,8 +12,6 @@ export function getNetworkExample(asset: SupportedCryptoAsset): { label: string;
       return { label: "Bitcoin Mainnet (bc1..., 1..., or 3...)", example: "bc1q..." };
     case "ETH":
       return { label: "Ethereum Mainnet ERC-20 (0x...)", example: "0x..." };
-    case "USDC":
-      return { label: "USD Coin ERC-20 on Ethereum (0x...)", example: "0x..." };
     case "SOL":
       return { label: "Solana SPL Mainnet (Base58)", example: "Solana public key" };
   }
@@ -47,11 +45,11 @@ export function validateRefundWallet(
     return { valid: true, cleaned: trimmed };
   }
 
-  if (asset === "ETH" || asset === "USDC") {
+  if (asset === "ETH") {
     if (!/^0x[a-fA-F0-9]{40}$/.test(trimmed)) {
       return {
         valid: false,
-        error: `Invalid ${asset} ERC-20 return address. Enter a 42-character Ethereum address starting with 0x.`,
+        error: "Invalid ETH ERC-20 return address. Enter a 42-character Ethereum address starting with 0x.",
       };
     }
     return { valid: true, cleaned: trimmed };

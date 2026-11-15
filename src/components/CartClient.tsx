@@ -213,7 +213,7 @@ export function CartClient() {
           </div>
 
           <p className="text-[11px] text-neutral-500 leading-normal mb-5">
-            Protected escrow checkout in USDC, BTC, ETH, or SOL—with Refund Return Wallet registration and 14-day return protection.
+            Protected escrow checkout in BTC, ETH, or SOL—with Refund Return Wallet registration and 14-day return protection.
           </p>
 
           <Link
@@ -230,7 +230,6 @@ export function CartClient() {
               Escrow-Protected Crypto Settlement
             </span>
             <div className="flex items-center justify-center gap-2 text-[10px] font-mono">
-              <span className="bg-[#fafafa] text-[#2775ca] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">USDC</span>
               <span className="bg-[#fafafa] text-[#f7931a] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">BTC</span>
               <span className="bg-[#fafafa] text-[#627eea] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">ETH</span>
               <span className="bg-[#fafafa] text-[#14f195] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">SOL</span>

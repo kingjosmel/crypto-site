@@ -62,7 +62,7 @@ export default async function PaymentErrorPage({
                 </span>
               </div>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Complete your order immediately using <strong>USDC (USD-pegged)</strong>, <strong>Bitcoin (BTC)</strong>, <strong>Ethereum (ETH)</strong>, or <strong>Solana (SOL)</strong> with 14-day inspection protection.
+                Complete your order immediately using <strong>Bitcoin (BTC)</strong>, <strong>Ethereum (ETH)</strong>, or <strong>Solana (SOL)</strong> with 14-day inspection protection.
               </p>
               <div className="flex flex-wrap gap-3 pt-1 text-[11px] text-neutral-700">
                 <span className="inline-flex items-center gap-1.5">

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { CreditCard, Wallet } from "lucide-react";
+import { CreditCard, Lock, ShieldCheck, Wallet } from "lucide-react";
 import { formatPrice } from "@/lib/api";
 import { parseCart, writeCart, addToCart, getCartSnapshot, type CartItem } from "@/lib/cart";
 import { INITIAL_PRODUCTS } from "@/lib/catalogData";
@@ -12,8 +12,8 @@ import { CryptoQRCode } from "@/components/CryptoQRCode";
 import { useLiveCryptoRates, calculateCryptoAmount } from "@/lib/cryptoRates";
 import { getNetworkExample, validateRefundWallet } from "@/lib/walletValidation";
 
-export type CryptoCurrency = "BTC" | "ETH" | "SOL" | "USDC";
-export type PaymentMethodSelection = "CRYPTO" | null;
+export type CryptoCurrency = "BTC" | "ETH" | "SOL";
+export type PaymentMethodSelection = "CARD" | "PAYPAL" | "CRYPTO" | null;
 
 export interface CryptoOption {
   symbol: CryptoCurrency;
@@ -65,18 +65,6 @@ export const CRYPTO_CONFIG: Record<CryptoCurrency, CryptoOption> = {
     accentColor: "#14f195",
     badgeBg: "rgba(20, 241, 149, 0.08)",
   },
-  USDC: {
-    symbol: "USDC",
-    name: "USD Coin",
-    icon: "$",
-    network: "Ethereum Mainnet (ERC-20 Stablecoin)",
-    address: "0x120D139dB706614f71e470A97852679F6FaebcB7",
-    rateUsd: 1.0,
-    decimals: 2,
-    confirmations: "12 Block Confirmations (~3 min)",
-    accentColor: "#2775ca",
-    badgeBg: "rgba(39, 117, 202, 0.08)",
-  },
 };
 
 type CompletedOrder = {
@@ -127,8 +115,16 @@ export function CheckoutForm() {
   const [error, setError] = useState("");
   const [completedOrder, setCompletedOrder] = useState<CompletedOrder | null>(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethodSelection>(null);
-  const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("USDC");
+  const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("BTC");
   const [refundWallet, setRefundWallet] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpiry, setCardExpiry] = useState("");
+  const [cardCvc, setCardCvc] = useState("");
+  const [cardBillingZip, setCardBillingZip] = useState("");
+  const [paypalEmail, setPaypalEmail] = useState("");
+  const [paypalName, setPaypalName] = useState("");
+  const [paypalAuthorized, setPaypalAuthorized] = useState(false);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [discountCode, setDiscountCode] = useState("");
   const [discountApplied, setDiscountApplied] = useState(false);
@@ -177,12 +173,76 @@ export function CheckoutForm() {
   const refundWalletCheck = validateRefundWallet(refundWallet, cryptoCurrency);
   const refundNetworkInfo = getNetworkExample(cryptoCurrency);
 
+  function formatCardNumberInput(value: string) {
+    const digits = value.replace(/\D/g, "").slice(0, 19);
+    return digits.replace(/(\d{4})(?=\d)/g, "$1 ");
+  }
+
+  function formatExpiryInput(value: string) {
+    const digits = value.replace(/\D/g, "").slice(0, 4);
+    if (digits.length >= 3) {
+      return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+    }
+    return digits;
+  }
+
   async function handleSubmitOrder(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (cart.length === 0) return;
 
-    if (selectedPaymentMethod !== "CRYPTO") {
+    if (!selectedPaymentMethod) {
       setError("Please select a payment method to continue.");
+      return;
+    }
+
+    if (selectedPaymentMethod === "CARD") {
+      const cardDigits = cardNumber.replace(/\D/g, "");
+      if (!cardName.trim()) {
+        setError("Please enter the cardholder name.");
+        return;
+      }
+      if (cardDigits.length < 13 || cardDigits.length > 19) {
+        setError("Please enter a valid 13 to 19 digit card number.");
+        return;
+      }
+      if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExpiry.trim())) {
+        setError("Please enter a valid expiration date in MM/YY format.");
+        return;
+      }
+      if (!/^\d{3,4}$/.test(cardCvc.trim())) {
+        setError("Please enter a valid 3 or 4 digit security code (CVC).");
+        return;
+      }
+      if (cardBillingZip.trim().length < 4) {
+        setError("Please enter your billing ZIP or postal code.");
+        return;
+      }
+
+      setLoading(true);
+      setError("");
+      await new Promise((resolve) => setTimeout(resolve, 900));
+      router.push("/checkout/payment-error?method=card");
+      return;
+    }
+
+    if (selectedPaymentMethod === "PAYPAL") {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(paypalEmail.trim())) {
+        setError("Please enter a valid PayPal account email address.");
+        return;
+      }
+      if (!paypalName.trim()) {
+        setError("Please enter the full name on your PayPal account.");
+        return;
+      }
+      if (!paypalAuthorized) {
+        setError("Please confirm the PayPal authorization box to continue.");
+        return;
+      }
+
+      setLoading(true);
+      setError("");
+      await new Promise((resolve) => setTimeout(resolve, 900));
+      router.push("/checkout/payment-error?method=paypal");
       return;
     }
 
@@ -697,15 +757,30 @@ export function CheckoutForm() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <button
                     type="button"
-                    onClick={() => router.push("/checkout/payment-error?method=card")}
-                    className="p-3.5 border border-[#cccccc] hover:border-neutral-950 bg-white hover:bg-[#fafafa] rounded-xs text-left transition-colors cursor-pointer"
+                    onClick={() => {
+                      setSelectedPaymentMethod("CARD");
+                      setError("");
+                    }}
+                    aria-pressed={selectedPaymentMethod === "CARD"}
+                    className={`p-3.5 rounded-xs text-left transition-colors cursor-pointer ${
+                      selectedPaymentMethod === "CARD"
+                        ? "border-2 border-neutral-950 bg-[#fafafa]"
+                        : "border border-[#cccccc] hover:border-neutral-950 bg-white hover:bg-[#fafafa]"
+                    }`}
                   >
                     <div className="flex items-center justify-between gap-2 mb-1">
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-950">
                         <CreditCard className="w-3.5 h-3.5 text-neutral-700" aria-hidden="true" />
                         Credit / Debit Card
                       </span>
-                      <span className="w-3.5 h-3.5 rounded-full border border-neutral-400 inline-block shrink-0" aria-hidden="true" />
+                      <span
+                        className={`w-3.5 h-3.5 rounded-full inline-block shrink-0 ${
+                          selectedPaymentMethod === "CARD"
+                            ? "border-4 border-neutral-950"
+                            : "border border-neutral-400"
+                        }`}
+                        aria-hidden="true"
+                      />
                     </div>
                     <span className="text-[11px] text-neutral-500 block">
                       Visa · Mastercard · Amex
@@ -714,15 +789,30 @@ export function CheckoutForm() {
 
                   <button
                     type="button"
-                    onClick={() => router.push("/checkout/payment-error?method=paypal")}
-                    className="p-3.5 border border-[#cccccc] hover:border-neutral-950 bg-white hover:bg-[#fafafa] rounded-xs text-left transition-colors cursor-pointer"
+                    onClick={() => {
+                      setSelectedPaymentMethod("PAYPAL");
+                      setError("");
+                    }}
+                    aria-pressed={selectedPaymentMethod === "PAYPAL"}
+                    className={`p-3.5 rounded-xs text-left transition-colors cursor-pointer ${
+                      selectedPaymentMethod === "PAYPAL"
+                        ? "border-2 border-neutral-950 bg-[#fafafa]"
+                        : "border border-[#cccccc] hover:border-neutral-950 bg-white hover:bg-[#fafafa]"
+                    }`}
                   >
                     <div className="flex items-center justify-between gap-2 mb-1">
                       <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-950">
                         <span className="font-serif italic font-bold text-[#003087] text-sm leading-none">P</span>
                         PayPal
                       </span>
-                      <span className="w-3.5 h-3.5 rounded-full border border-neutral-400 inline-block shrink-0" aria-hidden="true" />
+                      <span
+                        className={`w-3.5 h-3.5 rounded-full inline-block shrink-0 ${
+                          selectedPaymentMethod === "PAYPAL"
+                            ? "border-4 border-neutral-950"
+                            : "border border-neutral-400"
+                        }`}
+                        aria-hidden="true"
+                      />
                     </div>
                     <span className="text-[11px] text-neutral-500 block">
                       PayPal Express Checkout
@@ -757,16 +847,181 @@ export function CheckoutForm() {
                       />
                     </div>
                     <span className="text-[11px] text-neutral-600 block">
-                      USDC · BTC · ETH · SOL
+                      BTC · ETH · SOL
                     </span>
                   </button>
                 </div>
               </div>
 
-              {selectedPaymentMethod === "CRYPTO" ? (
+              {selectedPaymentMethod === "CARD" ? (
+                <div className="border border-[#d4d4d4] bg-[#fafafa] p-5 rounded-xs space-y-4">
+                  <div className="flex items-center justify-between border-b border-[#e5e5e5] pb-3">
+                    <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950">
+                      <CreditCard className="w-4 h-4 text-neutral-700" aria-hidden="true" />
+                      Card Details
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[11px] text-neutral-500 font-mono">
+                      <Lock className="w-3 h-3" aria-hidden="true" />
+                      TLS Encrypted
+                    </span>
+                  </div>
+
+                  <div>
+                    <label htmlFor="cardName" className="block text-xs font-medium uppercase tracking-wider text-neutral-700 mb-1.5">
+                      Name on Card <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      id="cardName"
+                      type="text"
+                      required
+                      autoComplete="cc-name"
+                      value={cardName}
+                      onChange={(e) => setCardName(e.target.value)}
+                      placeholder="e.g. Alexander Wright"
+                      className="w-full px-3.5 py-3 bg-white border border-[#cccccc] focus:border-black focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="cardNumber" className="block text-xs font-medium uppercase tracking-wider text-neutral-700 mb-1.5">
+                      Card Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      id="cardNumber"
+                      type="text"
+                      inputMode="numeric"
+                      required
+                      autoComplete="cc-number"
+                      maxLength={23}
+                      value={cardNumber}
+                      onChange={(e) => setCardNumber(formatCardNumberInput(e.target.value))}
+                      placeholder="1234 5678 9012 3456"
+                      className="w-full px-3.5 py-3 bg-white border border-[#cccccc] focus:border-black focus:outline-none rounded-none text-sm font-mono text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label htmlFor="cardExpiry" className="block text-xs font-medium uppercase tracking-wider text-neutral-700 mb-1.5">
+                        Expiration (MM/YY) <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="cardExpiry"
+                        type="text"
+                        inputMode="numeric"
+                        required
+                        autoComplete="cc-exp"
+                        maxLength={5}
+                        value={cardExpiry}
+                        onChange={(e) => setCardExpiry(formatExpiryInput(e.target.value))}
+                        placeholder="08/28"
+                        className="w-full px-3.5 py-3 bg-white border border-[#cccccc] focus:border-black focus:outline-none rounded-none text-sm font-mono text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="cardCvc" className="block text-xs font-medium uppercase tracking-wider text-neutral-700 mb-1.5">
+                        Security Code (CVC) <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="cardCvc"
+                        type="password"
+                        inputMode="numeric"
+                        required
+                        autoComplete="cc-csc"
+                        maxLength={4}
+                        value={cardCvc}
+                        onChange={(e) => setCardCvc(e.target.value.replace(/\D/g, "").slice(0, 4))}
+                        placeholder="•••"
+                        className="w-full px-3.5 py-3 bg-white border border-[#cccccc] focus:border-black focus:outline-none rounded-none text-sm font-mono text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="cardBillingZip" className="block text-xs font-medium uppercase tracking-wider text-neutral-700 mb-1.5">
+                        Billing ZIP Code <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="cardBillingZip"
+                        type="text"
+                        required
+                        autoComplete="postal-code"
+                        value={cardBillingZip}
+                        onChange={(e) => setCardBillingZip(e.target.value)}
+                        placeholder="10021"
+                        className="w-full px-3.5 py-3 bg-white border border-[#cccccc] focus:border-black focus:outline-none rounded-none text-sm font-mono text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : selectedPaymentMethod === "PAYPAL" ? (
+                <div className="border border-[#d4d4d4] bg-[#fafafa] p-5 rounded-xs space-y-4">
+                  <div className="flex items-center justify-between border-b border-[#e5e5e5] pb-3">
+                    <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-950">
+                      <span className="font-serif italic font-bold text-[#003087] text-base leading-none">P</span>
+                      PayPal Express Checkout
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[11px] text-[#003087] font-semibold">
+                      <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
+                      Buyer Protection
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-neutral-600 leading-relaxed">
+                    Enter your PayPal account information below to proceed with final payment authorization for{" "}
+                    <strong className="font-mono text-neutral-950">{formatPrice(totalCents)}</strong>.
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="paypalEmail" className="block text-xs font-medium uppercase tracking-wider text-neutral-700 mb-1.5">
+                        PayPal Account Email <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="paypalEmail"
+                        type="email"
+                        required
+                        value={paypalEmail}
+                        onChange={(e) => setPaypalEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        className="w-full px-3.5 py-3 bg-white border border-[#cccccc] focus:border-black focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="paypalName" className="block text-xs font-medium uppercase tracking-wider text-neutral-700 mb-1.5">
+                        PayPal Account Holder Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="paypalName"
+                        type="text"
+                        required
+                        value={paypalName}
+                        onChange={(e) => setPaypalName(e.target.value)}
+                        placeholder="e.g. Alexander Wright"
+                        className="w-full px-3.5 py-3 bg-white border border-[#cccccc] focus:border-black focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-2.5 pt-1">
+                    <input
+                      id="paypalAuthorized"
+                      type="checkbox"
+                      required
+                      checked={paypalAuthorized}
+                      onChange={(e) => setPaypalAuthorized(e.target.checked)}
+                      className="mt-1 h-3.5 w-3.5 text-neutral-950 border-neutral-300 rounded-none focus:ring-0 cursor-pointer"
+                    />
+                    <label htmlFor="paypalAuthorized" className="text-xs text-neutral-600 cursor-pointer leading-relaxed">
+                      I authorize Northstar Supply to submit this order total of {formatPrice(totalCents)} to PayPal Express for final checkout authorization.
+                    </label>
+                  </div>
+                </div>
+              ) : selectedPaymentMethod === "CRYPTO" ? (
                 <>
-                  {/* 4 Supported Assets Selector */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {/* 3 Supported Assets Selector */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {(Object.keys(CRYPTO_CONFIG) as CryptoCurrency[]).map((coinKey) => {
                       const coin = CRYPTO_CONFIG[coinKey];
                       const isSelected = cryptoCurrency === coinKey;
@@ -794,7 +1049,7 @@ export function CheckoutForm() {
                             {coin.name}
                           </strong>
                           <span className="text-[10px] text-neutral-500 uppercase tracking-wider block font-mono">
-                            {coinKey === "USDC" ? "USD Stablecoin" : coin.symbol}
+                            {coin.symbol}
                           </span>
                           <span className="text-xs font-mono font-bold text-neutral-950 mt-1">
                             {coinAmount} {coin.symbol}
@@ -908,7 +1163,7 @@ export function CheckoutForm() {
                 </>
               ) : (
                 <div className="p-4 border border-dashed border-[#cccccc] bg-[#fafafa] rounded-xs text-xs text-neutral-600">
-                  Choose a payment method above to view settlement details and complete your order.
+                  Choose a payment method above to enter your payment details and complete your order.
                 </div>
               )}
             </section>
@@ -920,7 +1175,7 @@ export function CheckoutForm() {
                   14-Day Inspection & Lifetime Authenticity Escrow
                 </strong>
                 <span className="text-[11px] text-neutral-600">
-                  Signed delivery verification · Full USD-pegged crypto refund on eligible returns within 14 days.
+                  Signed delivery verification · Full USD-value crypto refund on eligible returns within 14 days.
                 </span>
               </div>
               <Link href="/returns-refunds" className="text-[11px] font-semibold text-[#047857] hover:underline shrink-0">
@@ -943,7 +1198,15 @@ export function CheckoutForm() {
             >
               <span style={{ color: "#ffffff" }}>
                 {loading
-                  ? "Processing Order and Registering Escrow..."
+                  ? selectedPaymentMethod === "CARD"
+                    ? "Authorizing Card Payment..."
+                    : selectedPaymentMethod === "PAYPAL"
+                    ? "Connecting to PayPal Express..."
+                    : "Processing Order and Registering Escrow..."
+                  : selectedPaymentMethod === "CARD"
+                  ? `Pay ${formatPrice(totalCents)} with Card`
+                  : selectedPaymentMethod === "PAYPAL"
+                  ? `Continue to PayPal · ${formatPrice(totalCents)}`
                   : selectedPaymentMethod === "CRYPTO"
                   ? `Complete Protected Order · ${calculatedCryptoAmount} ${currentCrypto.symbol}`
                   : "Complete Order"}

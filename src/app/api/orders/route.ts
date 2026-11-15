@@ -13,16 +13,14 @@ export async function POST(request: NextRequest) {
     const normalizedMethod = String(paymentMethod || "").toUpperCase();
     if (normalizedMethod.includes("CARD") || normalizedMethod.includes("PAYPAL")) {
       return NextResponse.json(
-        { error: "Credit/Debit Card and PayPal payments are unavailable. Please select Cryptocurrency (USDC, BTC, ETH, or SOL)." },
+        { error: "Credit/Debit Card and PayPal payments are unavailable. Please select Cryptocurrency (BTC, ETH, or SOL)." },
         { status: 400 }
       );
     }
 
     const resolvedCurrency: SupportedCryptoAsset =
-      cryptoCurrency === "USDC" || cryptoCurrency === "ETH" || cryptoCurrency === "SOL" || cryptoCurrency === "BTC"
+      cryptoCurrency === "ETH" || cryptoCurrency === "SOL" || cryptoCurrency === "BTC"
         ? cryptoCurrency
-        : String(paymentMethod || "").includes("USDC")
-        ? "USDC"
         : String(paymentMethod || "").includes("ETH")
         ? "ETH"
         : String(paymentMethod || "").includes("SOL")

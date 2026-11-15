@@ -36,7 +36,7 @@ type OrderData = {
   orderStatus: string;
   paymentStatus: string;
   fulfillmentStatus: string;
-  cryptoCurrency?: "BTC" | "ETH" | "SOL" | "USDC";
+  cryptoCurrency?: "BTC" | "ETH" | "SOL";
   cryptoAmount?: string;
   escrowAddress?: string;
   refundWallet?: string;

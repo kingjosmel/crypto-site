@@ -175,12 +175,12 @@ export function InstantCryptoCheckoutButton({
         className ||
         "w-full py-3.5 px-4 bg-[#e5e5e5] hover:bg-[#e8e6e0] text-neutral-900 border border-[#d8d5cd] text-xs font-semibold uppercase tracking-[0.12em] transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-75"
       }
-      aria-label="Protected Crypto Checkout via USDC, BTC, ETH, or SOL"
+      aria-label="Protected Crypto Checkout via BTC, ETH, or SOL"
     >
       <span>
         {navigating
           ? "Securing Allocation & Proceeding to Checkout..."
-          : "Protected Checkout (USDC · BTC · ETH · SOL)"}
+          : "Protected Checkout (BTC · ETH · SOL)"}
       </span>
       <span aria-hidden="true">→</span>
     </button>
