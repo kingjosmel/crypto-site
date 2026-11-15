@@ -67,8 +67,8 @@ export default async function Home() {
                   <span className="text-[11px] text-neutral-500">Verified & certified</span>
                 </div>
                 <div>
-                  <span className="block font-semibold text-neutral-900 uppercase tracking-wider text-[11px]">Pure Crypto</span>
-                  <span className="text-[11px] text-neutral-500">BTC · ETH · SOL</span>
+                  <span className="block font-semibold text-neutral-900 uppercase tracking-wider text-[11px]">Protected Crypto</span>
+                  <span className="text-[11px] text-neutral-500">USDC · BTC · ETH · SOL</span>
                 </div>
               </div>
             </div>
@@ -130,10 +130,10 @@ export default async function Home() {
               </div>
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-900 mb-1">
-                  Instant Crypto Checkout
+                  Protected Crypto Escrow
                 </h3>
                 <p className="text-xs text-neutral-500 leading-relaxed">
-                  Direct on-chain payment via Bitcoin, Ethereum, and Solana. Instant receipt, certificate, and live tracking dispatched straight to your email.
+                  Settle in USDC, BTC, ETH, or SOL with a registered personal Refund Return Wallet and 14-day inspection protection.
                 </p>
               </div>
             </div>
@@ -321,30 +321,30 @@ export default async function Home() {
             <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">01</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-                Choose Your Piece & Coin
+                Select Crypto Asset
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Select your item and choose Bitcoin (BTC), Ethereum (ETH), or Solana (SOL) at checkout.
+                Choose immediate escrow settlement in USDC, BTC, ETH, or SOL at live market rates.
               </p>
             </div>
 
             <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">02</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-                Scan & Send Payment
+                Register Return Wallet
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Scan the on-screen QR code or copy the escrow deposit address directly from your crypto wallet.
+                Optionally add your personal Refund Return Wallet so any 14-day return settles directly to you, never an exchange hot wallet.
               </p>
             </div>
 
             <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">03</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-                Instant Confirmation
+                Protected Confirmation
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Your transaction confirms on-chain in minutes. Order invoice and live tracking are emailed automatically.
+                Your transaction confirms on-chain in minutes. Order invoice, return protection terms, and live tracking are emailed immediately.
               </p>
             </div>
 

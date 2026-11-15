@@ -1698,9 +1698,10 @@ export type OrderRecord = {
   customerName?: string;
   phone?: string;
   paymentMethod?: string;
-  cryptoCurrency?: "BTC" | "ETH" | "SOL";
+  cryptoCurrency?: "BTC" | "ETH" | "SOL" | "USDC";
   cryptoAmount?: string;
   escrowAddress?: string;
+  refundWallet?: string;
   txHash?: string;
   carrier?: string;
   trackingNumber?: string;
@@ -1724,7 +1725,7 @@ export const INITIAL_ORDERS: OrderRecord[] = [
     _id: "660000000000000000000201",
     orderNumber: "NS-00000001",
     userId: "660000000000000000000901",
-    email: "customer@northstarsupply.com",
+    email: "customer@shopnorthstar.store",
     paymentMethod: "CRYPTO_BTC",
     cryptoCurrency: "BTC",
     cryptoAmount: "0.00839553",
@@ -1785,7 +1786,7 @@ export type UserRecord = {
 export const INITIAL_USERS: UserRecord[] = [
   {
     id: "660000000000000000000901",
-    email: "customer@northstarsupply.com",
+    email: "customer@shopnorthstar.store",
     role: "CUSTOMER",
     emailVerifiedAt: "2026-01-01T00:00:00.000Z",
     passwordHash: "CustomerPass1234!",
@@ -1803,7 +1804,7 @@ export const INITIAL_USERS: UserRecord[] = [
   },
   {
     id: "660000000000000000000902",
-    email: "admin@northstarsupply.com",
+    email: "admin@shopnorthstar.store",
     role: "ADMIN",
     emailVerifiedAt: "2026-01-01T00:00:00.000Z",
     passwordHash: "AdminPass1234!",
@@ -1952,9 +1953,10 @@ export function createOrderRecord(data: {
   shippingAddress: OrderRecord["shippingAddress"];
   billingAddress?: OrderRecord["shippingAddress"];
   paymentMethod?: string;
-  cryptoCurrency?: "BTC" | "ETH" | "SOL";
+  cryptoCurrency?: "BTC" | "ETH" | "SOL" | "USDC";
   cryptoAmount?: string;
   escrowAddress?: string;
+  refundWallet?: string;
   txHash?: string;
   userId?: string | null;
 }) {
@@ -1966,26 +1968,37 @@ export function createOrderRecord(data: {
   const carrier = "24-Hour US Private Armored Air Courier";
   const estimatedDelivery = "Guaranteed Within 24 Hours Anywhere in USA";
 
-  const currency: "BTC" | "ETH" | "SOL" = data.cryptoCurrency || (data.paymentMethod?.includes("ETH") ? "ETH" : data.paymentMethod?.includes("SOL") ? "SOL" : "BTC");
-  
+  const currency: "BTC" | "ETH" | "SOL" | "USDC" =
+    data.cryptoCurrency ||
+    (data.paymentMethod?.includes("USDC")
+      ? "USDC"
+      : data.paymentMethod?.includes("ETH")
+      ? "ETH"
+      : data.paymentMethod?.includes("SOL")
+      ? "SOL"
+      : "BTC");
+
   // Calculate default crypto amount if not passed
   let calculatedAmount = data.cryptoAmount;
   if (!calculatedAmount) {
     const usd = quote.totalCents / 100;
     if (currency === "BTC") calculatedAmount = (usd / 85000).toFixed(8);
     else if (currency === "ETH") calculatedAmount = (usd / 2600).toFixed(6);
+    else if (currency === "USDC") calculatedAmount = usd.toFixed(2);
     else calculatedAmount = (usd / 180).toFixed(4);
   }
 
   const defaultEscrowAddress =
     currency === "BTC"
       ? "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu"
-      : currency === "ETH"
+      : currency === "ETH" || currency === "USDC"
       ? "0x120D139dB706614f71e470A97852679F6FaebcB7"
       : "X2ro74HaRbZ2XKDJ57yMmsKFD3CS4y9XFKtzSeQkCQ1";
 
   const escrowAddress = data.escrowAddress || defaultEscrowAddress;
-  const txHash = data.txHash || `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
+  const cleanRefundWallet = data.refundWallet?.trim() || undefined;
+  const txHash =
+    data.txHash || `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
 
   const emailDetails = {
     to: data.email,
@@ -1993,7 +2006,7 @@ export function createOrderRecord(data: {
     sentAt: new Date().toISOString(),
     trackingNumber,
     carrier,
-    summary: `${quote.items.length} item(s) confirmed and reserved in Northstar Private Vault. Paid via ${currency} Escrow (${calculatedAmount} ${currency}). Dispatched to tamper-evident packing.`
+    summary: `${quote.items.length} item(s) confirmed under 14-Day Inspection Escrow Protection. Settled via ${currency} (${calculatedAmount} ${currency}).`
   };
 
   const order: OrderRecord = {
@@ -2007,6 +2020,7 @@ export function createOrderRecord(data: {
     cryptoCurrency: currency,
     cryptoAmount: calculatedAmount,
     escrowAddress,
+    refundWallet: cleanRefundWallet,
     txHash,
     items: quote.items,
     shippingAddress: data.shippingAddress,
@@ -2046,10 +2060,11 @@ export function createOrderRecord(data: {
     totalCents: quote.totalCents,
     email: data.email,
     customerName: data.customerName,
-    paymentMethod: `CRYPTO_${currency}`,
+    paymentMethod: order.paymentMethod,
     cryptoCurrency: currency,
     cryptoAmount: calculatedAmount,
     escrowAddress,
+    refundWallet: cleanRefundWallet,
     txHash,
     confirmationEmailSent: true,
     sentEmailDetails: emailDetails,
@@ -2096,6 +2111,28 @@ export function getUserOrders(userId: string) {
 
 export function getUserOrder(orderNumber: string, userId: string) {
   return globalStore.orders.find((o) => o.orderNumber === orderNumber && o.userId === userId);
+}
+
+export function updateOrderRefundWallet(orderNumber: string, email: string, refundWallet: string) {
+  const cleanOrder = orderNumber.trim().toLowerCase();
+  const cleanEmail = email.trim().toLowerCase();
+  const order = globalStore.orders.find((o) => o.orderNumber.toLowerCase() === cleanOrder);
+  if (!order) {
+    return { error: "Order not found.", status: 404 as const };
+  }
+  if (order.email.toLowerCase() !== cleanEmail) {
+    return { error: "Email address does not match the order record.", status: 403 as const };
+  }
+  order.refundWallet = refundWallet.trim();
+  order.updatedAt = new Date().toISOString();
+  globalStore.auditLogs.push({
+    _id: `log-${Date.now()}`,
+    action: "REFUND_WALLET_REGISTERED",
+    entity: "Order",
+    entityId: order.orderNumber,
+    createdAt: new Date().toISOString(),
+  });
+  return { order, status: 200 as const };
 }
 
 export function findUserByCredentials(email: string, password: string): UserRecord | null {

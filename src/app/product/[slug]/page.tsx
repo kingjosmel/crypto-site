@@ -44,7 +44,7 @@ function ProductJsonLd({ product }: { product: Product }) {
             priceCurrency: product.currency,
             price: (product.priceCents / 100).toFixed(2),
             availability: product.stockStatus === "IN_STOCK" ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-            url: `https://northstarsupply.example/product/${product.slug}`,
+            url: `https://shopnorthstar.store/product/${product.slug}`,
           },
         }),
       }}
@@ -108,7 +108,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   {formatPrice(product.priceCents)}
                 </span>
                 <span className="text-xs text-neutral-500 font-mono">
-                  USD · Settled in BTC, ETH, or SOL
+                  USD · Settled in USDC, BTC, ETH, or SOL
                 </span>
               </div>
 
@@ -135,7 +135,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
-                  <span><strong>Direct Crypto Settlement:</strong> Pay privately with Bitcoin, Ethereum, or Solana without wire limits.</span>
+                  <span><strong>Protected Crypto Escrow:</strong> Pay in USDC, BTC, ETH, or SOL with a registered Refund Return Wallet and 14-day inspection guarantee.</span>
                 </div>
               </div>
             </div>
@@ -180,15 +180,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 <div className="mt-3 text-neutral-600 leading-relaxed space-y-3">
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">1</span>
-                    <p><strong>Select Coin:</strong> Choose Bitcoin (BTC), Ethereum (ETH), or Solana (SOL) at checkout. The exact crypto total is calculated with zero payment surcharges.</p>
+                    <p><strong>Select Asset:</strong> Choose USD Coin (USDC), Bitcoin (BTC), Ethereum (ETH), or Solana (SOL) at checkout.</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">2</span>
-                    <p><strong>Transfer Funds:</strong> Scan the QR code or copy the generated deposit address from your wallet.</p>
+                    <p><strong>Register Refund Return Wallet:</strong> Optionally enter your personal wallet address at checkout so any 14-day return settles straight to you.</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">3</span>
-                    <p><strong>Instant Confirmation:</strong> Once verified on-chain, your order status updates immediately and a receipt with live tracking is generated.</p>
+                    <p><strong>Protected Confirmation:</strong> Once verified on-chain, your order status updates immediately and a receipt with live tracking and protection terms is generated.</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">4</span>

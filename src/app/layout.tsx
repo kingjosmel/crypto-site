@@ -14,7 +14,7 @@ const serif = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://northstarsupply.example"),
+  metadataBase: new URL("https://shopnorthstar.store"),
   title: {
     default: "Northstar | Authentic Designer Bags, Apparel & Footwear · 24-Hour USA Delivery",
     template: "%s | Northstar",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Northstar | Authentic Designer Bags, Apparel & Footwear · 24-Hour USA Delivery",
     description: "Buy authentic designer bags, apparel, and luxury footwear with Bitcoin, Ethereum, and Solana. Guaranteed 24-hour delivery anywhere in the USA.",
-    url: "https://northstarsupply.example",
+    url: "https://shopnorthstar.store",
     siteName: "Northstar",
     locale: "en_US",
     type: "website",

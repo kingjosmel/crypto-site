@@ -17,7 +17,7 @@ export default function PrivacyPage() {
       sections={[
         {
           heading: "1. Data Controller Information",
-          body: "The responsible data controller for all personal information collected via Northstar is Northstar Supply Holdings AG, Rue du Rhône 42, 1204 Genève, Switzerland (UID: CHE-384.912.441). For inquiries regarding data protection, our Data Protection Officer may be contacted directly at privacy@northstar-supply.com."
+          body: "The responsible data controller for all personal information collected via Northstar is Northstar Supply Holdings AG, Rue du Rhône 42, 1204 Genève, Switzerland (UID: CHE-384.912.441). For inquiries regarding data protection, our Data Protection Officer may be contacted directly at privacy@shopnorthstar.store."
         },
         {
           heading: "2. Scope of Client Data Collected",
@@ -33,7 +33,7 @@ export default function PrivacyPage() {
         },
         {
           heading: "5. Client Rights & Data Erasure",
-          body: "Under the Swiss FADP and EU GDPR, you maintain the right to inspect, correct, export, or request the immediate erasure of your personal data from our active databases, subject only to statutory Swiss tax and commercial record retention mandates (10 years for financial records). Requests may be submitted to privacy@northstar-supply.com."
+          body: "Under the Swiss FADP and EU GDPR, you maintain the right to inspect, correct, export, or request the immediate erasure of your personal data from our active databases, subject only to statutory Swiss tax and commercial record retention mandates (10 years for financial records). Requests may be submitted to privacy@shopnorthstar.store."
         }
       ]}
     />

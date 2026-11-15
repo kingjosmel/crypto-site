@@ -36,9 +36,10 @@ type OrderData = {
   orderStatus: string;
   paymentStatus: string;
   fulfillmentStatus: string;
-  cryptoCurrency?: "BTC" | "ETH" | "SOL";
+  cryptoCurrency?: "BTC" | "ETH" | "SOL" | "USDC";
   cryptoAmount?: string;
   escrowAddress?: string;
+  refundWallet?: string;
   txHash?: string;
   carrier?: string;
   trackingNumber?: string;
@@ -61,6 +62,11 @@ export default function TrackPage() {
   const [orderList, setOrderList] = useState<OrderData[]>([]);
   const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
+  const [showWalletForm, setShowWalletForm] = useState(false);
+  const [walletEmail, setWalletEmail] = useState("");
+  const [walletAddressInput, setWalletAddressInput] = useState("");
+  const [walletStatus, setWalletStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  const [isSavingWallet, setIsSavingWallet] = useState(false);
 
   // Handle URL query parameters (e.g. /track?order=NS-00000001 or /track?email=...)
   useEffect(() => {
@@ -127,7 +133,41 @@ export default function TrackPage() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setWalletStatus(null);
+    setShowWalletForm(false);
     void executeSearch(searchTerm);
+  }
+
+  async function handleSaveRefundWallet(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!activeOrder) return;
+    setIsSavingWallet(true);
+    setWalletStatus(null);
+
+    try {
+      const response = await fetch(`/api/orders/${encodeURIComponent(activeOrder.orderNumber)}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: walletEmail.trim() || activeOrder.email,
+          refundWallet: walletAddressInput.trim(),
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Unable to update Refund Return Wallet.");
+      }
+      setActiveOrder({ ...activeOrder, refundWallet: data.refundWallet });
+      setWalletStatus({ type: "success", message: `Refund Return Wallet saved for ${activeOrder.orderNumber}.` });
+      setShowWalletForm(false);
+    } catch (err) {
+      setWalletStatus({
+        type: "error",
+        message: err instanceof Error ? err.message : "Could not save Refund Return Wallet.",
+      });
+    } finally {
+      setIsSavingWallet(false);
+    }
   }
 
   return (
@@ -260,21 +300,23 @@ export default function TrackPage() {
             <div style={{ background: "#ffffff", border: "1px solid #cccccc", padding: "18px 20px", borderRadius: "2px", marginBottom: "35px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "8px" }}>
                 <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, color: "#10b981" }}>
-                  ● Non-Custodial Crypto Settlement
+                  ● Escrow-Protected Crypto Settlement
                 </span>
                 <span style={{ fontSize: "11px", color: "var(--muted)" }}>
-                  Verified On-Chain Escrow
+                  14-Day Inspection Escrow
                 </span>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "12px", fontSize: "12px" }}>
                 <div>
-                  <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", marginBottom: "2px" }}>Settlement Asset</span>
+                  <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", marginBottom: "2px" }}>
+                    Settlement Asset
+                  </span>
                   <strong style={{ fontFamily: "monospace", fontSize: "13.5px" }}>
                     {activeOrder.cryptoAmount || "0.00839553"} {activeOrder.cryptoCurrency || "BTC"}
                   </strong>
                 </div>
                 <div>
-                  <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", marginBottom: "2px" }}>Receiving Vault Address</span>
+                  <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", marginBottom: "2px" }}>Receiving Escrow Address</span>
                   <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "2px 5px", borderRadius: "2px", display: "block" }}>
                     {activeOrder.escrowAddress || "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu"}
                   </code>
@@ -286,6 +328,88 @@ export default function TrackPage() {
                       {activeOrder.txHash}
                     </code>
                   </div>
+                )}
+                {activeOrder.refundWallet && (
+                  <div>
+                    <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", marginBottom: "2px" }}>Registered Refund Return Wallet</span>
+                    <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "2px 5px", borderRadius: "2px", display: "block", color: "#047857" }}>
+                      {activeOrder.refundWallet}
+                    </code>
+                  </div>
+                )}
+              </div>
+
+              <div style={{ marginTop: "14px", paddingTop: "12px", borderTop: "1px solid #eeeeee" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px" }}>
+                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>
+                    {activeOrder.refundWallet
+                      ? "Approved 14-day returns settle directly to your registered Refund Return Wallet."
+                      : "Paid from an exchange? Register a personal Refund Return Wallet for 14-day return payouts."}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setWalletEmail(activeOrder.email || "");
+                      setWalletAddressInput(activeOrder.refundWallet || "");
+                      setWalletStatus(null);
+                      setShowWalletForm((prev) => !prev);
+                    }}
+                    style={{ fontSize: "11px", fontWeight: 600, color: "#047857", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}
+                  >
+                    {showWalletForm ? "Cancel" : activeOrder.refundWallet ? "Update Return Wallet" : "+ Register Return Wallet"}
+                  </button>
+                </div>
+
+                {walletStatus && (
+                  <div
+                    role="status"
+                    style={{
+                      marginTop: "10px",
+                      padding: "8px 10px",
+                      fontSize: "12px",
+                      borderRadius: "2px",
+                      background: walletStatus.type === "success" ? "rgba(16, 185, 129, 0.08)" : "rgba(239, 68, 68, 0.08)",
+                      border: `1px solid ${walletStatus.type === "success" ? "rgba(16, 185, 129, 0.35)" : "rgba(239, 68, 68, 0.35)"}`,
+                      color: walletStatus.type === "success" ? "#047857" : "#b91c1c",
+                    }}
+                  >
+                    {walletStatus.message}
+                  </div>
+                )}
+
+                {showWalletForm && (
+                  <form onSubmit={handleSaveRefundWallet} style={{ marginTop: "12px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "10px", alignItems: "end" }}>
+                    <label style={{ fontSize: "11px", color: "var(--muted)", display: "block" }}>
+                      Confirm Order Email
+                      <input
+                        type="email"
+                        required
+                        value={walletEmail}
+                        onChange={(e) => setWalletEmail(e.target.value)}
+                        placeholder={activeOrder.email}
+                        style={{ width: "100%", marginTop: "4px", padding: "8px 10px", fontSize: "12px", border: "1px solid #cccccc", background: "#fafafa" }}
+                      />
+                    </label>
+                    <label style={{ fontSize: "11px", color: "var(--muted)", display: "block" }}>
+                      Personal {activeOrder.cryptoCurrency || "BTC"} Return Wallet Address
+                      <input
+                        type="text"
+                        required
+                        value={walletAddressInput}
+                        onChange={(e) => setWalletAddressInput(e.target.value)}
+                        placeholder={`Your personal ${activeOrder.cryptoCurrency || "BTC"} address`}
+                        style={{ width: "100%", marginTop: "4px", padding: "8px 10px", fontSize: "12px", fontFamily: "monospace", border: "1px solid #cccccc", background: "#fafafa" }}
+                      />
+                    </label>
+                    <button
+                      type="submit"
+                      disabled={isSavingWallet}
+                      className="button button-dark text-white"
+                      style={{ color: "#ffffff", padding: "9px 14px", fontSize: "11px" }}
+                    >
+                      {isSavingWallet ? "Saving…" : "Save Return Wallet"}
+                    </button>
+                  </form>
                 )}
               </div>
             </div>

@@ -1,12 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createOrderRecord, getOrdersByEmail, getOrderDetails, getUserOrders, verifyAuthToken } from "@/lib/catalogData";
+import { validateRefundWallet, type SupportedCryptoAsset } from "@/lib/walletValidation";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, items, shippingAddress, billingAddress, customerName, phone, paymentMethod, cryptoCurrency, cryptoAmount, escrowAddress } = body;
+    const { email, items, shippingAddress, billingAddress, customerName, phone, paymentMethod, cryptoCurrency, cryptoAmount, escrowAddress, refundWallet, refundWalletAddress } = body;
     if (!email || !items || !Array.isArray(items) || items.length === 0 || !shippingAddress) {
       return NextResponse.json({ error: "Missing required checkout fields: email, items, and shipping address" }, { status: 400 });
+    }
+
+    const normalizedMethod = String(paymentMethod || "").toUpperCase();
+    if (normalizedMethod.includes("CARD") || normalizedMethod.includes("PAYPAL")) {
+      return NextResponse.json(
+        { error: "Credit/Debit Card and PayPal payments are unavailable. Please select Cryptocurrency (USDC, BTC, ETH, or SOL)." },
+        { status: 400 }
+      );
+    }
+
+    const resolvedCurrency: SupportedCryptoAsset =
+      cryptoCurrency === "USDC" || cryptoCurrency === "ETH" || cryptoCurrency === "SOL" || cryptoCurrency === "BTC"
+        ? cryptoCurrency
+        : String(paymentMethod || "").includes("USDC")
+        ? "USDC"
+        : String(paymentMethod || "").includes("ETH")
+        ? "ETH"
+        : String(paymentMethod || "").includes("SOL")
+        ? "SOL"
+        : "BTC";
+
+    const rawRefundWallet = refundWallet || refundWalletAddress;
+    const walletValidation = validateRefundWallet(rawRefundWallet, resolvedCurrency);
+    if (!walletValidation.valid) {
+      return NextResponse.json({ error: walletValidation.error }, { status: 400 });
     }
 
     // Optional auth header (customers do not need to log in)
@@ -25,9 +51,10 @@ export async function POST(request: NextRequest) {
       shippingAddress,
       billingAddress,
       paymentMethod,
-      cryptoCurrency,
+      cryptoCurrency: resolvedCurrency,
       cryptoAmount,
       escrowAddress,
+      refundWallet: walletValidation.cleaned,
       userId
     });
 

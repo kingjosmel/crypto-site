@@ -221,13 +221,14 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
           disabled={isNavigating}
           className="w-full py-3.5 px-4 bg-[#e3e3e3] hover:bg-[#d8d8d8] active:bg-[#d4d4d4] text-neutral-900 border border-[#cccccc] text-xs font-semibold uppercase tracking-[0.12em] transition-colors flex items-center justify-center gap-2 cursor-pointer rounded-xs shadow-2xs disabled:opacity-75"
         >
+          <span className="font-mono text-[#2775ca] font-bold">$</span>
           <span className="font-mono text-[#f7931a] font-bold">₿</span>
           <span className="font-mono text-[#627eea] font-bold">Ξ</span>
           <span className="font-mono text-[#14f195] font-bold">◎</span>
           <span>
             {isNavigating
-              ? "Reserving Piece & Loading Checkout..."
-              : `Instant Crypto Checkout ${selectedSize && selectedSize !== "One Size" ? `(Size ${selectedSize})` : "(BTC · ETH · SOL)"}`}
+              ? "Loading Checkout..."
+              : `Protected Checkout ${selectedSize && selectedSize !== "One Size" ? `(Size ${selectedSize})` : "(USDC · BTC · ETH · SOL)"}`}
           </span>
           <span aria-hidden="true">→</span>
         </button>

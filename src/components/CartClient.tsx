@@ -212,8 +212,8 @@ export function CartClient() {
             </div>
           </div>
 
-          <p className="text-[11px] text-neutral-400 leading-normal mb-5">
-            Non-custodial crypto checkout. Settled on-chain in BTC, ETH, or SOL via private vault escrow.
+          <p className="text-[11px] text-neutral-500 leading-normal mb-5">
+            Protected escrow checkout in USDC, BTC, ETH, or SOL—with Refund Return Wallet registration and 14-day return protection.
           </p>
 
           <Link
@@ -221,15 +221,16 @@ export function CartClient() {
             className="w-full py-4 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-colors shadow-sm flex items-center justify-center gap-2 mb-4"
             style={{ color: "#ffffff" }}
           >
-            <span style={{ color: "#ffffff" }}>Proceed to Crypto Checkout</span>
+            <span style={{ color: "#ffffff" }}>Proceed to Protected Checkout</span>
             <span style={{ color: "#ffffff" }} aria-hidden="true">→</span>
           </Link>
 
           <div className="pt-4 border-t border-[#f0eee9] text-center space-y-2">
             <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block">
-              Cryptocurrency Exclusive Settlement
+              Escrow-Protected Crypto Settlement
             </span>
             <div className="flex items-center justify-center gap-2 text-[10px] font-mono">
+              <span className="bg-[#fafafa] text-[#2775ca] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">USDC</span>
               <span className="bg-[#fafafa] text-[#f7931a] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">BTC</span>
               <span className="bg-[#fafafa] text-[#627eea] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">ETH</span>
               <span className="bg-[#fafafa] text-[#14f195] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">SOL</span>

@@ -24,7 +24,12 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
           <div className="p-5 bg-white border border-[#dcdcdc] rounded-xs">
             <span className="text-xs uppercase font-bold text-neutral-400 block mb-1">Email Support</span>
-            <strong className="text-sm text-neutral-950 block">support@northstarsupply.com</strong>
+            <a
+              href="mailto:support@shopnorthstar.store"
+              className="text-sm font-bold text-neutral-950 hover:text-[#047857] transition-colors block"
+            >
+              support@shopnorthstar.store
+            </a>
             <span className="text-xs text-neutral-500 mt-1 block">Quick replies within 1 to 2 hours</span>
           </div>
           <div className="p-5 bg-white border border-[#dcdcdc] rounded-xs">
@@ -77,10 +82,10 @@ export default function ContactPage() {
 
           <div className="py-8">
             <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
-              Cryptocurrency Payment Assistance
+              Protected Settlement &amp; Refund Return Wallets
             </h2>
             <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
-              We accept Bitcoin (BTC), Ethereum (ETH), and Solana (SOL). If you need help calculating exchange rates, verifying network deposit addresses, or checking blockchain confirmations, our support team is happy to assist you through every step of checkout.
+              We accept USD Coin (USDC), Bitcoin (BTC), Ethereum (ETH), and Solana (SOL) with 14-day inspection escrow protection. If you need help registering your Refund Return Wallet or verifying a network deposit address, our support team is happy to assist at every step.
             </p>
           </div>
 

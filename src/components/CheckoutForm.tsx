@@ -2,14 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { CreditCard, Wallet } from "lucide-react";
 import { formatPrice } from "@/lib/api";
 import { parseCart, writeCart, addToCart, getCartSnapshot, type CartItem } from "@/lib/cart";
 import { INITIAL_PRODUCTS } from "@/lib/catalogData";
 import { CryptoQRCode } from "@/components/CryptoQRCode";
 import { useLiveCryptoRates, calculateCryptoAmount } from "@/lib/cryptoRates";
+import { getNetworkExample, validateRefundWallet } from "@/lib/walletValidation";
 
-export type CryptoCurrency = "BTC" | "ETH" | "SOL";
+export type CryptoCurrency = "BTC" | "ETH" | "SOL" | "USDC";
+export type PaymentMethodSelection = "CRYPTO" | null;
 
 export interface CryptoOption {
   symbol: CryptoCurrency;
@@ -61,6 +65,18 @@ export const CRYPTO_CONFIG: Record<CryptoCurrency, CryptoOption> = {
     accentColor: "#14f195",
     badgeBg: "rgba(20, 241, 149, 0.08)",
   },
+  USDC: {
+    symbol: "USDC",
+    name: "USD Coin",
+    icon: "$",
+    network: "Ethereum Mainnet (ERC-20 Stablecoin)",
+    address: "0x120D139dB706614f71e470A97852679F6FaebcB7",
+    rateUsd: 1.0,
+    decimals: 2,
+    confirmations: "12 Block Confirmations (~3 min)",
+    accentColor: "#2775ca",
+    badgeBg: "rgba(39, 117, 202, 0.08)",
+  },
 };
 
 type CompletedOrder = {
@@ -75,7 +91,8 @@ type CompletedOrder = {
   cryptoCurrency: CryptoCurrency;
   cryptoAmount: string;
   escrowAddress: string;
-  txHash: string;
+  refundWallet?: string;
+  txHash?: string;
   items: {
     productId: string;
     name: string;
@@ -102,13 +119,16 @@ const subscribe = (callback: () => void) => {
 const getSnapshot = getCartSnapshot;
 
 export function CheckoutForm() {
+  const router = useRouter();
   const cartSnapshot = useSyncExternalStore(subscribe, getSnapshot, () => "[]");
   const cart: CartItem[] = parseCart(cartSnapshot);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [completedOrder, setCompletedOrder] = useState<CompletedOrder | null>(null);
-  const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("BTC");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethodSelection>(null);
+  const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("USDC");
+  const [refundWallet, setRefundWallet] = useState("");
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [discountCode, setDiscountCode] = useState("");
   const [discountApplied, setDiscountApplied] = useState(false);
@@ -154,10 +174,22 @@ export function CheckoutForm() {
   const currentCrypto = CRYPTO_CONFIG[cryptoCurrency];
   const liveRateUsd = liveRates[cryptoCurrency]?.price || currentCrypto.rateUsd;
   const calculatedCryptoAmount = calculateCryptoAmount(totalCents, liveRateUsd, currentCrypto.decimals);
+  const refundWalletCheck = validateRefundWallet(refundWallet, cryptoCurrency);
+  const refundNetworkInfo = getNetworkExample(cryptoCurrency);
 
   async function handleSubmitOrder(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (cart.length === 0) return;
+
+    if (selectedPaymentMethod !== "CRYPTO") {
+      setError("Please select a payment method to continue.");
+      return;
+    }
+
+    if (!refundWalletCheck.valid) {
+      setError(refundWalletCheck.error || "Please enter a valid Refund Return Wallet address.");
+      return;
+    }
 
     setLoading(true);
     setError("");
@@ -175,6 +207,7 @@ export function CheckoutForm() {
       cryptoCurrency,
       cryptoAmount: calculatedCryptoAmount,
       escrowAddress: currentCrypto.address,
+      refundWallet: refundWallet.trim() || undefined,
       items: cart.map((item) => ({
         productId: item.productId,
         qty: item.qty,
@@ -210,11 +243,12 @@ export function CheckoutForm() {
         totalCents: data.totalCents || totalCents,
         email: data.email,
         customerName: fullName,
-        paymentMethod: `CRYPTO_${cryptoCurrency}`,
+        paymentMethod: data.paymentMethod || `CRYPTO_${cryptoCurrency}`,
         cryptoCurrency,
         cryptoAmount: data.cryptoAmount || calculatedCryptoAmount,
         escrowAddress: data.escrowAddress || currentCrypto.address,
-        txHash: data.txHash || "0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
+        refundWallet: data.refundWallet || (refundWallet.trim() || undefined),
+        txHash: data.txHash,
         items: data.items,
         shippingAddress: data.shippingAddress,
       });
@@ -248,41 +282,51 @@ export function CheckoutForm() {
               ✓
             </div>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#047857] block mb-2">
-              Order Confirmed · 24-Hour Dispatch Active
+              Order Protected · 14-Day Inspection Escrow
             </span>
             <h1 className="font-serif text-3xl sm:text-4xl text-neutral-950 font-normal mb-3">
               Thank You for Your Order
             </h1>
             <p className="text-sm text-neutral-600 max-w-lg mx-auto leading-relaxed">
-              We received your order and registered your cryptocurrency settlement. A copy of your receipt and live tracking details have been sent to <strong className="text-neutral-900">{completedOrder.email}</strong>.
+              We received your order and registered your escrow-protected settlement. Your receipt, return protection summary, and live courier tracking have been sent to <strong className="text-neutral-900">{completedOrder.email}</strong>.
             </p>
           </div>
 
           {/* Order Details Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-b border-[#dcdcdc] text-xs">
             <div>
-              <span className="text-neutral-400 uppercase tracking-wider block mb-1">Order Number</span>
+              <span className="text-neutral-400 uppercase tracking-wider block mb-1">
+                Order Number
+              </span>
               <strong className="text-neutral-950 font-mono text-sm">{completedOrder.orderNumber}</strong>
             </div>
             <div>
-              <span className="text-neutral-400 uppercase tracking-wider block mb-1">Tracking Code</span>
-              <strong className="text-neutral-950 font-mono text-sm">{completedOrder.trackingNumber}</strong>
+              <span className="text-neutral-400 uppercase tracking-wider block mb-1">
+                Tracking Code
+              </span>
+              <strong className="text-neutral-950 font-mono text-sm">
+                {completedOrder.trackingNumber}
+              </strong>
             </div>
             <div>
-              <span className="text-neutral-400 uppercase tracking-wider block mb-1">Delivery Window</span>
+              <span className="text-neutral-400 uppercase tracking-wider block mb-1">
+                Delivery Window
+              </span>
               <strong className="text-[#047857] font-semibold text-sm">Within 24 Hours (USA)</strong>
             </div>
             <div>
-              <span className="text-neutral-400 uppercase tracking-wider block mb-1">Payment Method</span>
-              <strong className="text-neutral-950 text-sm">{coinConfig.name} ({coinConfig.symbol})</strong>
+              <span className="text-neutral-400 uppercase tracking-wider block mb-1">Payment Option</span>
+              <strong className="text-neutral-950 text-sm">
+                {`${coinConfig.name} (${coinConfig.symbol})`}
+              </strong>
             </div>
           </div>
 
-          {/* Crypto Settlement Information */}
+          {/* Crypto Settlement Info */}
           <div className="my-6 p-4 rounded-xs border border-[#e5e5e5] bg-[#fafafa]">
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-900">
-                Blockchain Deposit Details
+                Escrow Settlement & Return Protection
               </span>
               <span className="text-xs font-mono font-semibold text-[#a3702b]">
                 {completedOrder.cryptoAmount} {completedOrder.cryptoCurrency}
@@ -290,24 +334,43 @@ export function CheckoutForm() {
             </div>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between items-center bg-white p-2.5 border border-[#dcdcdc] rounded-xs">
-                <span className="text-neutral-500">Deposit Address:</span>
+                <span className="text-neutral-500">Escrow Address:</span>
                 <span className="font-mono text-neutral-800 truncate ml-2 max-w-[260px] sm:max-w-none">
                   {completedOrder.escrowAddress}
                 </span>
               </div>
-              <div className="flex justify-between items-center bg-white p-2.5 border border-[#dcdcdc] rounded-xs">
-                <span className="text-neutral-500">Transaction Hash:</span>
-                <span className="font-mono text-neutral-800 truncate ml-2 max-w-[260px] sm:max-w-none">
-                  {completedOrder.txHash}
-                </span>
-              </div>
+              {completedOrder.txHash && (
+                <div className="flex justify-between items-center bg-white p-2.5 border border-[#dcdcdc] rounded-xs">
+                  <span className="text-neutral-500">Transaction Hash:</span>
+                  <span className="font-mono text-neutral-800 truncate ml-2 max-w-[260px] sm:max-w-none">
+                    {completedOrder.txHash}
+                  </span>
+                </div>
+              )}
+              {completedOrder.refundWallet && (
+                <div className="flex justify-between items-center bg-white p-2.5 border border-[#dcdcdc] rounded-xs">
+                  <span className="text-neutral-500">Refund Return Wallet ({completedOrder.cryptoCurrency}):</span>
+                  <div className="flex items-center gap-2 ml-2 min-w-0">
+                    <span className="font-mono text-[#047857] font-medium truncate max-w-[200px] sm:max-w-[320px]">
+                      {completedOrder.refundWallet}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(completedOrder.refundWallet!, "refundWallet")}
+                      className="text-[11px] font-semibold text-neutral-700 hover:text-black underline shrink-0 cursor-pointer"
+                    >
+                      {copiedField === "refundWallet" ? "Copied" : "Copy"}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Purchased Items List */}
           <div className="py-6 border-b border-[#dcdcdc]">
             <h2 className="text-xs font-bold uppercase tracking-wider text-neutral-900 mb-4">
-              Items Ordered ({completedOrder.items?.length || 0})
+              {`Items Ordered (${completedOrder.items?.length || 0})`}
             </h2>
             <div className="space-y-3">
               {completedOrder.items?.map((item) => (
@@ -323,7 +386,9 @@ export function CheckoutForm() {
               ))}
             </div>
             <div className="pt-4 mt-4 border-t border-[#f0eee9] flex justify-between items-center">
-              <span className="text-sm font-semibold text-neutral-900">Total</span>
+              <span className="text-sm font-semibold text-neutral-900">
+                Total
+              </span>
               <span className="text-lg font-mono font-bold text-neutral-950">
                 {formatPrice(completedOrder.totalCents)}
               </span>
@@ -608,116 +673,260 @@ export function CheckoutForm() {
               </div>
             </section>
 
-            {/* 4. Payment: Cryptocurrency */}
-            <section className="bg-white p-6 sm:p-8 border border-[#dcdcdc] rounded-xs shadow-2xs">
-              <div className="flex justify-between items-center mb-2">
-                <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950">
-                  Payment Method
-                </h2>
-                <span className="text-xs text-neutral-500 font-mono">Instant Crypto Settlement</span>
+            {/* 4. Payment & Buyer Protection */}
+            <section className="bg-white p-6 sm:p-8 border border-[#dcdcdc] rounded-xs shadow-2xs space-y-6">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                <div>
+                  <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950">
+                    Payment & Buyer Protection
+                  </h2>
+                  <p className="text-xs text-neutral-600 mt-1">
+                    Select your preferred payment method below to complete your order.
+                  </p>
+                </div>
+                <span className="text-[11px] text-[#047857] font-mono font-semibold shrink-0">
+                  14-Day Return Protection
+                </span>
               </div>
-              <p className="text-xs text-neutral-600 mb-6 leading-relaxed">
-                All transactions are settled securely on-chain. Select your preferred cryptocurrency to generate a direct deposit address:
-              </p>
 
-              {/* 3 Supported Assets Selector */}
-              <div className="grid grid-cols-3 gap-3 mb-4">
-                {(Object.keys(CRYPTO_CONFIG) as CryptoCurrency[]).map((coinKey) => {
-                  const coin = CRYPTO_CONFIG[coinKey];
-                  const isSelected = cryptoCurrency === coinKey;
-                  const coinRate = liveRates[coinKey]?.price || coin.rateUsd;
-                  const coinAmount = calculateCryptoAmount(totalCents, coinRate, coin.decimals);
+              {/* Payment Method Selector (Nothing selected by default; Crypto is the 3rd option) */}
+              <div>
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-2.5">
+                  Select Payment Method
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => router.push("/checkout/payment-error?method=card")}
+                    className="p-3.5 border border-[#cccccc] hover:border-neutral-950 bg-white hover:bg-[#fafafa] rounded-xs text-left transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-950">
+                        <CreditCard className="w-3.5 h-3.5 text-neutral-700" aria-hidden="true" />
+                        Credit / Debit Card
+                      </span>
+                      <span className="w-3.5 h-3.5 rounded-full border border-neutral-400 inline-block shrink-0" aria-hidden="true" />
+                    </div>
+                    <span className="text-[11px] text-neutral-500 block">
+                      Visa · Mastercard · Amex
+                    </span>
+                  </button>
 
-                  return (
-                    <button
-                      key={coinKey}
-                      type="button"
-                      onClick={() => setCryptoCurrency(coinKey)}
-                      className={`p-3.5 sm:p-4 border text-center transition-all cursor-pointer rounded-xs flex flex-col items-center justify-center ${
-                        isSelected
-                          ? "border-neutral-950 bg-[#fafafa] shadow-xs ring-1 ring-neutral-950"
-                          : "border-[#cccccc] bg-white hover:border-neutral-400"
-                      }`}
-                    >
+                  <button
+                    type="button"
+                    onClick={() => router.push("/checkout/payment-error?method=paypal")}
+                    className="p-3.5 border border-[#cccccc] hover:border-neutral-950 bg-white hover:bg-[#fafafa] rounded-xs text-left transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-950">
+                        <span className="font-serif italic font-bold text-[#003087] text-sm leading-none">P</span>
+                        PayPal
+                      </span>
+                      <span className="w-3.5 h-3.5 rounded-full border border-neutral-400 inline-block shrink-0" aria-hidden="true" />
+                    </div>
+                    <span className="text-[11px] text-neutral-500 block">
+                      PayPal Express Checkout
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPaymentMethod("CRYPTO");
+                      setError("");
+                    }}
+                    aria-pressed={selectedPaymentMethod === "CRYPTO"}
+                    className={`p-3.5 rounded-xs text-left transition-colors cursor-pointer ${
+                      selectedPaymentMethod === "CRYPTO"
+                        ? "border-2 border-neutral-950 bg-[#fafafa]"
+                        : "border border-[#cccccc] hover:border-neutral-950 bg-white hover:bg-[#fafafa]"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-neutral-950">
+                        <Wallet className="w-3.5 h-3.5 text-[#047857]" aria-hidden="true" />
+                        Crypto
+                      </span>
                       <span
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm mb-2 shadow-2xs"
-                        style={{ backgroundColor: coin.accentColor }}
-                      >
-                        {coin.icon}
-                      </span>
-                      <strong className="text-xs text-neutral-950 font-semibold block">{coin.name}</strong>
-                      <span className="text-[10px] text-neutral-500 uppercase tracking-wider block font-mono">
-                        {coin.symbol}
-                      </span>
-                      <span className="text-xs font-mono font-bold text-neutral-950 mt-1">
-                        {coinAmount} {coin.symbol}
-                      </span>
-                    </button>
-                  );
-                })}
+                        className={`w-3.5 h-3.5 rounded-full inline-block shrink-0 ${
+                          selectedPaymentMethod === "CRYPTO"
+                            ? "border-4 border-neutral-950"
+                            : "border border-neutral-400"
+                        }`}
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <span className="text-[11px] text-neutral-600 block">
+                      USDC · BTC · ETH · SOL
+                    </span>
+                  </button>
+                </div>
               </div>
 
-              {/* Deposit Address Box */}
-              <div className="border border-[#d4d4d4] bg-[#fafafa] p-5 rounded-xs space-y-4">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                  <CryptoQRCode
-                    address={currentCrypto.address}
-                    symbol={cryptoCurrency}
-                    amount={calculatedCryptoAmount}
-                    size={140}
-                    showWalletLink={true}
-                    className="shrink-0"
-                  />
+              {selectedPaymentMethod === "CRYPTO" ? (
+                <>
+                  {/* 4 Supported Assets Selector */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {(Object.keys(CRYPTO_CONFIG) as CryptoCurrency[]).map((coinKey) => {
+                      const coin = CRYPTO_CONFIG[coinKey];
+                      const isSelected = cryptoCurrency === coinKey;
+                      const coinRate = liveRates[coinKey]?.price || coin.rateUsd;
+                      const coinAmount = calculateCryptoAmount(totalCents, coinRate, coin.decimals);
 
-                  <div className="flex-1 min-w-0 space-y-3 w-full">
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
-                          {currentCrypto.name} Deposit Address
-                        </span>
+                      return (
                         <button
+                          key={coinKey}
                           type="button"
-                          onClick={() => copyToClipboard(currentCrypto.address, "addr")}
-                          className="text-[11px] font-semibold uppercase tracking-wider text-[#a3702b] hover:underline cursor-pointer"
+                          onClick={() => setCryptoCurrency(coinKey)}
+                          className={`p-3.5 border text-center transition-all cursor-pointer rounded-xs flex flex-col items-center justify-center ${
+                            isSelected
+                              ? "border-neutral-950 bg-[#fafafa] shadow-xs ring-1 ring-neutral-950"
+                              : "border-[#cccccc] bg-white hover:border-neutral-400"
+                          }`}
                         >
-                          {copiedField === "addr" ? "Copied" : "Copy"}
+                          <span
+                            className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm mb-2 shadow-2xs"
+                            style={{ backgroundColor: coin.accentColor }}
+                          >
+                            {coin.icon}
+                          </span>
+                          <strong className="text-xs text-neutral-950 font-semibold block">
+                            {coin.name}
+                          </strong>
+                          <span className="text-[10px] text-neutral-500 uppercase tracking-wider block font-mono">
+                            {coinKey === "USDC" ? "USD Stablecoin" : coin.symbol}
+                          </span>
+                          <span className="text-xs font-mono font-bold text-neutral-950 mt-1">
+                            {coinAmount} {coin.symbol}
+                          </span>
                         </button>
-                      </div>
-                      <div className="p-2.5 bg-white border border-[#cccccc] font-mono text-xs text-neutral-900 break-all select-all">
-                        {currentCrypto.address}
+                      );
+                    })}
+                  </div>
+
+                  {/* Deposit Address Box */}
+                  <div className="border border-[#d4d4d4] bg-[#fafafa] p-5 rounded-xs space-y-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                      <CryptoQRCode
+                        address={currentCrypto.address}
+                        symbol={cryptoCurrency}
+                        amount={calculatedCryptoAmount}
+                        size={140}
+                        showWalletLink={true}
+                        className="shrink-0"
+                      />
+
+                      <div className="flex-1 min-w-0 space-y-3 w-full">
+                        <div>
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                              {currentCrypto.name} Escrow Address
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => copyToClipboard(currentCrypto.address, "addr")}
+                              className="text-[11px] font-semibold uppercase tracking-wider text-[#a3702b] hover:underline cursor-pointer"
+                            >
+                              {copiedField === "addr" ? "Copied" : "Copy"}
+                            </button>
+                          </div>
+                          <div className="p-2.5 bg-white border border-[#cccccc] font-mono text-xs text-neutral-900 break-all select-all">
+                            {currentCrypto.address}
+                          </div>
+                        </div>
+
+                        <div>
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                              Amount to Send
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => copyToClipboard(calculatedCryptoAmount, "amt")}
+                              className="text-[11px] font-semibold uppercase tracking-wider text-[#a3702b] hover:underline cursor-pointer"
+                            >
+                              {copiedField === "amt" ? "Copied" : "Copy"}
+                            </button>
+                          </div>
+                          <div className="p-2.5 bg-white border border-[#cccccc] flex justify-between items-center">
+                            <span className="font-mono text-sm font-bold text-neutral-950">
+                              {calculatedCryptoAmount} {currentCrypto.symbol}
+                            </span>
+                            <span className="text-xs text-neutral-500 font-mono">
+                              ≈ {formatPrice(totalCents)}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
-                          Amount to Send
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => copyToClipboard(calculatedCryptoAmount, "amt")}
-                          className="text-[11px] font-semibold uppercase tracking-wider text-[#a3702b] hover:underline cursor-pointer"
-                        >
-                          {copiedField === "amt" ? "Copied" : "Copy"}
-                        </button>
-                      </div>
-                      <div className="p-2.5 bg-white border border-[#cccccc] flex justify-between items-center">
-                        <span className="font-mono text-sm font-bold text-neutral-950">
-                          {calculatedCryptoAmount} {currentCrypto.symbol}
-                        </span>
-                        <span className="text-xs text-neutral-500 font-mono">
-                          ≈ {formatPrice(totalCents)}
-                        </span>
-                      </div>
+                    <div className="text-[11px] text-neutral-500 border-t border-[#dcdcdc] pt-3 leading-relaxed">
+                      Send only {currentCrypto.name} via the {currentCrypto.network}. Protected under our 14-day return & authenticity escrow terms.
                     </div>
                   </div>
-                </div>
 
-                <div className="text-[11px] text-neutral-500 border-t border-[#dcdcdc] pt-3 leading-relaxed">
-                  Send only {currentCrypto.name} to this address via the {currentCrypto.network}. Settlement is automatically detected on-chain.
+                  {/* Refund Return Wallet Field */}
+                  <div className="border-t border-[#e5e5e5] pt-5">
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                      <label htmlFor="refundWallet" className="block text-xs font-semibold uppercase tracking-wider text-neutral-800">
+                        Refund Return Wallet Address{" "}
+                        <span className="text-[#047857] font-medium lowercase">(optional · 14-day return protection)</span>
+                      </label>
+                      <span className="text-[10px] font-mono text-neutral-500">
+                        {refundNetworkInfo.label}
+                      </span>
+                    </div>
+                    <input
+                      id="refundWallet"
+                      name="refundWallet"
+                      type="text"
+                      value={refundWallet}
+                      onChange={(e) => setRefundWallet(e.target.value)}
+                      placeholder={`Your personal ${cryptoCurrency} address (${refundNetworkInfo.example}) for any return refund`}
+                      aria-invalid={Boolean(refundWallet.trim()) && !refundWalletCheck.valid}
+                      className={`w-full px-3.5 py-2.5 bg-[#f7f7f7] border focus:bg-white focus:outline-none rounded-none text-xs font-mono text-neutral-900 placeholder:text-neutral-400 transition-colors ${
+                        refundWallet.trim() && !refundWalletCheck.valid
+                          ? "border-red-500 focus:border-red-600"
+                          : refundWallet.trim() && refundWalletCheck.valid
+                          ? "border-[#047857] focus:border-[#047857]"
+                          : "border-[#cccccc] focus:border-black"
+                      }`}
+                    />
+                    {refundWallet.trim() && !refundWalletCheck.valid ? (
+                      <p className="text-[11px] text-red-600 mt-1.5 font-medium" role="alert">
+                        {refundWalletCheck.error}
+                      </p>
+                    ) : refundWallet.trim() && refundWalletCheck.valid ? (
+                      <p className="text-[11px] text-[#047857] mt-1.5 font-medium">
+                        ✓ Valid {cryptoCurrency} return address registered. Any approved 14-day return will be refunded to this address.
+                      </p>
+                    ) : null}
+                    <p className="text-[11px] text-neutral-500 mt-1.5 leading-relaxed">
+                      <strong>Does not change where you pay:</strong> your payment still goes to Northstar&apos;s deposit address above. Paying from Coinbase, Kraken, or Cash App? Adding your personal return wallet ensures any 14-day refund settles directly to you—never a shared exchange hot wallet.
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <div className="p-4 border border-dashed border-[#cccccc] bg-[#fafafa] rounded-xs text-xs text-neutral-600">
+                  Choose a payment method above to view settlement details and complete your order.
                 </div>
-              </div>
+              )}
             </section>
+
+            {/* Buyer Protection Guarantee Callout */}
+            <div className="p-4 bg-[#fafafa] border border-[#dcdcdc] rounded-xs text-xs text-neutral-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <strong className="text-neutral-950 uppercase tracking-wider text-[11px] block">
+                  14-Day Inspection & Lifetime Authenticity Escrow
+                </strong>
+                <span className="text-[11px] text-neutral-600">
+                  Signed delivery verification · Full USD-pegged crypto refund on eligible returns within 14 days.
+                </span>
+              </div>
+              <Link href="/returns-refunds" className="text-[11px] font-semibold text-[#047857] hover:underline shrink-0">
+                Read Protection Terms →
+              </Link>
+            </div>
 
             {error && (
               <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xs">
@@ -734,13 +943,15 @@ export function CheckoutForm() {
             >
               <span style={{ color: "#ffffff" }}>
                 {loading
-                  ? "Processing Order and Registering Settlement..."
-                  : `Complete Order · ${calculatedCryptoAmount} ${currentCrypto.symbol}`}
+                  ? "Processing Order and Registering Escrow..."
+                  : selectedPaymentMethod === "CRYPTO"
+                  ? `Complete Protected Order · ${calculatedCryptoAmount} ${currentCrypto.symbol}`
+                  : "Complete Order"}
               </span>
             </button>
 
             <p className="text-center text-xs text-neutral-500">
-              Guaranteed 24-hour delivery anywhere in the USA. 100% money-back authenticity guarantee.
+              Guaranteed 24-hour USA delivery · 14-day return protection · 100% lifetime authenticity guarantee.
             </p>
           </form>
         </div>
@@ -848,9 +1059,11 @@ export function CheckoutForm() {
                   <span className="text-xl font-mono font-bold text-neutral-950 block">
                     {formatPrice(totalCents)}
                   </span>
-                  <span className="text-xs font-mono font-semibold text-[#a3702b] block">
-                    ≈ {calculatedCryptoAmount} {currentCrypto.symbol}
-                  </span>
+                  {selectedPaymentMethod === "CRYPTO" && (
+                    <span className="text-xs font-mono font-semibold text-[#a3702b] block">
+                      ≈ {calculatedCryptoAmount} {currentCrypto.symbol}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -867,7 +1080,7 @@ export function CheckoutForm() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[#047857]">✓</span>
-                <span>Zero fees or intermediary bank hold on crypto transfers</span>
+                <span>14-day return wallet protection &amp; inspection escrow</span>
               </div>
             </div>
           </div>

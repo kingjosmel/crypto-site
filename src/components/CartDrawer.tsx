@@ -228,7 +228,7 @@ export function CartDrawer() {
                 <span className="text-[#047857] font-semibold">Complimentary ($0.00)</span>
               </div>
               <p className="text-[11px] text-neutral-500 mb-4 leading-normal">
-                Direct crypto escrow settlement via BTC, ETH, or SOL. Guaranteed delivery to any US address within 24 hours of confirmation.
+                Escrow-protected settlement via USDC, BTC, ETH, or SOL—with 14-day return wallet protection.
               </p>
 
               <div className="space-y-2">
@@ -238,7 +238,7 @@ export function CartDrawer() {
                   className="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
                   style={{ color: "#ffffff" }}
                 >
-                  <span style={{ color: "#ffffff" }}>Proceed to Crypto Checkout</span>
+                  <span style={{ color: "#ffffff" }}>Proceed to Protected Checkout</span>
                   <span aria-hidden="true" style={{ color: "#ffffff" }}>→</span>
                 </Link>
                 <Link
