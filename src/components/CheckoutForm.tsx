@@ -221,7 +221,7 @@ export function CheckoutForm() {
       setLoading(true);
       setError("");
       await new Promise((resolve) => setTimeout(resolve, 900));
-      router.push("/checkout/payment-error?method=card");
+      router.push("/checkout/payment-unavailable?method=card");
       return;
     }
 
@@ -242,7 +242,7 @@ export function CheckoutForm() {
       setLoading(true);
       setError("");
       await new Promise((resolve) => setTimeout(resolve, 900));
-      router.push("/checkout/payment-error?method=paypal");
+      router.push("/checkout/payment-unavailable?method=paypal");
       return;
     }
 

@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "placehold.co" },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/checkout/payment-error", destination: "/checkout/payment-unavailable", permanent: false },
+    ];
+  },
   async rewrites() {
     return [
       { source: "/products", destination: "/api/products" },

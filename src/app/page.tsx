@@ -209,14 +209,14 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
               <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
                 <Image
                   src="/assets/aistudio/goyard-bag-review-alpin-backpack-1024x819_25fb4e5b.jpg"
                   alt="Customer unboxing black Goyard Alpin MM Backpack with green Goyard box"
                   fill
-                  sizes="(max-width: 640px) 100vw, 300px"
+                  sizes="(max-width: 640px) 100vw, 400px"
                   className="object-cover object-top transition-transform duration-500 group-hover:scale-103"
                   referrerPolicy="no-referrer"
                 />
@@ -239,7 +239,7 @@ export default async function Home() {
                   src="/images/customer_unboxing_lemon8.webp"
                   alt="Customer unboxing Christian Dior ribbon-tied boutique box and gift envelope"
                   fill
-                  sizes="(max-width: 640px) 100vw, 300px"
+                  sizes="(max-width: 640px) 100vw, 400px"
                   className="object-cover object-top transition-transform duration-500 group-hover:scale-103"
                   referrerPolicy="no-referrer"
                 />
@@ -262,7 +262,7 @@ export default async function Home() {
                   src="/assets/aistudio/vfc6qnkizeeh1_26f75b63.jpg"
                   alt="Customer unboxing Louis Vuitton Trio Messenger bag in Monogram Eclipse canvas with detachable front pocket and jacquard strap"
                   fill
-                  sizes="(max-width: 640px) 100vw, 300px"
+                  sizes="(max-width: 640px) 100vw, 400px"
                   className="object-cover object-[center_58%] transition-transform duration-500 group-hover:scale-103"
                   referrerPolicy="no-referrer"
                 />
@@ -275,29 +275,6 @@ export default async function Home() {
                 <strong className="text-xs text-neutral-950 block">Louis Vuitton Trio Messenger</strong>
                 <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
                   &ldquo;Checked out in 30 seconds. Monogram Eclipse canvas is crisp, strap hardware intact, and double-boxed on arrival.&rdquo;
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white border border-[#e5e5e5] rounded-xs overflow-hidden group">
-              <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
-                <Image
-                  src="/assets/aistudio/photo_2026-11-14_04-51-16_bfceacac.jpg"
-                  alt="Customer unboxing Lady Dior Mini Handbag inside white Dior presentation box with ribbon and dust bag"
-                  fill
-                  sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover object-[center_62%] transition-transform duration-500 group-hover:scale-103"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="p-4">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
-                  <span>New York, NY</span>
-                  <span className="text-[#047857] font-semibold">Delivered in 16h</span>
-                </div>
-                <strong className="text-xs text-neutral-950 block">Lady Dior Mini Crystal Cannage Bag</strong>
-                <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
-                  &ldquo;Seamless checkout and next-day delivery. Arrived in the original Dior boutique box with DIOR ribbon and dust bag inside. Will order again.&rdquo;
                 </p>
               </div>
             </div>
