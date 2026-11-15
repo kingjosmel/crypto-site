@@ -6,7 +6,7 @@ import { addToCart, openCartDrawer, readCart } from "@/lib/cart";
 
 export function AddToCartButton({
   item,
-  openDrawerOnAdd = true,
+  openDrawerOnAdd = false,
   className = "",
 }: {
   item: { productId: string; slug: string; name: string; priceCents: number; imageUrl?: string };
@@ -42,7 +42,7 @@ export function AddToCartButton({
       setAdded(true);
       setShowToast(true);
 
-      // 3. Open the shopping bag drawer
+      // 3. Only open drawer if explicitly requested by caller
       if (openDrawerOnAdd) {
         openCartDrawer();
       }
@@ -54,10 +54,11 @@ export function AddToCartButton({
       }, 4000);
     } catch (err) {
       console.error("Cart error:", err);
-      // Fallback
       setAdded(true);
       setShowToast(true);
-      openCartDrawer();
+      if (openDrawerOnAdd) {
+        openCartDrawer();
+      }
       setTimeout(() => {
         setAdded(false);
         setShowToast(false);

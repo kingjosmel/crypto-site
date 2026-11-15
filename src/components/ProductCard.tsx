@@ -1,12 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { conditionLabel, formatPrice, type Product } from "@/lib/api";
-import { addToCart, openCartDrawer } from "@/lib/cart";
+import { addToCart } from "@/lib/cart";
 
 export function ProductCard({ product }: { product: Product }) {
   const image = product.images[0];
+  const [quickAdded, setQuickAdded] = useState(false);
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -26,7 +28,10 @@ export function ProductCard({ product }: { product: Product }) {
         imageUrl: image?.url,
         size: defaultSize,
       });
-      openCartDrawer();
+      setQuickAdded(true);
+      setTimeout(() => {
+        setQuickAdded(false);
+      }, 2200);
     } catch (err) {
       console.error("Quick add failed:", err);
     }
@@ -65,18 +70,38 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
 
-        {/* Quick Add Hover Overlay Button (Shopify Luxury Signature) */}
-        <div className="absolute inset-x-3 bottom-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 z-10 pointer-events-auto">
+        {/* Quick Add Hover Overlay Button (Adds to bag without leaving or opening drawer) */}
+        <div
+          className={`absolute inset-x-3 bottom-3 transition-all duration-200 z-10 pointer-events-auto ${
+            quickAdded
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0"
+          }`}
+        >
           <button
             type="button"
             onClick={handleQuickAdd}
-            className="w-full bg-neutral-950/95 hover:bg-black text-white text-[11px] font-semibold uppercase tracking-wider py-3 px-4 backdrop-blur-xs transition-colors shadow-lg flex items-center justify-center gap-2 cursor-pointer rounded-xs"
-            style={{ color: "#ffffff" }}
+            className="w-full text-white text-[11px] font-semibold uppercase tracking-wider py-3 px-4 backdrop-blur-xs transition-colors shadow-lg flex items-center justify-center gap-2 cursor-pointer rounded-xs"
+            style={{
+              color: "#ffffff",
+              backgroundColor: quickAdded ? "#047857" : "rgba(10, 10, 10, 0.95)",
+            }}
           >
-            <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            <span className="text-white" style={{ color: "#ffffff" }}>Quick Add to Bag</span>
+            {quickAdded ? (
+              <>
+                <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white" style={{ color: "#ffffff" }}>Added to Bag</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                <span className="text-white" style={{ color: "#ffffff" }}>Quick Add to Bag</span>
+              </>
+            )}
           </button>
         </div>
       </div>

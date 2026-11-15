@@ -84,8 +84,8 @@ export function StickyMobileBar({
           className="shrink-0 px-4 py-2.5 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-xs flex items-center gap-1.5 cursor-pointer shadow-sm"
           style={{ color: "#ffffff" }}
         >
-          <span className="text-[#f7931a] font-mono">₿</span>
-          <span style={{ color: "#ffffff" }}>Buy with Crypto</span>
+          <span style={{ color: "#ffffff" }}>Buy Now</span>
+          <span aria-hidden="true" style={{ color: "#ffffff" }}>→</span>
         </button>
       </div>
     </div>

@@ -65,7 +65,6 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
 
       setAdded(true);
       setShowToast(true);
-      openCartDrawer();
 
       setTimeout(() => {
         setAdded(false);
@@ -75,7 +74,6 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
       console.error("Cart error:", err);
       setAdded(true);
       setShowToast(true);
-      openCartDrawer();
     }
   };
 
@@ -187,7 +185,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
         </div>
       )}
 
-      {/* Action Buttons: Add to Bag + Instant Crypto Checkout */}
+      {/* Action Buttons: Add to Bag + Buy It Now */}
       <div className="space-y-3" id="main-purchase-cta">
         <button
           type="button"
