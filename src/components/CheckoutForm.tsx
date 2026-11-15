@@ -1172,10 +1172,10 @@ export function CheckoutForm() {
             <div className="p-4 bg-[#fafafa] border border-[#dcdcdc] rounded-xs text-xs text-neutral-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <strong className="text-neutral-950 uppercase tracking-wider text-[11px] block">
-                  14-Day Inspection & Lifetime Authenticity Escrow
+                  14-Day Inspection & Lifetime Authenticity Guarantee
                 </strong>
                 <span className="text-[11px] text-neutral-600">
-                  Signed delivery verification · Full USD-value crypto refund on eligible returns within 14 days.
+                  Signed delivery verification · Complimentary 14-day returns to your original payment method or registered return wallet.
                 </span>
               </div>
               <Link href="/returns-refunds" className="text-[11px] font-semibold text-[#047857] hover:underline shrink-0">
@@ -1343,7 +1343,7 @@ export function CheckoutForm() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[#047857]">✓</span>
-                <span>14-day return wallet protection &amp; inspection escrow</span>
+                <span>Complimentary 14-day returns &amp; buyer protection</span>
               </div>
             </div>
           </div>
