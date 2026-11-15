@@ -21,7 +21,7 @@ export default function PrivacyPage() {
         },
         {
           heading: "2. Scope of Client Data Collected",
-          body: "We collect only data necessary to fulfill high-value luxury acquisitions: contact information (name, encrypted email address, destination telephone number), physical delivery address for secured courier dispatch, and cryptographic wallet public addresses / transaction hashes for on-chain settlement verification. We never store private keys, seed phrases, or sensitive wallet secrets."
+          body: "We collect only data necessary to fulfill high-value luxury acquisitions: contact information (name, encrypted email address, destination telephone number), physical delivery address for secured courier dispatch, and payment verification references required to process and protect your order. We never store full payment card credentials, private keys, or wallet secrets."
         },
         {
           heading: "3. Discretion & Third-Party Disclosure Policy",

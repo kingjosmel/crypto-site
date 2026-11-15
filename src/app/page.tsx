@@ -37,7 +37,7 @@ export default async function Home() {
               </h1>
 
               <p className="text-base text-neutral-600 leading-relaxed max-w-lg mb-8">
-                An edited collection of authentic Goyard bags, Prada accessories, Celine leather goods, and fine Italian garments. Guaranteed 24-hour delivery anywhere in the USA with instant crypto checkout.
+                An edited collection of authentic Goyard bags, Prada accessories, Celine leather goods, and fine Italian garments. Guaranteed 24-hour express delivery anywhere in the USA with seamless checkout.
               </p>
 
               <div className="flex flex-wrap items-center gap-4 mb-10">
@@ -67,8 +67,8 @@ export default async function Home() {
                   <span className="text-[11px] text-neutral-500">Verified & certified</span>
                 </div>
                 <div>
-                  <span className="block font-semibold text-neutral-900 uppercase tracking-wider text-[11px]">Protected Crypto</span>
-                  <span className="text-[11px] text-neutral-500">BTC · ETH · SOL</span>
+                  <span className="block font-semibold text-neutral-900 uppercase tracking-wider text-[11px]">Flexible Checkout</span>
+                  <span className="text-[11px] text-neutral-500">Card · PayPal · Crypto</span>
                 </div>
               </div>
             </div>
@@ -130,10 +130,10 @@ export default async function Home() {
               </div>
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-neutral-900 mb-1">
-                  Protected Crypto Escrow
+                  14-Day Buyer Protection
                 </h3>
                 <p className="text-xs text-neutral-500 leading-relaxed">
-                  Settle in BTC, ETH, or SOL with a registered personal Refund Return Wallet and 14-day inspection protection.
+                  Check out with Visa, Mastercard, Amex, PayPal, or crypto—backed by full transit insurance and a 14-day return guarantee.
                 </p>
               </div>
             </div>
@@ -170,7 +170,7 @@ export default async function Home() {
                 We believe acquiring authentic designer fashion should be instantaneous and transparent. Every piece in our archive is held physically in our facility, verified for stitch precision, RFID microchips, and factory markings, and stored in climate-controlled conditions.
               </p>
               <p className="text-sm text-neutral-600 leading-relaxed mb-6">
-                The moment your cryptocurrency transaction settles, your order is packed in tamper-evident presentation containers and dispatched for guaranteed 24-hour delivery anywhere in the USA.
+                The moment your order is confirmed, it is packed in tamper-evident presentation containers and dispatched for guaranteed 24-hour delivery anywhere in the USA.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
@@ -205,7 +205,7 @@ export default async function Home() {
               </h2>
             </div>
             <p className="text-xs text-neutral-500 max-w-sm">
-              Real unboxing photos shared by clients who purchased with Bitcoin, Ethereum, and Solana with 24-hour delivery.
+              Real unboxing photos shared by clients across the United States who received guaranteed 24-hour delivery.
             </p>
           </div>
 
@@ -228,7 +228,7 @@ export default async function Home() {
                 </div>
                 <strong className="text-xs text-neutral-950 block">Goyard Alpin MM Backpack</strong>
                 <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
-                  &ldquo;Paid with SOL. Tracking hit my inbox right after the tx confirmed, and the backpack arrived in its green box the next afternoon.&rdquo;
+                  &ldquo;Tracking hit my inbox right after checkout, and the backpack arrived in its green box the next afternoon.&rdquo;
                 </p>
               </div>
             </div>
@@ -274,7 +274,7 @@ export default async function Home() {
                 </div>
                 <strong className="text-xs text-neutral-950 block">Louis Vuitton Trio Messenger</strong>
                 <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
-                  &ldquo;Checked out using ETH in 30 seconds. Monogram Eclipse canvas is crisp, strap hardware intact, and double-boxed on arrival.&rdquo;
+                  &ldquo;Checked out in 30 seconds. Monogram Eclipse canvas is crisp, strap hardware intact, and double-boxed on arrival.&rdquo;
                 </p>
               </div>
             </div>
@@ -297,7 +297,7 @@ export default async function Home() {
                 </div>
                 <strong className="text-xs text-neutral-950 block">Lady Dior Mini Crystal Cannage Bag</strong>
                 <p className="text-xs text-neutral-600 mt-2 italic leading-relaxed">
-                  &ldquo;Smooth BTC transfer. Arrived in the original Dior boutique box with DIOR ribbon and dust bag inside. Will order again.&rdquo;
+                  &ldquo;Seamless checkout and next-day delivery. Arrived in the original Dior boutique box with DIOR ribbon and dust bag inside. Will order again.&rdquo;
                 </p>
               </div>
             </div>
@@ -305,7 +305,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 6. Step-by-Step Crypto Payment & 24h Delivery Guide */}
+      {/* 6. Step-by-Step Ordering & 24h Delivery Guide */}
       <section className="py-16 sm:py-20 bg-[#fafafa] border-b border-[#e5e5e5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -313,7 +313,7 @@ export default async function Home() {
               Transparent Commerce
             </span>
             <h2 className="font-serif text-3xl text-neutral-950 font-normal tracking-tight">
-              How Crypto Payment & 24h Shipping Works
+              How Ordering &amp; 24h Shipping Works
             </h2>
           </div>
 
@@ -321,30 +321,30 @@ export default async function Home() {
             <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">01</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-                Select Crypto Asset
+                Select Your Piece
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Choose immediate escrow settlement in BTC, ETH, or SOL at live market rates.
+                Choose your authentic handbag, footwear, or garment directly from our curated in-stock archive.
               </p>
             </div>
 
             <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">02</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-                Register Return Wallet
+                Flexible Checkout
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Optionally add your personal Refund Return Wallet so any 14-day return settles directly to you, never an exchange hot wallet.
+                Complete checkout using major credit or debit cards, PayPal Express, or supported digital currencies.
               </p>
             </div>
 
             <div className="bg-white border border-[#dcdcdc] p-6 rounded-xs shadow-2xs">
               <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">03</span>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-                Protected Confirmation
+                Instant Confirmation
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Your transaction confirms on-chain in minutes. Order invoice, return protection terms, and live tracking are emailed immediately.
+                Your order is confirmed immediately with an itemized invoice, return protection terms, and live courier tracking.
               </p>
             </div>
 

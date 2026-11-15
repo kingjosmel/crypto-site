@@ -41,10 +41,10 @@ export default function AboutPage() {
           <div className="p-6 bg-white border border-[#dcdcdc] rounded-xs shadow-2xs">
             <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">03</span>
             <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-              Instant Crypto Checkout
+              Insured Express Checkout
             </h3>
             <p className="text-xs text-neutral-600 leading-relaxed">
-              Pay natively with Bitcoin, Ethereum, or Solana. Direct on-chain confirmation without bank holds or red tape.
+              Check out seamlessly with major credit cards, PayPal, or digital assets—backed by our 14-day inspection guarantee.
             </p>
           </div>
         </div>
@@ -150,7 +150,7 @@ export default function AboutPage() {
             Customer Unboxings Across the USA
           </h2>
           <p className="text-xs text-neutral-600 mb-6">
-            Real photos received from clients who received guaranteed 24-hour deliveries paid with Bitcoin, Ethereum, and Solana.
+            Real photos received from clients across the USA following guaranteed 24-hour express deliveries.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -172,7 +172,7 @@ export default function AboutPage() {
                 </div>
                 <strong className="text-xs text-neutral-950 block">Goyard Alpin MM Backpack</strong>
                 <p className="text-xs text-neutral-600 mt-1 italic">
-                  &ldquo;Paid with SOL. Tracking hit my inbox right after the tx confirmed, and the backpack was on my doorstep the next afternoon.&rdquo;
+                  &ldquo;Tracking hit my inbox right after checkout, and the backpack was on my doorstep the next afternoon.&rdquo;
                 </p>
               </div>
             </div>
@@ -218,7 +218,7 @@ export default function AboutPage() {
                 </div>
                 <strong className="text-xs text-neutral-950 block">Louis Vuitton Trio Messenger</strong>
                 <p className="text-xs text-neutral-600 mt-1 italic">
-                  &ldquo;Smooth checkout with ETH. Monogram Eclipse canvas, detachable front pouch, and LV strap arrived double-boxed in 23 hours.&rdquo;
+                  &ldquo;Smooth checkout and fast delivery. Monogram Eclipse canvas, detachable front pouch, and LV strap arrived double-boxed in 23 hours.&rdquo;
                 </p>
               </div>
             </div>

@@ -109,7 +109,7 @@ export function StickyMobileBuyBar({ product, triggerId = "main-purchase-cta" }:
           </div>
         </div>
 
-        {/* Right: Buy with Crypto Primary CTA */}
+        {/* Right: Express Checkout Primary CTA */}
         <button
           type="button"
           onClick={handleInstantCryptoBuy}
@@ -117,17 +117,8 @@ export function StickyMobileBuyBar({ product, triggerId = "main-purchase-cta" }:
           className="shrink-0 px-4 py-2.5 bg-neutral-950 hover:bg-neutral-800 active:bg-black text-white text-xs font-semibold uppercase tracking-wider rounded-xs cursor-pointer shadow-sm flex items-center gap-2 transition-all disabled:opacity-75"
           style={{ color: "#ffffff", backgroundColor: "#0f0f0f" }}
         >
-          <span className="flex items-center gap-1 font-mono text-[11px] text-[#f7931a]">
-            ₿
-          </span>
-          <span className="flex items-center gap-1 font-mono text-[11px] text-[#627eea]">
-            Ξ
-          </span>
-          <span className="flex items-center gap-1 font-mono text-[11px] text-[#14f195]">
-            ◎
-          </span>
           <span style={{ color: "#ffffff" }}>
-            {isNavigating ? "Securing…" : "Buy with Crypto"}
+            {isNavigating ? "Loading…" : "Buy Now"}
           </span>
           <span aria-hidden="true">→</span>
         </button>

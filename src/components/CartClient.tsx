@@ -213,7 +213,7 @@ export function CartClient() {
           </div>
 
           <p className="text-[11px] text-neutral-500 leading-normal mb-5">
-            Protected escrow checkout in BTC, ETH, or SOL—with Refund Return Wallet registration and 14-day return protection.
+            Complimentary 24-hour US express shipping, full transit insurance, and 14-day return protection.
           </p>
 
           <Link
@@ -221,18 +221,18 @@ export function CartClient() {
             className="w-full py-4 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-colors shadow-sm flex items-center justify-center gap-2 mb-4"
             style={{ color: "#ffffff" }}
           >
-            <span style={{ color: "#ffffff" }}>Proceed to Protected Checkout</span>
+            <span style={{ color: "#ffffff" }}>Proceed to Checkout</span>
             <span style={{ color: "#ffffff" }} aria-hidden="true">→</span>
           </Link>
 
           <div className="pt-4 border-t border-[#f0eee9] text-center space-y-2">
             <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400 block">
-              Escrow-Protected Crypto Settlement
+              Accepted Payment Methods
             </span>
-            <div className="flex items-center justify-center gap-2 text-[10px] font-mono">
-              <span className="bg-[#fafafa] text-[#f7931a] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">BTC</span>
-              <span className="bg-[#fafafa] text-[#627eea] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">ETH</span>
-              <span className="bg-[#fafafa] text-[#14f195] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">SOL</span>
+            <div className="flex items-center justify-center flex-wrap gap-1.5 text-[10px] font-mono text-neutral-600">
+              <span className="bg-[#fafafa] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">CARD</span>
+              <span className="bg-[#fafafa] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">PAYPAL</span>
+              <span className="bg-[#fafafa] px-2 py-0.5 border border-[#e5e5e5] rounded-xs font-semibold">CRYPTO</span>
             </div>
           </div>
         </div>

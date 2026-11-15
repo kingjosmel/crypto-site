@@ -108,7 +108,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   {formatPrice(product.priceCents)}
                 </span>
                 <span className="text-xs text-neutral-500 font-mono">
-                  USD · Settled in BTC, ETH, or SOL
+                  USD · Express USA Shipping Included
                 </span>
               </div>
 
@@ -135,7 +135,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
-                  <span><strong>Protected Crypto Escrow:</strong> Pay in BTC, ETH, or SOL with a registered Refund Return Wallet and 14-day inspection guarantee.</span>
+                  <span><strong>14-Day Buyer Protection:</strong> Flexible checkout via Card, PayPal, or Crypto with complimentary returns within 14 days.</span>
                 </div>
               </div>
             </div>
@@ -174,21 +174,21 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
               <details className="py-4 group">
                 <summary className="font-semibold uppercase tracking-wider text-neutral-900 cursor-pointer flex justify-between items-center list-none">
-                  <span>How Crypto Payment & 24h Shipping Works</span>
+                  <span>How Ordering &amp; 24h Shipping Works</span>
                   <span className="text-neutral-400 group-open:rotate-180 transition-transform">↓</span>
                 </summary>
                 <div className="mt-3 text-neutral-600 leading-relaxed space-y-3">
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">1</span>
-                    <p><strong>Select Asset:</strong> Choose Bitcoin (BTC), Ethereum (ETH), or Solana (SOL) at checkout.</p>
+                    <p><strong>Select Piece &amp; Size:</strong> Choose your preferred sizing above and add to bag or click Buy It Now.</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">2</span>
-                    <p><strong>Register Refund Return Wallet:</strong> Optionally enter your personal wallet address at checkout so any 14-day return settles straight to you.</p>
+                    <p><strong>Flexible Checkout:</strong> Complete payment using major credit or debit cards, PayPal, or supported cryptocurrencies.</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">3</span>
-                    <p><strong>Protected Confirmation:</strong> Once verified on-chain, your order status updates immediately and a receipt with live tracking and protection terms is generated.</p>
+                    <p><strong>Instant Confirmation:</strong> Once authorized, your order status updates immediately and a receipt with live tracking is generated.</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">4</span>

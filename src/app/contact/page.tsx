@@ -67,7 +67,7 @@ export default function ContactPage() {
               Order Inquiries and Delivery Updates
             </h2>
             <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
-              If you have already placed an order, please include your order number (for example: NS-00000001) in your message. Your tracking number is also emailed immediately once your transaction confirms on the blockchain. You can track your courier progress anytime using our live tracking tool.
+              If you have already placed an order, please include your order number (for example: NS-00000001) in your message. Your tracking number is emailed immediately once your order is confirmed. You can track your courier progress anytime using our live tracking tool.
             </p>
           </div>
 
@@ -82,10 +82,10 @@ export default function ContactPage() {
 
           <div className="py-8">
             <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
-              Protected Settlement &amp; Refund Return Wallets
+              Payment Methods, Checkout &amp; Returns
             </h2>
             <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
-              We accept Bitcoin (BTC), Ethereum (ETH), and Solana (SOL) with 14-day inspection escrow protection. If you need help registering your Refund Return Wallet or verifying a network deposit address, our support team is happy to assist at every step.
+              We accept Visa, Mastercard, American Express, PayPal, as well as Bitcoin (BTC), Ethereum (ETH), and Solana (SOL) with 14-day return protection. If you need assistance completing checkout or registering a Refund Return Wallet for a digital currency order, our support team is happy to assist at every step.
             </p>
           </div>
 

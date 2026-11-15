@@ -19,10 +19,10 @@ export const metadata: Metadata = {
     default: "Northstar | Authentic Designer Bags, Apparel & Footwear · 24-Hour USA Delivery",
     template: "%s | Northstar",
   },
-  description: "Buy authentic designer bags, apparel, and luxury footwear with Bitcoin, Ethereum, and Solana. Guaranteed 24-hour delivery anywhere in the USA.",
+  description: "Authenticated designer bags, apparel, and luxury footwear with guaranteed 24-hour express delivery anywhere in the USA.",
   openGraph: {
     title: "Northstar | Authentic Designer Bags, Apparel & Footwear · 24-Hour USA Delivery",
-    description: "Buy authentic designer bags, apparel, and luxury footwear with Bitcoin, Ethereum, and Solana. Guaranteed 24-hour delivery anywhere in the USA.",
+    description: "Authenticated designer bags, apparel, and luxury footwear with guaranteed 24-hour express delivery anywhere in the USA.",
     url: "https://shopnorthstar.store",
     siteName: "Northstar",
     locale: "en_US",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Northstar | Authentic Designer Bags, Apparel & Footwear · 24-Hour USA Delivery",
-    description: "Buy authentic designer bags, apparel, and luxury footwear with Bitcoin, Ethereum, and Solana. Guaranteed 24-hour delivery anywhere in the USA.",
+    description: "Authenticated designer bags, apparel, and luxury footwear with guaranteed 24-hour express delivery anywhere in the USA.",
   },
   alternates: { canonical: "/" },
 };

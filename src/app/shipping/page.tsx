@@ -12,7 +12,7 @@ export default function ShippingPage() {
       sections={[
         {
           heading: "The 24-Hour Delivery Guarantee Across All 50 States",
-          body: "Every item in our catalog is physically in our facility and pre-packaged for immediate dispatch. Once your cryptocurrency transaction confirms on the Bitcoin, Ethereum, or Solana blockchain, your order is dispatched immediately via FedEx Priority Overnight or UPS Next Day Air. We deliver to all 50 states within 24 hours."
+          body: "Every item in our catalog is physically in our facility and pre-packaged for immediate dispatch. Once your order payment is confirmed, your piece is dispatched immediately via FedEx Priority Overnight or UPS Next Day Air. We deliver to all 50 states within 24 hours."
         },
         {
           heading: "Direct Signature on Delivery",
@@ -28,7 +28,7 @@ export default function ShippingPage() {
         },
         {
           heading: "Real-Time Tracking & SMS Updates",
-          body: "As soon as your crypto payment confirms on-chain, you receive an automated confirmation email with your order number and live courier tracking link. You can follow your package from dispatch to final delivery."
+          body: "As soon as your payment is confirmed, you receive an automated confirmation email with your order number and live courier tracking link. You can follow your package from dispatch to final delivery."
         }
       ]}
     />

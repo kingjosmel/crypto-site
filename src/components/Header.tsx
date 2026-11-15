@@ -51,7 +51,7 @@ export function Header() {
         <div className="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-medium tracking-wide">
           <span className="hidden sm:inline text-neutral-400">Guaranteed 24-Hour USA Delivery</span>
           <span className="mx-auto sm:mx-0 tracking-wider uppercase font-semibold text-neutral-200">
-            Free Express Shipping Across All 50 States · Protected Checkout via BTC, ETH & SOL
+            Free Express Shipping Across All 50 States · Signature-Verified Delivery
           </span>
           <Link href="/track" className="hidden md:inline text-neutral-400 hover:text-white transition-colors shrink-0">
             Track Order →
@@ -254,14 +254,14 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">Protected Settlement</h4>
+            <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">Client Checkout</h4>
             <p className="text-[#8c8c8c] leading-relaxed mb-4 text-[11px]">
-              Escrow-protected checkout in Bitcoin, Ethereum, or Solana. Includes Refund Return Wallet support and a 14-day inspection guarantee.
+              Insured express checkout accepting Visa, Mastercard, American Express, PayPal, and digital currencies—backed by a 14-day inspection guarantee.
             </p>
             <div className="flex flex-wrap gap-2 text-[10px] font-mono">
-              <span className="bg-[#1a1a1a] text-[#f7931a] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">BITCOIN (BTC)</span>
-              <span className="bg-[#1a1a1a] text-[#627eea] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">ETHEREUM (ETH)</span>
-              <span className="bg-[#1a1a1a] text-[#14f195] px-2.5 py-1 rounded-xs border border-[#333] font-semibold">SOLANA (SOL)</span>
+              <span className="bg-[#1a1a1a] text-neutral-300 px-2.5 py-1 rounded-xs border border-[#333] font-semibold">VISA · AMEX · MC</span>
+              <span className="bg-[#1a1a1a] text-neutral-300 px-2.5 py-1 rounded-xs border border-[#333] font-semibold">PAYPAL</span>
+              <span className="bg-[#1a1a1a] text-neutral-300 px-2.5 py-1 rounded-xs border border-[#333] font-semibold">CRYPTO</span>
             </div>
           </div>
         </div>
