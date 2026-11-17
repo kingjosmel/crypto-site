@@ -5,6 +5,8 @@ import { getOrderDetails, getGuestOrder } from "@/lib/catalogData";
 import { formatPrice } from "@/lib/api";
 import { SiteShell } from "@/components/SiteShell";
 
+export const dynamic = "force-dynamic";
+
 export default async function OrderDetailPage({ params }: { params: Promise<{ orderNumber: string }> }) {
   const { orderNumber } = await params;
   const order = getOrderDetails(orderNumber) || getGuestOrder(orderNumber);
@@ -17,21 +19,48 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
   const carrier = order.carrier || "24-Hour US Private Armored Air Courier";
   const estimatedDelivery = order.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA";
 
+  const isPaid = order.paymentStatus === "paid";
+  const isConfirming = order.paymentStatus === "confirming";
+
   return (
     <SiteShell>
       <section className="account-panel">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px", alignItems: "center", marginBottom: "35px" }}>
           <div>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "4px 12px", borderRadius: "100px", fontSize: "12px", color: "#10b981", fontWeight: 600, marginBottom: "14px", letterSpacing: "0.05em", textTransform: "uppercase" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
-              Live Order & Armored Tracking
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                background: isPaid ? "rgba(16, 185, 129, 0.1)" : "rgba(245, 158, 11, 0.1)",
+                border: isPaid ? "1px solid rgba(16, 185, 129, 0.3)" : "1px solid rgba(245, 158, 11, 0.35)",
+                padding: "4px 12px",
+                borderRadius: "100px",
+                fontSize: "12px",
+                color: isPaid ? "#10b981" : "#b45309",
+                fontWeight: 600,
+                marginBottom: "14px",
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+              }}
+            >
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: isPaid ? "#10b981" : "#d97706" }} />
+              {isPaid ? "Live Order & Armored Tracking" : isConfirming ? "Payment Confirming On-Chain" : "Order Reserved · Awaiting Payment"}
             </div>
             <h1 style={{ margin: "0 0 6px", fontSize: "32px", letterSpacing: "-0.02em" }}>{order.orderNumber}</h1>
             <p style={{ color: "var(--muted)", fontSize: "16px", margin: "0 0 12px" }}>
               Total: <strong style={{ color: "var(--foreground)" }}>{formatPrice(order.totalCents)}</strong>
             </p>
             <p style={{ margin: 0, fontSize: "14px", color: "var(--muted)", lineHeight: 1.5 }}>
-              Receipt & live tracking status dispatched to: <strong style={{ color: "var(--foreground)" }}>{order.email}</strong>
+              {isPaid ? (
+                <>
+                  Receipt & live tracking status dispatched to: <strong style={{ color: "var(--foreground)" }}>{order.email}</strong>
+                </>
+              ) : (
+                <>
+                  Reserved for <strong style={{ color: "var(--foreground)" }}>{order.email}</strong>. Dispatch activates automatically once on-chain payment is verified.
+                </>
+              )}
             </p>
           </div>
           <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", overflow: "hidden", borderRadius: "2px", border: "1px solid var(--line)" }}>
@@ -60,7 +89,9 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
             </div>
             <div>
               <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Estimated Delivery</span>
-              <strong style={{ fontSize: "15px" }}>{estimatedDelivery}</strong>
+              <strong style={{ fontSize: "15px", color: isPaid ? "inherit" : "#b45309" }}>
+                {isPaid ? estimatedDelivery : "Pending On-Chain Payment"}
+              </strong>
             </div>
             <div>
               <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Security Level</span>
@@ -73,13 +104,17 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
         <div style={{ background: "#ffffff", border: "1px solid #cccccc", padding: "20px 24px", borderRadius: "2px", marginBottom: "35px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "10px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10b981" }} />
+              <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: isPaid ? "#10b981" : "#d97706" }} />
               <strong style={{ fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
                 Cryptocurrency Escrow Settlement ({order.cryptoCurrency || "BTC"})
               </strong>
             </div>
-            <span style={{ fontSize: "12px", color: "#047857", fontWeight: 600 }}>
-              ✓ On-Chain Finality Verified
+            <span style={{ fontSize: "12px", color: isPaid ? "#047857" : "#b45309", fontWeight: 600 }}>
+              {isPaid
+                ? "✓ On-Chain Finality Verified"
+                : isConfirming
+                ? "● Mempool Transfer Detected · Confirming"
+                : "○ Awaiting On-Chain Payment"}
             </span>
           </div>
 
@@ -107,27 +142,78 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
                 <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "3px 6px", borderRadius: "2px", display: "block" }}>
                   {order.txHash}
                 </code>
+                {order.explorerUrl && (
+                  <a
+                    href={order.explorerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ fontSize: "11px", color: "#047857", textDecoration: "underline", display: "inline-block", marginTop: "4px" }}
+                  >
+                    View on Blockchain Explorer ↗
+                  </a>
+                )}
               </div>
             )}
           </div>
+
+          {!isPaid && (
+            <div style={{ marginTop: "14px", paddingTop: "12px", borderTop: "1px solid #eeeeee", fontSize: "12px" }}>
+              <Link href={`/track?order=${encodeURIComponent(order.orderNumber)}`} style={{ color: "#047857", fontWeight: 600, textDecoration: "underline" }}>
+                Verify on-chain payment status on live tracker →
+              </Link>
+            </div>
+          )}
         </div>
 
         {/* Live Milestone Progress */}
         <div style={{ marginBottom: "40px" }}>
           <p className="eyebrow" style={{ marginBottom: "14px" }}>Fulfillment Milestones</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "12px" }}>
-            <div style={{ padding: "14px", border: "1px solid #10b981", background: "rgba(16, 185, 129, 0.05)", borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "#10b981", fontWeight: 600, display: "block", marginBottom: "4px" }}>✓ Step 1</span>
-              <strong style={{ fontSize: "13px", display: "block" }}>Order Confirmed</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Email dispatched</span>
+            <div
+              style={{
+                padding: "14px",
+                border: isPaid ? "1px solid #10b981" : "1px solid #d97706",
+                background: isPaid ? "rgba(16, 185, 129, 0.05)" : "rgba(245, 158, 11, 0.06)",
+                borderRadius: "2px",
+              }}
+            >
+              <span style={{ fontSize: "12px", color: isPaid ? "#10b981" : "#b45309", fontWeight: 600, display: "block", marginBottom: "4px" }}>
+                {isPaid ? "✓ Step 1" : isConfirming ? "● Step 1" : "● Step 1"}
+              </span>
+              <strong style={{ fontSize: "13px", display: "block" }}>
+                {isPaid ? "Order Confirmed" : isConfirming ? "Confirming Transfer" : "Awaiting Payment"}
+              </strong>
+              <span style={{ fontSize: "11px", color: "var(--muted)" }}>
+                {isPaid ? "On-chain finality verified" : isConfirming ? "Mempool detected" : "Listening on-chain"}
+              </span>
             </div>
-            <div style={{ padding: "14px", border: "1px solid #10b981", background: "rgba(16, 185, 129, 0.05)", borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "#10b981", fontWeight: 600, display: "block", marginBottom: "4px" }}>✓ Step 2</span>
+            <div
+              style={{
+                padding: "14px",
+                border: isPaid ? "1px solid #10b981" : "1px solid var(--line)",
+                background: isPaid ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                opacity: isPaid ? 1 : 0.6,
+                borderRadius: "2px",
+              }}
+            >
+              <span style={{ fontSize: "12px", color: isPaid ? "#10b981" : "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>
+                {isPaid ? "✓ Step 2" : "○ Step 2"}
+              </span>
               <strong style={{ fontSize: "13px", display: "block" }}>Vault Authentication</strong>
               <span style={{ fontSize: "11px", color: "var(--muted)" }}>Microchip verified</span>
             </div>
-            <div style={{ padding: "14px", border: "1px solid var(--foreground)", background: "var(--paper)", borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "var(--foreground)", fontWeight: 600, display: "block", marginBottom: "4px" }}>● In Progress</span>
+            <div
+              style={{
+                padding: "14px",
+                border: isPaid ? "1px solid var(--foreground)" : "1px solid var(--line)",
+                background: "var(--paper)",
+                opacity: isPaid ? 1 : 0.6,
+                borderRadius: "2px",
+              }}
+            >
+              <span style={{ fontSize: "12px", color: isPaid ? "var(--foreground)" : "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>
+                {isPaid ? "● In Progress" : "○ Step 3"}
+              </span>
               <strong style={{ fontSize: "13px", display: "block" }}>Armored Dispatch</strong>
               <span style={{ fontSize: "11px", color: "var(--muted)" }}>Courier handover</span>
             </div>

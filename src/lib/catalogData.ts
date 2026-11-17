@@ -1602,8 +1602,8 @@ export type OrderRecord = {
   shippingCents: number;
   taxCents: number;
   totalCents: number;
-  orderStatus: "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
-  paymentStatus: "unpaid" | "review" | "paid" | "failed";
+  orderStatus: "awaiting_payment" | "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
+  paymentStatus: "unpaid" | "awaiting_payment" | "confirming" | "review" | "paid" | "failed";
   fulfillmentStatus: "not_submitted" | "supplier_ordered" | "processing" | "shipped" | "delivered";
   onHold: boolean;
   guestToken: string;
@@ -1615,6 +1615,10 @@ export type OrderRecord = {
   escrowAddress?: string;
   refundWallet?: string;
   txHash?: string;
+  baselineTxIds?: string[];
+  confirmations?: number;
+  verifiedAt?: string;
+  explorerUrl?: string;
   carrier?: string;
   trackingNumber?: string;
   estimatedDelivery?: string;
@@ -1869,7 +1873,7 @@ export function createOrderRecord(data: {
   cryptoAmount?: string;
   escrowAddress?: string;
   refundWallet?: string;
-  txHash?: string;
+  baselineTxIds?: string[];
   userId?: string | null;
 }) {
   const quote = calculateQuote(data.items, data.shippingAddress);
@@ -1906,18 +1910,17 @@ export function createOrderRecord(data: {
 
   const escrowAddress = data.escrowAddress || defaultEscrowAddress;
   const cleanRefundWallet = data.refundWallet?.trim() || undefined;
-  const txHash =
-    data.txHash || `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
 
   const emailDetails = {
     to: data.email,
-    subject: `Order ${orderNumber} Confirmation & Live Armored Tracking Details`,
+    subject: `Order ${orderNumber} Reserved · Awaiting ${currency} Payment Verification`,
     sentAt: new Date().toISOString(),
     trackingNumber,
     carrier,
-    summary: `${quote.items.length} item(s) confirmed under 14-Day Inspection Escrow Protection. Settled via ${currency} (${calculatedAmount} ${currency}).`
+    summary: `${quote.items.length} item(s) reserved pending on-chain ${currency} payment (${calculatedAmount} ${currency}).`
   };
 
+  const nowIso = new Date().toISOString();
   const order: OrderRecord = {
     _id: `660000000000000000000${String(globalStore.orderCounter).padStart(3, "0")}`,
     orderNumber,
@@ -1930,34 +1933,34 @@ export function createOrderRecord(data: {
     cryptoAmount: calculatedAmount,
     escrowAddress,
     refundWallet: cleanRefundWallet,
-    txHash,
+    baselineTxIds: data.baselineTxIds || [],
     items: quote.items,
     shippingAddress: data.shippingAddress,
     subtotalCents: quote.subtotalCents,
     shippingCents: quote.shippingCents,
     taxCents: quote.taxCents,
     totalCents: quote.totalCents,
-    orderStatus: "confirmed",
-    paymentStatus: "paid",
-    fulfillmentStatus: "processing",
+    orderStatus: "awaiting_payment",
+    paymentStatus: "awaiting_payment",
+    fulfillmentStatus: "not_submitted",
     onHold: false,
     guestToken,
     carrier,
     trackingNumber,
     estimatedDelivery,
-    confirmationEmailSent: true,
+    confirmationEmailSent: false,
     sentEmailDetails: emailDetails,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    createdAt: nowIso,
+    updatedAt: nowIso
   };
 
   globalStore.orders.push(order);
   globalStore.auditLogs.push({
     _id: `log-${Date.now()}`,
-    action: "ORDER_CREATED_AND_TRACKING_DISPATCHED",
+    action: "ORDER_AWAITING_ONCHAIN_PAYMENT",
     entity: "Order",
     entityId: orderNumber,
-    createdAt: new Date().toISOString()
+    createdAt: nowIso
   });
 
   return {
@@ -1970,16 +1973,74 @@ export function createOrderRecord(data: {
     email: data.email,
     customerName: data.customerName,
     paymentMethod: order.paymentMethod,
+    paymentStatus: order.paymentStatus,
+    orderStatus: order.orderStatus,
     cryptoCurrency: currency,
     cryptoAmount: calculatedAmount,
     escrowAddress,
     refundWallet: cleanRefundWallet,
-    txHash,
-    confirmationEmailSent: true,
+    confirmationEmailSent: false,
     sentEmailDetails: emailDetails,
     items: quote.items,
-    shippingAddress: data.shippingAddress
+    shippingAddress: data.shippingAddress,
+    createdAt: nowIso
   };
+}
+
+export function getClaimedTxHashes(excludeOrderNumber?: string): string[] {
+  const cleanExclude = excludeOrderNumber?.trim().toLowerCase();
+  return globalStore.orders
+    .filter((o) => (!cleanExclude || o.orderNumber.toLowerCase() !== cleanExclude) && Boolean(o.txHash))
+    .map((o) => o.txHash as string);
+}
+
+export function updateOrderPaymentVerification(
+  orderNumber: string,
+  payload: {
+    status: "confirming" | "paid";
+    txHash?: string;
+    confirmations?: number;
+    explorerUrl?: string;
+  }
+) {
+  const cleanOrder = orderNumber.trim().toLowerCase();
+  const order = globalStore.orders.find((o) => o.orderNumber.toLowerCase() === cleanOrder);
+  if (!order) return null;
+
+  const nowIso = new Date().toISOString();
+  if (payload.txHash) order.txHash = payload.txHash;
+  if (typeof payload.confirmations === "number") order.confirmations = payload.confirmations;
+  if (payload.explorerUrl) order.explorerUrl = payload.explorerUrl;
+  order.updatedAt = nowIso;
+
+  if (payload.status === "confirming" && order.paymentStatus !== "paid") {
+    order.paymentStatus = "confirming";
+  }
+
+  if (payload.status === "paid" && order.paymentStatus !== "paid") {
+    order.paymentStatus = "paid";
+    order.orderStatus = "confirmed";
+    order.fulfillmentStatus = "processing";
+    order.confirmationEmailSent = true;
+    order.verifiedAt = nowIso;
+    order.sentEmailDetails = {
+      to: order.email,
+      subject: `Order ${order.orderNumber} Confirmed & Live Armored Tracking Details`,
+      sentAt: nowIso,
+      trackingNumber: order.trackingNumber || `TRK-NS-${order.orderNumber.replace(/\D/g, "")}`,
+      carrier: order.carrier || "24-Hour US Private Armored Air Courier",
+      summary: `${order.items.length} item(s) verified on-chain (${order.cryptoAmount} ${order.cryptoCurrency}) under 14-Day Inspection Protection.`
+    };
+    globalStore.auditLogs.push({
+      _id: `log-${Date.now()}`,
+      action: "ONCHAIN_PAYMENT_VERIFIED",
+      entity: "Order",
+      entityId: order.orderNumber,
+      createdAt: nowIso
+    });
+  }
+
+  return order;
 }
 
 export function getOrderDetails(identifier: string) {

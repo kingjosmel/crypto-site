@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createOrderRecord, getOrdersByEmail, getOrderDetails, getUserOrders, verifyAuthToken } from "@/lib/catalogData";
+import { fetchBaselineTxIds } from "@/lib/blockchainVerifier";
 import { validateRefundWallet, type SupportedCryptoAsset } from "@/lib/walletValidation";
+
+const DEFAULT_ESCROW_ADDRESSES: Record<SupportedCryptoAsset, string> = {
+  BTC: "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu",
+  ETH: "0x120D139dB706614f71e470A97852679F6FaebcB7",
+  SOL: "X2ro74HaRbZ2XKDJ57yMmsKFD3CS4y9XFKtzSeQkCQ1",
+};
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,6 +40,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: walletValidation.error }, { status: 400 });
     }
 
+    const targetEscrowAddress = String(escrowAddress || DEFAULT_ESCROW_ADDRESSES[resolvedCurrency]).trim();
+    const baselineTxIds = await fetchBaselineTxIds(resolvedCurrency, targetEscrowAddress);
+
     // Optional auth header (customers do not need to log in)
     const authHeader = request.headers.get("authorization");
     let userId: string | null = null;
@@ -51,8 +61,9 @@ export async function POST(request: NextRequest) {
       paymentMethod,
       cryptoCurrency: resolvedCurrency,
       cryptoAmount,
-      escrowAddress,
+      escrowAddress: targetEscrowAddress,
       refundWallet: walletValidation.cleaned,
+      baselineTxIds,
       userId
     });
 

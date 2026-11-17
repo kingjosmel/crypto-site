@@ -41,6 +41,8 @@ type OrderData = {
   escrowAddress?: string;
   refundWallet?: string;
   txHash?: string;
+  confirmations?: number;
+  explorerUrl?: string;
   carrier?: string;
   trackingNumber?: string;
   estimatedDelivery?: string;
@@ -67,6 +69,8 @@ export default function TrackPage() {
   const [walletAddressInput, setWalletAddressInput] = useState("");
   const [walletStatus, setWalletStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const [isSavingWallet, setIsSavingWallet] = useState(false);
+  const [isCheckingChain, setIsCheckingChain] = useState(false);
+  const [chainCheckNotice, setChainCheckNotice] = useState<string | null>(null);
 
   // Handle URL query parameters (e.g. /track?order=NS-00000001 or /track?email=...)
   useEffect(() => {
@@ -170,6 +174,38 @@ export default function TrackPage() {
     }
   }
 
+  async function handleCheckChainPayment() {
+    if (!activeOrder) return;
+    setIsCheckingChain(true);
+    setChainCheckNotice(null);
+    try {
+      const response = await fetch(
+        `/api/orders/${encodeURIComponent(activeOrder.orderNumber)}/verify-payment`,
+        { cache: "no-store" }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Unable to verify on-chain status.");
+      }
+      if (data.order) {
+        setActiveOrder(data.order);
+      } else {
+        setActiveOrder({
+          ...activeOrder,
+          paymentStatus: data.status || activeOrder.paymentStatus,
+          txHash: data.txHash || activeOrder.txHash,
+          confirmations: data.confirmations ?? activeOrder.confirmations,
+          explorerUrl: data.explorerUrl || activeOrder.explorerUrl,
+        });
+      }
+      setChainCheckNotice(data.message || "Checked blockchain status.");
+    } catch (err) {
+      setChainCheckNotice(err instanceof Error ? err.message : "Could not check blockchain right now.");
+    } finally {
+      setIsCheckingChain(false);
+    }
+  }
+
   return (
     <SiteShell>
       <section className="account-panel">
@@ -266,13 +302,42 @@ export default function TrackPage() {
               </button>
             )}
 
-            {/* Email Dispatch Notice */}
-            <div style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.25)", borderRadius: "2px", marginBottom: "28px" }}>
-              <span style={{ fontSize: "20px" }}>✉️</span>
-              <div style={{ fontSize: "13px", lineHeight: "1.5" }}>
-                <strong>Dispatch Notice Sent:</strong> A comprehensive purchase invoice, digital authenticity certificate, and real-time tracking links were dispatched directly to <strong>{activeOrder.email}</strong>.
+            {/* Payment / Dispatch Notice */}
+            {activeOrder.paymentStatus === "paid" ? (
+              <div style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.25)", borderRadius: "2px", marginBottom: "28px" }}>
+                <span style={{ fontSize: "20px" }}>✉️</span>
+                <div style={{ fontSize: "13px", lineHeight: "1.5" }}>
+                  <strong>Dispatch Notice Sent:</strong> On-chain payment is verified. A comprehensive purchase invoice, digital authenticity certificate, and real-time tracking links were dispatched directly to <strong>{activeOrder.email}</strong>.
+                </div>
               </div>
-            </div>
+            ) : (
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "14px", padding: "16px 20px", background: "rgba(245, 158, 11, 0.08)", border: "1px solid rgba(245, 158, 11, 0.35)", borderRadius: "2px", marginBottom: "28px" }}>
+                <div style={{ fontSize: "13px", lineHeight: "1.5", flex: "1 1 280px" }}>
+                  <strong>
+                    {activeOrder.paymentStatus === "confirming"
+                      ? "Transfer Detected in Mempool — Confirming:"
+                      : "Awaiting On-Chain Payment:"}
+                  </strong>{" "}
+                  {activeOrder.paymentStatus === "confirming"
+                    ? `We detected your ${activeOrder.cryptoCurrency || "crypto"} transfer on-chain. Courier dispatch activates once confirmation completes.`
+                    : `Order ${activeOrder.orderNumber} is reserved. Send ${activeOrder.cryptoAmount || ""} ${activeOrder.cryptoCurrency || "BTC"} to the escrow address below to release courier dispatch.`}
+                  {chainCheckNotice && (
+                    <span style={{ display: "block", marginTop: "6px", color: "#92400e", fontSize: "12px" }}>
+                      {chainCheckNotice}
+                    </span>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => void handleCheckChainPayment()}
+                  disabled={isCheckingChain}
+                  className="button button-dark text-white"
+                  style={{ color: "#ffffff", padding: "10px 16px", fontSize: "12px" }}
+                >
+                  {isCheckingChain ? "Checking Blockchain…" : "Check On-Chain Payment"}
+                </button>
+              </div>
+            )}
 
             {/* Telemetry Overview Cards */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: "16px", marginBottom: "35px" }}>
@@ -292,15 +357,31 @@ export default function TrackPage() {
               </div>
               <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px 20px", borderRadius: "2px" }}>
                 <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Estimated Handover</span>
-                <strong style={{ fontSize: "15px", color: "#10b981" }}>{activeOrder.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA"}</strong>
+                <strong style={{ fontSize: "15px", color: activeOrder.paymentStatus === "paid" ? "#10b981" : "#b45309" }}>
+                  {activeOrder.paymentStatus === "paid"
+                    ? activeOrder.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA"
+                    : "Pending On-Chain Payment"}
+                </strong>
               </div>
             </div>
 
             {/* Crypto Settlement Telemetry */}
             <div style={{ background: "#ffffff", border: "1px solid #cccccc", padding: "18px 20px", borderRadius: "2px", marginBottom: "35px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px", flexWrap: "wrap", gap: "8px" }}>
-                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 700, color: "#10b981" }}>
-                  ● Escrow-Protected Crypto Settlement
+                <span
+                  style={{
+                    fontSize: "11px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    fontWeight: 700,
+                    color: activeOrder.paymentStatus === "paid" ? "#10b981" : "#b45309",
+                  }}
+                >
+                  {activeOrder.paymentStatus === "paid"
+                    ? "✓ Escrow-Protected Crypto Settlement Verified"
+                    : activeOrder.paymentStatus === "confirming"
+                    ? "● Mempool Transfer Detected · Confirming"
+                    : "○ Awaiting On-Chain Crypto Transfer"}
                 </span>
                 <span style={{ fontSize: "11px", color: "var(--muted)" }}>
                   14-Day Inspection Escrow
@@ -327,6 +408,16 @@ export default function TrackPage() {
                     <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "2px 5px", borderRadius: "2px", display: "block" }}>
                       {activeOrder.txHash}
                     </code>
+                    {activeOrder.explorerUrl && (
+                      <a
+                        href={activeOrder.explorerUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ fontSize: "11px", color: "#047857", textDecoration: "underline", display: "inline-block", marginTop: "4px" }}
+                      >
+                        View on Explorer ↗
+                      </a>
+                    )}
                   </div>
                 )}
                 {activeOrder.refundWallet && (
@@ -418,18 +509,91 @@ export default function TrackPage() {
             <div style={{ marginBottom: "40px" }}>
               <p className="eyebrow" style={{ marginBottom: "16px" }}>Security & Transit Milestones</p>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "10px" }}>
-                <div style={{ padding: "14px", border: "1px solid #10b981", background: "rgba(16, 185, 129, 0.05)", borderRadius: "2px" }}>
-                  <span style={{ fontSize: "11px", color: "#10b981", fontWeight: 700, display: "block", marginBottom: "4px" }}>✓ COMPLETED</span>
-                  <strong style={{ fontSize: "13px", display: "block" }}>{activeOrder.cryptoCurrency || "Crypto"} Escrow Cleared</strong>
-                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>On-chain finality</span>
+                <div
+                  style={{
+                    padding: "14px",
+                    border:
+                      activeOrder.paymentStatus === "paid"
+                        ? "1px solid #10b981"
+                        : "1px solid #d97706",
+                    background:
+                      activeOrder.paymentStatus === "paid"
+                        ? "rgba(16, 185, 129, 0.05)"
+                        : "rgba(245, 158, 11, 0.06)",
+                    borderRadius: "2px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      color: activeOrder.paymentStatus === "paid" ? "#10b981" : "#b45309",
+                      fontWeight: 700,
+                      display: "block",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {activeOrder.paymentStatus === "paid"
+                      ? "✓ COMPLETED"
+                      : activeOrder.paymentStatus === "confirming"
+                      ? "● CONFIRMING"
+                      : "● AWAITING"}
+                  </span>
+                  <strong style={{ fontSize: "13px", display: "block" }}>
+                    {activeOrder.paymentStatus === "paid"
+                      ? `${activeOrder.cryptoCurrency || "Crypto"} Escrow Cleared`
+                      : `${activeOrder.cryptoCurrency || "Crypto"} Payment Listener`}
+                  </strong>
+                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>
+                    {activeOrder.paymentStatus === "paid"
+                      ? "On-chain finality"
+                      : activeOrder.paymentStatus === "confirming"
+                      ? "Mempool transfer detected"
+                      : "Awaiting incoming funds"}
+                  </span>
                 </div>
-                <div style={{ padding: "14px", border: "1px solid #10b981", background: "rgba(16, 185, 129, 0.05)", borderRadius: "2px" }}>
-                  <span style={{ fontSize: "11px", color: "#10b981", fontWeight: 700, display: "block", marginBottom: "4px" }}>✓ COMPLETED</span>
+                <div
+                  style={{
+                    padding: "14px",
+                    border: activeOrder.paymentStatus === "paid" ? "1px solid #10b981" : "1px solid var(--line)",
+                    background: activeOrder.paymentStatus === "paid" ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                    opacity: activeOrder.paymentStatus === "paid" ? 1 : 0.65,
+                    borderRadius: "2px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      color: activeOrder.paymentStatus === "paid" ? "#10b981" : "var(--muted)",
+                      fontWeight: 700,
+                      display: "block",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {activeOrder.paymentStatus === "paid" ? "✓ COMPLETED" : "○ PENDING"}
+                  </span>
                   <strong style={{ fontSize: "13px", display: "block" }}>Vault Authentication</strong>
                   <span style={{ fontSize: "11px", color: "var(--muted)" }}>Microchip & tag seal</span>
                 </div>
-                <div style={{ padding: "14px", border: "1px solid var(--foreground)", background: "var(--paper)", borderRadius: "2px" }}>
-                  <span style={{ fontSize: "11px", color: "var(--foreground)", fontWeight: 700, display: "block", marginBottom: "4px" }}>● ACTIVE</span>
+                <div
+                  style={{
+                    padding: "14px",
+                    border: activeOrder.paymentStatus === "paid" ? "1px solid var(--foreground)" : "1px solid var(--line)",
+                    background: "var(--paper)",
+                    opacity: activeOrder.paymentStatus === "paid" ? 1 : 0.65,
+                    borderRadius: "2px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      color: activeOrder.paymentStatus === "paid" ? "var(--foreground)" : "var(--muted)",
+                      fontWeight: 700,
+                      display: "block",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {activeOrder.paymentStatus === "paid" ? "● ACTIVE" : "○ NEXT"}
+                  </span>
                   <strong style={{ fontSize: "13px", display: "block" }}>Armored Handover</strong>
                   <span style={{ fontSize: "11px", color: "var(--muted)" }}>Serialized tamper bag</span>
                 </div>
@@ -483,7 +647,15 @@ export default function TrackPage() {
                 <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "6px" }}>Financial Record</span>
                 <p style={{ margin: 0, fontSize: "14px", lineHeight: "1.6" }}>
                   Total Declared Value: <strong>{formatPrice(activeOrder.totalCents)}</strong><br />
-                  Payment Status: <strong style={{ color: "#10b981" }}>Confirmed ({activeOrder.paymentStatus})</strong><br />
+                  Payment Status:{" "}
+                  <strong style={{ color: activeOrder.paymentStatus === "paid" ? "#10b981" : "#b45309" }}>
+                    {activeOrder.paymentStatus === "paid"
+                      ? `Confirmed (${activeOrder.paymentStatus})`
+                      : activeOrder.paymentStatus === "confirming"
+                      ? "Confirming on-chain (confirming)"
+                      : "Awaiting On-Chain Payment (awaiting_payment)"}
+                  </strong>
+                  <br />
                   Transit Insurance: <strong>Complimentary 100% Full-Value Indemnity</strong>
                 </p>
               </div>

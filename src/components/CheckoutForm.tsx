@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { CreditCard, Lock, ShieldCheck, Wallet } from "lucide-react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { CheckCircle2, Clock, CreditCard, ExternalLink, Lock, RefreshCw, ShieldCheck, Wallet } from "lucide-react";
 import { formatPrice } from "@/lib/api";
 import { parseCart, writeCart, addToCart, getCartSnapshot, type CartItem } from "@/lib/cart";
 import { INITIAL_PRODUCTS } from "@/lib/catalogData";
@@ -81,6 +81,7 @@ type CompletedOrder = {
   escrowAddress: string;
   refundWallet?: string;
   txHash?: string;
+  explorerUrl?: string;
   items: {
     productId: string;
     name: string;
@@ -99,6 +100,17 @@ type CompletedOrder = {
   };
 };
 
+type VerificationBannerState = {
+  status: "awaiting_payment" | "confirming" | "paid" | "provider_error";
+  message: string;
+  txHash?: string;
+  confirmations?: number;
+  explorerUrl?: string;
+  checkedAt?: string;
+};
+
+const PENDING_ORDER_STORAGE_KEY = "northstar-pending-crypto-order";
+
 const subscribe = (callback: () => void) => {
   if (typeof window === "undefined") return () => {};
   window.addEventListener("northstar-cart-change", callback);
@@ -113,7 +125,11 @@ export function CheckoutForm() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [awaitingOrder, setAwaitingOrder] = useState<CompletedOrder | null>(null);
   const [completedOrder, setCompletedOrder] = useState<CompletedOrder | null>(null);
+  const [verificationState, setVerificationState] = useState<VerificationBannerState | null>(null);
+  const [checkingChain, setCheckingChain] = useState(false);
+  const [manualTxHashInput, setManualTxHashInput] = useState("");
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethodSelection>(null);
   const [cryptoCurrency, setCryptoCurrency] = useState<CryptoCurrency>("BTC");
   const [refundWallet, setRefundWallet] = useState("");
@@ -158,6 +174,130 @@ export function CheckoutForm() {
       console.error("Auto buyNow recovery error:", err);
     }
   }, []);
+
+  // Resume pending on-chain payment listener if page refreshed
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const savedOrderNumber = window.sessionStorage?.getItem(PENDING_ORDER_STORAGE_KEY);
+      if (!savedOrderNumber) return;
+      void fetch(`/api/orders/${encodeURIComponent(savedOrderNumber)}`)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((order) => {
+          if (!order || !order.orderNumber) {
+            window.sessionStorage?.removeItem(PENDING_ORDER_STORAGE_KEY);
+            return;
+          }
+          const mapped: CompletedOrder = {
+            orderNumber: order.orderNumber,
+            trackingNumber: order.trackingNumber || `TRK-NS-${order.orderNumber.replace(/\D/g, "")}`,
+            carrier: order.carrier || "24-Hour US Private Armored Air Courier",
+            estimatedDelivery: order.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA",
+            totalCents: order.totalCents,
+            email: order.email,
+            customerName: order.customerName,
+            paymentMethod: order.paymentMethod || "CRYPTO_BTC",
+            cryptoCurrency: order.cryptoCurrency || "BTC",
+            cryptoAmount: order.cryptoAmount || "0",
+            escrowAddress: order.escrowAddress || CRYPTO_CONFIG[(order.cryptoCurrency as CryptoCurrency) || "BTC"].address,
+            refundWallet: order.refundWallet,
+            txHash: order.txHash,
+            explorerUrl: order.explorerUrl,
+            items: order.items || [],
+            shippingAddress: order.shippingAddress,
+          };
+          if (order.paymentStatus === "paid") {
+            window.sessionStorage?.removeItem(PENDING_ORDER_STORAGE_KEY);
+            writeCart([]);
+            setCompletedOrder(mapped);
+          } else {
+            setAwaitingOrder(mapped);
+          }
+        })
+        .catch(() => {});
+    } catch {
+      // Ignore storage failures
+    }
+  }, []);
+
+  const verifyPendingOrder = useCallback(async (orderNumber: string, manualTx?: string) => {
+    setCheckingChain(true);
+    try {
+      const qs = manualTx?.trim() ? `?txHash=${encodeURIComponent(manualTx.trim())}` : "";
+      const res = await fetch(`/api/orders/${encodeURIComponent(orderNumber)}/verify-payment${qs}`, {
+        cache: "no-store",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setVerificationState({
+          status: "provider_error",
+          message: data.error || "Unable to verify payment status right now.",
+        });
+        return;
+      }
+
+      setVerificationState({
+        status: data.status || "awaiting_payment",
+        message: data.message || "Listening for incoming transfer...",
+        txHash: data.txHash,
+        confirmations: data.confirmations,
+        explorerUrl: data.explorerUrl,
+        checkedAt: data.checkedAt,
+      });
+
+      if (data.verified && data.status === "paid" && data.order) {
+        if (typeof window !== "undefined") {
+          try {
+            window.sessionStorage?.removeItem(PENDING_ORDER_STORAGE_KEY);
+          } catch {
+            // ignore
+          }
+        }
+        writeCart([]);
+        setCompletedOrder({
+          orderNumber: data.order.orderNumber,
+          trackingNumber: data.order.trackingNumber,
+          carrier: data.order.carrier || "24-Hour US Private Armored Air Courier",
+          estimatedDelivery: data.order.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA",
+          totalCents: data.order.totalCents,
+          email: data.order.email,
+          customerName: data.order.customerName,
+          paymentMethod: data.order.paymentMethod,
+          cryptoCurrency: data.order.cryptoCurrency || "BTC",
+          cryptoAmount: data.order.cryptoAmount,
+          escrowAddress: data.order.escrowAddress,
+          refundWallet: data.order.refundWallet,
+          txHash: data.txHash || data.order.txHash,
+          explorerUrl: data.explorerUrl || data.order.explorerUrl,
+          items: data.order.items || [],
+          shippingAddress: data.order.shippingAddress,
+        });
+        setAwaitingOrder(null);
+      }
+    } catch {
+      setVerificationState({
+        status: "provider_error",
+        message: "Connection issue checking blockchain. Retrying automatically...",
+      });
+    } finally {
+      setCheckingChain(false);
+    }
+  }, []);
+
+  const awaitingOrderNumber = awaitingOrder?.orderNumber || "";
+  useEffect(() => {
+    if (!awaitingOrderNumber) return;
+    const initialTimer = setTimeout(() => {
+      void verifyPendingOrder(awaitingOrderNumber);
+    }, 0);
+    const interval = setInterval(() => {
+      void verifyPendingOrder(awaitingOrderNumber);
+    }, 6000);
+    return () => {
+      clearTimeout(initialTimer);
+      clearInterval(interval);
+    };
+  }, [awaitingOrderNumber, verifyPendingOrder]);
 
   // Cart summary calculations
   const subtotalCents = cart.reduce((acc, item) => acc + item.priceCents * item.qty, 0);
@@ -295,7 +435,7 @@ export function CheckoutForm() {
         throw new Error(data.error || "Unable to place order.");
       }
 
-      setCompletedOrder({
+      const pendingOrder: CompletedOrder = {
         orderNumber: data.orderNumber,
         trackingNumber: data.trackingNumber,
         carrier: data.carrier || "Dedicated 24-Hour Express Courier",
@@ -308,12 +448,23 @@ export function CheckoutForm() {
         cryptoAmount: data.cryptoAmount || calculatedCryptoAmount,
         escrowAddress: data.escrowAddress || currentCrypto.address,
         refundWallet: data.refundWallet || (refundWallet.trim() || undefined),
-        txHash: data.txHash,
         items: data.items,
         shippingAddress: data.shippingAddress,
-      });
+      };
 
-      writeCart([]);
+      if (typeof window !== "undefined") {
+        try {
+          window.sessionStorage?.setItem(PENDING_ORDER_STORAGE_KEY, data.orderNumber);
+        } catch {
+          // ignore
+        }
+      }
+
+      setVerificationState({
+        status: "awaiting_payment",
+        message: `Listening on ${currentCrypto.name} blockchain for ${pendingOrder.cryptoAmount} ${pendingOrder.cryptoCurrency}...`,
+      });
+      setAwaitingOrder(pendingOrder);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to place order.");
     } finally {
@@ -329,7 +480,218 @@ export function CheckoutForm() {
     }
   }
 
-  // Confirmation View
+  // Live On-Chain Escrow Listener View (before order confirmation)
+  if (awaitingOrder && !completedOrder) {
+    const coinConfig = CRYPTO_CONFIG[awaitingOrder.cryptoCurrency];
+    const isConfirming = verificationState?.status === "confirming";
+
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16">
+        <div className="bg-white border border-[#dcdcdc] rounded-xs p-6 sm:p-10 shadow-sm space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-[#e5e5e5]">
+            <div>
+              <span className="inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-wider text-[#047857] mb-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
+                {isConfirming
+                  ? `${coinConfig.name} Mempool Detected · Confirming`
+                  : `Live ${coinConfig.name} Escrow Listener Active`}
+              </span>
+              <h1 className="font-serif text-2xl sm:text-3xl text-neutral-950 font-normal">
+                Awaiting {coinConfig.symbol} Payment Verification
+              </h1>
+              <p className="text-xs text-neutral-600 mt-1">
+                Order <strong className="font-mono text-neutral-950">{awaitingOrder.orderNumber}</strong> is reserved. Send the exact amount below—your confirmation screen opens automatically once funds are verified on-chain.
+              </p>
+            </div>
+            <div className="text-left sm:text-right shrink-0">
+              <span className="text-[10px] uppercase tracking-wider text-neutral-400 block">Order Total</span>
+              <strong className="font-mono text-lg text-neutral-950 block">{formatPrice(awaitingOrder.totalCents)}</strong>
+              <span className="font-mono text-xs font-semibold text-[#a3702b]">
+                {awaitingOrder.cryptoAmount} {awaitingOrder.cryptoCurrency}
+              </span>
+            </div>
+          </div>
+
+          {/* Live Blockchain Status Banner */}
+          <div
+            className={`p-4 rounded-xs border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs ${
+              isConfirming
+                ? "bg-amber-50 border-amber-200 text-amber-950"
+                : "bg-[#fafafa] border-[#dcdcdc] text-neutral-800"
+            }`}
+            aria-live="polite"
+          >
+            <div className="flex items-start gap-2.5">
+              {isConfirming ? (
+                <CheckCircle2 className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" aria-hidden="true" />
+              ) : (
+                <Clock className="w-4 h-4 text-[#047857] shrink-0 mt-0.5" aria-hidden="true" />
+              )}
+              <div>
+                <strong className="block text-xs font-semibold">
+                  {verificationState?.message || `Listening for ${awaitingOrder.cryptoAmount} ${awaitingOrder.cryptoCurrency}...`}
+                </strong>
+                <span className="text-[11px] text-neutral-500 block mt-0.5">
+                  Checking automatically every 6 seconds via{" "}
+                  {awaitingOrder.cryptoCurrency === "BTC"
+                    ? "Mempool.space"
+                    : awaitingOrder.cryptoCurrency === "ETH"
+                    ? "Alchemy Ethereum Mainnet"
+                    : "Alchemy Solana Mainnet"}
+                  {verificationState?.checkedAt ? ` · Last checked ${new Date(verificationState.checkedAt).toLocaleTimeString()}` : ""}
+                </span>
+                {verificationState?.txHash && (
+                  <div className="mt-1.5 flex items-center gap-2 flex-wrap">
+                    <span className="text-[11px] font-mono break-all text-neutral-700">
+                      TX: {verificationState.txHash}
+                    </span>
+                    {verificationState.explorerUrl && (
+                      <a
+                        href={verificationState.explorerUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#047857] hover:underline"
+                      >
+                        View Explorer <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => void verifyPendingOrder(awaitingOrder.orderNumber, manualTxHashInput)}
+              disabled={checkingChain}
+              className="px-3.5 py-2 bg-neutral-950 hover:bg-neutral-800 text-white text-[11px] font-semibold uppercase tracking-wider rounded-xs shrink-0 inline-flex items-center gap-1.5 cursor-pointer disabled:opacity-70"
+              style={{ color: "#ffffff", backgroundColor: "#0f0f0f" }}
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${checkingChain ? "animate-spin" : ""}`} aria-hidden="true" />
+              <span style={{ color: "#ffffff" }}>{checkingChain ? "Checking…" : "Check Now"}</span>
+            </button>
+          </div>
+
+          {/* QR Code & Deposit Coordinates */}
+          <div className="border border-[#d4d4d4] bg-[#fafafa] p-5 rounded-xs">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              <CryptoQRCode
+                address={awaitingOrder.escrowAddress}
+                symbol={awaitingOrder.cryptoCurrency}
+                amount={awaitingOrder.cryptoAmount}
+                size={150}
+                showWalletLink={true}
+                className="shrink-0"
+              />
+
+              <div className="flex-1 min-w-0 space-y-3 w-full">
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                      Send Exact {coinConfig.name} To Escrow Address
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(awaitingOrder.escrowAddress, "await-addr")}
+                      className="text-[11px] font-semibold uppercase tracking-wider text-[#a3702b] hover:underline cursor-pointer"
+                    >
+                      {copiedField === "await-addr" ? "Copied" : "Copy"}
+                    </button>
+                  </div>
+                  <div className="p-2.5 bg-white border border-[#cccccc] font-mono text-xs text-neutral-900 break-all select-all">
+                    {awaitingOrder.escrowAddress}
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500">
+                      Exact Amount Due
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(awaitingOrder.cryptoAmount, "await-amt")}
+                      className="text-[11px] font-semibold uppercase tracking-wider text-[#a3702b] hover:underline cursor-pointer"
+                    >
+                      {copiedField === "await-amt" ? "Copied" : "Copy"}
+                    </button>
+                  </div>
+                  <div className="p-2.5 bg-white border border-[#cccccc] flex justify-between items-center">
+                    <span className="font-mono text-sm font-bold text-neutral-950">
+                      {awaitingOrder.cryptoAmount} {awaitingOrder.cryptoCurrency}
+                    </span>
+                    <span className="text-xs text-neutral-500 font-mono">
+                      ≈ {formatPrice(awaitingOrder.totalCents)}
+                    </span>
+                  </div>
+                </div>
+
+                {awaitingOrder.refundWallet && (
+                  <div className="text-[11px] text-[#047857] font-mono bg-white border border-[#dcdcdc] px-2.5 py-2 rounded-xs truncate">
+                    Return Wallet: {awaitingOrder.refundWallet}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Optional Direct TX Hash Verification */}
+          <div className="border-t border-[#e5e5e5] pt-5 space-y-2">
+            <label htmlFor="manualTxHashInput" className="block text-[11px] font-bold uppercase tracking-wider text-neutral-600">
+              Already sent from your wallet? Paste Transaction Hash (Optional)
+            </label>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                id="manualTxHashInput"
+                type="text"
+                value={manualTxHashInput}
+                onChange={(e) => setManualTxHashInput(e.target.value)}
+                placeholder={`Paste ${coinConfig.symbol} transaction hash / signature`}
+                className="flex-1 px-3 py-2.5 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none text-xs font-mono text-neutral-900"
+              />
+              <button
+                type="button"
+                disabled={checkingChain || !manualTxHashInput.trim()}
+                onClick={() => void verifyPendingOrder(awaitingOrder.orderNumber, manualTxHashInput)}
+                className="px-4 py-2.5 bg-white hover:bg-neutral-50 border border-[#cccccc] text-neutral-900 text-xs font-semibold uppercase tracking-wider cursor-pointer disabled:opacity-50"
+              >
+                Verify TXID
+              </button>
+            </div>
+          </div>
+
+          {/* Footer Actions */}
+          <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-[#e5e5e5] text-xs">
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  try {
+                    window.sessionStorage?.removeItem(PENDING_ORDER_STORAGE_KEY);
+                  } catch {
+                    // ignore
+                  }
+                }
+                setAwaitingOrder(null);
+                setVerificationState(null);
+              }}
+              className="text-neutral-600 hover:text-black underline cursor-pointer"
+            >
+              ← Change payment method or coin
+            </button>
+            <Link
+              href={`/track?order=${encodeURIComponent(awaitingOrder.orderNumber)}`}
+              className="text-[#047857] font-semibold hover:underline"
+            >
+              Track {awaitingOrder.orderNumber} status →
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Confirmation View (Shown ONLY after payment is verified on-chain)
   if (completedOrder) {
     const coinConfig = CRYPTO_CONFIG[completedOrder.cryptoCurrency];
 
@@ -400,11 +762,23 @@ export function CheckoutForm() {
                 </span>
               </div>
               {completedOrder.txHash && (
-                <div className="flex justify-between items-center bg-white p-2.5 border border-[#dcdcdc] rounded-xs">
-                  <span className="text-neutral-500">Transaction Hash:</span>
-                  <span className="font-mono text-neutral-800 truncate ml-2 max-w-[260px] sm:max-w-none">
-                    {completedOrder.txHash}
-                  </span>
+                <div className="flex justify-between items-center bg-white p-2.5 border border-[#dcdcdc] rounded-xs gap-2">
+                  <span className="text-neutral-500 shrink-0">Verified Transaction Hash:</span>
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="font-mono text-neutral-800 truncate max-w-[220px] sm:max-w-[340px]">
+                      {completedOrder.txHash}
+                    </span>
+                    {completedOrder.explorerUrl && (
+                      <a
+                        href={completedOrder.explorerUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] font-semibold text-[#047857] hover:underline shrink-0"
+                      >
+                        Explorer ↗
+                      </a>
+                    )}
+                  </div>
                 </div>
               )}
               {completedOrder.refundWallet && (
