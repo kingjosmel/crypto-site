@@ -62,7 +62,7 @@ export default async function ShopPage({
                 <span>·</span>
                 <span className="text-[#047857] font-sans font-medium flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
-                  All In Stock & Ready for Armored Dispatch
+                  All Inspected &amp; Ready for Insured Dispatch
                 </span>
               </div>
             </div>

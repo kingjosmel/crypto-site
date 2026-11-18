@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { SiteShell } from "@/components/SiteShell";
 import { formatPrice } from "@/lib/api";
+import { INITIAL_PRODUCTS } from "@/lib/catalogData";
 
 type OrderItem = {
   productId: string;
@@ -113,7 +114,6 @@ export default function TrackPage() {
         const items: OrderData[] = data.items || (data.orderNumber ? [data] : []);
 
         if (items.length === 0) {
-          // Fallback to guest order endpoint
           const guestResponse = await fetch(`/api/orders/guest/${encodeURIComponent(clean)}`);
           if (guestResponse.ok) {
             const guestData = await guestResponse.json();
@@ -206,6 +206,12 @@ export default function TrackPage() {
     }
   }
 
+  const isPaid = activeOrder?.paymentStatus === "paid";
+  const isConfirming = activeOrder?.paymentStatus === "confirming";
+  const isDispatched =
+    activeOrder?.fulfillmentStatus === "shipped" || activeOrder?.fulfillmentStatus === "delivered";
+  const isDelivered = activeOrder?.fulfillmentStatus === "delivered";
+
   return (
     <SiteShell>
       <section className="account-panel">
@@ -214,17 +220,17 @@ export default function TrackPage() {
           <div>
             <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "4px 12px", borderRadius: "100px", fontSize: "12px", color: "#10b981", fontWeight: 600, marginBottom: "12px", letterSpacing: "0.05em", textTransform: "uppercase" }}>
               <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
-              Direct Armored Courier Telemetry
+              Insured Express Courier Tracking
             </div>
             <h1 style={{ margin: "0 0 10px", fontSize: "36px", letterSpacing: "-0.03em" }}>Track Your Order</h1>
             <p style={{ color: "var(--muted)", fontSize: "16px", margin: 0, lineHeight: "1.6" }}>
-              No login required. Enter your <strong>order number</strong> (e.g. <code>NS-00000001</code>) or the <strong>email address</strong> you used at checkout to access live dispatch telemetry and courier tracking.
+              Enter your <strong>order number</strong> (e.g. <code>NS-00000001</code>) or the <strong>email address</strong> used at checkout to check payment confirmation, pre-shipment inspection, and courier delivery milestones.
             </p>
           </div>
           <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", overflow: "hidden", borderRadius: "2px", border: "1px solid var(--line)" }}>
             <Image
               src="/images/editorial_white_glove_courier.jpg"
-              alt="White glove luxury courier dispatch and vault security"
+              alt="Insured express luxury courier dispatch and packaging"
               fill
               quality={95}
               sizes="(max-width: 768px) 100vw, 500px"
@@ -247,12 +253,12 @@ export default function TrackPage() {
               style={{ fontSize: "16px", padding: "14px 16px" }}
             />
           </label>
-          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+          <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
             <button className="button button-dark text-white" type="submit" disabled={isPending} style={{ color: "#ffffff" }}>
-              {isPending ? "Retrieving Telemetry…" : "Locate Dispatch"}
+              {isPending ? "Retrieving Status…" : "Locate Order"}
             </button>
             <span style={{ fontSize: "13px", color: "var(--muted)" }}>
-              Tip: You can also search by sample order <code>NS-00000001</code>
+              Tip: Try sample order <code>NS-00000001</code>
             </span>
           </div>
         </form>
@@ -282,7 +288,7 @@ export default function TrackPage() {
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <strong style={{ fontSize: "16px", display: "block" }}>{formatPrice(order.totalCents)}</strong>
-                    <span style={{ fontSize: "12px", color: "var(--accent)" }}>View Live Tracking →</span>
+                    <span style={{ fontSize: "12px", color: "var(--accent)" }}>View Tracking →</span>
                   </div>
                 </div>
               ))}
@@ -303,24 +309,27 @@ export default function TrackPage() {
             )}
 
             {/* Payment / Dispatch Notice */}
-            {activeOrder.paymentStatus === "paid" ? (
+            {isPaid ? (
               <div style={{ display: "flex", alignItems: "center", gap: "14px", padding: "16px 20px", background: "rgba(16, 185, 129, 0.08)", border: "1px solid rgba(16, 185, 129, 0.25)", borderRadius: "2px", marginBottom: "28px" }}>
-                <span style={{ fontSize: "20px" }}>✉️</span>
                 <div style={{ fontSize: "13px", lineHeight: "1.5" }}>
-                  <strong>Dispatch Notice Sent:</strong> On-chain payment is verified. A comprehensive purchase invoice, digital authenticity certificate, and real-time tracking links were dispatched directly to <strong>{activeOrder.email}</strong>.
+                  <strong>Payment Confirmed:</strong>{" "}
+                  {isDispatched
+                    ? `Your order has been collected by ${activeOrder.carrier || "our insured courier"} and is in transit. Updates are sent to `
+                    : "On-chain payment is verified. Our specialists are completing pre-shipment inspection and packaging before courier collection. Updates go to "}
+                  <strong>{activeOrder.email}</strong>.
                 </div>
               </div>
             ) : (
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "14px", padding: "16px 20px", background: "rgba(245, 158, 11, 0.08)", border: "1px solid rgba(245, 158, 11, 0.35)", borderRadius: "2px", marginBottom: "28px" }}>
                 <div style={{ fontSize: "13px", lineHeight: "1.5", flex: "1 1 280px" }}>
                   <strong>
-                    {activeOrder.paymentStatus === "confirming"
+                    {isConfirming
                       ? "Transfer Detected in Mempool — Confirming:"
                       : "Awaiting On-Chain Payment:"}
                   </strong>{" "}
-                  {activeOrder.paymentStatus === "confirming"
-                    ? `We detected your ${activeOrder.cryptoCurrency || "crypto"} transfer on-chain. Courier dispatch activates once confirmation completes.`
-                    : `Order ${activeOrder.orderNumber} is reserved. Send ${activeOrder.cryptoAmount || ""} ${activeOrder.cryptoCurrency || "BTC"} to the escrow address below to release courier dispatch.`}
+                  {isConfirming
+                    ? `We detected your ${activeOrder.cryptoCurrency || "crypto"} transfer on-chain. Pre-shipment inspection activates once confirmation completes.`
+                    : `Order ${activeOrder.orderNumber} is reserved. Send ${activeOrder.cryptoAmount || ""} ${activeOrder.cryptoCurrency || "BTC"} to the deposit address below to begin fulfillment.`}
                   {chainCheckNotice && (
                     <span style={{ display: "block", marginTop: "6px", color: "#92400e", fontSize: "12px" }}>
                       {chainCheckNotice}
@@ -342,27 +351,167 @@ export default function TrackPage() {
             {/* Telemetry Overview Cards */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: "16px", marginBottom: "35px" }}>
               <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px 20px", borderRadius: "2px" }}>
-                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Order Identifier</span>
+                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Order Number</span>
                 <strong style={{ fontSize: "18px" }}>{activeOrder.orderNumber}</strong>
               </div>
               <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px 20px", borderRadius: "2px" }}>
-                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Tracking Code</span>
+                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Courier Tracking Number</span>
                 <strong style={{ fontSize: "16px", fontFamily: "monospace", letterSpacing: "0.04em" }}>
-                  {activeOrder.trackingNumber || `TRK-NS-${activeOrder.orderNumber.replace(/\D/g, "")}`}
+                  {isDispatched
+                    ? activeOrder.trackingNumber || `TRK-NS-${activeOrder.orderNumber.replace(/\D/g, "")}`
+                    : "Assigned upon courier pickup"}
                 </strong>
               </div>
               <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px 20px", borderRadius: "2px" }}>
-                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Courier & Service</span>
-                <strong style={{ fontSize: "14px" }}>{activeOrder.carrier || "24-Hour US Private Armored Air Courier"}</strong>
-              </div>
-              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px 20px", borderRadius: "2px" }}>
-                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Estimated Handover</span>
-                <strong style={{ fontSize: "15px", color: activeOrder.paymentStatus === "paid" ? "#10b981" : "#b45309" }}>
-                  {activeOrder.paymentStatus === "paid"
-                    ? activeOrder.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA"
-                    : "Pending On-Chain Payment"}
+                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Courier &amp; Service</span>
+                <strong style={{ fontSize: "14px" }}>
+                  {activeOrder.carrier || "FedEx Priority Overnight / UPS Next Day Air (Insured)"}
                 </strong>
               </div>
+              <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px 20px", borderRadius: "2px" }}>
+                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Estimated Delivery</span>
+                <strong style={{ fontSize: "15px", color: isPaid ? "#10b981" : "#b45309" }}>
+                  {isPaid
+                    ? activeOrder.estimatedDelivery || "1–2 Business Days via Insured Express Courier (USA)"
+                    : "Pending Payment Verification"}
+                </strong>
+              </div>
+            </div>
+
+            {/* Honest 5-Step Progress Milestones */}
+            <div style={{ marginBottom: "35px" }}>
+              <p className="eyebrow" style={{ marginBottom: "16px" }}>Order &amp; Fulfillment Milestones</p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "10px" }}>
+                <div
+                  style={{
+                    padding: "14px",
+                    border: isPaid ? "1px solid #10b981" : "1px solid #d97706",
+                    background: isPaid ? "rgba(16, 185, 129, 0.05)" : "rgba(245, 158, 11, 0.06)",
+                    borderRadius: "2px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      color: isPaid ? "#10b981" : "#b45309",
+                      fontWeight: 700,
+                      display: "block",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {isPaid ? "✓ COMPLETED" : isConfirming ? "● CONFIRMING" : "● AWAITING"}
+                  </span>
+                  <strong style={{ fontSize: "13px", display: "block" }}>
+                    {isPaid ? "Order Confirmed" : `${activeOrder.cryptoCurrency || "Crypto"} Listener`}
+                  </strong>
+                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>
+                    {isPaid ? "Payment received" : isConfirming ? "Mempool detected" : "Awaiting incoming funds"}
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    padding: "14px",
+                    border: isPaid ? (isDispatched ? "1px solid #10b981" : "1px solid var(--foreground)") : "1px solid var(--line)",
+                    background: isDispatched ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                    opacity: isPaid ? 1 : 0.65,
+                    borderRadius: "2px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      color: isDispatched ? "#10b981" : isPaid ? "var(--foreground)" : "var(--muted)",
+                      fontWeight: 700,
+                      display: "block",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {isDispatched ? "✓ COMPLETED" : isPaid ? "● IN PROGRESS" : "○ PENDING"}
+                  </span>
+                  <strong style={{ fontSize: "13px", display: "block" }}>Quality Inspection</strong>
+                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>Inspected &amp; prepared</span>
+                </div>
+
+                <div
+                  style={{
+                    padding: "14px",
+                    border: isDispatched ? "1px solid #10b981" : "1px solid var(--line)",
+                    background: isDispatched ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                    opacity: isDispatched ? 1 : 0.65,
+                    borderRadius: "2px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      color: isDispatched ? "#10b981" : "var(--muted)",
+                      fontWeight: 700,
+                      display: "block",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {isDispatched ? "✓ DISPATCHED" : "○ AWAITING PICKUP"}
+                  </span>
+                  <strong style={{ fontSize: "13px", display: "block" }}>Dispatched</strong>
+                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>
+                    {isDispatched ? "Courier collected parcel" : "Not yet handed to courier"}
+                  </span>
+                </div>
+
+                <div
+                  style={{
+                    padding: "14px",
+                    border: isDelivered ? "1px solid #10b981" : isDispatched ? "1px solid var(--foreground)" : "1px solid var(--line)",
+                    background: isDelivered ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                    opacity: isDispatched ? 1 : 0.65,
+                    borderRadius: "2px",
+                  }}
+                >
+                  <span style={{ fontSize: "11px", color: isDelivered ? "#10b981" : isDispatched ? "var(--foreground)" : "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>
+                    {isDelivered ? "✓ COMPLETED" : isDispatched ? "● IN TRANSIT" : "○ NEXT"}
+                  </span>
+                  <strong style={{ fontSize: "13px", display: "block" }}>In Transit</strong>
+                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>Shipment tracking active</span>
+                </div>
+
+                <div
+                  style={{
+                    padding: "14px",
+                    border: isDelivered ? "1px solid #10b981" : "1px solid var(--line)",
+                    background: isDelivered ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                    opacity: isDelivered ? 1 : 0.65,
+                    borderRadius: "2px",
+                  }}
+                >
+                  <span style={{ fontSize: "11px", color: isDelivered ? "#10b981" : "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>
+                    {isDelivered ? "✓ DELIVERED" : "○ FINAL"}
+                  </span>
+                  <strong style={{ fontSize: "13px", display: "block" }}>Delivered</strong>
+                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>Adult signature confirmation</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Shipping Insurance, Signature & Delay Disclosure Box */}
+            <div style={{ background: "#fafafa", border: "1px solid #dcdcdc", padding: "16px 20px", borderRadius: "2px", marginBottom: "35px", fontSize: "12px", color: "#444", lineHeight: 1.6 }}>
+              <strong style={{ display: "block", color: "#111", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.06em", fontSize: "11px" }}>
+                Shipping Insurance, Signature Requirement &amp; Carrier Delays
+              </strong>
+              <p style={{ margin: "0 0 6px" }}>
+                All high-value shipments carry <strong>100% declared-value insurance</strong> and require a <strong>direct adult signature</strong> upon delivery. Packages are never released without signature.
+              </p>
+              <p style={{ margin: 0 }}>
+                Orders are marked Dispatched only after courier collection. Severe weather, hub sorting holds, or federal holidays can affect transit schedules; if a delay occurs, contact{" "}
+                <a href="mailto:support@shopnorthstar.store" style={{ color: "#111", textDecoration: "underline" }}>
+                  support@shopnorthstar.store
+                </a>{" "}
+                or review{" "}
+                <Link href="/buyer-protection" style={{ color: "#047857", textDecoration: "underline", fontWeight: 600 }}>
+                  Northstar Buyer Protection
+                </Link>
+                .
+              </p>
             </div>
 
             {/* Crypto Settlement Telemetry */}
@@ -374,17 +523,17 @@ export default function TrackPage() {
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
                     fontWeight: 700,
-                    color: activeOrder.paymentStatus === "paid" ? "#10b981" : "#b45309",
+                    color: isPaid ? "#10b981" : "#b45309",
                   }}
                 >
-                  {activeOrder.paymentStatus === "paid"
-                    ? "✓ Escrow-Protected Crypto Settlement Verified"
-                    : activeOrder.paymentStatus === "confirming"
+                  {isPaid
+                    ? "✓ On-Chain Settlement Verified"
+                    : isConfirming
                     ? "● Mempool Transfer Detected · Confirming"
                     : "○ Awaiting On-Chain Crypto Transfer"}
                 </span>
                 <span style={{ fontSize: "11px", color: "var(--muted)" }}>
-                  14-Day Inspection Escrow
+                  14-Day Return Protection
                 </span>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "12px", fontSize: "12px" }}>
@@ -397,7 +546,7 @@ export default function TrackPage() {
                   </strong>
                 </div>
                 <div>
-                  <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", marginBottom: "2px" }}>Receiving Escrow Address</span>
+                  <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", marginBottom: "2px" }}>Receiving Address</span>
                   <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "2px 5px", borderRadius: "2px", display: "block" }}>
                     {activeOrder.escrowAddress || "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu"}
                   </code>
@@ -505,129 +654,37 @@ export default function TrackPage() {
               </div>
             </div>
 
-            {/* Step-by-Step Progress Bar */}
-            <div style={{ marginBottom: "40px" }}>
-              <p className="eyebrow" style={{ marginBottom: "16px" }}>Security & Transit Milestones</p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "10px" }}>
-                <div
-                  style={{
-                    padding: "14px",
-                    border:
-                      activeOrder.paymentStatus === "paid"
-                        ? "1px solid #10b981"
-                        : "1px solid #d97706",
-                    background:
-                      activeOrder.paymentStatus === "paid"
-                        ? "rgba(16, 185, 129, 0.05)"
-                        : "rgba(245, 158, 11, 0.06)",
-                    borderRadius: "2px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "11px",
-                      color: activeOrder.paymentStatus === "paid" ? "#10b981" : "#b45309",
-                      fontWeight: 700,
-                      display: "block",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {activeOrder.paymentStatus === "paid"
-                      ? "✓ COMPLETED"
-                      : activeOrder.paymentStatus === "confirming"
-                      ? "● CONFIRMING"
-                      : "● AWAITING"}
-                  </span>
-                  <strong style={{ fontSize: "13px", display: "block" }}>
-                    {activeOrder.paymentStatus === "paid"
-                      ? `${activeOrder.cryptoCurrency || "Crypto"} Escrow Cleared`
-                      : `${activeOrder.cryptoCurrency || "Crypto"} Payment Listener`}
-                  </strong>
-                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>
-                    {activeOrder.paymentStatus === "paid"
-                      ? "On-chain finality"
-                      : activeOrder.paymentStatus === "confirming"
-                      ? "Mempool transfer detected"
-                      : "Awaiting incoming funds"}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    padding: "14px",
-                    border: activeOrder.paymentStatus === "paid" ? "1px solid #10b981" : "1px solid var(--line)",
-                    background: activeOrder.paymentStatus === "paid" ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
-                    opacity: activeOrder.paymentStatus === "paid" ? 1 : 0.65,
-                    borderRadius: "2px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "11px",
-                      color: activeOrder.paymentStatus === "paid" ? "#10b981" : "var(--muted)",
-                      fontWeight: 700,
-                      display: "block",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {activeOrder.paymentStatus === "paid" ? "✓ COMPLETED" : "○ PENDING"}
-                  </span>
-                  <strong style={{ fontSize: "13px", display: "block" }}>Vault Authentication</strong>
-                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>Microchip & tag seal</span>
-                </div>
-                <div
-                  style={{
-                    padding: "14px",
-                    border: activeOrder.paymentStatus === "paid" ? "1px solid var(--foreground)" : "1px solid var(--line)",
-                    background: "var(--paper)",
-                    opacity: activeOrder.paymentStatus === "paid" ? 1 : 0.65,
-                    borderRadius: "2px",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: "11px",
-                      color: activeOrder.paymentStatus === "paid" ? "var(--foreground)" : "var(--muted)",
-                      fontWeight: 700,
-                      display: "block",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {activeOrder.paymentStatus === "paid" ? "● ACTIVE" : "○ NEXT"}
-                  </span>
-                  <strong style={{ fontSize: "13px", display: "block" }}>Armored Handover</strong>
-                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>Serialized tamper bag</span>
-                </div>
-                <div style={{ padding: "14px", border: "1px solid var(--line)", background: "var(--paper)", opacity: 0.65, borderRadius: "2px" }}>
-                  <span style={{ fontSize: "11px", color: "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>○ NEXT</span>
-                  <strong style={{ fontSize: "13px", display: "block" }}>Armed Transit</strong>
-                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>Secured route</span>
-                </div>
-                <div style={{ padding: "14px", border: "1px solid var(--line)", background: "var(--paper)", opacity: 0.65, borderRadius: "2px" }}>
-                  <span style={{ fontSize: "11px", color: "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>○ FINAL</span>
-                  <strong style={{ fontSize: "13px", display: "block" }}>Delivery</strong>
-                  <span style={{ fontSize: "11px", color: "var(--muted)" }}>Direct adult signature</span>
-                </div>
-              </div>
-            </div>
-
             {/* Manifest / Order Items */}
             <div style={{ borderTop: "1px solid var(--line)", paddingTop: "28px" }}>
-              <h2 style={{ fontSize: "20px", marginBottom: "18px" }}>Vault Manifest ({activeOrder.items?.length || 0} Items)</h2>
+              <h2 style={{ fontSize: "20px", marginBottom: "18px" }}>Order Items ({activeOrder.items?.length || 0} Items)</h2>
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                {activeOrder.items?.map((item) => (
-                  <div
-                    key={item.productId || item.name}
-                    style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 20px", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "2px" }}
-                  >
-                    <div>
-                      <strong style={{ fontSize: "15px", display: "block", marginBottom: "3px" }}>{item.name}</strong>
-                      <span style={{ fontSize: "13px", color: "var(--muted)" }}>
-                        Quantity: {item.qty} · SKU: {item.sku} · RFID Microchip Authenticated
-                      </span>
+                {activeOrder.items?.map((item) => {
+                  const catalogProd = INITIAL_PRODUCTS.find((p) => p._id === item.productId || p.sku === item.sku);
+                  return (
+                    <div
+                      key={item.productId || item.name}
+                      style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap", padding: "16px 20px", background: "var(--paper)", border: "1px solid var(--line)", borderRadius: "2px" }}
+                    >
+                      <div>
+                        <strong style={{ fontSize: "15px", display: "block", marginBottom: "3px" }}>{item.name}</strong>
+                        <span style={{ fontSize: "13px", color: "var(--muted)" }}>
+                          Quantity: {item.qty} · SKU: {item.sku} · Northstar Verified
+                        </span>
+                        {isPaid && catalogProd && (
+                          <div style={{ marginTop: "6px" }}>
+                            <Link
+                              href={`/product/${catalogProd.slug}#verified-reviews`}
+                              style={{ fontSize: "12px", color: "#047857", fontWeight: 600, textDecoration: "underline" }}
+                            >
+                              Write a Verified Product Review →
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                      <strong style={{ fontSize: "15px" }}>{formatPrice(item.lineTotalCents)}</strong>
                     </div>
-                    <strong style={{ fontSize: "15px" }}>{formatPrice(item.lineTotalCents)}</strong>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -644,26 +701,29 @@ export default function TrackPage() {
                 </p>
               </div>
               <div>
-                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "6px" }}>Financial Record</span>
+                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "6px" }}>Financial &amp; Coverage Record</span>
                 <p style={{ margin: 0, fontSize: "14px", lineHeight: "1.6" }}>
                   Total Declared Value: <strong>{formatPrice(activeOrder.totalCents)}</strong><br />
                   Payment Status:{" "}
-                  <strong style={{ color: activeOrder.paymentStatus === "paid" ? "#10b981" : "#b45309" }}>
-                    {activeOrder.paymentStatus === "paid"
+                  <strong style={{ color: isPaid ? "#10b981" : "#b45309" }}>
+                    {isPaid
                       ? `Confirmed (${activeOrder.paymentStatus})`
-                      : activeOrder.paymentStatus === "confirming"
+                      : isConfirming
                       ? "Confirming on-chain (confirming)"
                       : "Awaiting On-Chain Payment (awaiting_payment)"}
                   </strong>
                   <br />
-                  Transit Insurance: <strong>Complimentary 100% Full-Value Indemnity</strong>
+                  Transit Insurance: <strong>100% Full-Value Insured Coverage</strong>
                 </p>
               </div>
             </div>
 
-            <div style={{ marginTop: "32px", display: "flex", gap: "14px" }}>
+            <div style={{ marginTop: "32px", display: "flex", gap: "14px", flexWrap: "wrap" }}>
               <Link href={`/orders/${activeOrder.orderNumber}`} className="button button-light">
-                View Full Invoiced Order Receipt
+                View Full Order Receipt
+              </Link>
+              <Link href="/buyer-protection" className="button button-light">
+                Buyer Protection Policy
               </Link>
             </div>
           </div>

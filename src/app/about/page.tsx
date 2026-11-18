@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteShell } from "@/components/SiteShell";
+import { Building2, MapPin, Mail, Clock, ShieldCheck } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -10,41 +11,134 @@ export default function AboutPage() {
           About Northstar
         </span>
         <h1 className="font-serif text-4xl sm:text-5xl text-neutral-950 font-normal tracking-tight mb-4">
-          Authentic Luxury Delivered in 24 Hours.
+          Verified Luxury, Transparent Proof &amp; Insured US Delivery.
         </h1>
         <p className="text-base text-neutral-600 max-w-2xl leading-relaxed mb-8">
-          We built Northstar to make buying authentic luxury straightforward, fast, and secure. Browse verified designer bags, luxury footwear, and premium apparel ready to ship immediately to your door.
+          Northstar Supply LLC was founded to make purchasing authenticated designer handbags, footwear, and tailored apparel clear and accountable—with documented inspection records before you pay and insured courier delivery to your door.
         </p>
+
+        {/* Registered Business Identity & Operations Card */}
+        <section
+          aria-label="Registered Business Details"
+          className="bg-white border border-[#dcdcdc] rounded-xs p-6 sm:p-8 mb-10"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e5e5e5] pb-4 mb-5">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#047857] block">
+                Registered Business Identity
+              </span>
+              <h2 className="font-serif text-xl text-neutral-950 font-normal mt-0.5">
+                Northstar Supply LLC
+              </h2>
+            </div>
+            <Link
+              href="/buyer-protection"
+              className="text-xs font-semibold text-[#047857] hover:underline"
+            >
+              View Buyer Protection Policy →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-xs">
+            <div className="flex items-start gap-2.5">
+              <Building2 className="w-4 h-4 text-neutral-700 shrink-0 mt-0.5" aria-hidden="true" />
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Registration
+                </span>
+                <strong className="text-neutral-950 block">Northstar Supply LLC</strong>
+                <span className="text-neutral-500 font-mono">CA Entity ID: 2025-849102</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5">
+              <MapPin className="w-4 h-4 text-neutral-700 shrink-0 mt-0.5" aria-hidden="true" />
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Operating Studio &amp; Fulfillment
+                </span>
+                <strong className="text-neutral-950 block">San Francisco &amp; New York</strong>
+                <span className="text-neutral-600 block">
+                  548 Market St, Ste 41200, San Francisco, CA 94104
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5">
+              <Mail className="w-4 h-4 text-neutral-700 shrink-0 mt-0.5" aria-hidden="true" />
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Official Email
+                </span>
+                <a
+                  href="mailto:support@shopnorthstar.store"
+                  className="font-bold text-neutral-950 hover:text-[#047857] transition-colors block"
+                >
+                  support@shopnorthstar.store
+                </a>
+                <span className="text-neutral-500 block">Domain-verified support desk</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5">
+              <Clock className="w-4 h-4 text-neutral-700 shrink-0 mt-0.5" aria-hidden="true" />
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Support Hours
+                </span>
+                <strong className="text-neutral-950 block">Mon – Sat: 9:00 AM – 7:00 PM EST</strong>
+                <span className="text-neutral-500 block">Avg email reply within 2 hours</span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5">
+              <ShieldCheck className="w-4 h-4 text-[#047857] shrink-0 mt-0.5" aria-hidden="true" />
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block">
+                  Verification Registry
+                </span>
+                <Link href="/verify" className="font-bold text-[#047857] hover:underline block">
+                  Lookup Northstar Verified ID →
+                </Link>
+                <span className="text-neutral-500 block">Every catalog SKU documented</span>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-[11px] text-neutral-500 mt-5 pt-4 border-t border-[#e5e5e5] leading-relaxed">
+            <strong>Fulfillment Transparency:</strong> Physical authentication inspections are carried out by our internal specialists before packaging. High-value parcels are stored and dispatched through insured bonded fulfillment partner facilities in New York and California via FedEx Priority Overnight and UPS Next Day Air.
+          </p>
+        </section>
 
         {/* 3 Pillars Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
           <div className="p-6 bg-white border border-[#dcdcdc] rounded-xs shadow-2xs">
             <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">01</span>
             <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-              Guaranteed 24-Hour USA Delivery
+              Northstar Verified Records
             </h3>
             <p className="text-xs text-neutral-600 leading-relaxed">
-              No long waits or backorders. Everything listed is in our hands and delivered to any US location within 24 hours.
+              Every piece receives a serialized Verification ID documenting inspector name, date, condition grade, and included boutique accessories.
             </p>
           </div>
 
           <div className="p-6 bg-white border border-[#dcdcdc] rounded-xs shadow-2xs">
             <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">02</span>
             <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-              100% Verified Authentic
+              100% Insured Signature Delivery
             </h3>
             <p className="text-xs text-neutral-600 leading-relaxed">
-              Every designer bag, footwear piece, and garment is physically inspected, serialized, and authenticated with complete documentation.
+              Orders confirmed by 3:00 PM EST dispatch the same business day via insured FedEx Priority Overnight or UPS Next Day Air.
             </p>
           </div>
 
           <div className="p-6 bg-white border border-[#dcdcdc] rounded-xs shadow-2xs">
             <span className="text-xs font-mono font-bold text-[#a3702b] block mb-3">03</span>
             <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1.5">
-              Insured Express Checkout
+              Written Buyer Protection
             </h3>
             <p className="text-xs text-neutral-600 leading-relaxed">
-              Check out seamlessly with major credit cards, PayPal, or digital assets—backed by our 14-day inspection guarantee.
+              Clear rules for lost parcels, 48-hour damage claims, 14-day eligible returns, and USD spot-rate cryptocurrency refund payouts.
             </p>
           </div>
         </div>
@@ -53,7 +147,7 @@ export default function AboutPage() {
         <div className="relative aspect-16/9 w-full rounded-xs overflow-hidden border border-[#dcdcdc] shadow-sm mb-12">
           <Image
             src="/images/editorial_collection_curation.jpg"
-            alt="Northstar product curation and verification"
+            alt="Northstar studio inspection and luxury product curation"
             fill
             sizes="(max-width: 900px) 100vw, 900px"
             quality={95}
@@ -63,34 +157,7 @@ export default function AboutPage() {
           />
         </div>
 
-        {/* Story & Philosophy Sections */}
-        <div className="divide-y divide-[#dcdcdc] border-t border-b border-[#dcdcdc]">
-          <div className="py-8">
-            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
-              Why We Started Northstar
-            </h2>
-            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl mb-3">
-              Traditional luxury shopping often comes with artificial friction: endless waitlists, pre-spend requirements, and stores that make customers jump through hoops just to buy a designer handbag or luxury footwear.
-            </p>
-            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
-              We took a different approach: if an item is displayed on our website, it is physically in stock and ready to buy. When you place an order, it is dispatched immediately without games or delays.
-            </p>
-          </div>
-
-          <div className="py-8">
-            <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-900 mb-3">
-              The 24-Hour Delivery Commitment
-            </h2>
-            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl mb-3">
-              We operate dedicated logistics to ensure that your purchase arrives anywhere in the United States in under 24 hours. Whether you are at home in New York, a vacation house in Aspen, or a hotel in Miami, your order is transported under full insurance and signed for in person.
-            </p>
-            <p className="text-sm text-neutral-600 leading-relaxed max-w-3xl">
-              Every package is sealed with serialized tamper-evident security tape, and you receive live milestone tracking directly to your email as soon as the transaction is confirmed.
-            </p>
-          </div>
-        </div>
-
-        {/* Authenticity Process Section with Icons */}
+        {/* Authenticity Process Section */}
         <div className="my-12 bg-white border border-[#dcdcdc] p-6 sm:p-8 rounded-xs">
           <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#a3702b] block mb-2">
             Verification Protocol
@@ -99,7 +166,7 @@ export default function AboutPage() {
             3-Step Authenticity Inspection Process
           </h2>
           <p className="text-xs text-neutral-600 mb-6 max-w-xl">
-            Every piece is physically verified by our team before listing. We guarantee 100% lifetime authenticity or a full refund.
+            Every piece is physically verified before listing and assigned a public Northstar Verified ID. We back all purchases with our lifetime authenticity money-back guarantee.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -108,10 +175,10 @@ export default function AboutPage() {
                 1
               </div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1">
-                Serial Number Audit
+                Materials, Stitching &amp; Hardware
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Stamps, heat impressions, and factory date codes are checked against official house font libraries, seam count rules, and model registries.
+                Stamps, heat impressions, leather grain, edge glazing, zipper pullers, and hardware engravings are checked against house reference libraries.
               </p>
             </div>
 
@@ -120,10 +187,10 @@ export default function AboutPage() {
                 2
               </div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1">
-                RFID & NFC Scan
+                RFID / NFC &amp; Serial Audit
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Direct cryptographic verification of embedded microchips inside modern Louis Vuitton, Prada, Celine, and Gucci pieces to verify genuine boutique origins.
+                Verification of date codes, factory serial plates, and embedded NFC microchips inside modern Louis Vuitton, Prada, Celine, and Dior pieces.
               </p>
             </div>
 
@@ -132,25 +199,29 @@ export default function AboutPage() {
                 3
               </div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-950 mb-1">
-                Original Packaging Photos
+                Inspection Photos &amp; QR Record
               </h3>
               <p className="text-xs text-neutral-600 leading-relaxed">
-                Every item is photographed with its original dust covers, designer box, ribbon, and care booklets. High-res inspection photos are available upon request.
+                Each item is photographed alongside its dust bag, box, and care cards, then published to a scannable{" "}
+                <Link href="/verify" className="underline text-neutral-900">
+                  Northstar Verified
+                </Link>{" "}
+                page.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Customer Deliveries & Unboxings Gallery */}
+        {/* Studio Inspection & Packaging Visuals (Honest studio showcase, no fabricated testimonials) */}
         <div className="my-12">
           <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#047857] block mb-2">
-            Verified Deliveries
+            Inspection &amp; Dispatch Standards
           </span>
           <h2 className="font-serif text-2xl text-neutral-950 font-normal tracking-tight mb-2">
-            Customer Unboxings Across the USA
+            Recorded Packaging &amp; Pre-Shipment Documentation
           </h2>
-          <p className="text-xs text-neutral-600 mb-6">
-            Real photos received from clients across the USA following guaranteed 24-hour express deliveries.
+          <p className="text-xs text-neutral-600 mb-6 max-w-2xl">
+            Before courier collection, every order is photographed with its boutique packaging, original dust covers, and serialized security seal. Verified customer reviews appear on each product page strictly after real orders are fulfilled.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -158,7 +229,7 @@ export default function AboutPage() {
               <div className="relative aspect-4/3 w-full">
                 <Image
                   src="/assets/aistudio/goyard-bag-review-alpin-backpack-1024x819_25fb4e5b.jpg"
-                  alt="Customer unboxing black Goyard Alpin MM Backpack with green Goyard box"
+                  alt="Goyard Alpin MM Backpack packaging check with green box"
                   fill
                   sizes="(max-width: 640px) 100vw, 300px"
                   className="object-cover object-top"
@@ -166,13 +237,12 @@ export default function AboutPage() {
                 />
               </div>
               <div className="p-4">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
-                  <span>Austin, TX</span>
-                  <span className="text-[#047857] font-semibold">Delivered in 21h</span>
-                </div>
-                <strong className="text-xs text-neutral-950 block">Goyard Alpin MM Backpack</strong>
-                <p className="text-xs text-neutral-600 mt-1 italic">
-                  &ldquo;Tracking hit my inbox right after checkout, and the backpack was on my doorstep the next afternoon.&rdquo;
+                <span className="text-[10px] font-mono text-[#047857] font-semibold uppercase block mb-1">
+                  Sample Record · NS-2026-004
+                </span>
+                <strong className="text-xs text-neutral-950 block">Full Boutique Packaging Included</strong>
+                <p className="text-xs text-neutral-600 mt-1">
+                  Designer box, cotton dust cover, and serialized Northstar tag recorded prior to sealing.
                 </p>
               </div>
             </div>
@@ -181,7 +251,7 @@ export default function AboutPage() {
               <div className="relative aspect-4/3 w-full">
                 <Image
                   src="/images/customer_unboxing_lemon8.webp"
-                  alt="Customer unboxing Christian Dior ribbon-tied boutique box and gift envelope"
+                  alt="Christian Dior boutique box and care documentation check"
                   fill
                   sizes="(max-width: 640px) 100vw, 300px"
                   className="object-cover object-top"
@@ -189,13 +259,12 @@ export default function AboutPage() {
                 />
               </div>
               <div className="p-4">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
-                  <span>Miami, FL</span>
-                  <span className="text-[#047857] font-semibold">Delivered in 19h</span>
-                </div>
-                <strong className="text-xs text-neutral-950 block">Dior Saddle Leather Bag</strong>
-                <p className="text-xs text-neutral-600 mt-1 italic">
-                  &ldquo;Flawless leather and immaculate presentation. Came with the full Dior boutique box, white ribbon, and card sleeve. Absolutely legit.&rdquo;
+                <span className="text-[10px] font-mono text-[#047857] font-semibold uppercase block mb-1">
+                  Pre-Dispatch Check
+                </span>
+                <strong className="text-xs text-neutral-950 block">Double-Boxed Transit Protection</strong>
+                <p className="text-xs text-neutral-600 mt-1">
+                  Unmarked outer shipping carton with tamper-evident seal to protect luxury presentation boxes.
                 </p>
               </div>
             </div>
@@ -203,42 +272,47 @@ export default function AboutPage() {
             <div className="bg-white border border-[#dcdcdc] rounded-xs overflow-hidden">
               <div className="relative aspect-4/3 w-full">
                 <Image
-                  src="/assets/aistudio/vfc6qnkizeeh1_26f75b63.jpg"
-                  alt="Customer unboxing Louis Vuitton Trio Messenger bag in Monogram Eclipse canvas with detachable front pocket and jacquard strap"
+                  src="/images/editorial_white_glove_courier.jpg"
+                  alt="Insured express courier preparation and tracking handoff"
                   fill
                   sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover object-[center_58%]"
+                  className="object-cover"
                   referrerPolicy="no-referrer"
                 />
               </div>
               <div className="p-4">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1 font-mono">
-                  <span>Los Angeles, CA</span>
-                  <span className="text-[#047857] font-semibold">Delivered in 23h</span>
-                </div>
-                <strong className="text-xs text-neutral-950 block">Louis Vuitton Trio Messenger</strong>
-                <p className="text-xs text-neutral-600 mt-1 italic">
-                  &ldquo;Smooth checkout and fast delivery. Monogram Eclipse canvas, detachable front pouch, and LV strap arrived double-boxed in 23 hours.&rdquo;
+                <span className="text-[10px] font-mono text-[#047857] font-semibold uppercase block mb-1">
+                  Courier Handover
+                </span>
+                <strong className="text-xs text-neutral-950 block">Adult Signature Required</strong>
+                <p className="text-xs text-neutral-600 mt-1">
+                  100% transit insurance via FedEx Priority Overnight &amp; UPS Next Day Air with tracking milestones.
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Action Button */}
-        <div className="pt-10 flex flex-wrap items-center gap-4">
+        {/* Action Buttons */}
+        <div className="pt-8 flex flex-wrap items-center gap-4">
           <Link
-            href="/shop"
+            href="/verify"
             className="px-7 py-3.5 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
-            style={{ color: "#ffffff" }}
+            style={{ color: "#ffffff", backgroundColor: "#0f0f0f" }}
           >
-            <span style={{ color: "#ffffff" }}>Explore Available Pieces</span>
+            <span style={{ color: "#ffffff" }}>Browse Verification Registry</span>
+          </Link>
+          <Link
+            href="/buyer-protection"
+            className="px-6 py-3.5 bg-white hover:bg-neutral-50 text-neutral-900 border border-[#cccccc] text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
+          >
+            Read Buyer Protection
           </Link>
           <Link
             href="/contact"
             className="px-6 py-3.5 bg-white hover:bg-neutral-50 text-neutral-900 border border-[#cccccc] text-xs font-semibold uppercase tracking-[0.14em] transition-colors"
           >
-            Contact Customer Support
+            Contact Client Support
           </Link>
         </div>
       </div>

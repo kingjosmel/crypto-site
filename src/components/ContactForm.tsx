@@ -41,7 +41,7 @@ export function ContactForm() {
           </div>
         </div>
         <p className="text-xs text-neutral-700 leading-relaxed mb-4">
-          Thank you for getting in touch. Our concierge team has received your message and will reply to{" "}
+          Thank you for getting in touch. Our Client Services team has received your message and will reply to{" "}
           <strong className="text-neutral-900 font-mono">{submittedData.email}</strong> within 1 to 2 business hours.
         </p>
         <button

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getGuestOrder, getOrderDetails } from "@/lib/catalogData";
+import { getOrderFromFirestore } from "@/lib/firestoreStore";
 
 export async function GET(
   request: NextRequest,
@@ -9,7 +10,8 @@ export async function GET(
   const { searchParams } = new URL(request.url);
   const token = searchParams.get("token") || undefined;
 
-  const order = getGuestOrder(orderNumber, token) || getOrderDetails(orderNumber);
+  const fsOrder = await getOrderFromFirestore(orderNumber).catch(() => null);
+  const order = fsOrder || getGuestOrder(orderNumber, token) || getOrderDetails(orderNumber);
   if (!order) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
@@ -33,11 +35,13 @@ export async function GET(
     escrowAddress: order.escrowAddress,
     refundWallet: order.refundWallet,
     txHash: order.txHash,
-    carrier: order.carrier ?? "24-Hour US Private Armored Air Courier",
+    confirmations: order.confirmations,
+    explorerUrl: order.explorerUrl,
+    carrier: order.carrier ?? "FedEx Priority Overnight / UPS Next Day Air (Insured)",
     trackingNumber: order.trackingNumber ?? `TRK-NS-${order.orderNumber.replace(/\D/g, "")}`,
-    estimatedDelivery: order.estimatedDelivery ?? "Guaranteed Within 24 Hours Anywhere in USA",
-    confirmationEmailSent: order.confirmationEmailSent ?? true,
+    estimatedDelivery: order.estimatedDelivery ?? "1–2 Business Days via Insured Express Courier (USA)",
+    confirmationEmailSent: order.confirmationEmailSent ?? false,
     sentEmailDetails: order.sentEmailDetails,
-    createdAt: order.createdAt
+    createdAt: order.createdAt,
   });
 }

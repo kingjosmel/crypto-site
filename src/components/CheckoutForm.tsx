@@ -191,8 +191,8 @@ export function CheckoutForm() {
           const mapped: CompletedOrder = {
             orderNumber: order.orderNumber,
             trackingNumber: order.trackingNumber || `TRK-NS-${order.orderNumber.replace(/\D/g, "")}`,
-            carrier: order.carrier || "24-Hour US Private Armored Air Courier",
-            estimatedDelivery: order.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA",
+            carrier: order.carrier || "FedEx Priority Overnight / UPS Next Day Air (Insured)",
+            estimatedDelivery: order.estimatedDelivery || "1–2 Business Days via Insured Express Courier (USA)",
             totalCents: order.totalCents,
             email: order.email,
             customerName: order.customerName,
@@ -257,8 +257,8 @@ export function CheckoutForm() {
         setCompletedOrder({
           orderNumber: data.order.orderNumber,
           trackingNumber: data.order.trackingNumber,
-          carrier: data.order.carrier || "24-Hour US Private Armored Air Courier",
-          estimatedDelivery: data.order.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA",
+          carrier: data.order.carrier || "FedEx Priority Overnight / UPS Next Day Air (Insured)",
+          estimatedDelivery: data.order.estimatedDelivery || "1–2 Business Days via Insured Express Courier (USA)",
           totalCents: data.order.totalCents,
           email: data.order.email,
           customerName: data.order.customerName,
@@ -438,8 +438,8 @@ export function CheckoutForm() {
       const pendingOrder: CompletedOrder = {
         orderNumber: data.orderNumber,
         trackingNumber: data.trackingNumber,
-        carrier: data.carrier || "Dedicated 24-Hour Express Courier",
-        estimatedDelivery: data.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA",
+        carrier: data.carrier || "FedEx Priority Overnight / UPS Next Day Air (Insured)",
+        estimatedDelivery: data.estimatedDelivery || "1–2 Business Days via Insured Express Courier (USA)",
         totalCents: data.totalCents || totalCents,
         email: data.email,
         customerName: fullName,
@@ -732,9 +732,9 @@ export function CheckoutForm() {
             </div>
             <div>
               <span className="text-neutral-400 uppercase tracking-wider block mb-1">
-                Delivery Window
+                Estimated Delivery
               </span>
-              <strong className="text-[#047857] font-semibold text-sm">Within 24 Hours (USA)</strong>
+              <strong className="text-[#047857] font-semibold text-sm">1–2 Business Days (Insured)</strong>
             </div>
             <div>
               <span className="text-neutral-400 uppercase tracking-wider block mb-1">Payment Option</span>
@@ -899,7 +899,7 @@ export function CheckoutForm() {
         </div>
         <span className="text-[11px] uppercase tracking-wider text-[#047857] font-semibold flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-[#10b981]" />
-          Guaranteed 24-Hour USA Delivery
+          Insured Express USA Delivery · Protected Checkout
         </span>
       </div>
 
@@ -1091,14 +1091,14 @@ export function CheckoutForm() {
                 <div>
                   <div className="flex items-center gap-2">
                     <strong className="text-sm text-neutral-950 font-semibold">
-                      Guaranteed 24-Hour USA Delivery
+                      FedEx Priority Overnight / UPS Next Day Air (Insured)
                     </strong>
                     <span className="text-[10px] font-bold uppercase tracking-wider bg-[#10b981]/15 text-[#047857] px-2 py-0.5 rounded-xs">
                       Included
                     </span>
                   </div>
                   <p className="text-xs text-neutral-600 mt-1">
-                    Arrives anywhere in the USA within 24 hours via dedicated express courier. Fully insured declared value with signature verification.
+                    Estimated 1–2 business days nationwide after payment verification and pre-dispatch inspection. 100% full-value transit insurance and adult signature required.
                   </p>
                 </div>
                 <span className="text-sm font-bold font-mono text-neutral-950 shrink-0">
@@ -1489,8 +1489,17 @@ export function CheckoutForm() {
                       </div>
                     </div>
 
-                    <div className="text-[11px] text-neutral-500 border-t border-[#dcdcdc] pt-3 leading-relaxed">
-                      Send only {currentCrypto.name} via the {currentCrypto.network}. Protected under our 14-day return & authenticity escrow terms.
+                    <div className="text-[11px] text-neutral-600 border-t border-[#dcdcdc] pt-3 leading-relaxed space-y-1">
+                      <p>
+                        Send only <strong>{currentCrypto.name}</strong> via <strong>{currentCrypto.network}</strong>. After clicking complete order below, a live blockchain listener opens with payment confirmation status and transaction ID.
+                      </p>
+                      <p className="text-amber-900">
+                        <strong>Disclosure:</strong> On-chain crypto transfers do not carry card-style chargebacks; refunds are governed by our written{" "}
+                        <Link href="/buyer-protection" className="underline font-semibold">
+                          Buyer Protection Policy
+                        </Link>{" "}
+                        at full USD invoice value via your Refund Return Wallet.
+                      </p>
                     </div>
                   </div>
 
@@ -1542,19 +1551,30 @@ export function CheckoutForm() {
               )}
             </section>
 
-            {/* Buyer Protection Guarantee Callout */}
-            <div className="p-4 bg-[#fafafa] border border-[#dcdcdc] rounded-xs text-xs text-neutral-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <strong className="text-neutral-950 uppercase tracking-wider text-[11px] block">
-                  14-Day Inspection & Lifetime Authenticity Guarantee
+            {/* Buyer Protection & Policy Transparency Strip */}
+            <div className="p-4 bg-[#fafafa] border border-[#dcdcdc] rounded-xs text-xs text-neutral-700 space-y-2">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <strong className="text-neutral-950 uppercase tracking-wider text-[11px]">
+                  Northstar Buyer Protection · No Unexpected Charges
                 </strong>
-                <span className="text-[11px] text-neutral-600">
-                  Signed delivery verification · Complimentary 14-day returns to your original payment method or registered return wallet.
-                </span>
+                <div className="flex flex-wrap gap-3 text-[11px] font-semibold">
+                  <Link href="/buyer-protection" className="text-[#047857] hover:underline">
+                    Buyer Protection →
+                  </Link>
+                  <Link href="/returns-refunds" className="text-neutral-700 hover:underline">
+                    Refund Policy →
+                  </Link>
+                  <Link href="/shipping" className="text-neutral-700 hover:underline">
+                    Shipping →
+                  </Link>
+                  <Link href="/contact" className="text-neutral-700 hover:underline">
+                    Support →
+                  </Link>
+                </div>
               </div>
-              <Link href="/returns-refunds" className="text-[11px] font-semibold text-[#047857] hover:underline shrink-0">
-                Read Protection Terms →
-              </Link>
+              <p className="text-[11px] text-neutral-600 leading-relaxed">
+                100% insured courier delivery with signature required, lifetime authenticity guarantee, 14-day eligible returns, and direct client support at support@shopnorthstar.store.
+              </p>
             </div>
 
             {error && (
@@ -1683,7 +1703,7 @@ export function CheckoutForm() {
                 </div>
               )}
               <div className="flex justify-between text-neutral-600">
-                <span>Guaranteed 24-Hour USA Delivery</span>
+                <span>Insured Express Shipping (1–2 Business Days)</span>
                 <span className="text-[#047857] font-semibold">FREE</span>
               </div>
               <div className="flex justify-between text-neutral-600">

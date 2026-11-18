@@ -1862,6 +1862,7 @@ export function calculateQuote(items: { productId: string; qty: number }[], _add
 }
 
 export function createOrderRecord(data: {
+  orderNumberOverride?: string;
   email: string;
   customerName?: string;
   phone?: string;
@@ -1878,11 +1879,11 @@ export function createOrderRecord(data: {
 }) {
   const quote = calculateQuote(data.items, data.shippingAddress);
   const randomSuffix = Math.floor(100000 + Math.random() * 900000);
-  const orderNumber = `NS-${String(globalStore.orderCounter++).padStart(8, "0")}`;
+  const orderNumber = data.orderNumberOverride || `NS-${String(globalStore.orderCounter++).padStart(8, "0")}`;
   const trackingNumber = `TRK-NS-${randomSuffix}-EXP`;
   const guestToken = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
-  const carrier = "24-Hour US Private Armored Air Courier";
-  const estimatedDelivery = "Guaranteed Within 24 Hours Anywhere in USA";
+  const carrier = "FedEx Priority Overnight / UPS Next Day Air (Insured)";
+  const estimatedDelivery = "1–2 Business Days via Insured Express Courier (USA)";
 
   const currency: "BTC" | "ETH" | "SOL" =
     data.cryptoCurrency ||
@@ -2025,11 +2026,11 @@ export function updateOrderPaymentVerification(
     order.verifiedAt = nowIso;
     order.sentEmailDetails = {
       to: order.email,
-      subject: `Order ${order.orderNumber} Confirmed & Live Armored Tracking Details`,
+      subject: `Order ${order.orderNumber} Confirmed & Tracking Ready`,
       sentAt: nowIso,
       trackingNumber: order.trackingNumber || `TRK-NS-${order.orderNumber.replace(/\D/g, "")}`,
-      carrier: order.carrier || "24-Hour US Private Armored Air Courier",
-      summary: `${order.items.length} item(s) verified on-chain (${order.cryptoAmount} ${order.cryptoCurrency}) under 14-Day Inspection Protection.`
+      carrier: order.carrier || "FedEx Priority Overnight / UPS Next Day Air (Insured)",
+      summary: `${order.items.length} item(s) verified on-chain (${order.cryptoAmount} ${order.cryptoCurrency}) under Northstar Buyer Protection.`
     };
     globalStore.auditLogs.push({
       _id: `log-${Date.now()}`,

@@ -10,7 +10,7 @@ export function CatalogError() {
         Unable to load collection vault.
       </h2>
       <p className="text-sm text-neutral-600 max-w-md mx-auto my-4">
-        Our Geneva and New York archives are undergoing periodic synchronization. Please try again or contact the concierge.
+        Our archives are undergoing periodic synchronization. Please try again or contact Client Support at support@shopnorthstar.store.
       </p>
       <Link href="/" className="button button-dark text-white" style={{ color: "#ffffff" }}>
         Return to Home

@@ -1,0 +1,264 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        request.auth.token.email_verified == true && (
+          request.auth.token.email == 'josmeleph@gmail.com' ||
+          exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+        );
+    }
+
+    function isValidOrderId(orderNumber) {
+      return orderNumber is string &&
+        orderNumber.size() == 11 &&
+        orderNumber.matches('^NS-[0-9]{8}$');
+    }
+
+    function isValidSecretId(id) {
+      return id is string &&
+        id.size() == 64 &&
+        id.matches('^[a-f0-9]{64}$');
+    }
+
+    function isValidGenericId(id) {
+      return id is string &&
+        id.size() >= 3 &&
+        id.size() <= 128 &&
+        id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidVerificationId(id) {
+      return id is string &&
+        id.size() == 11 &&
+        id.matches('^NS-2026-[0-9]{3}$');
+    }
+
+    function isValidOrder(data) {
+      return data.keys().hasAll([
+          'orderNumber', 'emailHash', 'paymentMethod', 'cryptoCurrency',
+          'cryptoAmount', 'escrowAddress', 'items', 'totalCents',
+          'orderStatus', 'paymentStatus', 'fulfillmentStatus', 'createdAt', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'orderNumber', 'emailHash', 'emailMasked', 'paymentMethod', 'cryptoCurrency',
+          'cryptoAmount', 'escrowAddress', 'txHash', 'confirmations', 'explorerUrl',
+          'baselineTxIds', 'items', 'subtotalCents', 'shippingCents', 'taxCents',
+          'totalCents', 'orderStatus', 'paymentStatus', 'fulfillmentStatus',
+          'carrier', 'trackingNumber', 'estimatedDelivery', 'confirmationEmailSent',
+          'verifiedAt', 'createdAt', 'updatedAt'
+        ]) &&
+        isValidOrderId(data.orderNumber) &&
+        isValidSecretId(data.emailHash) &&
+        (!('emailMasked' in data) || (data.emailMasked is string && data.emailMasked.size() <= 120)) &&
+        data.paymentMethod in ['CRYPTO_BTC', 'CRYPTO_ETH', 'CRYPTO_SOL'] &&
+        data.cryptoCurrency in ['BTC', 'ETH', 'SOL'] &&
+        data.cryptoAmount is string && data.cryptoAmount.size() >= 1 && data.cryptoAmount.size() <= 40 &&
+        data.escrowAddress is string && data.escrowAddress.size() >= 20 && data.escrowAddress.size() <= 120 &&
+        (!('txHash' in data) || (data.txHash is string && data.txHash.size() <= 160)) &&
+        (!('confirmations' in data) || (data.confirmations is number && data.confirmations >= 0 && data.confirmations <= 1000000)) &&
+        (!('explorerUrl' in data) || (data.explorerUrl is string && data.explorerUrl.size() <= 300)) &&
+        (!('baselineTxIds' in data) || (data.baselineTxIds is list && data.baselineTxIds.size() <= 30 && (data.baselineTxIds.size() == 0 || data.baselineTxIds[0] is string))) &&
+        data.items is list && data.items.size() >= 1 && data.items.size() <= 25 &&
+        data.items[0] is map &&
+        (!('subtotalCents' in data) || (data.subtotalCents is number && data.subtotalCents >= 0)) &&
+        (!('shippingCents' in data) || (data.shippingCents is number && data.shippingCents >= 0)) &&
+        (!('taxCents' in data) || (data.taxCents is number && data.taxCents >= 0)) &&
+        data.totalCents is number && data.totalCents > 0 &&
+        data.orderStatus in ['awaiting_payment', 'confirmed', 'shipped', 'delivered', 'cancelled'] &&
+        data.paymentStatus in ['awaiting_payment', 'confirming', 'paid', 'failed', 'refunded'] &&
+        data.fulfillmentStatus in ['not_submitted', 'processing', 'shipped', 'delivered'] &&
+        (!('carrier' in data) || (data.carrier is string && data.carrier.size() <= 120)) &&
+        (!('trackingNumber' in data) || (data.trackingNumber is string && data.trackingNumber.size() <= 64)) &&
+        (!('estimatedDelivery' in data) || (data.estimatedDelivery is string && data.estimatedDelivery.size() <= 160)) &&
+        (!('confirmationEmailSent' in data) || data.confirmationEmailSent is bool) &&
+        (!('verifiedAt' in data) || (data.verifiedAt is string && data.verifiedAt.size() <= 64)) &&
+        data.createdAt is string && data.createdAt.size() >= 10 && data.createdAt.size() <= 64 &&
+        data.updatedAt is string && data.updatedAt.size() >= 10 && data.updatedAt.size() <= 64;
+    }
+
+    function isValidOrderContact(data) {
+      return data.keys().hasAll([
+          'orderNumber', 'email', 'shippingAddress', 'createdAt', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'orderNumber', 'email', 'customerName', 'phone',
+          'refundWallet', 'shippingAddress', 'createdAt', 'updatedAt'
+        ]) &&
+        isValidOrderId(data.orderNumber) &&
+        data.email is string && data.email.size() >= 3 && data.email.size() <= 160 &&
+        (!('customerName' in data) || (data.customerName is string && data.customerName.size() <= 120)) &&
+        (!('phone' in data) || (data.phone is string && data.phone.size() <= 40)) &&
+        (!('refundWallet' in data) || (data.refundWallet is string && data.refundWallet.size() <= 120)) &&
+        data.shippingAddress is map &&
+        data.createdAt is string && data.createdAt.size() >= 10 && data.createdAt.size() <= 64 &&
+        data.updatedAt is string && data.updatedAt.size() >= 10 && data.updatedAt.size() <= 64;
+    }
+
+    function isValidReview(data) {
+      return data.keys().hasAll([
+          'reviewId', 'orderNumber', 'productId', 'productSlug', 'productName',
+          'reviewerName', 'rating', 'deliveryRating', 'comment', 'verifiedPurchase', 'createdAt'
+        ]) &&
+        data.keys().hasOnly([
+          'reviewId', 'orderNumber', 'productId', 'productSlug', 'productName',
+          'reviewerName', 'reviewerLocation', 'rating', 'deliveryRating', 'comment',
+          'photoUrl', 'verifiedPurchase', 'createdAt'
+        ]) &&
+        isValidGenericId(data.reviewId) &&
+        isValidOrderId(data.orderNumber) &&
+        isValidGenericId(data.productId) &&
+        data.productSlug is string && data.productSlug.size() >= 2 && data.productSlug.size() <= 160 &&
+        data.productName is string && data.productName.size() >= 2 && data.productName.size() <= 200 &&
+        data.reviewerName is string && data.reviewerName.size() >= 2 && data.reviewerName.size() <= 80 &&
+        (!('reviewerLocation' in data) || (data.reviewerLocation is string && data.reviewerLocation.size() <= 80)) &&
+        data.rating is number && data.rating >= 1 && data.rating <= 5 &&
+        data.deliveryRating is number && data.deliveryRating >= 1 && data.deliveryRating <= 5 &&
+        data.comment is string && data.comment.size() >= 8 && data.comment.size() <= 1200 &&
+        (!('photoUrl' in data) || (data.photoUrl is string && data.photoUrl.size() <= 400)) &&
+        data.verifiedPurchase == true &&
+        data.createdAt is string && data.createdAt.size() >= 10 && data.createdAt.size() <= 64;
+    }
+
+    function isValidVerificationRecord(data) {
+      return data.keys().hasAll([
+          'verificationId', 'productId', 'productSlug', 'productName', 'brand', 'sku',
+          'inspectorName', 'inspectionDate', 'conditionGrade', 'physicalInspectionStatus',
+          'materialsAndStitchingStatus', 'hardwareAndDetailsStatus', 'conditionReport',
+          'accessoriesRecorded', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'verificationId', 'productId', 'productSlug', 'productName', 'brand', 'sku',
+          'inspectorName', 'inspectionDate', 'conditionGrade', 'physicalInspectionStatus',
+          'materialsAndStitchingStatus', 'hardwareAndDetailsStatus', 'conditionReport',
+          'accessoriesRecorded', 'updatedAt'
+        ]) &&
+        isValidVerificationId(data.verificationId) &&
+        data.productId is string && data.productId.size() <= 64 &&
+        data.productSlug is string && data.productSlug.size() <= 160 &&
+        data.productName is string && data.productName.size() <= 200 &&
+        data.brand is string && data.brand.size() <= 80 &&
+        data.sku is string && data.sku.size() <= 64 &&
+        data.inspectorName is string && data.inspectorName.size() <= 120 &&
+        data.inspectionDate is string && data.inspectionDate.size() <= 32 &&
+        data.conditionGrade is string && data.conditionGrade.size() <= 80 &&
+        data.physicalInspectionStatus is string && data.physicalInspectionStatus.size() <= 40 &&
+        data.materialsAndStitchingStatus is string && data.materialsAndStitchingStatus.size() <= 40 &&
+        data.hardwareAndDetailsStatus is string && data.hardwareAndDetailsStatus.size() <= 40 &&
+        data.conditionReport is string && data.conditionReport.size() <= 600 &&
+        data.accessoriesRecorded is string && data.accessoriesRecorded.size() <= 400 &&
+        data.updatedAt is string && data.updatedAt.size() <= 64;
+    }
+
+    // Non-PII order status & verification records
+    match /orders/{orderNumber} {
+      allow get: if isValidOrderId(orderNumber);
+      allow list: if resource.data.orderNumber is string;
+
+      allow create: if isValidOrderId(orderNumber) &&
+        !exists(/databases/$(database)/documents/orders/$(orderNumber)) &&
+        isValidOrder(incoming()) &&
+        incoming().orderNumber == orderNumber &&
+        incoming().paymentStatus == 'awaiting_payment' &&
+        incoming().orderStatus == 'awaiting_payment' &&
+        incoming().fulfillmentStatus == 'not_submitted' &&
+        !('txHash' in incoming()) &&
+        !('verifiedAt' in incoming()) &&
+        (!('confirmationEmailSent' in incoming()) || incoming().confirmationEmailSent == false);
+
+      allow update: if isValidOrderId(orderNumber) &&
+        isValidOrder(incoming()) &&
+        incoming().orderNumber == existing().orderNumber &&
+        incoming().emailHash == existing().emailHash &&
+        incoming().totalCents == existing().totalCents &&
+        incoming().createdAt == existing().createdAt && (
+          isAdmin() || (
+            existing().paymentStatus != 'paid' &&
+            incoming().paymentStatus in ['confirming', 'paid'] &&
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'paymentStatus', 'orderStatus', 'fulfillmentStatus',
+              'txHash', 'confirmations', 'explorerUrl',
+              'confirmationEmailSent', 'verifiedAt', 'updatedAt'
+            ])
+          )
+        );
+
+      allow delete: if isAdmin();
+    }
+
+    // Isolated PII contact/shipping records keyed by 64-char SHA-256 hex ID
+    match /orderContacts/{contactId} {
+      allow get: if isAdmin() || isValidSecretId(contactId);
+      allow list: if isAdmin();
+
+      allow create: if isValidSecretId(contactId) &&
+        !exists(/databases/$(database)/documents/orderContacts/$(contactId)) &&
+        isValidOrderContact(incoming());
+
+      allow update: if isValidSecretId(contactId) &&
+        isValidOrderContact(incoming()) &&
+        incoming().orderNumber == existing().orderNumber &&
+        incoming().email == existing().email &&
+        incoming().createdAt == existing().createdAt && (
+          isAdmin() ||
+          incoming().diff(existing()).affectedKeys().hasOnly(['refundWallet', 'updatedAt'])
+        );
+
+      allow delete: if isAdmin();
+    }
+
+    // Public verified product reviews tied to paid orders
+    match /reviews/{reviewId} {
+      allow get: if isValidGenericId(reviewId);
+      allow list: if resource.data.verifiedPurchase == true;
+
+      allow create: if isValidGenericId(reviewId) &&
+        !exists(/databases/$(database)/documents/reviews/$(reviewId)) &&
+        isValidReview(incoming()) &&
+        incoming().reviewId == reviewId &&
+        exists(/databases/$(database)/documents/orders/$(incoming().orderNumber)) &&
+        get(/databases/$(database)/documents/orders/$(incoming().orderNumber)).data.paymentStatus == 'paid';
+
+      allow update, delete: if isAdmin();
+    }
+
+    // Public Northstar Verified physical inspection records
+    match /verificationRecords/{verificationId} {
+      allow get: if isValidVerificationId(verificationId);
+      allow list: if resource.data.verificationId is string;
+      allow create, update: if isValidVerificationId(verificationId) &&
+        isAdmin() &&
+        isValidVerificationRecord(incoming()) &&
+        incoming().verificationId == verificationId;
+      allow delete: if isAdmin();
+    }
+
+    // Connection check doc
+    match /test/connection {
+      allow get: if true;
+      allow write: if false;
+    }
+
+    match /admins/{uid} {
+      allow get: if isSignedIn() && request.auth.uid == uid;
+      allow list, write: if false;
+    }
+  }
+}

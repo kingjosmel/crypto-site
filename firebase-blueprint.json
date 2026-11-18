@@ -1,0 +1,341 @@
+{
+  "entities": {
+    "OrderRecord": {
+      "title": "OrderRecord",
+      "description": "Non-PII order status, line items, and on-chain payment verification state.",
+      "type": "object",
+      "properties": {
+        "orderNumber": {
+          "type": "string",
+          "maxLength": 32,
+          "pattern": "^NS-[0-9]{8}$"
+        },
+        "emailHash": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "emailMasked": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "paymentMethod": {
+          "type": "string",
+          "enum": ["CRYPTO_BTC", "CRYPTO_ETH", "CRYPTO_SOL"]
+        },
+        "cryptoCurrency": {
+          "type": "string",
+          "enum": ["BTC", "ETH", "SOL"]
+        },
+        "cryptoAmount": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "escrowAddress": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "txHash": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "confirmations": {
+          "type": "number"
+        },
+        "explorerUrl": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "baselineTxIds": {
+          "type": "array",
+          "description": "Pre-order transaction IDs on deposit address (max 30)."
+        },
+        "items": {
+          "type": "array",
+          "description": "Ordered line items (max 25)."
+        },
+        "subtotalCents": {
+          "type": "number"
+        },
+        "shippingCents": {
+          "type": "number"
+        },
+        "taxCents": {
+          "type": "number"
+        },
+        "totalCents": {
+          "type": "number"
+        },
+        "orderStatus": {
+          "type": "string",
+          "enum": ["awaiting_payment", "confirmed", "shipped", "delivered", "cancelled"]
+        },
+        "paymentStatus": {
+          "type": "string",
+          "enum": ["awaiting_payment", "confirming", "paid", "failed", "refunded"]
+        },
+        "fulfillmentStatus": {
+          "type": "string",
+          "enum": ["not_submitted", "processing", "shipped", "delivered"]
+        },
+        "carrier": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "trackingNumber": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "estimatedDelivery": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "confirmationEmailSent": {
+          "type": "boolean"
+        },
+        "verifiedAt": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "orderNumber",
+        "emailHash",
+        "paymentMethod",
+        "cryptoCurrency",
+        "cryptoAmount",
+        "escrowAddress",
+        "items",
+        "totalCents",
+        "orderStatus",
+        "paymentStatus",
+        "fulfillmentStatus",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "OrderContact": {
+      "title": "OrderContact",
+      "description": "Isolated customer contact and shipping PII keyed by cryptographic lookup ID.",
+      "type": "object",
+      "properties": {
+        "orderNumber": {
+          "type": "string",
+          "maxLength": 32,
+          "pattern": "^NS-[0-9]{8}$"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "customerName": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "refundWallet": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "shippingAddress": {
+          "type": "object"
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "maxLength": 64
+        }
+      },
+      "required": ["orderNumber", "email", "shippingAddress", "createdAt", "updatedAt"]
+    },
+    "ProductReview": {
+      "title": "ProductReview",
+      "description": "Verified customer review tied to an existing paid order.",
+      "type": "object",
+      "properties": {
+        "reviewId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "orderNumber": {
+          "type": "string",
+          "maxLength": 32,
+          "pattern": "^NS-[0-9]{8}$"
+        },
+        "productId": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "productSlug": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "productName": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "reviewerName": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "reviewerLocation": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "rating": {
+          "type": "number"
+        },
+        "deliveryRating": {
+          "type": "number"
+        },
+        "comment": {
+          "type": "string",
+          "maxLength": 1200
+        },
+        "photoUrl": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "verifiedPurchase": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "reviewId",
+        "orderNumber",
+        "productId",
+        "productSlug",
+        "productName",
+        "reviewerName",
+        "rating",
+        "deliveryRating",
+        "comment",
+        "verifiedPurchase",
+        "createdAt"
+      ]
+    },
+    "VerificationRecord": {
+      "title": "VerificationRecord",
+      "description": "Northstar Verified physical inspection certificate for a catalog piece.",
+      "type": "object",
+      "properties": {
+        "verificationId": {
+          "type": "string",
+          "maxLength": 32,
+          "pattern": "^NS-2026-[0-9]{3}$"
+        },
+        "productId": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "productSlug": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "productName": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "brand": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "sku": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "inspectorName": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "inspectionDate": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "conditionGrade": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "physicalInspectionStatus": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "materialsAndStitchingStatus": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "hardwareAndDetailsStatus": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "conditionReport": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "accessoriesRecorded": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "updatedAt": {
+          "type": "string",
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "verificationId",
+        "productId",
+        "productSlug",
+        "productName",
+        "brand",
+        "sku",
+        "inspectorName",
+        "inspectionDate",
+        "conditionGrade",
+        "physicalInspectionStatus",
+        "materialsAndStitchingStatus",
+        "hardwareAndDetailsStatus",
+        "conditionReport",
+        "accessoriesRecorded",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/orders/{orderNumber}": {
+      "schema": { "$ref": "#/entities/OrderRecord" },
+      "description": "Publicly-safe order tracking & on-chain verification state (PII isolated to orderContacts)."
+    },
+    "/orderContacts/{contactId}": {
+      "schema": { "$ref": "#/entities/OrderContact" },
+      "description": "PII-isolated customer contact and shipping details keyed by SHA-256 derived contactId."
+    },
+    "/reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/ProductReview" },
+      "description": "Verified customer product and delivery reviews tied to paid orders."
+    },
+    "/verificationRecords/{verificationId}": {
+      "schema": { "$ref": "#/entities/VerificationRecord" },
+      "description": "Northstar Verified physical inspection records indexed by verificationId."
+    }
+  }
+}

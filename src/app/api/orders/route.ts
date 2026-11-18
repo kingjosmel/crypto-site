@@ -1,6 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createOrderRecord, getOrdersByEmail, getOrderDetails, getUserOrders, verifyAuthToken } from "@/lib/catalogData";
+import {
+  createOrderRecord,
+  getOrderDetails,
+  getOrdersByEmail,
+  getUserOrders,
+  verifyAuthToken,
+} from "@/lib/catalogData";
 import { fetchBaselineTxIds } from "@/lib/blockchainVerifier";
+import {
+  generateUniqueOrderNumberInFirestore,
+  getOrderFromFirestore,
+  getOrdersByEmailFromFirestore,
+  saveOrderToFirestore,
+} from "@/lib/firestoreStore";
 import { validateRefundWallet, type SupportedCryptoAsset } from "@/lib/walletValidation";
 
 const DEFAULT_ESCROW_ADDRESSES: Record<SupportedCryptoAsset, string> = {
@@ -12,9 +24,26 @@ const DEFAULT_ESCROW_ADDRESSES: Record<SupportedCryptoAsset, string> = {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, items, shippingAddress, billingAddress, customerName, phone, paymentMethod, cryptoCurrency, cryptoAmount, escrowAddress, refundWallet, refundWalletAddress } = body;
+    const {
+      email,
+      items,
+      shippingAddress,
+      billingAddress,
+      customerName,
+      phone,
+      paymentMethod,
+      cryptoCurrency,
+      cryptoAmount,
+      escrowAddress,
+      refundWallet,
+      refundWalletAddress,
+    } = body;
+
     if (!email || !items || !Array.isArray(items) || items.length === 0 || !shippingAddress) {
-      return NextResponse.json({ error: "Missing required checkout fields: email, items, and shipping address" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing required checkout fields: email, items, and shipping address" },
+        { status: 400 }
+      );
     }
 
     const normalizedMethod = String(paymentMethod || "").toUpperCase();
@@ -41,9 +70,11 @@ export async function POST(request: NextRequest) {
     }
 
     const targetEscrowAddress = String(escrowAddress || DEFAULT_ESCROW_ADDRESSES[resolvedCurrency]).trim();
-    const baselineTxIds = await fetchBaselineTxIds(resolvedCurrency, targetEscrowAddress);
+    const [baselineTxIds, uniqueOrderNumber] = await Promise.all([
+      fetchBaselineTxIds(resolvedCurrency, targetEscrowAddress),
+      generateUniqueOrderNumberInFirestore().catch(() => undefined),
+    ]);
 
-    // Optional auth header (customers do not need to log in)
     const authHeader = request.headers.get("authorization");
     let userId: string | null = null;
     if (authHeader?.startsWith("Bearer ")) {
@@ -52,6 +83,7 @@ export async function POST(request: NextRequest) {
     }
 
     const order = createOrderRecord({
+      orderNumberOverride: uniqueOrderNumber,
       email,
       customerName,
       phone,
@@ -64,8 +96,15 @@ export async function POST(request: NextRequest) {
       escrowAddress: targetEscrowAddress,
       refundWallet: walletValidation.cleaned,
       baselineTxIds,
-      userId
+      userId,
     });
+
+    const fullOrderRecord = getOrderDetails(order.orderNumber);
+    if (fullOrderRecord) {
+      await saveOrderToFirestore(fullOrderRecord).catch((err) => {
+        console.error("Failed persisting order to Firestore:", err);
+      });
+    }
 
     return NextResponse.json(order, { status: 201 });
   } catch (error) {
@@ -79,15 +118,20 @@ export async function GET(request: NextRequest) {
   const emailParam = searchParams.get("email");
   const queryParam = searchParams.get("q") || searchParams.get("orderNumber");
 
-  // Allow lookup by email without login
   if (emailParam) {
-    const orders = getOrdersByEmail(emailParam);
-    return NextResponse.json({ items: orders });
+    const localOrders = getOrdersByEmail(emailParam);
+    const firestoreOrders = await getOrdersByEmailFromFirestore(emailParam).catch(() => []);
+    const byOrderNumber = new Map<string, typeof localOrders[number]>();
+    for (const o of firestoreOrders) byOrderNumber.set(o.orderNumber, o);
+    for (const o of localOrders) {
+      if (!byOrderNumber.has(o.orderNumber)) byOrderNumber.set(o.orderNumber, o);
+    }
+    return NextResponse.json({ items: Array.from(byOrderNumber.values()) });
   }
 
-  // Allow lookup by order number or tracking number without login
   if (queryParam) {
-    const order = getOrderDetails(queryParam);
+    const fsOrder = await getOrderFromFirestore(queryParam).catch(() => null);
+    const order = fsOrder || getOrderDetails(queryParam);
     return NextResponse.json({ items: order ? [order] : [] });
   }
 

@@ -92,7 +92,7 @@ export function Header() {
           </div>
 
           {/* Zone 2: Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-700" aria-label="Primary navigation">
+          <nav className="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-700" aria-label="Primary navigation">
             <Link href="/shop" className="hover:text-black transition-colors py-1">
               Shop All
             </Link>
@@ -105,8 +105,11 @@ export function Header() {
             <Link href="/category/luxury-shoes-sneakers" className="hover:text-black transition-colors py-1">
               Footwear
             </Link>
-            <Link href="/category/belts-wallets-accessories" className="hover:text-black transition-colors py-1">
-              Leather Goods
+            <Link href="/verify" className="hover:text-black transition-colors py-1">
+              Verify
+            </Link>
+            <Link href="/buyer-protection" className="hover:text-black transition-colors py-1">
+              Protection
             </Link>
             <Link href="/about" className="hover:text-black transition-colors py-1">
               About
@@ -174,8 +177,11 @@ export function Header() {
               <Link href="/category/luxury-shoes-sneakers" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
                 Footwear
               </Link>
-              <Link href="/category/belts-wallets-accessories" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
-                Small Leather Goods
+              <Link href="/verify" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                Northstar Verified Lookup
+              </Link>
+              <Link href="/buyer-protection" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
+                Buyer Protection Policy
               </Link>
               <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-black py-1">
                 About Northstar
@@ -234,9 +240,10 @@ export function Footer() {
             <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">Client Care</h4>
             <ul className="space-y-2.5">
               <li><Link href="/track" className="hover:text-white transition-colors text-white font-medium">Track Your Order</Link></li>
-              <li><Link href="/shipping" className="hover:text-white transition-colors">24-Hour Delivery Policy</Link></li>
-              <li><Link href="/warranty" className="hover:text-white transition-colors">Authenticity Guarantee</Link></li>
-              <li><Link href="/returns-refunds" className="hover:text-white transition-colors">Returns & Refunds</Link></li>
+              <li><Link href="/verify" className="hover:text-white transition-colors text-white font-medium">Northstar Verified Registry</Link></li>
+              <li><Link href="/buyer-protection" className="hover:text-white transition-colors">Buyer Protection Policy</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors">Insured Express Shipping</Link></li>
+              <li><Link href="/returns-refunds" className="hover:text-white transition-colors">Returns &amp; Refunds</Link></li>
               <li><Link href="/faq" className="hover:text-white transition-colors">Frequently Asked Questions</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact Support</Link></li>
             </ul>
@@ -245,12 +252,15 @@ export function Footer() {
           <div>
             <h4 className="text-white font-semibold uppercase tracking-[0.14em] text-[11px] mb-4">About Northstar</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/about" className="hover:text-white transition-colors">Our Story & Standards</Link></li>
-              <li><Link href="/shipping" className="hover:text-white transition-colors">Guaranteed 24-Hour USA Delivery</Link></li>
-              <li><Link href="/warranty" className="hover:text-white transition-colors">Physical Inspection & Provenance</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">Our Story &amp; Business Details</Link></li>
+              <li><Link href="/warranty" className="hover:text-white transition-colors">Authenticity Guarantee</Link></li>
               <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
               <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
             </ul>
+            <p className="text-[11px] text-[#7c7c7c] mt-4 leading-relaxed">
+              Northstar Supply LLC<br />
+              support@shopnorthstar.store
+            </p>
           </div>
 
           <div>

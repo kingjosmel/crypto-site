@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getOrderDetails, getGuestOrder, getUserOrder, updateOrderRefundWallet, verifyAuthToken } from "@/lib/catalogData";
+import {
+  getGuestOrder,
+  getOrderDetails,
+  getUserOrder,
+  updateOrderRefundWallet,
+  verifyAuthToken,
+} from "@/lib/catalogData";
+import { getOrderFromFirestore, updateRefundWalletInFirestore } from "@/lib/firestoreStore";
 import { validateRefundWallet, type SupportedCryptoAsset } from "@/lib/walletValidation";
 
 export async function GET(
@@ -17,8 +24,8 @@ export async function GET(
     }
   }
 
-  // Allow guest access directly by order number
-  const order = getOrderDetails(orderNumber) || getGuestOrder(orderNumber);
+  const fsOrder = await getOrderFromFirestore(orderNumber).catch(() => null);
+  const order = fsOrder || getOrderDetails(orderNumber) || getGuestOrder(orderNumber);
   if (!order) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
@@ -43,9 +50,14 @@ export async function PATCH(
       );
     }
 
-    const existing = getOrderDetails(orderNumber) || getGuestOrder(orderNumber);
+    const fsExisting = await getOrderFromFirestore(orderNumber).catch(() => null);
+    const existing = fsExisting || getOrderDetails(orderNumber) || getGuestOrder(orderNumber);
     if (!existing) {
       return NextResponse.json({ error: "Order not found." }, { status: 404 });
+    }
+
+    if (existing.email.toLowerCase() !== email.toLowerCase()) {
+      return NextResponse.json({ error: "Email address does not match the order record." }, { status: 403 });
     }
 
     const asset: SupportedCryptoAsset = existing.cryptoCurrency || "BTC";
@@ -54,12 +66,21 @@ export async function PATCH(
       return NextResponse.json({ error: walletCheck.error || "Invalid wallet address." }, { status: 400 });
     }
 
-    const result = updateOrderRefundWallet(orderNumber, email, walletCheck.cleaned);
-    if ("error" in result) {
-      return NextResponse.json({ error: result.error }, { status: result.status });
+    const localResult = updateOrderRefundWallet(orderNumber, email, walletCheck.cleaned);
+    const nowIso = new Date().toISOString();
+    if (fsExisting) {
+      await updateRefundWalletInFirestore(existing.orderNumber, walletCheck.cleaned, nowIso);
     }
 
-    return NextResponse.json(result.order);
+    if ("order" in localResult && localResult.order) {
+      return NextResponse.json(localResult.order);
+    }
+
+    return NextResponse.json({
+      ...existing,
+      refundWallet: walletCheck.cleaned,
+      updatedAt: nowIso,
+    });
   } catch {
     return NextResponse.json({ error: "Unable to update Refund Return Wallet." }, { status: 400 });
   }

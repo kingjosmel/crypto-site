@@ -91,7 +91,9 @@ export function CartClient() {
           <div className="bg-[#f5fbf7] border border-[#a7f3d0] p-4 rounded-xs flex items-center justify-between text-xs text-[#065f46]">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
-              <strong>Guaranteed 24-Hour USA Delivery:</strong> Hand-delivered anywhere in the USA within 24 hours via dedicated armored courier.
+              <span>
+                <strong>Complimentary Insured Express Shipping:</strong> Shipped via FedEx Priority Overnight or UPS Next Day Air (1–2 business days) with adult signature required.
+              </span>
             </div>
             <span className="font-mono font-bold">$0.00</span>
           </div>
@@ -199,7 +201,7 @@ export function CartClient() {
               <span className="font-mono font-medium text-neutral-950">{formatPrice(subtotalCents)}</span>
             </div>
             <div className="flex justify-between text-neutral-600 text-xs">
-              <span>Guaranteed 24-Hour US Handover</span>
+              <span>Insured Express Shipping (1–2 Business Days)</span>
               <span className="text-[#047857] font-semibold">COMPLIMENTARY</span>
             </div>
             <div className="flex justify-between text-neutral-600 text-xs">
@@ -213,7 +215,11 @@ export function CartClient() {
           </div>
 
           <p className="text-[11px] text-neutral-500 leading-normal mb-5">
-            Complimentary 24-hour US express shipping, full transit insurance, and 14-day return protection.
+            100% insured US express shipping, signature verification, and 14-day return protection under our{" "}
+            <Link href="/buyer-protection" className="underline text-neutral-800">
+              Buyer Protection Policy
+            </Link>
+            .
           </p>
 
           <Link

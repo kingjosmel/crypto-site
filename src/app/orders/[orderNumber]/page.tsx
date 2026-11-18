@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getOrderDetails, getGuestOrder } from "@/lib/catalogData";
+import { getOrderFromFirestore } from "@/lib/firestoreStore";
 import { formatPrice } from "@/lib/api";
 import { SiteShell } from "@/components/SiteShell";
 
@@ -9,18 +10,24 @@ export const dynamic = "force-dynamic";
 
 export default async function OrderDetailPage({ params }: { params: Promise<{ orderNumber: string }> }) {
   const { orderNumber } = await params;
-  const order = getOrderDetails(orderNumber) || getGuestOrder(orderNumber);
+  const order =
+    (await getOrderFromFirestore(orderNumber).catch(() => null)) ||
+    getOrderDetails(orderNumber) ||
+    getGuestOrder(orderNumber);
 
   if (!order) {
     notFound();
   }
 
   const trackingNumber = order.trackingNumber || `TRK-NS-${order.orderNumber.replace(/\D/g, "")}`;
-  const carrier = order.carrier || "24-Hour US Private Armored Air Courier";
-  const estimatedDelivery = order.estimatedDelivery || "Guaranteed Within 24 Hours Anywhere in USA";
+  const carrier = order.carrier || "FedEx Priority Overnight / UPS Next Day Air (Insured)";
+  const estimatedDelivery = order.estimatedDelivery || "1–2 Business Days via Insured Express Courier (USA)";
 
   const isPaid = order.paymentStatus === "paid";
   const isConfirming = order.paymentStatus === "confirming";
+  const isDispatched =
+    order.fulfillmentStatus === "shipped" || order.fulfillmentStatus === "delivered";
+  const isDelivered = order.fulfillmentStatus === "delivered";
 
   return (
     <SiteShell>
@@ -45,7 +52,15 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
               }}
             >
               <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: isPaid ? "#10b981" : "#d97706" }} />
-              {isPaid ? "Live Order & Armored Tracking" : isConfirming ? "Payment Confirming On-Chain" : "Order Reserved · Awaiting Payment"}
+              {isPaid
+                ? isDelivered
+                  ? "Order Delivered · Insured Courier"
+                  : isDispatched
+                  ? "Dispatched · In Transit"
+                  : "Payment Confirmed · Quality Inspection"
+                : isConfirming
+                ? "Payment Confirming On-Chain"
+                : "Order Reserved · Awaiting Payment"}
             </div>
             <h1 style={{ margin: "0 0 6px", fontSize: "32px", letterSpacing: "-0.02em" }}>{order.orderNumber}</h1>
             <p style={{ color: "var(--muted)", fontSize: "16px", margin: "0 0 12px" }}>
@@ -54,11 +69,11 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
             <p style={{ margin: 0, fontSize: "14px", color: "var(--muted)", lineHeight: 1.5 }}>
               {isPaid ? (
                 <>
-                  Receipt & live tracking status dispatched to: <strong style={{ color: "var(--foreground)" }}>{order.email}</strong>
+                  Receipt and shipment milestone notices sent to: <strong style={{ color: "var(--foreground)" }}>{order.email}</strong>
                 </>
               ) : (
                 <>
-                  Reserved for <strong style={{ color: "var(--foreground)" }}>{order.email}</strong>. Dispatch activates automatically once on-chain payment is verified.
+                  Reserved for <strong style={{ color: "var(--foreground)" }}>{order.email}</strong>. Inspection and courier preparation begin automatically once on-chain payment is verified.
                 </>
               )}
             </p>
@@ -66,7 +81,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
           <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", overflow: "hidden", borderRadius: "2px", border: "1px solid var(--line)" }}>
             <Image
               src="/images/editorial_white_glove_courier.jpg"
-              alt="Armored white glove discreet courier"
+              alt="Insured express luxury courier dispatch and packaging"
               fill
               quality={95}
               sizes="(max-width: 768px) 100vw, 500px"
@@ -84,18 +99,18 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
               <strong style={{ fontSize: "17px", fontFamily: "monospace", letterSpacing: "0.04em" }}>{trackingNumber}</strong>
             </div>
             <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Armored Carrier</span>
+              <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Insured Carrier</span>
               <strong style={{ fontSize: "15px" }}>{carrier}</strong>
             </div>
             <div>
               <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Estimated Delivery</span>
               <strong style={{ fontSize: "15px", color: isPaid ? "inherit" : "#b45309" }}>
-                {isPaid ? estimatedDelivery : "Pending On-Chain Payment"}
+                {isPaid ? estimatedDelivery : "Pending Payment Verification"}
               </strong>
             </div>
             <div>
-              <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Security Level</span>
-              <strong style={{ fontSize: "15px", color: "#10b981" }}>Armed Courier Escort</strong>
+              <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Protection Level</span>
+              <strong style={{ fontSize: "15px", color: "#10b981" }}>100% Insured · Signature Required</strong>
             </div>
           </div>
         </div>
@@ -106,12 +121,12 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: isPaid ? "#10b981" : "#d97706" }} />
               <strong style={{ fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                Cryptocurrency Escrow Settlement ({order.cryptoCurrency || "BTC"})
+                Cryptocurrency Settlement Record ({order.cryptoCurrency || "BTC"})
               </strong>
             </div>
             <span style={{ fontSize: "12px", color: isPaid ? "#047857" : "#b45309", fontWeight: 600 }}>
               {isPaid
-                ? "✓ On-Chain Finality Verified"
+                ? "✓ On-Chain Payment Verified"
                 : isConfirming
                 ? "● Mempool Transfer Detected · Confirming"
                 : "○ Awaiting On-Chain Payment"}
@@ -130,7 +145,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
             </div>
 
             <div>
-              <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", textTransform: "uppercase", marginBottom: "3px" }}>Vault Receiving Address</span>
+              <span style={{ color: "var(--muted)", display: "block", fontSize: "11px", textTransform: "uppercase", marginBottom: "3px" }}>Receiving Deposit Address</span>
               <code style={{ fontSize: "11px", wordBreak: "break-all", background: "var(--paper)", padding: "3px 6px", borderRadius: "2px", display: "block" }}>
                 {order.escrowAddress || "bc1qktk2z0wjfwfjj0psasspls8suj86ejr87ua9gu"}
               </code>
@@ -159,15 +174,15 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
           {!isPaid && (
             <div style={{ marginTop: "14px", paddingTop: "12px", borderTop: "1px solid #eeeeee", fontSize: "12px" }}>
               <Link href={`/track?order=${encodeURIComponent(order.orderNumber)}`} style={{ color: "#047857", fontWeight: 600, textDecoration: "underline" }}>
-                Verify on-chain payment status on live tracker →
+                Check live on-chain payment status on tracker →
               </Link>
             </div>
           )}
         </div>
 
-        {/* Live Milestone Progress */}
+        {/* Honest Fulfillment Milestones */}
         <div style={{ marginBottom: "40px" }}>
-          <p className="eyebrow" style={{ marginBottom: "14px" }}>Fulfillment Milestones</p>
+          <p className="eyebrow" style={{ marginBottom: "14px" }}>Order &amp; Fulfillment Milestones</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "12px" }}>
             <div
               style={{
@@ -178,54 +193,80 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
               }}
             >
               <span style={{ fontSize: "12px", color: isPaid ? "#10b981" : "#b45309", fontWeight: 600, display: "block", marginBottom: "4px" }}>
-                {isPaid ? "✓ Step 1" : isConfirming ? "● Step 1" : "● Step 1"}
+                {isPaid ? "✓ Completed" : isConfirming ? "● Confirming" : "● Listening"}
               </span>
               <strong style={{ fontSize: "13px", display: "block" }}>
                 {isPaid ? "Order Confirmed" : isConfirming ? "Confirming Transfer" : "Awaiting Payment"}
               </strong>
               <span style={{ fontSize: "11px", color: "var(--muted)" }}>
-                {isPaid ? "On-chain finality verified" : isConfirming ? "Mempool detected" : "Listening on-chain"}
+                {isPaid ? "Payment received" : isConfirming ? "Mempool detected" : "Listening on-chain"}
               </span>
             </div>
+
             <div
               style={{
                 padding: "14px",
-                border: isPaid ? "1px solid #10b981" : "1px solid var(--line)",
-                background: isPaid ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                border: isPaid ? (isDispatched ? "1px solid #10b981" : "1px solid var(--foreground)") : "1px solid var(--line)",
+                background: isDispatched ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
                 opacity: isPaid ? 1 : 0.6,
                 borderRadius: "2px",
               }}
             >
-              <span style={{ fontSize: "12px", color: isPaid ? "#10b981" : "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>
-                {isPaid ? "✓ Step 2" : "○ Step 2"}
+              <span style={{ fontSize: "12px", color: isDispatched ? "#10b981" : isPaid ? "var(--foreground)" : "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>
+                {isDispatched ? "✓ Completed" : isPaid ? "● In Progress" : "○ Pending"}
               </span>
-              <strong style={{ fontSize: "13px", display: "block" }}>Vault Authentication</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Microchip verified</span>
+              <strong style={{ fontSize: "13px", display: "block" }}>Quality Inspection</strong>
+              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Inspected &amp; prepared</span>
             </div>
+
             <div
               style={{
                 padding: "14px",
-                border: isPaid ? "1px solid var(--foreground)" : "1px solid var(--line)",
-                background: "var(--paper)",
-                opacity: isPaid ? 1 : 0.6,
+                border: isDispatched ? "1px solid #10b981" : "1px solid var(--line)",
+                background: isDispatched ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                opacity: isDispatched ? 1 : 0.6,
                 borderRadius: "2px",
               }}
             >
-              <span style={{ fontSize: "12px", color: isPaid ? "var(--foreground)" : "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>
-                {isPaid ? "● In Progress" : "○ Step 3"}
+              <span style={{ fontSize: "12px", color: isDispatched ? "#10b981" : "var(--muted)", fontWeight: 600, display: "block", marginBottom: "4px" }}>
+                {isDispatched ? "✓ Completed" : "○ Pending Pickup"}
               </span>
-              <strong style={{ fontSize: "13px", display: "block" }}>Armored Dispatch</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Courier handover</span>
+              <strong style={{ fontSize: "13px", display: "block" }}>Dispatched</strong>
+              <span style={{ fontSize: "11px", color: "var(--muted)" }}>
+                {isDispatched ? "Courier collected parcel" : "Awaiting courier pickup"}
+              </span>
             </div>
-            <div style={{ padding: "14px", border: "1px solid var(--line)", background: "var(--paper)", opacity: 0.6, borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "var(--muted)", fontWeight: 500, display: "block", marginBottom: "4px" }}>○ Step 4</span>
+
+            <div
+              style={{
+                padding: "14px",
+                border: isDelivered ? "1px solid #10b981" : isDispatched ? "1px solid var(--foreground)" : "1px solid var(--line)",
+                background: isDelivered ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                opacity: isDispatched ? 1 : 0.6,
+                borderRadius: "2px",
+              }}
+            >
+              <span style={{ fontSize: "12px", color: isDelivered ? "#10b981" : isDispatched ? "var(--foreground)" : "var(--muted)", fontWeight: 500, display: "block", marginBottom: "4px" }}>
+                {isDelivered ? "✓ Completed" : isDispatched ? "● In Transit" : "○ Next"}
+              </span>
               <strong style={{ fontSize: "13px", display: "block" }}>In Transit</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Armed logistics</span>
+              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Insured express route</span>
             </div>
-            <div style={{ padding: "14px", border: "1px solid var(--line)", background: "var(--paper)", opacity: 0.6, borderRadius: "2px" }}>
-              <span style={{ fontSize: "12px", color: "var(--muted)", fontWeight: 500, display: "block", marginBottom: "4px" }}>○ Step 5</span>
+
+            <div
+              style={{
+                padding: "14px",
+                border: isDelivered ? "1px solid #10b981" : "1px solid var(--line)",
+                background: isDelivered ? "rgba(16, 185, 129, 0.05)" : "var(--paper)",
+                opacity: isDelivered ? 1 : 0.6,
+                borderRadius: "2px",
+              }}
+            >
+              <span style={{ fontSize: "12px", color: isDelivered ? "#10b981" : "var(--muted)", fontWeight: 500, display: "block", marginBottom: "4px" }}>
+                {isDelivered ? "✓ Delivered" : "○ Final Step"}
+              </span>
               <strong style={{ fontSize: "13px", display: "block" }}>Delivered</strong>
-              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Adult signature</span>
+              <span style={{ fontSize: "11px", color: "var(--muted)" }}>Adult signature required</span>
             </div>
           </div>
         </div>
@@ -242,7 +283,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
                 <div>
                   <strong style={{ fontSize: "16px", display: "block", marginBottom: "4px" }}>{item.name}</strong>
                   <span style={{ fontSize: "13px", color: "var(--muted)" }}>
-                    Quantity: {item.qty} · SKU: {item.sku} · Verified Authentic
+                    Quantity: {item.qty} · SKU: {item.sku} · Northstar Verified
                   </span>
                 </div>
                 <strong style={{ fontSize: "16px" }}>{formatPrice(item.lineTotalCents)}</strong>
@@ -264,9 +305,13 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
             </p>
           </div>
           <div>
-            <h3 style={{ fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)", marginBottom: "8px" }}>Notification Email</h3>
-            <p style={{ margin: 0, fontSize: "14px", lineHeight: "1.6" }}>
-              All shipment updates and delivery notifications are transmitted in real time to <strong>{order.email}</strong>.
+            <h3 style={{ fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)", marginBottom: "8px" }}>Insurance &amp; Buyer Protection</h3>
+            <p style={{ margin: 0, fontSize: "14px", lineHeight: "1.6", color: "var(--muted)" }}>
+              Covered by 100% transit insurance, adult signature verification, and our{" "}
+              <Link href="/buyer-protection" style={{ color: "#047857", textDecoration: "underline", fontWeight: 600 }}>
+                Buyer Protection Policy
+              </Link>
+              . Questions? Contact <strong>support@shopnorthstar.store</strong>.
             </p>
           </div>
         </div>
@@ -274,6 +319,9 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ or
         <div style={{ marginTop: "40px", display: "flex", gap: "16px", flexWrap: "wrap" }}>
           <Link href="/track" className="button button-dark text-white" style={{ color: "#ffffff" }}>
             Track another order
+          </Link>
+          <Link href="/verify" className="button button-light">
+            Verification Registry
           </Link>
           <Link href="/shop" className="button button-light">
             Continue shopping

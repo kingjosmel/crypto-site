@@ -8,6 +8,9 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductGallery } from "@/components/ProductGallery";
 import { ConditionChecklist } from "@/components/ConditionChecklist";
 import { StickyMobileBar } from "@/components/StickyMobileBar";
+import { NorthstarVerifiedCard } from "@/components/NorthstarVerifiedCard";
+import { ProductReviewsSection } from "@/components/ProductReviewsSection";
+import { getVerificationRecordByProduct } from "@/lib/verificationRecords";
 
 export const dynamic = "force-dynamic";
 
@@ -61,6 +64,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     notFound();
   }
 
+  const verificationRecord = getVerificationRecordByProduct(product);
+
   // Load related items from same brand or category
   const relatedResult = await getProducts(`limit=4&sort=newest`).catch(() => ({ items: [] }));
   const relatedProducts = relatedResult.items.filter((p) => p.slug !== product.slug).slice(0, 4);
@@ -91,6 +96,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
             {/* Interactive 10-Point Condition Breakdown */}
             <ConditionChecklist brand={product.brand} sku={product.sku} />
+
+            {/* Northstar Verified Inspection Record & QR */}
+            {verificationRecord && <NorthstarVerifiedCard record={verificationRecord} />}
           </div>
 
           {/* Right Column: Sticky Purchase Module */}
@@ -108,14 +116,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   {formatPrice(product.priceCents)}
                 </span>
                 <span className="text-xs text-neutral-500 font-mono">
-                  USD · Express USA Shipping Included
+                  USD · Insured USA Shipping Included
                 </span>
               </div>
 
               {/* Status Indicator */}
               <div className="flex items-center justify-between text-xs font-medium text-[#047857] bg-[#10b981]/8 border border-[#10b981]/25 px-3.5 py-2.5 rounded-xs mb-6">
-                <span>In Stock & Ready for Priority Dispatch</span>
-                <span className="text-neutral-500 font-mono text-[11px]">24-Hour USA Delivery</span>
+                <span>Inspected &amp; Ready for Priority Dispatch</span>
+                <span className="text-neutral-500 font-mono text-[11px]">
+                  {verificationRecord ? verificationRecord.verificationId : "1–2 Business Days"}
+                </span>
               </div>
 
               {/* Interactive Size Selection & Purchase Actions */}
@@ -127,15 +137,30 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <div className="bg-[#fafafa] p-4 border border-[#e5e5e5] rounded-xs space-y-2.5 text-xs text-neutral-600">
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
-                  <span><strong>Guaranteed 24-Hour USA Delivery:</strong> Dispatched via priority express courier with signature required.</span>
+                  <span>
+                    <strong>Insured Express Courier:</strong> Shipped via FedEx Priority Overnight or UPS Next Day Air with full-value insurance and adult signature required.
+                  </span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
-                  <span><strong>100% Lifetime Authenticity:</strong> Physical serial audit, RFID microchips, original dust bag, box, and tags.</span>
+                  <span>
+                    <strong>Northstar Verified Authenticity:</strong> Physical multi-point inspection record{" "}
+                    {verificationRecord ? (
+                      <Link href={`/verify/${verificationRecord.verificationId}`} className="underline text-neutral-950 font-mono">
+                        ({verificationRecord.verificationId})
+                      </Link>
+                    ) : null}{" "}
+                    with lifetime authenticity guarantee.
+                  </span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="text-neutral-900 font-bold shrink-0">·</span>
-                  <span><strong>14-Day Buyer Protection:</strong> Flexible checkout via Card, PayPal, or Crypto with complimentary returns within 14 days.</span>
+                  <span>
+                    <strong>Buyer Protection Policy:</strong> 14-day eligible returns and documented crypto refund rules.{" "}
+                    <Link href="/buyer-protection" className="underline text-[#047857] font-medium">
+                      Read Policy →
+                    </Link>
+                  </span>
                 </div>
               </div>
             </div>
@@ -144,7 +169,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="divide-y divide-[#dcdcdc] text-xs pt-2">
               <details className="py-4 group" open>
                 <summary className="font-semibold uppercase tracking-wider text-neutral-900 cursor-pointer flex justify-between items-center list-none">
-                  <span>Product Description & Provenance</span>
+                  <span>Product Description &amp; Provenance</span>
                   <span className="text-neutral-400 group-open:rotate-180 transition-transform">↓</span>
                 </summary>
                 <div className="mt-3 text-neutral-600 leading-relaxed space-y-2">
@@ -155,7 +180,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
               <details className="py-4 group">
                 <summary className="font-semibold uppercase tracking-wider text-neutral-900 cursor-pointer flex justify-between items-center list-none">
-                  <span>Specifications & Reference Data</span>
+                  <span>Specifications &amp; Reference Data</span>
                   <span className="text-neutral-400 group-open:rotate-180 transition-transform">↓</span>
                 </summary>
                 <dl className="mt-3 space-y-2">
@@ -174,7 +199,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
               <details className="py-4 group">
                 <summary className="font-semibold uppercase tracking-wider text-neutral-900 cursor-pointer flex justify-between items-center list-none">
-                  <span>How Ordering &amp; 24h Shipping Works</span>
+                  <span>How Ordering &amp; Insured Delivery Works</span>
                   <span className="text-neutral-400 group-open:rotate-180 transition-transform">↓</span>
                 </summary>
                 <div className="mt-3 text-neutral-600 leading-relaxed space-y-3">
@@ -184,15 +209,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">2</span>
-                    <p><strong>Flexible Checkout:</strong> Complete payment using major credit or debit cards, PayPal, or supported cryptocurrencies.</p>
+                    <p><strong>Checkout &amp; Payment Verification:</strong> Complete checkout via Card, PayPal, or verified on-chain BTC / ETH / SOL transfer.</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">3</span>
-                    <p><strong>Instant Confirmation:</strong> Once authorized, your order status updates immediately and a receipt with live tracking is generated.</p>
+                    <p><strong>Pre-Dispatch Preparation:</strong> Our specialists verify packaging and recorded accessories against the piece&apos;s Northstar Verified ID before courier collection.</p>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-neutral-900 text-white flex items-center justify-center font-mono text-[10px] shrink-0 mt-0.5">4</span>
-                    <p><strong>24-Hour Delivery:</strong> Dispatched via FedEx Priority Overnight or UPS Next Day Air with direct signature required upon delivery.</p>
+                    <p><strong>Insured Signature Delivery:</strong> Shipped via FedEx Priority Overnight or UPS Next Day Air (1–2 business days) with direct adult signature required.</p>
                   </div>
                 </div>
               </details>
@@ -208,6 +233,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           slug={product.slug}
           imageUrl={product.images[0]?.url}
           brand={product.brand}
+        />
+
+        {/* Verified Purchase Customer Reviews */}
+        <ProductReviewsSection
+          productId={product._id}
+          productSlug={product.slug}
+          productName={product.name}
         />
 
         {/* You May Also Like Section */}
