@@ -33,7 +33,7 @@ export function CartLink() {
     <Link
       href="/cart"
       onClick={handleClick}
-      className="cart-trigger-button flex items-center gap-2 px-3 py-1.5 text-xs font-medium tracking-wide uppercase text-neutral-800 hover:text-black hover:bg-neutral-100 transition-all cursor-pointer rounded-xs"
+      className="cart-trigger-button flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 text-xs font-medium tracking-wide uppercase text-neutral-800 hover:text-black hover:bg-neutral-100 transition-all cursor-pointer rounded-xs whitespace-nowrap shrink-0"
       aria-label={`Shopping Bag, ${count} item${count === 1 ? "" : "s"}`}
     >
       <svg className="w-4 h-4 text-neutral-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">

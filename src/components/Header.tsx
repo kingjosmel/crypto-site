@@ -61,9 +61,9 @@ export function Header() {
 
       {/* 2. Main Luxury Top Bar (3-Zone Contract) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-8">
+        <div className="flex items-center justify-between h-16 gap-3 xl:gap-6 min-w-0">
           {/* Mobile hamburger trigger */}
-          <div className="flex items-center lg:hidden">
+          <div className="flex items-center lg:hidden shrink-0">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -84,7 +84,7 @@ export function Header() {
           <div className="flex items-center shrink-0">
             <Link
               href="/"
-              className="font-serif text-2xl sm:text-3xl tracking-[0.18em] uppercase font-normal text-neutral-950 hover:text-neutral-700 transition-colors"
+              className="font-serif text-xl sm:text-2xl xl:text-[26px] tracking-[0.14em] xl:tracking-[0.16em] uppercase font-normal text-neutral-950 hover:text-neutral-700 transition-colors whitespace-nowrap"
               aria-label="Northstar Home"
             >
               NORTHSTAR
@@ -92,47 +92,61 @@ export function Header() {
           </div>
 
           {/* Zone 2: Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 text-xs font-semibold tracking-[0.14em] uppercase text-neutral-700" aria-label="Primary navigation">
-            <Link href="/shop" className="hover:text-black transition-colors py-1">
+          <nav
+            className="hidden lg:flex items-center gap-3 xl:gap-4 2xl:gap-5 text-[11px] font-semibold tracking-[0.08em] xl:tracking-[0.11em] uppercase text-neutral-700 whitespace-nowrap min-w-0"
+            aria-label="Primary navigation"
+          >
+            <Link href="/shop" className="hover:text-black transition-colors py-1 whitespace-nowrap">
               Shop All
             </Link>
-            <Link href="/category/designer-bags" className="hover:text-black transition-colors py-1">
+            <Link href="/category/designer-bags" className="hover:text-black transition-colors py-1 whitespace-nowrap">
               Bags
             </Link>
-            <Link href="/category/designer-clothing" className="hover:text-black transition-colors py-1">
+            <Link href="/category/designer-clothing" className="hover:text-black transition-colors py-1 whitespace-nowrap">
               Apparel
             </Link>
-            <Link href="/category/luxury-shoes-sneakers" className="hover:text-black transition-colors py-1">
+            <Link href="/category/luxury-shoes-sneakers" className="hover:text-black transition-colors py-1 whitespace-nowrap">
               Footwear
             </Link>
-            <Link href="/verify" className="hover:text-black transition-colors py-1">
+            <Link href="/verify" className="hover:text-black transition-colors py-1 whitespace-nowrap">
               Verify
             </Link>
-            <Link href="/buyer-protection" className="hover:text-black transition-colors py-1">
+            <Link href="/buyer-protection" className="hover:text-black transition-colors py-1 whitespace-nowrap">
               Protection
             </Link>
-            <Link href="/about" className="hover:text-black transition-colors py-1">
+            <Link href="/about" className="hover:text-black transition-colors py-1 whitespace-nowrap">
               About
             </Link>
-            <Link href="/contact" className="hover:text-black transition-colors py-1">
+            <Link href="/contact" className="hover:text-black transition-colors py-1 whitespace-nowrap">
               Contact
             </Link>
           </nav>
 
           {/* Zone 3: Search + Track + Shopping Bag */}
-          <div className="flex items-center gap-3 sm:gap-5 shrink-0">
-            {/* Search Input Bar */}
-            <form action="/search" method="GET" className="relative hidden md:block">
+          <div className="flex items-center gap-2.5 sm:gap-3.5 xl:gap-4 shrink-0">
+            {/* Compact search icon link on medium/lg viewports */}
+            <Link
+              href="/search"
+              aria-label="Search catalog"
+              className="xl:hidden p-2 text-neutral-700 hover:text-black transition-colors shrink-0"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </Link>
+
+            {/* Full Search Input Bar on xl+ viewports */}
+            <form action="/search" method="GET" className="relative hidden xl:block shrink-0">
               <label htmlFor="header-search-bar" className="sr-only">Search catalog</label>
-              <div className="flex items-center border border-[#d4d4d4] rounded-xs px-3 py-1.5 bg-[#fafafa] hover:border-neutral-500 focus-within:border-black transition-colors">
+              <div className="flex items-center border border-[#d4d4d4] rounded-xs px-2.5 py-1.5 bg-[#fafafa] hover:border-neutral-500 focus-within:border-black transition-colors">
                 <input
                   id="header-search-bar"
                   name="q"
                   type="search"
-                  placeholder="Search designer pieces..."
-                  className="bg-transparent border-none text-xs text-neutral-900 focus:outline-none w-28 lg:w-44 placeholder:text-neutral-400"
+                  placeholder="Search pieces..."
+                  className="bg-transparent border-none text-xs text-neutral-900 focus:outline-none w-28 2xl:w-40 placeholder:text-neutral-400"
                 />
-                <button type="submit" aria-label="Submit search" className="text-neutral-500 hover:text-black pl-1 cursor-pointer">
+                <button type="submit" aria-label="Submit search" className="text-neutral-500 hover:text-black pl-1 cursor-pointer shrink-0">
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
@@ -143,7 +157,7 @@ export function Header() {
             {/* Quick Track Link */}
             <Link
               href="/track"
-              className="hidden sm:inline-block text-xs font-semibold tracking-wider uppercase text-neutral-700 hover:text-black transition-colors"
+              className="hidden sm:inline-block text-[11px] xl:text-xs font-semibold tracking-[0.08em] uppercase text-neutral-700 hover:text-black transition-colors whitespace-nowrap shrink-0"
             >
               Track Order
             </Link>

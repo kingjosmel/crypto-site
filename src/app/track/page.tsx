@@ -241,26 +241,49 @@ export default function TrackPage() {
         </div>
 
         {/* Search Form */}
-        <form className="checkout-form" onSubmit={handleSubmit} style={{ marginBottom: "35px" }}>
-          <label htmlFor="search-input">
-            Tracking Code, Order Number, or Customer Email
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-6 sm:p-8 border border-[#dcdcdc] rounded-xs shadow-2xs mb-9"
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-950 m-0">
+              Order &amp; Shipment Lookup
+            </h2>
+            <span className="text-xs text-neutral-500">Live Tracking Portal</span>
+          </div>
+
+          <label
+            htmlFor="search-input"
+            className="block text-xs font-medium uppercase tracking-wider text-neutral-700 mb-2"
+          >
+            Tracking Code, Order Number, or Customer Email <span className="text-red-500">*</span>
+          </label>
+
+          <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
             <input
               id="search-input"
+              type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               required
-              placeholder="e.g. TRK-NS-482910-EXP, NS-00000001, or alex@example.com"
-              style={{ fontSize: "16px", padding: "14px 16px" }}
+              placeholder="Enter tracking code, order number, or checkout email"
+              className="flex-1 w-full px-3.5 py-3 bg-[#f7f7f7] border border-[#cccccc] focus:border-black focus:bg-white focus:outline-none rounded-none text-sm text-neutral-900 placeholder:text-neutral-400 transition-colors"
             />
-          </label>
-          <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
-            <button className="button button-dark text-white" type="submit" disabled={isPending} style={{ color: "#ffffff" }}>
-              {isPending ? "Retrieving Status…" : "Locate Order"}
+            <button
+              type="submit"
+              disabled={isPending}
+              className="px-7 py-3 bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-[0.14em] transition-colors rounded-none shrink-0 cursor-pointer disabled:opacity-60"
+              style={{ color: "#ffffff" }}
+            >
+              <span style={{ color: "#ffffff" }}>
+                {isPending ? "Retrieving Status…" : "Locate Order"}
+              </span>
             </button>
-            <span style={{ fontSize: "13px", color: "var(--muted)" }}>
-              Tip: Try sample order <code>NS-00000001</code>
-            </span>
           </div>
+
+          <p className="text-[11px] text-neutral-500 mt-2.5 mb-0">
+            Enter the tracking code or order number from your Northstar confirmation email to view live milestones.
+          </p>
         </form>
 
         {error && (
