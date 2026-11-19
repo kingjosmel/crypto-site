@@ -1679,6 +1679,52 @@ export const INITIAL_ORDERS: OrderRecord[] = [
     trackingNumber: "782941094821",
     createdAt: "2026-02-01T14:30:00.000Z",
     updatedAt: "2026-02-02T09:15:00.000Z"
+  },
+  {
+    _id: "660000000000000000000202",
+    orderNumber: "NS-00000002",
+    userId: "660000000000000000000901",
+    email: "customer@shopnorthstar.store",
+    customerName: "Sample Preview Order",
+    paymentMethod: "CRYPTO_ETH",
+    cryptoCurrency: "ETH",
+    cryptoAmount: "0.396442",
+    escrowAddress: "0x120D139dB706614f71e470A97852679F6FaebcB7",
+    txHash: "0x8f3a9c41d0e4b8a1d7f5c309e2f4b17e910a63b8c9d2e5f0147a8b9c0d1e910b",
+    items: [
+      {
+        productId: "660000000000000000000167",
+        name: "Dior Oblique Jacquard A5 Pouch Wristlet",
+        sku: "DIO-AC-067",
+        condition: "NEW",
+        qty: 1,
+        unitPriceCents: 95000,
+        lineTotalCents: 95000
+      }
+    ],
+    shippingAddress: {
+      line1: "740 Park Avenue",
+      line2: "Apt 12B",
+      city: "New York",
+      state: "NY",
+      postalCode: "10021",
+      country: "US"
+    },
+    subtotalCents: 95000,
+    shippingCents: 0,
+    taxCents: 8075,
+    totalCents: 103075,
+    orderStatus: "confirmed",
+    paymentStatus: "paid",
+    fulfillmentStatus: "processing",
+    onHold: false,
+    guestToken: "demo-token-482910abcdef",
+    carrier: "FedEx Priority Overnight / UPS Next Day Air (Insured)",
+    trackingNumber: "TRK-NS-482910-EXP",
+    estimatedDelivery: "1–2 Business Days via Insured Express Courier (USA)",
+    confirmationEmailSent: true,
+    createdAt: "2026-03-18T10:00:00.000Z",
+    updatedAt: "2026-03-18T10:05:00.000Z"
   }
 ];
 
@@ -1741,7 +1787,7 @@ class Store {
   auditLogs = [
     { _id: "660000000000000000000401", action: "INITIALIZE_CATALOG", entity: "System", entityId: "SYS-01", createdAt: new Date().toISOString() }
   ];
-  orderCounter = 2;
+  orderCounter = 3;
 }
 
 const globalStore = (globalThis as unknown as { __northstarStore?: Store }).__northstarStore ?? new Store();

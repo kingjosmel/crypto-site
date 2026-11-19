@@ -224,7 +224,7 @@ export default function TrackPage() {
             </div>
             <h1 style={{ margin: "0 0 10px", fontSize: "36px", letterSpacing: "-0.03em" }}>Track Your Order</h1>
             <p style={{ color: "var(--muted)", fontSize: "16px", margin: 0, lineHeight: "1.6" }}>
-              Enter your <strong>order number</strong> (e.g. <code>NS-00000001</code>) or the <strong>email address</strong> used at checkout to check payment confirmation, pre-shipment inspection, and courier delivery milestones.
+              Enter your <strong>tracking code</strong> (e.g. <code>TRK-NS-482910-EXP</code>), <strong>order number</strong> (e.g. <code>NS-00000001</code>), or the <strong>email address</strong> used at checkout to check payment confirmation, pre-shipment inspection, and courier delivery milestones.
             </p>
           </div>
           <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", overflow: "hidden", borderRadius: "2px", border: "1px solid var(--line)" }}>
@@ -243,13 +243,13 @@ export default function TrackPage() {
         {/* Search Form */}
         <form className="checkout-form" onSubmit={handleSubmit} style={{ marginBottom: "35px" }}>
           <label htmlFor="search-input">
-            Order Number or Customer Email
+            Tracking Code, Order Number, or Customer Email
             <input
               id="search-input"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               required
-              placeholder="e.g. NS-00000001 or alex@example.com"
+              placeholder="e.g. TRK-NS-482910-EXP, NS-00000001, or alex@example.com"
               style={{ fontSize: "16px", padding: "14px 16px" }}
             />
           </label>
@@ -355,12 +355,17 @@ export default function TrackPage() {
                 <strong style={{ fontSize: "18px" }}>{activeOrder.orderNumber}</strong>
               </div>
               <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px 20px", borderRadius: "2px" }}>
-                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Courier Tracking Number</span>
-                <strong style={{ fontSize: "16px", fontFamily: "monospace", letterSpacing: "0.04em" }}>
-                  {isDispatched
+                <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Tracking Code</span>
+                <strong style={{ fontSize: "16px", fontFamily: "monospace", letterSpacing: "0.04em", display: "block" }}>
+                  {isPaid || isDispatched
                     ? activeOrder.trackingNumber || `TRK-NS-${activeOrder.orderNumber.replace(/\D/g, "")}`
-                    : "Assigned upon courier pickup"}
+                    : "Pending Payment Confirmation"}
                 </strong>
+                {isPaid && !isDispatched && (
+                  <span style={{ fontSize: "11px", color: "#047857", display: "block", marginTop: "4px", fontWeight: 600 }}>
+                    Tracking Initialized · Pre-Dispatch Inspection
+                  </span>
+                )}
               </div>
               <div style={{ background: "var(--paper)", border: "1px solid var(--line)", padding: "18px 20px", borderRadius: "2px" }}>
                 <span style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", display: "block", marginBottom: "4px" }}>Courier &amp; Service</span>
@@ -685,6 +690,26 @@ export default function TrackPage() {
                     </div>
                   );
                 })}
+              </div>
+              <div style={{ marginTop: "14px", padding: "16px 20px", background: "#fafafa", border: "1px solid var(--line)", borderRadius: "2px", fontSize: "13px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
+                  <span>Subtotal</span>
+                  <span>{formatPrice(activeOrder.subtotalCents ?? activeOrder.totalCents)}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
+                  <span>Insured Express Shipping</span>
+                  <strong style={{ color: "#047857" }}>
+                    {activeOrder.shippingCents ? formatPrice(activeOrder.shippingCents) : "COMPLIMENTARY"}
+                  </strong>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", color: "var(--muted)" }}>
+                  <span>Estimated Tax</span>
+                  <span>{formatPrice(activeOrder.taxCents ?? 0)}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid var(--line)", paddingTop: "8px", marginTop: "4px", fontSize: "15px" }}>
+                  <strong>{isPaid ? "Total Paid" : "Order Total"}</strong>
+                  <strong>{formatPrice(activeOrder.totalCents)}</strong>
+                </div>
               </div>
             </div>
 

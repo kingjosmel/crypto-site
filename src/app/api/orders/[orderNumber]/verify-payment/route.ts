@@ -15,6 +15,7 @@ import {
   verifyOnChainPayment,
   type SupportedChain,
 } from "@/lib/blockchainVerifier";
+import { sendOrderConfirmationEmail } from "@/lib/resend";
 
 export const dynamic = "force-dynamic";
 
@@ -107,6 +108,47 @@ export async function GET(
       verifiedAt: nowIso,
       updatedAt: nowIso,
     };
+
+    if (!order.confirmationEmailSent && hydratedPaid.email) {
+      await sendOrderConfirmationEmail({
+        orderNumber: hydratedPaid.orderNumber,
+        customerName: hydratedPaid.customerName,
+        email: hydratedPaid.email,
+        totalCents: hydratedPaid.totalCents,
+        subtotalCents: hydratedPaid.subtotalCents,
+        taxCents: hydratedPaid.taxCents,
+        cryptoCurrency: hydratedPaid.cryptoCurrency,
+        cryptoAmount: hydratedPaid.cryptoAmount,
+        txHash: hydratedPaid.txHash,
+        explorerUrl: hydratedPaid.explorerUrl,
+        trackingNumber:
+          hydratedPaid.trackingNumber || `TRK-NS-${hydratedPaid.orderNumber.replace(/\D/g, "")}`,
+        carrier: hydratedPaid.carrier,
+        estimatedDelivery: hydratedPaid.estimatedDelivery,
+        items: hydratedPaid.items.map((item) => ({
+          name: item.name,
+          sku: item.sku,
+          qty: item.qty,
+          lineTotalCents: item.lineTotalCents,
+        })),
+        shippingAddress: hydratedPaid.shippingAddress,
+        baseUrl: request.nextUrl.origin,
+      })
+        .then((emailResult) => {
+          if (!emailResult.ok) {
+            console.error(
+              `[verify-payment] Order confirmation email rejected for ${hydratedPaid.orderNumber}:`,
+              emailResult.error?.message
+            );
+          }
+        })
+        .catch((err) => {
+          console.error(
+            `[verify-payment] Order confirmation email failed for ${hydratedPaid.orderNumber}:`,
+            err instanceof Error ? err.message : "Unknown error"
+          );
+        });
+    }
 
     return NextResponse.json({
       ...verification,

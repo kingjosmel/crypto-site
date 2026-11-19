@@ -264,21 +264,52 @@ function hydrateOrderRecord(
   };
 }
 
-export async function getOrderFromFirestore(orderNumber: string): Promise<OrderRecord | null> {
+export async function getOrderFromFirestore(orderNumberOrTracking: string): Promise<OrderRecord | null> {
   await testFirestoreConnection();
-  const clean = orderNumber.trim().toUpperCase();
-  if (!/^NS-[0-9]{8}$/.test(clean)) return null;
+  const raw = orderNumberOrTracking.trim();
+  if (!raw) return null;
+  const clean = raw.toUpperCase();
 
-  let orderSnap;
-  try {
-    orderSnap = await getDoc(doc(db, "orders", clean));
-  } catch (error) {
-    handleFirestoreError(error, OperationType.GET, `orders/${clean}`);
+  let publicData: Record<string, unknown> | null = null;
+  let resolvedOrderNumber = clean;
+
+  if (/^NS-[0-9]{8}$/.test(clean)) {
+    let orderSnap;
+    try {
+      orderSnap = await getDoc(doc(db, "orders", clean));
+    } catch (error) {
+      handleFirestoreError(error, OperationType.GET, `orders/${clean}`);
+    }
+    if (!orderSnap.exists()) return null;
+    publicData = orderSnap.data() as Record<string, unknown>;
+    resolvedOrderNumber = String(publicData.orderNumber || clean);
+  } else {
+    // Support tracking codes like TRK-NS-482910-EXP or carrier tracking IDs
+    const candidates = Array.from(new Set([clean, raw]));
+    for (const candidate of candidates) {
+      let snap;
+      try {
+        const q = query(
+          collection(db, "orders"),
+          where("trackingNumber", "==", candidate),
+          limit(1)
+        );
+        snap = await getDocs(q);
+      } catch (error) {
+        handleFirestoreError(error, OperationType.LIST, "orders");
+      }
+      if (snap && !snap.empty) {
+        const docSnap = snap.docs[0];
+        publicData = docSnap.data() as Record<string, unknown>;
+        resolvedOrderNumber = String(publicData.orderNumber || docSnap.id);
+        break;
+      }
+    }
   }
 
-  if (!orderSnap.exists()) return null;
+  if (!publicData) return null;
 
-  const contactId = deriveContactId(clean);
+  const contactId = deriveContactId(resolvedOrderNumber);
   let contactData: Record<string, unknown> | null = null;
   try {
     const contactSnap = await getDoc(doc(db, "orderContacts", contactId));
@@ -289,7 +320,7 @@ export async function getOrderFromFirestore(orderNumber: string): Promise<OrderR
     contactData = null;
   }
 
-  return hydrateOrderRecord(orderSnap.data() as Record<string, unknown>, contactData);
+  return hydrateOrderRecord(publicData, contactData);
 }
 
 export async function getOrdersByEmailFromFirestore(email: string): Promise<OrderRecord[]> {
